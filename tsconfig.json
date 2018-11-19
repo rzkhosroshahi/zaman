@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "module": "ESNext",
+      "lib": ["es2015", "dom"],
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "moduleResolution": "node",
+      "declaration": false,
+      "jsx": "react",
+      "noImplicitAny": false,
+      "sourceMap": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "baseUrl": ".",
+      "strictNullChecks": true,
+      "noEmit": true,
+      "pretty": true
+    },
+    "compileOnSave": false,
+    "include": [
+      "src/*",
+      "src/index.tsx"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

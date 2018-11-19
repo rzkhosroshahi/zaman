@@ -1,0 +1,6 @@
+src
+docs
+.prettierrc.js
+jest.config.js
+tsconfig.json
+tslint.json

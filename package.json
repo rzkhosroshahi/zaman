@@ -1,0 +1,48 @@
+{
+  "name": "react-jalali-datepicker",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watchAll",
+    "dev": "NODE_ENV=development parcel index.html",
+    "build": "NODE_ENV=production parcel build src/index.tsx",
+    "docs": "NODE_ENV=production parcel build --public-url . index.html --out-dir docs",
+    "lint": "tslint --project ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rzkhosroshahi/react-jalali-datepicker.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && npm run lint"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rzkhosroshahi/react-jalali-datepicker/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/react": "^16.7.6",
+    "husky": "^1.1.4",
+    "jest": "^23.6.0",
+    "parcel-bundler": "^1.10.3",
+    "prettier": "^1.15.2",
+    "pretty-quick": "^1.8.0",
+    "react-testing-library": "^5.2.3",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.16.0",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "moment-jalaali": "^0.8.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}
