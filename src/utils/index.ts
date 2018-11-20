@@ -1,50 +1,38 @@
 import moment from "moment-jalaali";
 moment.loadPersian({ usePersianDigits: false, dialect: "persian-modern" });
 
-export interface IMonth {
-  stringDay: string | null;
-  dayInMonth: number;
+export interface IDays {
+  day: number;
   enDate: Date;
-  faDate: moment;
+  disable: boolean;
 }
 
-export const toStringDay = num => {
-  switch (num) {
-    case 0:
-      return "یکشنبه";
-    case 1:
-      return "دوشنبه";
-    case 2:
-      return "سه‌شنبه";
-    case 3:
-      return "چهار‌شنبه";
-    case 4:
-      return "پنجشنبه";
-    case 5:
-      return "جمعه";
-    case 6:
-      return "شنبه";
-    default:
-      return null;
-  }
-};
+export interface IDaysInMonth {
+  days: IDays[];
+  monthName: string;
+}
 
-export const makeDatesWithMonth = (year: number, month: number) => {
-  const m = moment(`${year}/${month}/1`, "jYYYY/jM/jDD");
-  const monthDays: IMonth[] = [];
-  const daysInMonth = moment.jDaysInMonth(m.jYear(), m.jMonth());
+const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 
-  let i = 1;
-  while (i <= daysInMonth) {
-    monthDays.push({
-      stringDay: toStringDay(m.day()),
-      dayInMonth: m.format("jD"),
-      enDate: new Date(m.format("YYYY-M-D")),
-      faDate: m.format("jYYYY/jM/jDD"),
+export const daysInMonth = (date: moment): IDaysInMonth => {
+  const days: IDays[] = [];
+  const monthName = date.format("jMMMM");
+
+  const firstDayOfWeek = date.clone().startOf("jMonth");
+  const lastDayOfWeek = date.clone().endOf("jMonth");
+
+  firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
+
+  while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
+    days.push({
+      day: firstDayOfWeek.clone().format("jDD"),
+      enDate: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")),
+      disable: checkDateMonth(date, firstDayOfWeek),
     });
-    m.add(1, "day");
-    i++;
+    firstDayOfWeek.add(1, "days");
   }
 
-  return { monthName: m.format("jMMMM"), monthDays };
+  // tslint:disable-next-line:no-console
+  console.log("days ", days);
+  return { monthName, days };
 };

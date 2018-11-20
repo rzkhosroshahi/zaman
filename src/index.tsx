@@ -1,11 +1,11 @@
 import * as React from "react";
 import { render } from "react-dom";
 import moment from "moment-jalaali";
-import { makeDatesWithMonth } from "./utils";
+import { daysInMonth } from "./utils";
+import "./style.css";
 
 interface IDatePickerState {
-  year: number;
-  month: number;
+  date: moment;
 }
 
 export class DatePicker extends React.Component<any, IDatePickerState> {
@@ -13,21 +13,19 @@ export class DatePicker extends React.Component<any, IDatePickerState> {
     super(props);
 
     this.state = {
-      year: moment().jYear(),
-      month: moment().jMonth() + 1,
+      date: moment(),
     };
   }
 
   public changeMonth = (bool: boolean) => {
     this.setState(state => ({
-      month: bool ? state.month + 1 : state.month - 1,
+      date: bool ? state.date.add(1, "month") : state.date.subtract(1, "month"),
     }));
   };
 
   public render() {
-    const { year, month } = this.state;
-    const data = makeDatesWithMonth(year, month);
-
+    const { date } = this.state;
+    daysInMonth(date);
     return (
       <div>
         <button onClick={() => this.changeMonth(true)}>
@@ -38,7 +36,6 @@ export class DatePicker extends React.Component<any, IDatePickerState> {
         <button onClick={() => this.changeMonth(false)}>
           decrement month -
         </button>
-        <p className="month-name">{data.monthName}</p>
       </div>
     );
   }
