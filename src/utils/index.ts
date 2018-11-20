@@ -13,7 +13,10 @@ const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 
 export const daysInMonth = (date): IDaysInMonth => {
   const days: IDays[] = [];
-  const monthName = date.format("jMMMM");
+  const monthName = date
+    .clone()
+    .locale("fa")
+    .format("jMMMM");
 
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
