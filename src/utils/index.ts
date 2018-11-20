@@ -1,6 +1,3 @@
-import moment from "moment-jalaali";
-moment.loadPersian({ usePersianDigits: false, dialect: "persian-modern" });
-
 export interface IDays {
   day: number;
   enDate: Date;
@@ -14,7 +11,7 @@ export interface IDaysInMonth {
 
 const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 
-export const daysInMonth = (date: moment): IDaysInMonth => {
+export const daysInMonth = (date): IDaysInMonth => {
   const days: IDays[] = [];
   const monthName = date.format("jMMMM");
 

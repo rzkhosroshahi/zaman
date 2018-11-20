@@ -41,7 +41,7 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "moment-jalaali": "^0.8.1",
+    "jalali-moment": "^3.2.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   }
