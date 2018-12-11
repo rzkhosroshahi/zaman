@@ -1,36 +1,30 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-      "tslint:recommended",
-      "tslint-config-prettier"
-    ],
-    "jsRules": {},
-    "rulesDirectory": [],
-    "rules": {
-      "ordered-imports": false,
-      "object-literal-sort-keys": false,
-      "arrow-parens": false
-    },
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "public-instance-field",
-          "private-static-field",
-          "public-constructor",
-          "private-instance-field",
-          "private-constructor",
-          "public-instance-method",
-          "protected-instance-method",
-          "public-static-field",
-          "private-instance-method"
-        ]
-      }
-    ],
-    "linterOptions": {
-      "exclude": [
-        "src/**/**/__tests__/**"
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "jsRules": {},
+  "rulesDirectory": [],
+  "rules": {
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "arrow-parens": false
+  },
+  "member-ordering": [
+    true,
+    {
+      "order": [
+        "public-instance-field",
+        "private-static-field",
+        "public-constructor",
+        "private-instance-field",
+        "private-constructor",
+        "public-instance-method",
+        "protected-instance-method",
+        "public-static-field",
+        "private-instance-method"
       ]
     }
+  ],
+  "linterOptions": {
+    "exclude": ["src/**/**/__tests__/**"]
   }
-  
+}

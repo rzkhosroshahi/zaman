@@ -1,15 +1,13 @@
 import * as React from "react";
-import { render } from "react-dom";
 import moment from "jalali-moment";
 import { Moment } from "jalali-moment";
-import { daysInMonth } from "./utils";
-import "./style.css";
+import { daysInMonth } from "../utils";
 
 interface IDatePickerState {
   date: Moment;
 }
 
-export class DatePicker extends React.Component<any, IDatePickerState> {
+export class DatePicker extends React.PureComponent<any, IDatePickerState> {
   constructor(props) {
     super(props);
 
