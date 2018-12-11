@@ -37,6 +37,8 @@
     "pretty-quick": "^1.8.0",
     "react-testing-library": "^5.2.3",
     "rollup": "^0.67.4",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-typescript2": "^0.18.1",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
