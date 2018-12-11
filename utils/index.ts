@@ -1,5 +1,7 @@
+import { Moment } from "jalali-moment";
+
 export interface IDays {
-  day: number;
+  day: string;
   enDate: Date;
   disable: boolean;
 }
@@ -11,7 +13,7 @@ export interface IDaysInMonth {
 
 const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 
-export const daysInMonth = (date): IDaysInMonth => {
+export const daysInMonth = (date: Moment): IDaysInMonth => {
   const days: IDays[] = [];
   const monthName = date
     .clone()
@@ -33,6 +35,6 @@ export const daysInMonth = (date): IDaysInMonth => {
   }
 
   // tslint:disable-next-line:no-console
-  console.log("days ", days);
+  console.log("days ", { monthName, days });
   return { monthName, days };
 };

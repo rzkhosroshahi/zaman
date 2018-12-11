@@ -7,7 +7,7 @@ interface IDatePickerState {
   date: Moment;
 }
 
-export class DatePicker extends React.PureComponent<any, IDatePickerState> {
+export class DatePicker extends React.Component<any, IDatePickerState> {
   constructor(props) {
     super(props);
 
