@@ -1,5 +1,6 @@
 import rollupTypescript from "rollup-plugin-typescript2";
 import commonjs from "rollup-plugin-commonjs";
+import resolve from "rollup-plugin-node-resolve";
 
 export default {
   input: "./src/index.tsx",
@@ -24,6 +25,7 @@ export default {
         ],
       },
     }),
+    resolve(),
   ],
   output: [
     {

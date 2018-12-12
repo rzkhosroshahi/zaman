@@ -38,6 +38,7 @@
     "react-testing-library": "^5.2.3",
     "rollup": "^0.67.4",
     "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-typescript2": "^0.18.1",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
@@ -46,8 +47,10 @@
   },
   "dependencies": {
     "jalali-moment": "^3.2.3",
+    "lodash.chunk": "^4.2.0",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "styled-components": "^4.1.2"
   },
   "prettier": {
     "trailingComma": "all"
