@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test jest",
     "build": "rollup -c rollup.config.js",
     "watch": "rollup -cw",
-    "start": "rollup -cw & parcel serve/index.html --out-dir build",
+    "start": "parcel serve/index.html --out-dir build",
     "prepublish": "npm run build",
     "lint": "tslint --project ."
   },
