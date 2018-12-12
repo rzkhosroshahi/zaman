@@ -1,4 +1,5 @@
 import { Moment } from "jalali-moment";
+import { fa } from "./utils";
 
 export interface IDays {
   day: string;
@@ -27,7 +28,7 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
 
   while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
     days.push({
-      day: firstDayOfWeek.clone().format("jDD"),
+      day: fa(firstDayOfWeek.clone().format("jDD")),
       enDate: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")),
       disable: checkDateMonth(date, firstDayOfWeek),
     });
