@@ -10,6 +10,7 @@ export interface IDays {
 export interface IDaysInMonth {
   days: IDays[];
   monthName: string;
+  month: number;
 }
 
 const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
@@ -20,6 +21,12 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
     .clone()
     .locale("fa")
     .format("jMMMM");
+  const month = Number(
+    date
+      .clone()
+      .locale("fa")
+      .format("jM"),
+  );
 
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
@@ -36,6 +43,6 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
   }
 
   // tslint:disable-next-line:no-console
-  console.log("days ", { monthName, days });
-  return { monthName, days };
+  console.log("days ", { monthName, month, days });
+  return { monthName, month, days };
 };
