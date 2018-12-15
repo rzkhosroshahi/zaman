@@ -1,3 +1,4 @@
+import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
 import { fa } from "./utils";
 
@@ -11,9 +12,12 @@ export interface IDaysInMonth {
   days: IDays[];
   monthName: string;
   month: number;
+  today?: string;
 }
 
 const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
+const checkCurrentMonth = (date: Moment) =>
+  moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
 
 export const daysInMonth = (date: Moment): IDaysInMonth => {
   const days: IDays[] = [];
@@ -30,6 +34,7 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
 
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
+  const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
 
   firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
 
@@ -43,6 +48,6 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
   }
 
   // tslint:disable-next-line:no-console
-  console.log("days ", { monthName, month, days });
-  return { monthName, month, days };
+  // console.log("days ", { monthName, month, days });
+  return { monthName, month, days, ...today };
 };

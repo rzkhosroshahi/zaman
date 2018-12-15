@@ -29,3 +29,11 @@ test("prev month", () => {
   expect(date.monthName).toBe("تیر");
   expect(date.month).toBe(4);
 });
+
+test("current month days should have today property", () => {
+  const momentDate = moment();
+  const today = momentDate.format("jDD");
+  const date = daysInMonth(momentDate);
+  expect(date).toHaveProperty("today");
+  expect(date.today).toBe(today);
+});
