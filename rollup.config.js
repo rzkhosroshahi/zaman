@@ -6,7 +6,14 @@ export default {
   input: "./src/index.tsx",
   external: ["react", "react-dom", "stream", "prop-types"],
   plugins: [
-    rollupTypescript(),
+    {
+      name: "replace moment imports",
+      transform: code => ({
+        code: code.replace(/import\s*\*\s*as\s*moment/g, "import moment"),
+        map: { mappings: "" },
+      }),
+    },
+    rollupTypescript({ useTsconfigDeclarationDir: true }),
     commonjs({
       include: "node_modules/**",
       namedExports: {

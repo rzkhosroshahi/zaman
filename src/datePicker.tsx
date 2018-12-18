@@ -1,5 +1,5 @@
 import * as React from "react";
-import moment from "jalali-moment";
+import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
 import { daysInMonth } from "../utils";
 import chunk from "lodash.chunk";
