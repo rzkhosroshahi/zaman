@@ -13,7 +13,7 @@ export default {
         map: { mappings: "" },
       }),
     },
-    rollupTypescript({ useTsconfigDeclarationDir: true }),
+    rollupTypescript(),
     commonjs({
       include: "node_modules/**",
       namedExports: {

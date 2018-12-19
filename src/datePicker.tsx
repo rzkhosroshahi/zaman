@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
-import { daysInMonth } from "../utils";
+import { daysInMonth } from "./utils";
 import chunk from "lodash.chunk";
 import { Days } from "./days";
-import { weekDayNames } from "../utils/weeks";
+import { weekDayNames } from "./utils/weeks";
 
 interface IDatePickerState {
   date: Moment;
