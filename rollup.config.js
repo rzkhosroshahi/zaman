@@ -13,7 +13,11 @@ export default {
         map: { mappings: "" },
       }),
     },
-    rollupTypescript(),
+    rollupTypescript({
+      tsconfigDefaults: {
+        sourceMap: true,
+      },
+    }),
     commonjs({
       include: "node_modules/**",
       namedExports: {
@@ -39,6 +43,7 @@ export default {
       file: "./dist/index.umd.js",
       format: "umd",
       name: "umd",
+      sourcemap: true,
       globals: {
         react: "React",
         "react-dom": "ReactDom",
@@ -56,6 +61,7 @@ export default {
       file: "./dist/index.js",
       format: "cjs",
       name: "umd",
+      sourcemap: true,
       globals: {
         react: "React",
         "react-dom": "ReactDom",
@@ -73,6 +79,7 @@ export default {
       file: "./dist/index.module.js",
       format: "es",
       name: "es",
+      sourcemap: true,
       globals: {
         react: "React",
         "react-dom": "ReactDom",

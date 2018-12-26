@@ -5,7 +5,9 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
   "include": ["src/**.*"]
 }
