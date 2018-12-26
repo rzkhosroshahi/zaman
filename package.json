@@ -60,8 +60,7 @@
   },
   "jest": {
     "roots": [
-      "<rootDir>/src",
-      "<rootDir>/utils"
+      "<rootDir>/src"
     ],
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
