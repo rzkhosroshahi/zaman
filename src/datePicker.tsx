@@ -29,6 +29,7 @@ export class DatePicker extends React.Component<any, IDatePickerState> {
     const { date } = this.state;
     const { monthName, days } = daysInMonth(date);
     const weeks = chunk(days, 7);
+    const { daysOnClick } = this.props;
     return (
       <div>
         <button onClick={() => this.changeMonth(true)}>
@@ -45,7 +46,7 @@ export class DatePicker extends React.Component<any, IDatePickerState> {
             {name}
           </span>
         ))}
-        <Days weeks={weeks} />
+        <Days weeks={weeks} daysOnClick={daysOnClick} />
       </div>
     );
   }
