@@ -1,11 +1,14 @@
 import rollupTypescript from "rollup-plugin-typescript2";
 import commonjs from "rollup-plugin-commonjs";
 import resolve from "rollup-plugin-node-resolve";
+import builtins from "rollup-plugin-node-builtins";
+import sourcemaps from "rollup-plugin-sourcemaps";
 
 export default {
   input: "./src/index.tsx",
   external: ["react", "react-dom", "stream", "prop-types"],
   plugins: [
+    builtins(),
     {
       name: "replace moment imports",
       transform: code => ({
@@ -37,6 +40,7 @@ export default {
       },
     }),
     resolve(),
+    sourcemaps(),
   ],
   output: [
     {
