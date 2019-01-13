@@ -12,8 +12,8 @@ export default {
     {
       name: "replace moment imports",
       transform: code => ({
-        code: code.replace(/import\s*\*\s*as\s*moment/g, "import moment"),
-        map: { mappings: "" },
+        code: code.replace(/import\s*\*\s*as\s*moment/g, "import      moment"),
+        map: null,
       }),
     },
     rollupTypescript({
