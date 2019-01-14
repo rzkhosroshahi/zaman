@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
+    "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
     "build": "rollup -c rollup.config.js",
     "watch": "rollup -cw",
