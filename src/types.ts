@@ -6,3 +6,8 @@ export interface IEvents {
   duration?: number;
   color?: string;
 }
+
+export interface IRangeDate {
+  start: string;
+  end: string;
+}
