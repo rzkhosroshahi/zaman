@@ -3,6 +3,7 @@ import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
+import { daysInMonth, IDaysInMonth } from "./utils";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -12,6 +13,8 @@ export interface IRangeDatePickerProps {
 export interface IRangeDatePickerState {
   startDate: Moment;
   endDate: Moment;
+  monthName?: string;
+  days?: IDaysInMonth;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -28,10 +31,43 @@ export class RangeDatePicker extends React.Component<
     this.state = {
       startDate: formatJalaliDate(props.start),
       endDate: formatJalaliDate(props.end),
+      monthName: "",
     };
   }
 
-  public render() {
+  public componentDidMount(): void {
+    const { monthName, days } = daysInMonth(this.state.startDate);
+    this.setState(prevState => {
+      return {
+        days: {
+          ...prevState.days,
+          ...days,
+        },
+        monthName,
+      };
+    });
+  }
+
+  public componentDidUpdate(
+    prevProps: Readonly<IRangeDatePickerProps>,
+    prevState: Readonly<IRangeDatePickerState>,
+    snapshot?: any,
+  ): void {
+    if (!prevState.startDate.isSame(this.state.startDate)) {
+      const { monthName, days } = daysInMonth(this.state.startDate);
+      this.setState(prevDaysState => {
+        return {
+          days: {
+            ...prevDaysState.days,
+            ...days,
+          },
+          monthName,
+        };
+      });
+    }
+  }
+
+  public render(): React.ReactNode {
     const { start, end } = this.props;
     return (
       <React.Fragment>
