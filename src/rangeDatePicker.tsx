@@ -1,7 +1,8 @@
 import * as React from "react";
+import * as moment from "jalali-moment";
+import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
-import { Moment } from "jalali-moment";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -18,8 +19,8 @@ export class RangeDatePicker extends React.Component<
   IRangeDatePickerState
 > {
   public static defaultProps: Partial<IRangeDatePickerProps> = {
-    start: "1397/12/08",
-    end: "1397/12/19",
+    start: moment().format("jYYYY/jMM/jDD"),
+    end: moment().format("jYYYY/jMM/jDD"),
   };
 
   constructor(props) {
