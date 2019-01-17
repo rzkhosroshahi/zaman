@@ -1,3 +1,5 @@
+import { Moment } from "jalali-moment";
+
 export interface IEvents {
   start: string;
   end: string;
@@ -8,6 +10,6 @@ export interface IEvents {
 }
 
 export interface IRangeDate {
-  start: string;
-  end: string;
+  start: Moment;
+  end: Moment;
 }

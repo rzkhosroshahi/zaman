@@ -1,14 +1,16 @@
 import * as React from "react";
 import MaskedInput from "react-text-mask";
+import { formatJalaliDate } from "./utils/formatDate";
+import { Moment } from "jalali-moment";
 
 export interface IRangeDatePickerProps {
-  startDate: string;
-  endDate?: string;
+  start: string;
+  end: string;
 }
 
 export interface IRangeDatePickerState {
-  startDate: string;
-  endDate?: string;
+  startDate: Moment;
+  endDate: Moment;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -16,27 +18,37 @@ export class RangeDatePicker extends React.Component<
   IRangeDatePickerState
 > {
   public static defaultProps: Partial<IRangeDatePickerProps> = {
-    startDate: "1397/12/08",
+    start: "1397/12/08",
+    end: "1397/12/19",
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      startDate: props.startDate,
+      startDate: formatJalaliDate(props.start),
+      endDate: formatJalaliDate(props.end),
     };
   }
 
   public render() {
-    const { startDate } = this.state;
+    const { start, end } = this.props;
     return (
-      <MaskedInput
-        className="rdp__input--start"
-        data-testid="input-start"
-        aria-label="cost-input"
-        value={startDate}
-        // prettier-ignore
-        mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
-      />
+      <React.Fragment>
+        <MaskedInput
+          className="rdp__input--start"
+          data-testid="input-start"
+          value={start}
+          // prettier-ignore
+          mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
+        />
+        <MaskedInput
+          className="rdp__input--end"
+          data-testid="input-end"
+          value={end}
+          // prettier-ignore
+          mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
+        />
+      </React.Fragment>
     );
   }
 }

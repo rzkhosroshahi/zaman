@@ -1,8 +1,9 @@
 import { rangeHelper } from "../rangeHelper";
+import * as moment from "jalali-moment";
 
 const range = {
-  start: "Tue, 25 Dec 2018 20:01:44 GMT",
-  end: "Sat, 29 Dec 2018 20:01:44 GMT",
+  start: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
+  end: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
 };
 
 test("acceptance test", () => {
