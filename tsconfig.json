@@ -1,28 +1,14 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "ESNext",
-      "lib": ["es2015", "dom"],
-      "allowSyntheticDefaultImports": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "moduleResolution": "node",
-      "declaration": false,
-      "jsx": "react",
-      "noImplicitAny": false,
-      "sourceMap": true,
-      "suppressImplicitAnyIndexErrors": true,
-      "baseUrl": ".",
-      "strictNullChecks": true,
-      "noEmit": true,
-      "pretty": true
-    },
-    "compileOnSave": false,
-    "include": [
-      "src/*",
-      "src/index.tsx"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-  }
+  "compilerOptions": {
+    "target": "esnext",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "src/__tests__/*"]
+}

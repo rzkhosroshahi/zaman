@@ -95,8 +95,9 @@ fabric.properties
 .history
 
 
-# parcel 
+# parcel
 .cache/
+.rpt2_cache
 dist/
 
 # End of https://www.gitignore.io/api/visualstudiocode

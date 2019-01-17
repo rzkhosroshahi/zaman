@@ -6,10 +6,13 @@
   "scripts": {
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
-    "dev": "NODE_ENV=development parcel index.html",
-    "build": "NODE_ENV=production parcel build src/index.tsx",
-    "docs": "NODE_ENV=production parcel build --public-url . index.html --out-dir docs",
-    "lint": "tslint --project ."
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -cw",
+    "start": "npm run watch & parcel serve/index.html --out-dir build",
+    "prepublish": "npm run build",
+    "lint": "tslint --project .",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -29,20 +32,52 @@
   "devDependencies": {
     "@types/jest": "^23.3.9",
     "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.11",
+    "all-contributors-cli": "^5.4.1",
     "husky": "^1.1.4",
     "jest": "^23.6.0",
-    "parcel-bundler": "^1.10.3",
+    "parcel-bundler": "^1.11.0",
     "prettier": "^1.15.2",
     "pretty-quick": "^1.8.0",
-    "react-testing-library": "^5.2.3",
+    "react-testing-library": "^5.4.4",
+    "rollup": "^1.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.18.1",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "moment-jalaali": "^0.8.1",
+    "jalali-moment": "^3.2.3",
+    "lodash.chunk": "^4.2.0",
+    "moment-jalaali": "^0.8.3",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "react-text-mask": "^5.4.3",
+    "styled-components": "^4.1.2"
+  },
+  "prettier": {
+    "trailingComma": "all"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.(tsx|ts)?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

@@ -1,0 +1,40 @@
+{
+  "projectName": "react-jalali-datepicker",
+  "projectOwner": "rzkhosroshahi",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "rzkhosroshahi",
+      "name": "Reza Khosroshahi",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/11410506?v=4",
+      "profile": "https://reza.blue",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "test"
+      ]
+    },
+    {
+      "login": "saeedjalali1",
+      "name": "saeedjalali",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15178117?v=4",
+      "profile": "http://saeedjalali.ir",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "ideas",
+        "review",
+        "talk"
+      ]
+    }
+  ]
+}
