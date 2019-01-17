@@ -2,45 +2,19 @@
 
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
-
-## Calendar
-
-| props        | type                                                                                              | default                                   |
-| ------------ | ------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| holidays     | object[] => holiday: boolean, month: number, type: string Iran or Afghanistan, title: string      | تعطیلات رسمی سال جاری                     |
-| weekend      | number[]                                                                                          | `[6]`                                     |
-| startWeek    | number                                                                                            | day: 0                                    |
-| today        | number                                                                                            | 0                                         |
-| event        | object[] => name: month name, start: Date, end: Date, type: string, description, duration: number | null                                      |
-| eventColors  | object => type: string, color: HexColor                                                           | any type is #ccc color                    |
-| ArrowLeft    | React.ReactNode                                                                                   | default component                         |
-| ArrowRight   | React.ReactNode                                                                                   | default component                         |
-| defaultStyle | boolean                                                                                           | true. if it's false remove default style. |
-
-## Date Picker
-
-| props        | type                                                                                         | default                                  |
-| ------------ | -------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| value        | Date or Moment                                                                               | today date                               |
-| holidays     | object[] => holiday: boolean, month: number, type: string Iran or Afghanistan, title: string | تعطیلات رسمی سال جاری                    |
-| weekend      | number[]                                                                                     | `[6]`                                    |
-| startWeek    | number                                                                                       | day: 0                                   |
-| ArrowLeft    | React.ReactNode                                                                              | default component                        |
-| ArrowRight   | React.ReactNode                                                                              | default component                        |
-| defaultStyle | boolean                                                                                      | true. if it's false remove default style |
+| true. if it's false remove default style. |
 
 ## Range Date Picker
 
-| props        | type                                                                                         | default                                  |
-| ------------ | -------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| value        | Date or Moment                                                                               | today date                               |
-| holidays     | object[] => holiday: boolean, month: number, type: string Iran or Afghanistan, title: string | تعطیلات رسمی سال جاری                    |
-| weekend      | number[]                                                                                     | `[6]`                                    |
-| range        | object[] => name: month name, start: Date, end: Date                                         | null                                     |
-| startWeek    | number                                                                                       | day: 0                                   |
-| ArrowLeft    | React.ReactNode                                                                              | default component                        |
-| ArrowRight   | React.ReactNode                                                                              | default component                        |
-| defaultStyle | boolean                                                                                      | true. if it's false remove default style |
+| props      | type                  | default                         |
+| ---------- | --------------------- | ------------------------------- |
+| start      | string. ex: 1397/5/18 | today date                      |
+| end        | string. ex: 1397/5/18 | today date                      |
+| weekend    | number[]              | `[6]`                           |
+| startWeek  | number                | day: 0                          |
+| ArrowLeft  | React.ReactNode       | default component               |
+| ArrowRight | React.ReactNode       | default component               |
+| theme      | object                | default theme you can see here. |
 
 ## Contributors
 
