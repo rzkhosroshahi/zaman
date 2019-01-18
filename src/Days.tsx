@@ -58,7 +58,9 @@ export class Days extends React.PureComponent<IDaysProps> {
             <thead />
             <tbody>
               <tr data-testid="days">
-                <Day />
+                {days.map((day: IDays, id) => (
+                  <Day key={`rdp-days-${id}`}>{day.day}</Day>
+                ))}
               </tr>
             </tbody>
           </table>

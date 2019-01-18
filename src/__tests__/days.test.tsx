@@ -74,4 +74,10 @@ describe("day test ", () => {
     const { container } = render(<Days days={[]} />);
     expect(container.textContent).toBe("");
   });
+
+  test("day ", () => {
+    const { getByTestId } = render(<Days days={mockDays} />);
+    const container = getByTestId("days");
+    expect(container.innerHTML).toMatchSnapshot();
+  });
 });
