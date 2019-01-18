@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
+import { IDays } from "./utils";
+import { defaultTheme } from "./theme";
 
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
@@ -32,12 +34,19 @@ export const Day = styled.td`
 `;
 
 export interface IDaysProps {
-  theme: any;
+  days: IDays[];
+  theme?: any;
 }
 
 export class Days extends React.PureComponent<IDaysProps> {
+  public static defaultProps: Partial<IDaysProps> = {
+    theme: defaultTheme,
+  };
   public render(): React.ReactNode {
-    const { theme } = this.props;
+    const { days, theme } = this.props;
+    if (!days.length) {
+      return null;
+    }
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
@@ -48,7 +57,7 @@ export class Days extends React.PureComponent<IDaysProps> {
           <table>
             <thead />
             <tbody>
-              <tr>
+              <tr data-testid="days">
                 <Day />
               </tr>
             </tbody>

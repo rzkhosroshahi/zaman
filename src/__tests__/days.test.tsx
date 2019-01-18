@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cleanup, render } from "react-testing-library";
 import { Days, Day } from "../Days";
-import { theme } from "../theme";
 import "jest-styled-components";
+import { mockDays, theme } from "../utils/testUtils";
 
 describe("theme test ", () => {
   afterEach(cleanup);
   test("Head test ", () => {
-    const { getByTestId } = render(<Days theme={theme} />);
+    const { getByTestId } = render(<Days theme={theme} days={mockDays} />);
     const daysHead = getByTestId("days-head");
     const daysHeadTitle = getByTestId("days-head-title");
     const daysHeadRange = getByTestId("days-head-range");
@@ -23,7 +23,7 @@ describe("theme test ", () => {
 
   test("day test ", () => {
     const table = document.createElement("tr");
-    const { container } = render(<Day theme={theme} />, {
+    const { container } = render(<Day theme={theme} days={mockDays} />, {
       container: table,
     });
     expect(container.firstChild).toHaveStyleRule(
@@ -35,9 +35,12 @@ describe("theme test ", () => {
 
   test("holiday test ", () => {
     const table = document.createElement("tr");
-    const { container } = render(<Day theme={theme} holiday />, {
-      container: table,
-    });
+    const { container } = render(
+      <Day theme={theme} days={mockDays} holiday />,
+      {
+        container: table,
+      },
+    );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",
       theme.holidaysBackColor,
@@ -47,9 +50,12 @@ describe("theme test ", () => {
 
   test("startEndRange test ", () => {
     const table = document.createElement("tr");
-    const { container } = render(<Day theme={theme} startEndRange />, {
-      container: table,
-    });
+    const { container } = render(
+      <Day days={mockDays} theme={theme} startEndRange />,
+      {
+        container: table,
+      },
+    );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",
       theme.startEndDayBackColor,
@@ -58,5 +64,14 @@ describe("theme test ", () => {
       "color",
       theme.startEndDayColor,
     );
+  });
+});
+
+describe("day test ", () => {
+  afterEach(cleanup);
+
+  test("when day is empty object ", () => {
+    const { container } = render(<Days days={[]} />);
+    expect(container.textContent).toBe("");
   });
 });

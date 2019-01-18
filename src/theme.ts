@@ -13,7 +13,7 @@ export interface ITheme {
   startEndDayBackColor: string;
 }
 
-export const theme: ITheme = {
+export const defaultTheme: ITheme = {
   // head
   headBackColor: "#FFFFFF",
   headTitleColor: "#000",
