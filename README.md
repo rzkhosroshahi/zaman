@@ -5,15 +5,16 @@
 
 ## Range Date Picker
 
-| props      | type                  | default                         |
-| ---------- | --------------------- | ------------------------------- |
-| start      | string. ex: 1397/5/18 | today date                      |
-| end        | string. ex: 1397/5/18 | today date                      |
-| weekend    | number[]              | `[6]`                           |
-| startWeek  | number                | day: 0                          |
-| ArrowLeft  | React.ReactNode       | default component               |
-| ArrowRight | React.ReactNode       | default component               |
-| theme      | object                | default theme you can see here. |
+| props       | type                  | default                         |
+| ----------- | --------------------- | ------------------------------- |
+| start       | string. ex: 1397/5/18 | today date                      |
+| end         | string. ex: 1397/5/18 | today date                      |
+| weekend     | number[]              | `[6]`                           |
+| startWeek   | number                | day: 0                          |
+| ArrowLeft   | React.ReactNode       | default component               |
+| ArrowRight  | React.ReactNode       | default component               |
+| modalZIndex | number                | 9999                            |
+| theme       | object                | default theme you can see here. |
 
 ## Contributors
 
