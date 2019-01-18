@@ -3,7 +3,7 @@ import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
-import { daysInMonth, IDaysInMonth } from "./utils";
+import { daysInMonth, IDays } from "./utils";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -14,7 +14,7 @@ export interface IRangeDatePickerState {
   startDate: Moment;
   endDate: Moment;
   monthName?: string;
-  days?: IDaysInMonth;
+  days?: IDays[];
 }
 
 export class RangeDatePicker extends React.Component<
@@ -32,6 +32,7 @@ export class RangeDatePicker extends React.Component<
       startDate: formatJalaliDate(props.start),
       endDate: formatJalaliDate(props.end),
       monthName: "",
+      days: [],
     };
   }
 
@@ -39,10 +40,7 @@ export class RangeDatePicker extends React.Component<
     const { monthName, days } = daysInMonth(this.state.startDate);
     this.setState(prevState => {
       return {
-        days: {
-          ...prevState.days,
-          ...days,
-        },
+        days: [...prevState.days, ...days],
         monthName,
       };
     });
@@ -57,16 +55,22 @@ export class RangeDatePicker extends React.Component<
       const { monthName, days } = daysInMonth(this.state.startDate);
       this.setState(prevDaysState => {
         return {
-          days: {
-            ...prevDaysState.days,
+          days: [
+            ...prevDaysState.days.slice(prevDaysState.days.length),
             ...days,
-          },
+          ],
           monthName,
         };
       });
     }
   }
-
+  public increaseMonth = () => {
+    this.setState(prevState => {
+      return {
+        startDate: prevState.startDate.clone().add(1, "month"),
+      };
+    });
+  };
   public render(): React.ReactNode {
     const { start, end } = this.props;
     return (
@@ -85,6 +89,9 @@ export class RangeDatePicker extends React.Component<
           // prettier-ignore
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
+        <div>
+          <button onClick={this.increaseMonth}>increaseMonth</button>
+        </div>
       </React.Fragment>
     );
   }
