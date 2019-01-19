@@ -2,7 +2,7 @@ import * as React from "react";
 import { cleanup, render } from "react-testing-library";
 import { Days, Day } from "../Days";
 import "jest-styled-components";
-import { mockDays, theme } from "../utils/testUtils";
+import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
 
 describe("theme test ", () => {
   afterEach(cleanup);
@@ -80,4 +80,14 @@ describe("day test ", () => {
     const container = getByTestId("days");
     expect(container.innerHTML).toMatchSnapshot();
   });
+});
+
+describe("day withRangeDays test ", () => {
+  afterEach(cleanup);
+
+  const { getByTestId } = render(
+    <Days days={mockDays} rangeDays={rangeHelperMock} />,
+  );
+  const day = getByTestId("day-4");
+  expect(day).toHaveStyleRule("background-color", theme.startEndDayBackColor);
 });

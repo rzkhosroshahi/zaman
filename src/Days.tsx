@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { IDays } from "./utils";
 import { defaultTheme } from "./theme";
+import { IRangeDays } from "./types";
 
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
@@ -36,6 +37,7 @@ export const Day = styled.td`
 export interface IDaysProps {
   days: IDays[];
   theme?: any;
+  rangeDays: IRangeDays;
 }
 
 export class Days extends React.PureComponent<IDaysProps> {
@@ -43,7 +45,7 @@ export class Days extends React.PureComponent<IDaysProps> {
     theme: defaultTheme,
   };
   public render(): React.ReactNode {
-    const { days, theme } = this.props;
+    const { days, theme, rangeDays } = this.props;
     if (!days.length) {
       return null;
     }
@@ -59,7 +61,13 @@ export class Days extends React.PureComponent<IDaysProps> {
             <tbody>
               <tr data-testid="days">
                 {days.map((day: IDays, id) => (
-                  <Day key={`rdp-days-${id}`}>{day.day}</Day>
+                  <Day
+                    key={`rdp-days-${id}`}
+                    data-testid={`day-${id + 1}`}
+                    startEndRange={rangeDays ? rangeDays[day.faDate] : false}
+                  >
+                    {day.day}
+                  </Day>
                 ))}
               </tr>
             </tbody>

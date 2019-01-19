@@ -24,3 +24,11 @@ export const theme: ITheme = {
   startEndDayColor: "#000",
   startEndDayBackColor: "#D6D6D6",
 };
+
+export const rangeHelperMock = {
+  "1397/10/04": { status: "startRange" },
+  "1397/10/05": { status: "beginningRange" },
+  "1397/10/06": { status: "beginningRange" },
+  "1397/10/07": { status: "beginningRange" },
+  "1397/10/08": { status: "endRange" },
+};
