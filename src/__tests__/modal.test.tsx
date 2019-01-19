@@ -13,16 +13,17 @@ describe("modal tests", () => {
     expect(container.textContent).not.toBe("Hello world");
   });
 
-	test("when clicked on overlay ", () => {
-		const { container, getByTestId } = render(
-			<Modal isOpen={true}>
-				<p>Hello world</p>
-			</Modal>,
-		);
+  test("when clicked on overlay ", () => {
+    const { container, getByTestId } = render(
+      <Modal isOpen={true}>
+        <p>Hello world</p>
+      </Modal>,
+    );
+    expect(container.textContent).toBe("Hello world");
 
-		const overlay = getByTestId("overlay");
-		fireEvent.click(overlay);
+    const overlay = getByTestId("overlay");
+    fireEvent.click(overlay);
 
-		expect(container.textContent).not.toBe("Hello world");
-	});
+    expect(container.textContent).not.toBe("Hello world");
+  });
 });

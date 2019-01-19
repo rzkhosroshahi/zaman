@@ -72,20 +72,35 @@ export class RangeDatePicker extends React.Component<
     });
   };
   public render(): React.ReactNode {
-    const { start, end } = this.props;
     return (
       <React.Fragment>
         <MaskedInput
           className="rdp__input--start"
           data-testid="input-start"
-          value={start}
+          value={this.state.startDate.format("jYYYY/jMM/jDD")}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            if (formatJalaliDate(e.target.value)) {
+              return this.setState({
+                startDate: formatJalaliDate(e.target.value),
+              });
+            }
+            return;
+          }}
           // prettier-ignore
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
         <MaskedInput
           className="rdp__input--end"
           data-testid="input-end"
-          value={end}
+          value={this.state.endDate.format("jYYYY/jMM/jDD")}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            if (formatJalaliDate(e.target.value)) {
+              return this.setState({
+                endDate: formatJalaliDate(e.target.value),
+              });
+            }
+            return;
+          }}
           // prettier-ignore
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
