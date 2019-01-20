@@ -94,7 +94,9 @@ export class RangeDatePicker extends React.Component<
           data-testid="input-end"
           value={this.state.endDate.format("jYYYY/jMM/jDD")}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            if (formatJalaliDate(e.target.value)) {
+            const formattedValue = formatJalaliDate(e.target.value);
+            // prettier-ignore
+            if (formattedValue && formattedValue.isAfter(this.state.startDate)) {
               return this.setState({
                 endDate: formatJalaliDate(e.target.value),
               });
