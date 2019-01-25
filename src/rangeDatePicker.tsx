@@ -5,6 +5,8 @@ import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
 import { daysInMonth, IDays } from "./utils";
 import { IRangeHelper, rangeHelper } from "./utils/rangeHelper";
+import { Modal } from "./modal";
+import { Days } from "./Days";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -17,6 +19,7 @@ export interface IRangeDatePickerState {
   monthName?: string;
   days?: IDays[];
   rangeDays?: IRangeHelper;
+  isOpenModal: boolean;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -35,6 +38,7 @@ export class RangeDatePicker extends React.Component<
       endDate: formatJalaliDate(props.end),
       monthName: "",
       days: [],
+      isOpenModal: false,
     };
   }
 
@@ -76,13 +80,21 @@ export class RangeDatePicker extends React.Component<
       };
     });
   };
+  public toggleModalOpen = () => {
+    this.setState(prevState => {
+      return {
+        isOpenModal: !prevState.isOpenModal,
+      };
+    });
+  };
   public render(): React.ReactNode {
     return (
-      <React.Fragment>
+      <div>
         <MaskedInput
           className="rdp__input--start"
           data-testid="input-start"
           value={this.state.startDate.format("jYYYY/jMM/jDD")}
+          onClick={this.toggleModalOpen}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             if (formatJalaliDate(e.target.value)) {
               return this.setState({
@@ -111,10 +123,13 @@ export class RangeDatePicker extends React.Component<
           // prettier-ignore
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
-        <div>
-          <button onClick={this.increaseMonth}>increaseMonth</button>
-        </div>
-      </React.Fragment>
+        <Modal
+          isOpen={this.state.isOpenModal}
+          toggleOpen={this.toggleModalOpen}
+        >
+          <p>Hello</p>
+        </Modal>
+      </div>
     );
   }
 }

@@ -14,16 +14,16 @@ describe("modal tests", () => {
   });
 
   test("when clicked on overlay ", () => {
-    const { container, getByTestId } = render(
-      <Modal isOpen={true}>
+    const mockVoid = jest.fn();
+    const { getByTestId } = render(
+      <Modal isOpen={true} toggleOpen={mockVoid}>
         <p>Hello world</p>
       </Modal>,
     );
-    expect(container.textContent).toBe("Hello world");
 
     const overlay = getByTestId("overlay");
     fireEvent.click(overlay);
 
-    expect(container.textContent).not.toBe("Hello world");
+    expect(mockVoid).toHaveBeenCalledTimes(1);
   });
 });
