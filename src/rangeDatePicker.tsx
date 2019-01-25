@@ -20,6 +20,7 @@ export interface IRangeDatePickerState {
   days?: IDays[];
   rangeDays?: IRangeHelper;
   isOpenModal: boolean;
+  isSelecting: boolean;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -39,6 +40,7 @@ export class RangeDatePicker extends React.Component<
       monthName: "",
       days: [],
       isOpenModal: false,
+      isSelecting: false,
     };
   }
 
@@ -60,8 +62,13 @@ export class RangeDatePicker extends React.Component<
     prevState: Readonly<IRangeDatePickerState>,
     snapshot?: any,
   ): void {
-    if (!prevState.startDate.isSame(this.state.startDate)) {
+    if (
+      !prevState.startDate.isSame(this.state.startDate) ||
+      !prevState.endDate.isSame(this.state.endDate)
+    ) {
       const { monthName, days } = daysInMonth(this.state.startDate);
+      const { startDate: start, endDate: end } = this.state;
+      const rangeDays = rangeHelper({ start, end });
       this.setState(prevDaysState => {
         return {
           days: [
@@ -69,6 +76,7 @@ export class RangeDatePicker extends React.Component<
             ...days,
           ],
           monthName,
+          rangeDays: { ...prevDaysState.rangeDays, ...rangeDays },
         };
       });
     }
@@ -87,6 +95,27 @@ export class RangeDatePicker extends React.Component<
       };
     });
   };
+  public changeStartDays = (e: React.SyntheticEvent<EventTarget>) => {
+    const { fadate, disable } = (e.target as HTMLHtmlElement).dataset;
+    if (!disable) {
+      this.setState({
+        isSelecting: !this.state.isSelecting,
+        startDate: formatJalaliDate(fadate),
+        endDate: formatJalaliDate(fadate).add(1, "day"),
+      });
+    }
+    return {};
+  };
+  public daysEventListeners = () => {
+    const { isSelecting } = this.state;
+    if (!isSelecting) {
+      return {
+        onClick: this.changeStartDays,
+      };
+    }
+    return {};
+  };
+
   public render(): React.ReactNode {
     return (
       <div>
@@ -127,7 +156,11 @@ export class RangeDatePicker extends React.Component<
           isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
         >
-          <p>Hello</p>
+          <Days
+            days={this.state.days}
+            rangeDays={this.state.rangeDays}
+            daysEvent={this.daysEventListeners}
+          />
         </Modal>
       </div>
     );

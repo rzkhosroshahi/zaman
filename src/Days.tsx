@@ -38,14 +38,24 @@ export interface IDaysProps {
   days: IDays[];
   theme?: any;
   rangeDays: IRangeDays;
+  daysEvent: any;
 }
+
+const boolAttr = (arg: boolean) => {
+  if (arg) {
+    return {
+      "data-disable": arg,
+    };
+  }
+  return null;
+};
 
 export class Days extends React.PureComponent<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     theme: defaultTheme,
   };
   public render(): React.ReactNode {
-    const { days, theme, rangeDays } = this.props;
+    const { days, theme, rangeDays, daysEvent } = this.props;
     if (!days.length) {
       return null;
     }
@@ -64,7 +74,11 @@ export class Days extends React.PureComponent<IDaysProps> {
                   <Day
                     key={`rdp-days-${id}`}
                     data-testid={`day-${id + 1}`}
+                    data-fadate={`${day.faDate}`}
+                    // data-disable={`${day.disable}`}
                     startEndRange={rangeDays ? rangeDays[day.faDate] : false}
+                    {...daysEvent()}
+                    {...boolAttr(day.disable)}
                   >
                     {day.day}
                   </Day>
