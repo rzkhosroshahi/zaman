@@ -7,13 +7,17 @@ const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   } else if (current.isSame(end)) {
     return "endRange";
   }
-  return "beginningRange";
+  return "continueRange";
 };
 
 export function rangeHelper(range: IRangeDate) {
   const { start, end } = range;
   const cloneStart = start.clone();
   const rangeDays = {};
+
+  if (cloneStart.isSameOrAfter(end)) {
+    return rangeDays;
+  }
 
   while (cloneStart.isSameOrBefore(end)) {
     rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
