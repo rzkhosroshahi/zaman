@@ -1,4 +1,4 @@
-import { IRangeDate } from "../types";
+import { IRangeDate, IRangeDays } from "../types";
 import { Moment } from "jalali-moment";
 
 const stateRange = (current: Moment, start: Moment, end: Moment): string => {
@@ -10,7 +10,9 @@ const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   return "continueRange";
 };
 
-export function rangeHelper(range: IRangeDate) {
+export type IRangeHelper = IRangeDays | {};
+
+export function rangeHelper(range: IRangeDate): IRangeHelper {
   const { start, end } = range;
   const cloneStart = start.clone();
   const rangeDays = {};

@@ -4,6 +4,7 @@ import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
 import { daysInMonth, IDays } from "./utils";
+import { IRangeHelper, rangeHelper } from "./utils/rangeHelper";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -15,6 +16,7 @@ export interface IRangeDatePickerState {
   endDate: Moment;
   monthName?: string;
   days?: IDays[];
+  rangeDays?: IRangeHelper;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -38,10 +40,13 @@ export class RangeDatePicker extends React.Component<
 
   public componentDidMount(): void {
     const { monthName, days } = daysInMonth(this.state.startDate);
+    const { startDate: start, endDate: end } = this.state;
+    const rangeDays = rangeHelper({ start, end });
     this.setState(prevState => {
       return {
         days: [...prevState.days, ...days],
         monthName,
+        rangeDays,
       };
     });
   }
