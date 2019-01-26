@@ -75,7 +75,6 @@ export class Days extends React.PureComponent<IDaysProps> {
                     key={`rdp-days-${id}`}
                     data-testid={`day-${id + 1}`}
                     data-fadate={`${day.faDate}`}
-                    // data-disable={`${day.disable}`}
                     startEndRange={rangeDays ? rangeDays[day.faDate] : false}
                     {...daysEvent()}
                     {...boolAttr(day.disable)}

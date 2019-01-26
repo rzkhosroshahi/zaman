@@ -76,7 +76,7 @@ export class RangeDatePicker extends React.Component<
             ...days,
           ],
           monthName,
-          rangeDays: { ...prevDaysState.rangeDays, ...rangeDays },
+          rangeDays,
         };
       });
     }
@@ -106,6 +106,12 @@ export class RangeDatePicker extends React.Component<
     }
     return {};
   };
+  public changeEndDays = (e: React.SyntheticEvent<EventTarget>) => {
+    const { fadate } = (e.target as HTMLHtmlElement).dataset;
+    this.setState({
+      endDate: formatJalaliDate(fadate),
+    });
+  };
   public daysEventListeners = () => {
     const { isSelecting } = this.state;
     if (!isSelecting) {
@@ -113,7 +119,9 @@ export class RangeDatePicker extends React.Component<
         onClick: this.changeStartDays,
       };
     }
-    return {};
+    return {
+      onMouseOver: this.changeEndDays,
+    };
   };
 
   public render(): React.ReactNode {

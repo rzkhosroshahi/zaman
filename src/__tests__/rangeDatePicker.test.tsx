@@ -44,5 +44,12 @@ describe("RangeDatePicker days test", () => {
     fireEvent.click(day);
 
     expect(day).toHaveStyleRule("background-color", theme.startEndDayBackColor);
+
+    const hoveredDay = getByTestId("day-19");
+    fireEvent.mouseOver(hoveredDay);
+    expect(hoveredDay).toHaveStyleRule(
+      "background-color",
+      theme.startEndDayBackColor,
+    );
   });
 });
