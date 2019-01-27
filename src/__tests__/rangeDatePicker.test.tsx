@@ -40,16 +40,29 @@ describe("RangeDatePicker days test", () => {
     );
     const inputStart = getByTestId("input-start");
     fireEvent.click(inputStart);
-    const day = getByTestId("day-16");
+    const day = getByTestId("day-12");
     fireEvent.click(day);
 
-    expect(day).toHaveStyleRule("background-color", theme.startEndDayBackColor);
+    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+  });
+  test("change continue days by hovering on the days ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/12" end="1397/10/16" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    const day = getByTestId("day-12");
+    fireEvent.click(day);
 
-    const hoveredDay = getByTestId("day-19");
+    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+
+    const hoveredDay = getByTestId("day-17");
     fireEvent.mouseOver(hoveredDay);
-    expect(hoveredDay).toHaveStyleRule(
+
+    const continueDay = getByTestId("day-15");
+    expect(continueDay).toHaveStyleRule(
       "background-color",
-      theme.startEndDayBackColor,
+      theme.continueRangeBackColor,
     );
   });
 });

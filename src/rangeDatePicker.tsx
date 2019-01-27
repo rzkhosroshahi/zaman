@@ -6,7 +6,7 @@ import { formatJalaliDate } from "./utils/formatDate";
 import { daysInMonth, IDays } from "./utils";
 import { IRangeHelper, rangeHelper } from "./utils/rangeHelper";
 import { Modal } from "./modal";
-import { Days } from "./Days";
+import { Days } from "./days";
 
 export interface IRangeDatePickerProps {
   start: string;

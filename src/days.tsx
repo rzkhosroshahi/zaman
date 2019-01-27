@@ -1,9 +1,9 @@
 import * as React from "react";
-import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { IDays } from "./utils";
 import { defaultTheme } from "./theme";
 import { IRangeDays } from "./types";
+import { Day } from "./day";
 
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
@@ -16,22 +16,6 @@ const HeadTitle = styled.h4`
 const HeadRange = styled.h3`
   background-color: ${props => props.theme.headRangeBackColor};
   color: ${props => props.theme.headRangeColor};
-`;
-
-export const Day = styled.td`
-	${props =>
-    !props.startEndRange &&
-    !props.holiday &&
-    `color: ${props.theme.daysColor};
-     background-color: ${props.theme.daysBackColor}`}
-  ${props =>
-    props.holiday &&
-    `color: ${props.theme.holidaysColor};
-     background-color: ${props.theme.holidaysBackColor}`}
-	${props =>
-    props.startEndRange &&
-    `color: ${props.theme.startEndDayColor};
-     background-color: ${props.theme.startEndDayBackColor}`}
 `;
 
 export interface IDaysProps {
@@ -75,8 +59,9 @@ export class Days extends React.PureComponent<IDaysProps> {
                     key={`rdp-days-${id}`}
                     data-testid={`day-${id + 1}`}
                     data-fadate={`${day.faDate}`}
-                    startEndRange={rangeDays ? rangeDays[day.faDate] : false}
-                    {...daysEvent()}
+                    startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
+                    daysEvent={daysEvent}
+                    theme={theme}
                     {...boolAttr(day.disable)}
                   >
                     {day.day}
