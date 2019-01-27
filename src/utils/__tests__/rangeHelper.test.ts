@@ -20,8 +20,8 @@ describe("rangeHelper test ", () => {
 
   test("when start range and end range are equal ", () => {
     const range = {
-      start: moment(),
-      end: moment(),
+      start: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
+      end: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
     };
     expect(rangeHelper(range)).toEqual({});
   });

@@ -21,14 +21,16 @@ export const theme: ITheme = {
   holidaysBackColor: "#FFFFFF",
 
   // start end
-  startEndDayColor: "#000",
-  startEndDayBackColor: "#D6D6D6",
+  startEndRangeColor: "#000",
+  startRangeBackColor: "#D6D6D6",
+  endRangeBackColor: "#D6D6D6",
+  continueRangeBackColor: "#f3f3f3",
 };
 
 export const rangeHelperMock = {
   "1397/10/04": { status: "startRange" },
-  "1397/10/05": { status: "beginningRange" },
-  "1397/10/06": { status: "beginningRange" },
-  "1397/10/07": { status: "beginningRange" },
+  "1397/10/05": { status: "continueRange" },
+  "1397/10/06": { status: "continueRange" },
+  "1397/10/07": { status: "continueRange" },
   "1397/10/08": { status: "endRange" },
 };
