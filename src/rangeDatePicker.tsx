@@ -101,27 +101,42 @@ export class RangeDatePicker extends React.Component<
       this.setState({
         isSelecting: !this.state.isSelecting,
         startDate: formatJalaliDate(fadate),
-        endDate: formatJalaliDate(fadate).add(1, "day"),
+        endDate: formatJalaliDate(fadate).add(2, "day"),
       });
     }
     return {};
   };
   public changeEndDays = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate } = (e.target as HTMLHtmlElement).dataset;
-    this.setState({
-      endDate: formatJalaliDate(fadate),
-    });
+    const { isSelecting } = this.state;
+    if (isSelecting) {
+      this.setState({
+        endDate: formatJalaliDate(fadate),
+      });
+    }
   };
+
   public daysEventListeners = () => {
     const { isSelecting } = this.state;
     if (!isSelecting) {
       return {
         onClick: this.changeStartDays,
       };
+    } else {
+      return {
+        onMouseOver: this.changeEndDays,
+        onClick: this.endSelecting,
+      };
     }
-    return {
-      onMouseOver: this.changeEndDays,
-    };
+  };
+  public endSelecting = () => {
+    const { isSelecting } = this.state;
+
+    if (isSelecting) {
+      this.setState({
+        isSelecting: false,
+      });
+    }
   };
 
   public render(): React.ReactNode {
@@ -151,10 +166,10 @@ export class RangeDatePicker extends React.Component<
             const formattedValue = formatJalaliDate(e.target.value);
             // prettier-ignore
             if (formattedValue && formattedValue.isAfter(this.state.startDate)) {
-              return this.setState({
-                endDate: formatJalaliDate(e.target.value),
-              });
-            }
+							return this.setState({
+								endDate: formatJalaliDate(e.target.value),
+							});
+						}
             return;
           }}
           // prettier-ignore

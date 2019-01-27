@@ -23,7 +23,11 @@ describe("rangeHelper test ", () => {
       start: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
       end: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
     };
-    expect(rangeHelper(range)).toEqual({});
+
+    // ToDo: change this status with currentDay or something
+    expect(rangeHelper(range)).toEqual({
+      "1397/10/04": { status: "startRange" },
+    });
   });
 
   test("when end range before start ", () => {

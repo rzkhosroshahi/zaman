@@ -17,8 +17,16 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
   const cloneStart = start.clone();
   const rangeDays = {};
 
-  if (cloneStart.isSameOrAfter(end)) {
+  if (cloneStart.isSame(end)) {
+    rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
+      status: "startRange",
+    };
+
     return rangeDays;
+  }
+
+  if (cloneStart.isAfter(end)) {
+    return {};
   }
 
   while (cloneStart.isSameOrBefore(end)) {

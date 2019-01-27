@@ -34,10 +34,14 @@ const boolAttr = (arg: boolean) => {
   return null;
 };
 
-export class Days extends React.PureComponent<IDaysProps> {
+export class Days extends React.Component<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     theme: defaultTheme,
   };
+  public shouldComponentUpdate(nextProps: Readonly<IDaysProps>): boolean {
+    return nextProps !== this.props;
+  }
+
   public render(): React.ReactNode {
     const { days, theme, rangeDays, daysEvent } = this.props;
     if (!days.length) {
