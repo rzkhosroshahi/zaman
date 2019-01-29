@@ -5,6 +5,7 @@ import { defaultTheme } from "./theme";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
+import { fa } from "./utils/utils";
 
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
@@ -71,7 +72,7 @@ export class Days extends React.Component<IDaysProps> {
                       theme={theme}
                       {...boolAttr(day.disable)}
                     >
-                      {day.day}
+                      {fa(day.day)}
                     </Day>
                   ))}
                 </tr>
