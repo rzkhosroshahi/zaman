@@ -31,6 +31,9 @@ export interface IDaysProps {
   rangeStatus: string;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
+  monthName: string;
+  increaseMonth: () => void;
+  decreaseMonth: () => void;
 }
 
 const boolAttr = (arg: boolean) => {
@@ -45,6 +48,7 @@ const boolAttr = (arg: boolean) => {
 export class Days extends React.Component<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     theme: defaultTheme,
+    monthName: "",
   };
   public shouldComponentUpdate(nextProps: Readonly<IDaysProps>): boolean {
     return nextProps !== this.props;
@@ -59,6 +63,9 @@ export class Days extends React.Component<IDaysProps> {
       rangeStatus,
       ArrowLeft,
       ArrowRight,
+      monthName,
+      increaseMonth,
+      decreaseMonth,
     } = this.props;
     if (!days.length) {
       return null;
@@ -69,8 +76,9 @@ export class Days extends React.Component<IDaysProps> {
         <DaysBody>
           <DaysHead data-testid="days-head">
             <HeadTitle data-testid="days-head-title">
-              <ArrowRight />
-              <ArrowLeft />
+              <ArrowRight onClick={increaseMonth} />
+              <p data-testid="days-head-title-text">{monthName}</p>
+              <ArrowLeft onClick={decreaseMonth} />
             </HeadTitle>
             <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
           </DaysHead>

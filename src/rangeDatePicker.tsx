@@ -111,6 +111,13 @@ export class RangeDatePicker extends React.Component<
       };
     });
   };
+  public decreaseMonth = () => {
+    this.setState(prevState => {
+      return {
+        startDate: prevState.startDate.clone().add(-1, "month"),
+      };
+    });
+  };
   public toggleModalOpen = () => {
     this.setState(prevState => {
       return {
@@ -211,6 +218,9 @@ export class RangeDatePicker extends React.Component<
             daysEvent={this.daysEventListeners}
             ArrowRight={ArrowRight}
             ArrowLeft={ArrowLeft}
+            monthName={this.state.monthName}
+            increaseMonth={this.increaseMonth}
+            decreaseMonth={this.decreaseMonth}
           />
         </Modal>
       </RangeDateDiv>
