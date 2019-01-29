@@ -1,4 +1,4 @@
-import { rangeHelper } from "../rangeHelper";
+import { makeRangeStatus, rangeHelper } from "../rangeHelper";
 import * as moment from "jalali-moment";
 import { cleanup } from "react-testing-library";
 
@@ -36,5 +36,24 @@ describe("rangeHelper test ", () => {
       end: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
     };
     expect(rangeHelper(range)).toEqual({});
+  });
+});
+
+describe("rangeHelper status", () => {
+  test("status ", () => {
+    const range = {
+      start: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
+      end: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
+    };
+
+    expect(makeRangeStatus(range.start, range.end)).toBe("4 تا 8 دی ماه");
+  });
+
+  test("when end range before start ", () => {
+    const range = {
+      start: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
+      end: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
+    };
+    expect(makeRangeStatus(range.start, range.end)).toEqual("8 دی ماه");
   });
 });
