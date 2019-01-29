@@ -29,6 +29,8 @@ export interface IDaysProps {
   rangeDays: IRangeDays;
   daysEvent: any;
   rangeStatus: string;
+  ArrowLeft: React.ReactType;
+  ArrowRight: React.ReactType;
 }
 
 const boolAttr = (arg: boolean) => {
@@ -49,7 +51,15 @@ export class Days extends React.Component<IDaysProps> {
   }
 
   public render(): React.ReactNode {
-    const { days, theme, rangeDays, daysEvent, rangeStatus } = this.props;
+    const {
+      days,
+      theme,
+      rangeDays,
+      daysEvent,
+      rangeStatus,
+      ArrowLeft,
+      ArrowRight,
+    } = this.props;
     if (!days.length) {
       return null;
     }
@@ -58,7 +68,10 @@ export class Days extends React.Component<IDaysProps> {
       <ThemeProvider theme={theme}>
         <DaysBody>
           <DaysHead data-testid="days-head">
-            <HeadTitle data-testid="days-head-title" />
+            <HeadTitle data-testid="days-head-title">
+              <ArrowRight />
+              <ArrowLeft />
+            </HeadTitle>
             <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
           </DaysHead>
           <table>

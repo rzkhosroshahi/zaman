@@ -12,11 +12,14 @@ import {
 } from "./utils/rangeHelper";
 import { Modal } from "./modal";
 import { Days } from "./days";
+import * as Arrows from "./arrows";
 
 export interface IRangeDatePickerProps {
   start: string;
   end: string;
   modalZIndex?: number;
+  ArrowLeft: React.ReactType;
+  ArrowRight: React.ReactType;
 }
 
 export interface IRangeDatePickerState {
@@ -42,6 +45,8 @@ export class RangeDatePicker extends React.Component<
     start: moment().format("jYYYY/jMM/jDD"),
     end: moment().format("jYYYY/jMM/jDD"),
     modalZIndex: 9999,
+    ArrowLeft: Arrows.ArrowLeftCMP,
+    ArrowRight: Arrows.ArrowRightCMP,
   };
 
   constructor(props) {
@@ -158,7 +163,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   public render(): React.ReactNode {
-    const { modalZIndex } = this.props;
+    const { modalZIndex, ArrowRight, ArrowLeft } = this.props;
     return (
       <RangeDateDiv>
         <MaskedInput
@@ -204,6 +209,8 @@ export class RangeDatePicker extends React.Component<
             rangeDays={this.state.rangeDays}
             rangeStatus={this.state.rangeStatus}
             daysEvent={this.daysEventListeners}
+            ArrowRight={ArrowRight}
+            ArrowLeft={ArrowLeft}
           />
         </Modal>
       </RangeDateDiv>
