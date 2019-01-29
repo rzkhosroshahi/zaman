@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "jalali-moment": "^3.2.3",
-    "lodash.chunk": "^4.2.0",
     "moment-jalaali": "^0.8.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
