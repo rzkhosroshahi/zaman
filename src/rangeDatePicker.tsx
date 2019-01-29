@@ -12,6 +12,7 @@ import { Days } from "./days";
 export interface IRangeDatePickerProps {
   start: string;
   end: string;
+  modalZIndex?: number;
 }
 
 export interface IRangeDatePickerState {
@@ -35,6 +36,7 @@ export class RangeDatePicker extends React.Component<
   public static defaultProps: Partial<IRangeDatePickerProps> = {
     start: moment().format("jYYYY/jMM/jDD"),
     end: moment().format("jYYYY/jMM/jDD"),
+    modalZIndex: 9999,
   };
 
   constructor(props) {
@@ -145,6 +147,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   public render(): React.ReactNode {
+    const { modalZIndex } = this.props;
     return (
       <RangeDateDiv>
         <MaskedInput
@@ -183,6 +186,7 @@ export class RangeDatePicker extends React.Component<
         <Modal
           isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
+          modalZIndex={modalZIndex}
         >
           <Days
             days={this.state.days}

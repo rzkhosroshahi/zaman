@@ -7,6 +7,9 @@ import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils/utils";
 
+const DaysBody = styled.div`
+  max-width: 320px;
+`;
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
 `;
@@ -52,7 +55,7 @@ export class Days extends React.Component<IDaysProps> {
     const weeks = chunk(days, 7);
     return (
       <ThemeProvider theme={theme}>
-        <React.Fragment>
+        <DaysBody>
           <DaysHead data-testid="days-head">
             <HeadTitle data-testid="days-head-title" />
             <HeadRange data-testid="days-head-range" />
@@ -79,7 +82,7 @@ export class Days extends React.Component<IDaysProps> {
               ))}
             </tbody>
           </table>
-        </React.Fragment>
+        </DaysBody>
       </ThemeProvider>
     );
   }

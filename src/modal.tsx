@@ -1,16 +1,38 @@
 import * as React from "react";
+import styled from "styled-components";
 
 export interface IModalProps {
   isOpen?: boolean;
-  modalZindex?: number;
+  modalZIndex?: number;
   children: React.ReactNode;
   toggleOpen: () => void;
 }
 
+const ModalDiv = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: ${props => props.modalZIndex};
+
+  .rdp__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: ${props => props.modalZIndex * -1};
+    background-color: rgba(86, 86, 86, 0.4);
+  }
+`;
+
 export class Modal extends React.PureComponent<IModalProps, {}> {
   public static defaultProps: Partial<IModalProps> = {
     isOpen: false,
-    modalZindex: 99999,
   };
   public render(): React.ReactNode {
     const { isOpen, toggleOpen } = this.props;
@@ -19,10 +41,14 @@ export class Modal extends React.PureComponent<IModalProps, {}> {
       return null;
     }
     return (
-      <div className="modal">
+      <ModalDiv className="rdp__modal" modalZIndex={this.props.modalZIndex}>
         {children}
-        <div data-testid="overlay" className="overlay" onClick={toggleOpen} />
-      </div>
+        <div
+          data-testid="overlay"
+          className="rdp__overlay"
+          onClick={toggleOpen}
+        />
+      </ModalDiv>
     );
   }
 }
