@@ -42,7 +42,6 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
 
 export const makeRangeStatus = (start: Moment, end: Moment) => {
   const cloneStart = start.clone();
-
   const month = cloneStart.locale("fa").format("jMMMM");
   const startDay = start.format("jDD");
   const endDay = end.format("jDD");

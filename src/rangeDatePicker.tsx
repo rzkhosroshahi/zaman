@@ -5,7 +5,11 @@ import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
 import { daysInMonth, IDays } from "./utils";
-import { IRangeHelper, rangeHelper } from "./utils/rangeHelper";
+import {
+  IRangeHelper,
+  rangeHelper,
+  makeRangeStatus,
+} from "./utils/rangeHelper";
 import { Modal } from "./modal";
 import { Days } from "./days";
 
@@ -23,6 +27,7 @@ export interface IRangeDatePickerState {
   rangeDays?: IRangeHelper;
   isOpenModal: boolean;
   isSelecting: boolean;
+  rangeStatus: string;
 }
 
 const RangeDateDiv = styled.div`
@@ -48,6 +53,7 @@ export class RangeDatePicker extends React.Component<
       days: [],
       isOpenModal: false,
       isSelecting: false,
+      rangeStatus: "",
     };
   }
 
@@ -55,11 +61,13 @@ export class RangeDatePicker extends React.Component<
     const { monthName, days } = daysInMonth(this.state.startDate);
     const { startDate: start, endDate: end } = this.state;
     const rangeDays = rangeHelper({ start, end });
+    const rangeStatus = makeRangeStatus(start, end);
     this.setState(prevState => {
       return {
         days: [...prevState.days, ...days],
         monthName,
         rangeDays,
+        rangeStatus,
       };
     });
   }
@@ -76,6 +84,8 @@ export class RangeDatePicker extends React.Component<
       const { monthName, days } = daysInMonth(this.state.startDate);
       const { startDate: start, endDate: end } = this.state;
       const rangeDays = rangeHelper({ start, end });
+      const rangeStatus = makeRangeStatus(start, end);
+
       this.setState(prevDaysState => {
         return {
           days: [
@@ -84,6 +94,7 @@ export class RangeDatePicker extends React.Component<
           ],
           monthName,
           rangeDays,
+          rangeStatus,
         };
       });
     }
@@ -191,6 +202,7 @@ export class RangeDatePicker extends React.Component<
           <Days
             days={this.state.days}
             rangeDays={this.state.rangeDays}
+            rangeStatus={this.state.rangeStatus}
             daysEvent={this.daysEventListeners}
           />
         </Modal>

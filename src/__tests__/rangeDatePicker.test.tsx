@@ -88,3 +88,14 @@ describe("RangeDatePicker days test", () => {
     );
   });
 });
+
+test("range status ", () => {
+  const { getByTestId } = render(
+    <RangeDatePicker start="1397/10/10" end="1397/10/20" />,
+  );
+  const inputStart = getByTestId("input-start");
+  fireEvent.click(inputStart);
+  const daysHeadRange = getByTestId("days-head-range");
+
+  expect(daysHeadRange.textContent).toBe("10 تا 20 دی ماه");
+});
