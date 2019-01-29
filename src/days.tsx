@@ -4,6 +4,7 @@ import { IDays } from "./utils";
 import { defaultTheme } from "./theme";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
+import { chunk } from "./utils/chunk";
 
 const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
@@ -47,6 +48,7 @@ export class Days extends React.Component<IDaysProps> {
     if (!days.length) {
       return null;
     }
+    const weeks = chunk(days, 7);
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
@@ -57,21 +59,23 @@ export class Days extends React.Component<IDaysProps> {
           <table>
             <thead />
             <tbody>
-              <tr data-testid="days">
-                {days.map((day: IDays, id) => (
-                  <Day
-                    key={`rdp-days-${id}`}
-                    data-testid={`day-${id + 1}`}
-                    data-fadate={`${day.faDate}`}
-                    startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
-                    daysEvent={daysEvent}
-                    theme={theme}
-                    {...boolAttr(day.disable)}
-                  >
-                    {day.day}
-                  </Day>
-                ))}
-              </tr>
+              {weeks.map((week, idx) => (
+                <tr data-testid="days" key={`rdp-weeks-${idx}`}>
+                  {week.map((day: IDays, id) => (
+                    <Day
+                      key={`rdp-days-${id}`}
+                      data-testid={`day-${idx * 7 + id + 1}`}
+                      data-fadate={`${day.faDate}`}
+                      startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
+                      daysEvent={daysEvent}
+                      theme={theme}
+                      {...boolAttr(day.disable)}
+                    >
+                      {day.day}
+                    </Day>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </React.Fragment>

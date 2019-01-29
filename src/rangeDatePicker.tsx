@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
+import styled, { ThemeProvider } from "styled-components";
 import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
@@ -22,6 +23,10 @@ export interface IRangeDatePickerState {
   isOpenModal: boolean;
   isSelecting: boolean;
 }
+
+const RangeDateDiv = styled.div`
+  direction: rtl;
+`;
 
 export class RangeDatePicker extends React.Component<
   IRangeDatePickerProps,
@@ -141,7 +146,7 @@ export class RangeDatePicker extends React.Component<
 
   public render(): React.ReactNode {
     return (
-      <div>
+      <RangeDateDiv>
         <MaskedInput
           className="rdp__input--start"
           data-testid="input-start"
@@ -185,7 +190,7 @@ export class RangeDatePicker extends React.Component<
             daysEvent={this.daysEventListeners}
           />
         </Modal>
-      </div>
+      </RangeDateDiv>
     );
   }
 }
