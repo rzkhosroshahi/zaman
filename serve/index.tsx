@@ -1,5 +1,5 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { RangeDatePicker } from "../dist/index";
+import { RangeDatePicker } from "../src";
 
 render(<RangeDatePicker />, document.getElementById("root"));
