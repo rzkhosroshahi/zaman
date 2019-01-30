@@ -1,31 +1,56 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { IDays } from "./utils";
-import { defaultTheme } from "./theme";
+import { ITheme } from "./theme";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils/utils";
 
 const DaysBody = styled.div`
-  max-width: 320px;
+  width: 320px;
+  height: 80%;
+  max-height: 573px;
+  background-color: ${props => props.theme.backColor};
+  border-radius: ${8 / 16}rem;
+  overflow: hidden;
+  & * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 `;
 const DaysHead = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: ${24 / 16}rem;
   background-color: ${props => props.theme.headBackColor};
 `;
 
 const HeadTitle = styled.h4`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 ${8 / 16}rem;
   color: ${props => props.theme.headTitleColor};
+  font-size: 1.618rem;
+  text-align: center;
 `;
 
 const HeadRange = styled.h3`
+  margin-top: ${24 / 16}rem;
+  font-size: 1.618rem;
+  border-radius: ${20 / 16}rem;
+  padding: 0 ${4 / 16}rem;
   background-color: ${props => props.theme.headRangeBackColor};
   color: ${props => props.theme.headRangeColor};
 `;
 
 export interface IDaysProps {
   days: IDays[];
-  theme?: any;
+  theme?: ITheme;
   rangeDays: IRangeDays;
   daysEvent: any;
   rangeStatus: string;
@@ -47,13 +72,11 @@ const boolAttr = (arg: boolean) => {
 
 export class Days extends React.Component<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
-    theme: defaultTheme,
     monthName: "",
   };
   public shouldComponentUpdate(nextProps: Readonly<IDaysProps>): boolean {
     return nextProps !== this.props;
   }
-
   public render(): React.ReactNode {
     const {
       days,

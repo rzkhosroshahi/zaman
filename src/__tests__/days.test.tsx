@@ -39,6 +39,7 @@ describe("day test ", () => {
     const { container } = render(
       <Days
         days={[]}
+        theme={theme}
         daysEvent={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
@@ -51,6 +52,7 @@ describe("day test ", () => {
     const { getByTestId } = render(
       <Days
         days={mockDays}
+        theme={theme}
         daysEvent={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
@@ -67,6 +69,7 @@ describe("day withRangeDays test ", () => {
   const { getByTestId } = render(
     <Days
       days={mockDays}
+      theme={theme}
       rangeDays={rangeHelperMock}
       daysEvent={mockDaysEvent}
       ArrowLeft={Arrow}

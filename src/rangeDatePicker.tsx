@@ -13,6 +13,7 @@ import {
 import { Modal } from "./modal";
 import { Days } from "./days";
 import * as Arrows from "./arrows";
+import { defaultTheme, ITheme } from "./theme";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -20,6 +21,7 @@ export interface IRangeDatePickerProps {
   modalZIndex?: number;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
+  theme?: ITheme;
 }
 
 export interface IRangeDatePickerState {
@@ -47,6 +49,7 @@ export class RangeDatePicker extends React.Component<
     modalZIndex: 9999,
     ArrowLeft: Arrows.ArrowLeftCMP,
     ArrowRight: Arrows.ArrowRightCMP,
+    theme: defaultTheme,
   };
 
   constructor(props) {
@@ -170,7 +173,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   public render(): React.ReactNode {
-    const { modalZIndex, ArrowRight, ArrowLeft } = this.props;
+    const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
     return (
       <RangeDateDiv>
         <MaskedInput
@@ -207,7 +210,7 @@ export class RangeDatePicker extends React.Component<
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
         <Modal
-          isOpen={this.state.isOpenModal}
+          isOpen={true}
           toggleOpen={this.toggleModalOpen}
           modalZIndex={modalZIndex}
         >
@@ -221,6 +224,7 @@ export class RangeDatePicker extends React.Component<
             monthName={this.state.monthName}
             increaseMonth={this.increaseMonth}
             decreaseMonth={this.decreaseMonth}
+            theme={theme}
           />
         </Modal>
       </RangeDateDiv>

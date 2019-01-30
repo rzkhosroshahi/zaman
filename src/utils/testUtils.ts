@@ -4,6 +4,7 @@ const days = `[{"day":"01","utc":"Fri, 21 Dec 2018 20:30:00 GMT","faDate":"1397/
 export const mockDays = JSON.parse(days);
 
 export const theme: ITheme = {
+  backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
   headTitleColor: "#000",

@@ -1,4 +1,5 @@
 export interface ITheme {
+  backColor: string;
   headBackColor: string;
   headTitleColor: string;
   headArrowColor: string;
@@ -16,6 +17,7 @@ export interface ITheme {
 }
 
 export const defaultTheme: ITheme = {
+  backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
   headTitleColor: "#000",
