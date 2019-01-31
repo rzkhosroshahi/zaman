@@ -77,6 +77,7 @@ export interface IDaysProps {
   monthName: string;
   increaseMonth: () => void;
   decreaseMonth: () => void;
+  isSelecting: boolean;
 }
 
 const boolAttr = (arg: boolean) => {
@@ -107,6 +108,7 @@ export class Days extends React.Component<IDaysProps> {
       monthName,
       increaseMonth,
       decreaseMonth,
+      isSelecting,
     } = this.props;
     if (!days.length) {
       return null;
@@ -117,9 +119,9 @@ export class Days extends React.Component<IDaysProps> {
         <DaysBody>
           <DaysHead data-testid="days-head">
             <HeadTitle data-testid="days-head-title">
-              <ArrowRight onClick={increaseMonth} />
+              <ArrowRight onClick={decreaseMonth} />
               <p data-testid="days-head-title-text">{monthName}</p>
-              <ArrowLeft onClick={decreaseMonth} />
+              <ArrowLeft onClick={increaseMonth} />
             </HeadTitle>
             <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
           </DaysHead>
@@ -145,9 +147,10 @@ export class Days extends React.Component<IDaysProps> {
                       startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
                       daysEvent={daysEvent}
                       theme={theme}
+                      isSelecting={isSelecting}
                       {...boolAttr(day.disable)}
                     >
-                      {fa(day.day)}
+                      {!day.disable ? fa(day.day) : null}
                     </Day>
                   ))}
                 </tr>

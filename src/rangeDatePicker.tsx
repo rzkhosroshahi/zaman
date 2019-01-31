@@ -33,6 +33,7 @@ export interface IRangeDatePickerState {
   isOpenModal: boolean;
   isSelecting: boolean;
   rangeStatus: string;
+  cloneDays: Moment;
 }
 
 const RangeDateDiv = styled.div`
@@ -57,6 +58,7 @@ export class RangeDatePicker extends React.Component<
     this.state = {
       startDate: formatJalaliDate(props.start),
       endDate: formatJalaliDate(props.end),
+      cloneDays: formatJalaliDate(props.start),
       monthName: "",
       days: [],
       isOpenModal: false,
@@ -66,7 +68,7 @@ export class RangeDatePicker extends React.Component<
   }
 
   public componentDidMount(): void {
-    const { monthName, days } = daysInMonth(this.state.startDate);
+    const { monthName, days } = daysInMonth(this.state.cloneDays);
     const { startDate: start, endDate: end } = this.state;
     const rangeDays = rangeHelper({ start, end });
     const rangeStatus = makeRangeStatus(start, end);
@@ -89,11 +91,17 @@ export class RangeDatePicker extends React.Component<
       !prevState.startDate.isSame(this.state.startDate) ||
       !prevState.endDate.isSame(this.state.endDate)
     ) {
-      const { monthName, days } = daysInMonth(this.state.startDate);
       const { startDate: start, endDate: end } = this.state;
       const rangeDays = rangeHelper({ start, end });
       const rangeStatus = makeRangeStatus(start, end);
 
+      this.setState({
+        rangeDays,
+        rangeStatus,
+      });
+    }
+    if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
+      const { monthName, days } = daysInMonth(this.state.cloneDays);
       this.setState(prevDaysState => {
         return {
           days: [
@@ -101,8 +109,6 @@ export class RangeDatePicker extends React.Component<
             ...days,
           ],
           monthName,
-          rangeDays,
-          rangeStatus,
         };
       });
     }
@@ -110,14 +116,14 @@ export class RangeDatePicker extends React.Component<
   public increaseMonth = () => {
     this.setState(prevState => {
       return {
-        startDate: prevState.startDate.clone().add(1, "month"),
+        cloneDays: prevState.cloneDays.clone().add(1, "month"),
       };
     });
   };
   public decreaseMonth = () => {
     this.setState(prevState => {
       return {
-        startDate: prevState.startDate.clone().add(-1, "month"),
+        cloneDays: prevState.cloneDays.clone().add(-1, "month"),
       };
     });
   };
@@ -225,6 +231,7 @@ export class RangeDatePicker extends React.Component<
             increaseMonth={this.increaseMonth}
             decreaseMonth={this.decreaseMonth}
             theme={theme}
+            isSelecting={this.state.isSelecting}
           />
         </Modal>
       </RangeDateDiv>

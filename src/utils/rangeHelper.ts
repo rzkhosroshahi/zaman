@@ -20,7 +20,7 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
 
   if (cloneStart.isSame(end)) {
     rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
-      status: "startRange",
+      status: "sameRange",
     };
 
     return rangeDays;
@@ -42,13 +42,18 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
 
 export const makeRangeStatus = (start: Moment, end: Moment) => {
   const cloneStart = start.clone();
-  const month = cloneStart.locale("fa").format("jMMMM");
+  const cloneEnd = end.clone();
+  const startMonth = cloneStart.locale("fa").format("jMMMM");
+  const endMonth = cloneEnd.locale("fa").format("jMMMM");
   const startDay = start.format("jDD");
   const endDay = end.format("jDD");
 
   if (cloneStart.isAfter(end)) {
-    return `${fa(startDay)} ${month} ماه`;
+    return `${fa(startDay)} ${startMonth} ماه`;
   }
 
-  return `${fa(startDay)} تا ${fa(endDay)} ${month} ماه`;
+  if (startMonth !== endMonth) {
+    return `${fa(startDay)} ${startMonth} تا ${fa(endDay)} ${endMonth}`;
+  }
+  return `${fa(startDay)} تا ${fa(endDay)} ${startMonth} ماه`;
 };
