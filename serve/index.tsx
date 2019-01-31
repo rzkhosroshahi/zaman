@@ -22,14 +22,14 @@ const theme = {
   holidaysBackColor: "#00213E",
 
   // start end
-  startEndRangeColor: "#000",
   startRangeBackColor: "#04F5FF",
+  startRangeColor: "#000",
   endRangeBackColor: "#04F5FF",
+  endRangeColor: "#000",
   continueRangeBackColor: "#014B64",
   continueRangeColor: "#fff",
+  sameRangeBackColor: "#ACACAC",
+  sameRangeColor: "#000",
 };
 
-render(
-  <RangeDatePicker theme={theme} start="1397/10/10" end="1397/10/20" />,
-  document.getElementById("root"),
-);
+render(<RangeDatePicker theme={theme} />, document.getElementById("root"));
