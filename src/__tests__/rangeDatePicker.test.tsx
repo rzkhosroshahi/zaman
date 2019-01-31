@@ -108,7 +108,7 @@ describe("arrows component test ", () => {
     const inputStart = getByTestId("input-start");
     fireEvent.click(inputStart);
 
-    const arrowRight = getByTestId("arrow-right");
+    const arrowRight = getByTestId("arrow-left");
     fireEvent.click(arrowRight);
     const headTitleText = getByTestId("days-head-title-text");
 
@@ -122,7 +122,7 @@ describe("arrows component test ", () => {
     const inputStart = getByTestId("input-start");
     fireEvent.click(inputStart);
 
-    const arrowRight = getByTestId("arrow-left");
+    const arrowRight = getByTestId("arrow-right");
     fireEvent.click(arrowRight);
     const headTitleText = getByTestId("days-head-title-text");
 

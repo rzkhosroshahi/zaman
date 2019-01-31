@@ -111,6 +111,7 @@ export class RangeDatePicker extends React.Component<
     this.setState(prevState => {
       return {
         startDate: prevState.startDate.clone().add(1, "month"),
+        endDate: prevState.startDate.clone().add(1, "month"),
       };
     });
   };
@@ -118,6 +119,7 @@ export class RangeDatePicker extends React.Component<
     this.setState(prevState => {
       return {
         startDate: prevState.startDate.clone().add(-1, "month"),
+        endDate: prevState.startDate.clone().add(-1, "month"),
       };
     });
   };
@@ -225,6 +227,7 @@ export class RangeDatePicker extends React.Component<
             increaseMonth={this.increaseMonth}
             decreaseMonth={this.decreaseMonth}
             theme={theme}
+            isSelecting={this.state.isSelecting}
           />
         </Modal>
       </RangeDateDiv>

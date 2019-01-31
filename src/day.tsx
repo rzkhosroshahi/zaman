@@ -20,9 +20,14 @@ const HolidayDay = styled(NormalDay)`
 `;
 
 const StartEndRangeDay = styled(NormalDay)`
-  color: ${props => props.theme[`${props.startEndRange.status}Color`]};
+  color: ${props =>
+    props.isSelecting && props.startEndRange.status === "endRange"
+      ? props.theme.continueRangeColor
+      : props.theme[`${props.startEndRange.status}Color`]};
   background-color: ${props =>
-    props.theme[`${props.startEndRange.status}BackColor`]};
+    props.isSelecting && props.startEndRange.status === "endRange"
+      ? props.theme.continueRangeBackColor
+      : props.theme[`${props.startEndRange.status}BackColor`]};
   border-radius: ${props =>
     props.startEndRange.status === "continueRange" ? 0 : "50%"};
   z-index: ${props => props.startEndRange.status === "continueRange" && 100};
@@ -61,10 +66,11 @@ export interface IDayProps {
   holiday?: boolean;
   daysEvent?: () => void;
   theme: ITheme;
+  isSelecting: boolean;
 }
 
 export const Day: React.SFC<IDayProps> = props => {
-  const { startEndRange, holiday, daysEvent } = props;
+  const { startEndRange, holiday, daysEvent, isSelecting } = props;
   if (startEndRange && Object.keys(startEndRange).length) {
     return <StartEndRangeDay {...props} {...daysEvent()} />;
   } else if (holiday) {
