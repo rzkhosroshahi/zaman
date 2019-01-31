@@ -2,7 +2,7 @@
   "name": "react-jalali-datepicker",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.tsx",
+  "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
