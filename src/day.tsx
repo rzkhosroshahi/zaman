@@ -4,8 +4,13 @@ import { ITheme } from "./theme";
 import { IRangeDays } from "./types";
 
 const NormalDay = styled.td`
+  height: 45px;
+  width: 45px;
+  text-align: center;
   color: ${props => props.theme.daysColor};
   background-color: ${props => props.theme.daysBackColor};
+  position: relative;
+  transform-style: preserve-3d;
 `;
 
 const HolidayDay = styled(NormalDay)`
@@ -14,9 +19,43 @@ const HolidayDay = styled(NormalDay)`
 `;
 
 const StartEndRangeDay = styled(NormalDay)`
-  color: ${props => props.theme.startEndRangeColor};
+  color: ${props =>
+    props.startEndRange.status === "continueRange"
+      ? props.theme.continueRangeColor
+      : props.theme.startEndRangeColor};
+  border-radius: ${props =>
+    props.startEndRange.status === "continueRange" ? 0 : "50%"};
   background-color: ${props =>
     props.theme[`${props.startEndRange.status}BackColor`]};
+  z-index: ${props => props.startEndRange.status === "continueRange" && 100};
+  ${props =>
+    props.startEndRange.status === "startRange" &&
+    `
+			&:after {
+				content: "";
+				display: block;
+				width: 25px;
+				height: 45px;
+				position: absolute;
+				top: 45px;
+				background-color: ${props.theme.continueRangeBackColor}
+				transform: translate3d(-25px, -45px, -1px);
+			}
+		`};
+  ${props =>
+    props.startEndRange.status === "endRange" &&
+    `
+			&:after {
+				content: "";
+				display: block;
+				width: 25px;
+				height: 45px;
+				position: absolute;
+				top: 45px;
+				background-color: ${props.theme.continueRangeBackColor}
+				transform: translate3d(0px, -45px, -1px);
+			}
+		`};
 `;
 
 export interface IDayProps {

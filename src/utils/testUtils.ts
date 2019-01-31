@@ -26,6 +26,7 @@ export const theme: ITheme = {
   startRangeBackColor: "#D6D6D6",
   endRangeBackColor: "#D6D6D6",
   continueRangeBackColor: "#f3f3f3",
+  continueRangeColor: "#000",
 };
 
 export const rangeHelperMock = {

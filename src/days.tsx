@@ -6,11 +6,10 @@ import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils/utils";
+import { weekDayNames } from "./utils/weeks";
 
 const DaysBody = styled.div`
   width: 320px;
-  height: 80%;
-  max-height: 573px;
   background-color: ${props => props.theme.backColor};
   border-radius: ${8 / 16}rem;
   overflow: hidden;
@@ -18,13 +17,15 @@ const DaysBody = styled.div`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    user-select: none;
   }
 `;
+
 const DaysHead = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: ${24 / 16}rem;
+  padding-top: ${24 / 16}rem;
   background-color: ${props => props.theme.headBackColor};
 `;
 
@@ -37,15 +38,32 @@ const HeadTitle = styled.h4`
   color: ${props => props.theme.headTitleColor};
   font-size: 1.618rem;
   text-align: center;
+
+  svg {
+    fill: ${props => props.theme.headTitleColor};
+  }
 `;
 
 const HeadRange = styled.h3`
   margin-top: ${24 / 16}rem;
+  margin-bottom: 1rem;
   font-size: 1.618rem;
   border-radius: ${20 / 16}rem;
-  padding: 0 ${4 / 16}rem;
+  padding: 0 ${8 / 16}rem;
   background-color: ${props => props.theme.headRangeBackColor};
   color: ${props => props.theme.headRangeColor};
+`;
+
+const Table = styled.table`
+  width: 100%;
+  font-size: 1rem;
+  border-collapse: separate;
+  border-spacing: 0 1em;
+
+  th {
+    font-size: 1rem;
+    color: ${props => props.theme.weekDaysColor};
+  }
 `;
 
 export interface IDaysProps {
@@ -105,8 +123,17 @@ export class Days extends React.Component<IDaysProps> {
             </HeadTitle>
             <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
           </DaysHead>
-          <table>
-            <thead />
+          <Table>
+            <thead>
+              <tr>
+                {weekDayNames
+                  .slice(0)
+                  .reverse()
+                  .map((name, idx) => (
+                    <th key={`weekDayName-${idx}`}>{name}</th>
+                  ))}
+              </tr>
+            </thead>
             <tbody>
               {weeks.map((week, idx) => (
                 <tr data-testid="days" key={`rdp-weeks-${idx}`}>
@@ -126,7 +153,7 @@ export class Days extends React.Component<IDaysProps> {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </DaysBody>
       </ThemeProvider>
     );
