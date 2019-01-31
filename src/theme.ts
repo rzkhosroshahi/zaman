@@ -10,11 +10,14 @@ export interface ITheme {
   daysBackColor: string;
   holidaysColor: string;
   holidaysBackColor: string;
-  startEndRangeColor: string;
   startRangeBackColor: string;
   endRangeBackColor: string;
   continueRangeBackColor: string;
   continueRangeColor: string;
+  startRangeColor: string;
+  endRangeColor: string;
+  sameRangeBackColor: string;
+  sameRangeColor: string;
 }
 
 export const defaultTheme: ITheme = {
@@ -36,9 +39,12 @@ export const defaultTheme: ITheme = {
   holidaysBackColor: "#FFFFFF",
 
   // start end
-  startEndRangeColor: "#000",
   startRangeBackColor: "#D6D6D6",
+  startRangeColor: "#000",
   endRangeBackColor: "#D6D6D6",
+  endRangeColor: "#000",
   continueRangeBackColor: "#f3f3f3",
   continueRangeColor: "#000",
+  sameRangeBackColor: "#D6D6D6",
+  sameRangeColor: "#000",
 };

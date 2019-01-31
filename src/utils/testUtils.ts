@@ -22,11 +22,14 @@ export const theme: ITheme = {
   holidaysBackColor: "#FFFFFF",
 
   // start end
-  startEndRangeColor: "#000",
+  startRangeColor: "#000",
   startRangeBackColor: "#D6D6D6",
   endRangeBackColor: "#D6D6D6",
+  endRangeColor: "#000",
   continueRangeBackColor: "#f3f3f3",
   continueRangeColor: "#000",
+  sameRangeBackColor: "#F50057",
+  sameRangeColor: "#000",
 };
 
 export const rangeHelperMock = {

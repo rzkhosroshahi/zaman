@@ -9,6 +9,7 @@ const NormalDay = styled.td`
   text-align: center;
   color: ${props => props.theme.daysColor};
   background-color: ${props => props.theme.daysBackColor};
+  cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
 `;
@@ -19,14 +20,11 @@ const HolidayDay = styled(NormalDay)`
 `;
 
 const StartEndRangeDay = styled(NormalDay)`
-  color: ${props =>
-    props.startEndRange.status === "continueRange"
-      ? props.theme.continueRangeColor
-      : props.theme.startEndRangeColor};
-  border-radius: ${props =>
-    props.startEndRange.status === "continueRange" ? 0 : "50%"};
+  color: ${props => props.theme[`${props.startEndRange.status}Color`]};
   background-color: ${props =>
     props.theme[`${props.startEndRange.status}BackColor`]};
+  border-radius: ${props =>
+    props.startEndRange.status === "continueRange" ? 0 : "50%"};
   z-index: ${props => props.startEndRange.status === "continueRange" && 100};
   ${props =>
     props.startEndRange.status === "startRange" &&

@@ -65,17 +65,34 @@ describe("day test ", () => {
 
 describe("day withRangeDays test ", () => {
   afterEach(cleanup);
-
-  const { getByTestId } = render(
-    <Days
-      days={mockDays}
-      theme={theme}
-      rangeDays={rangeHelperMock}
-      daysEvent={mockDaysEvent}
-      ArrowLeft={Arrow}
-      ArrowRight={Arrow}
-    />,
-  );
-  const day = getByTestId("day-4");
-  expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+  test("startRangeDay ", () => {
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={rangeHelperMock}
+        daysEvent={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+      />,
+    );
+    const day = getByTestId("day-4");
+    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+    expect(day).toHaveStyleRule("color", theme.startRangeColor);
+  });
+  test("same day ", () => {
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={{ "1397/10/02": { status: "sameRange" } }}
+        daysEvent={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+      />,
+    );
+    const day = getByTestId("day-2");
+    expect(day).toHaveStyleRule("background-color", theme.sameRangeBackColor);
+    expect(day).toHaveStyleRule("color", theme.sameRangeColor);
+  });
 });
