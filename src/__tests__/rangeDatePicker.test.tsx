@@ -87,6 +87,7 @@ describe("RangeDatePicker days test", () => {
       theme.endRangeBackColor,
     );
   });
+
   test("range status ", () => {
     const { getByTestId } = render(
       <RangeDatePicker start="1397/10/10" end="1397/10/20" />,
@@ -127,5 +128,37 @@ describe("arrows component test ", () => {
     const headTitleText = getByTestId("days-head-title-text");
 
     expect(headTitleText.textContent).toBe("آذر 1397");
+  });
+  test("in selecting state increase month ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/12" end="1397/10/16" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    // click on day
+    const day = getByTestId("day-12");
+    fireEvent.click(day);
+    // click on arrow left
+    const arrowRight = getByTestId("arrow-left");
+    fireEvent.click(arrowRight);
+    const headTitleText = getByTestId("days-head-title-text");
+    expect(headTitleText.textContent).toBe("بهمن 1397");
+    // hovering
+    const hoveredDay = getByTestId("day-10");
+    fireEvent.mouseOver(hoveredDay);
+    // clicking
+    const clickedDay = getByTestId("day-10");
+    fireEvent.click(clickedDay);
+    expect(clickedDay).toHaveStyleRule(
+      "background-color",
+      theme.endRangeBackColor,
+    );
+    expect(clickedDay).toHaveStyleRule(
+      "background-color",
+      theme.endRangeBackColor,
+    );
+
+    const daysHeadRange = getByTestId("days-head-range");
+    expect(daysHeadRange.textContent).toEqual("12 دی تا 8 بهمن");
   });
 });
