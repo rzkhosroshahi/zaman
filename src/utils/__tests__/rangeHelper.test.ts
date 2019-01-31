@@ -26,7 +26,7 @@ describe("rangeHelper test ", () => {
 
     // ToDo: change this status with currentDay or something
     expect(rangeHelper(range)).toEqual({
-      "1397/10/04": { status: "startRange" },
+      "1397/10/04": { status: "sameRange" },
     });
   });
 

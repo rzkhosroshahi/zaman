@@ -20,7 +20,7 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
 
   if (cloneStart.isSame(end)) {
     rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
-      status: "startRange",
+      status: "sameRange",
     };
 
     return rangeDays;
