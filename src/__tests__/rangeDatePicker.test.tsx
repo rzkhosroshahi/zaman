@@ -87,4 +87,45 @@ describe("RangeDatePicker days test", () => {
       theme.endRangeBackColor,
     );
   });
+  test("range status ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/10" end="1397/10/20" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    const daysHeadRange = getByTestId("days-head-range");
+
+    expect(daysHeadRange.textContent).toBe("10 تا 20 دی ماه");
+  });
+});
+
+describe("arrows component test ", () => {
+  afterEach(cleanup);
+  test("clicking on right arrow ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/10" end="1397/10/20" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+
+    const arrowRight = getByTestId("arrow-right");
+    fireEvent.click(arrowRight);
+    const headTitleText = getByTestId("days-head-title-text");
+
+    expect(headTitleText.textContent).toBe("بهمن 1397");
+  });
+
+  test("clicking on left arrow ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/10" end="1397/10/20" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+
+    const arrowRight = getByTestId("arrow-left");
+    fireEvent.click(arrowRight);
+    const headTitleText = getByTestId("days-head-title-text");
+
+    expect(headTitleText.textContent).toBe("آذر 1397");
+  });
 });

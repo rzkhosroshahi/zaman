@@ -2,7 +2,7 @@
   "name": "react-jalali-datepicker",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.tsx",
+  "main": "dist/index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "jalali-moment": "^3.2.3",
-    "lodash.chunk": "^4.2.0",
     "moment-jalaali": "^0.8.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

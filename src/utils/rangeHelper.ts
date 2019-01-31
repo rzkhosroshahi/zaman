@@ -1,5 +1,6 @@
 import { IRangeDate, IRangeDays } from "../types";
 import { Moment } from "jalali-moment";
+import { fa } from "./utils";
 
 const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   if (current.isSame(start)) {
@@ -38,3 +39,16 @@ export function rangeHelper(range: IRangeDate): IRangeHelper {
 
   return rangeDays;
 }
+
+export const makeRangeStatus = (start: Moment, end: Moment) => {
+  const cloneStart = start.clone();
+  const month = cloneStart.locale("fa").format("jMMMM");
+  const startDay = start.format("jDD");
+  const endDay = end.format("jDD");
+
+  if (cloneStart.isAfter(end)) {
+    return `${fa(startDay)} ${month} ماه`;
+  }
+
+  return `${fa(startDay)} تا ${fa(endDay)} ${month} ماه`;
+};

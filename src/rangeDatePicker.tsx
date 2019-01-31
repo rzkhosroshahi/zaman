@@ -1,16 +1,27 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
+import styled, { ThemeProvider } from "styled-components";
 import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate } from "./utils/formatDate";
 import { daysInMonth, IDays } from "./utils";
-import { IRangeHelper, rangeHelper } from "./utils/rangeHelper";
+import {
+  IRangeHelper,
+  rangeHelper,
+  makeRangeStatus,
+} from "./utils/rangeHelper";
 import { Modal } from "./modal";
 import { Days } from "./days";
+import * as Arrows from "./arrows";
+import { defaultTheme, ITheme } from "./theme";
 
 export interface IRangeDatePickerProps {
   start: string;
   end: string;
+  modalZIndex?: number;
+  ArrowLeft: React.ReactType;
+  ArrowRight: React.ReactType;
+  theme?: ITheme;
 }
 
 export interface IRangeDatePickerState {
@@ -21,7 +32,12 @@ export interface IRangeDatePickerState {
   rangeDays?: IRangeHelper;
   isOpenModal: boolean;
   isSelecting: boolean;
+  rangeStatus: string;
 }
+
+const RangeDateDiv = styled.div`
+  direction: rtl;
+`;
 
 export class RangeDatePicker extends React.Component<
   IRangeDatePickerProps,
@@ -30,6 +46,10 @@ export class RangeDatePicker extends React.Component<
   public static defaultProps: Partial<IRangeDatePickerProps> = {
     start: moment().format("jYYYY/jMM/jDD"),
     end: moment().format("jYYYY/jMM/jDD"),
+    modalZIndex: 9999,
+    ArrowLeft: Arrows.ArrowLeftCMP,
+    ArrowRight: Arrows.ArrowRightCMP,
+    theme: defaultTheme,
   };
 
   constructor(props) {
@@ -41,6 +61,7 @@ export class RangeDatePicker extends React.Component<
       days: [],
       isOpenModal: false,
       isSelecting: false,
+      rangeStatus: "",
     };
   }
 
@@ -48,11 +69,13 @@ export class RangeDatePicker extends React.Component<
     const { monthName, days } = daysInMonth(this.state.startDate);
     const { startDate: start, endDate: end } = this.state;
     const rangeDays = rangeHelper({ start, end });
+    const rangeStatus = makeRangeStatus(start, end);
     this.setState(prevState => {
       return {
         days: [...prevState.days, ...days],
         monthName,
         rangeDays,
+        rangeStatus,
       };
     });
   }
@@ -69,6 +92,8 @@ export class RangeDatePicker extends React.Component<
       const { monthName, days } = daysInMonth(this.state.startDate);
       const { startDate: start, endDate: end } = this.state;
       const rangeDays = rangeHelper({ start, end });
+      const rangeStatus = makeRangeStatus(start, end);
+
       this.setState(prevDaysState => {
         return {
           days: [
@@ -77,6 +102,7 @@ export class RangeDatePicker extends React.Component<
           ],
           monthName,
           rangeDays,
+          rangeStatus,
         };
       });
     }
@@ -85,6 +111,13 @@ export class RangeDatePicker extends React.Component<
     this.setState(prevState => {
       return {
         startDate: prevState.startDate.clone().add(1, "month"),
+      };
+    });
+  };
+  public decreaseMonth = () => {
+    this.setState(prevState => {
+      return {
+        startDate: prevState.startDate.clone().add(-1, "month"),
       };
     });
   };
@@ -140,8 +173,9 @@ export class RangeDatePicker extends React.Component<
   };
 
   public render(): React.ReactNode {
+    const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
     return (
-      <div>
+      <RangeDateDiv>
         <MaskedInput
           className="rdp__input--start"
           data-testid="input-start"
@@ -176,16 +210,24 @@ export class RangeDatePicker extends React.Component<
           mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
         />
         <Modal
-          isOpen={this.state.isOpenModal}
+          isOpen={true}
           toggleOpen={this.toggleModalOpen}
+          modalZIndex={modalZIndex}
         >
           <Days
             days={this.state.days}
             rangeDays={this.state.rangeDays}
+            rangeStatus={this.state.rangeStatus}
             daysEvent={this.daysEventListeners}
+            ArrowRight={ArrowRight}
+            ArrowLeft={ArrowLeft}
+            monthName={this.state.monthName}
+            increaseMonth={this.increaseMonth}
+            decreaseMonth={this.decreaseMonth}
+            theme={theme}
           />
         </Modal>
-      </div>
+      </RangeDateDiv>
     );
   }
 }

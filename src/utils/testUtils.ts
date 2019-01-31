@@ -4,6 +4,7 @@ const days = `[{"day":"01","utc":"Fri, 21 Dec 2018 20:30:00 GMT","faDate":"1397/
 export const mockDays = JSON.parse(days);
 
 export const theme: ITheme = {
+  backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
   headTitleColor: "#000",
@@ -25,6 +26,7 @@ export const theme: ITheme = {
   startRangeBackColor: "#D6D6D6",
   endRangeBackColor: "#D6D6D6",
   continueRangeBackColor: "#f3f3f3",
+  continueRangeColor: "#000",
 };
 
 export const rangeHelperMock = {

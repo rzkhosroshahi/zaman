@@ -1,4 +1,5 @@
 export interface ITheme {
+  backColor: string;
   headBackColor: string;
   headTitleColor: string;
   headArrowColor: string;
@@ -13,9 +14,11 @@ export interface ITheme {
   startRangeBackColor: string;
   endRangeBackColor: string;
   continueRangeBackColor: string;
+  continueRangeColor: string;
 }
 
 export const defaultTheme: ITheme = {
+  backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
   headTitleColor: "#000",
@@ -37,4 +40,5 @@ export const defaultTheme: ITheme = {
   startRangeBackColor: "#D6D6D6",
   endRangeBackColor: "#D6D6D6",
   continueRangeBackColor: "#f3f3f3",
+  continueRangeColor: "#000",
 };

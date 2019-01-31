@@ -4,12 +4,19 @@ import { Days } from "../days";
 import "jest-styled-components";
 import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
 const mockDaysEvent = jest.fn();
+const Arrow = () => <p>Arrow</p>;
 
 describe("theme test ", () => {
   afterEach(cleanup);
   test("Head test ", () => {
     const { getByTestId } = render(
-      <Days theme={theme} days={mockDays} daysEvent={mockDaysEvent} />,
+      <Days
+        theme={theme}
+        days={mockDays}
+        daysEvent={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+      />,
     );
     const daysHead = getByTestId("days-head");
     const daysHeadTitle = getByTestId("days-head-title");
@@ -29,13 +36,27 @@ describe("day test ", () => {
   afterEach(cleanup);
 
   test("when day is empty object ", () => {
-    const { container } = render(<Days days={[]} daysEvent={mockDaysEvent} />);
+    const { container } = render(
+      <Days
+        days={[]}
+        theme={theme}
+        daysEvent={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+      />,
+    );
     expect(container.textContent).toBe("");
   });
 
   test("day ", () => {
     const { getByTestId } = render(
-      <Days days={mockDays} daysEvent={mockDaysEvent} />,
+      <Days
+        days={mockDays}
+        theme={theme}
+        daysEvent={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+      />,
     );
     const container = getByTestId("days");
     expect(container.innerHTML).toMatchSnapshot();
@@ -48,8 +69,11 @@ describe("day withRangeDays test ", () => {
   const { getByTestId } = render(
     <Days
       days={mockDays}
+      theme={theme}
       rangeDays={rangeHelperMock}
       daysEvent={mockDaysEvent}
+      ArrowLeft={Arrow}
+      ArrowRight={Arrow}
     />,
   );
   const day = getByTestId("day-4");
