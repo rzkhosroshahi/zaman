@@ -191,4 +191,27 @@ describe("buttons test ", () => {
     fireEvent.click(cancelButton);
     expect((inputStart as HTMLInputElement).value).toBe("1397/10/10");
   });
+  // onClickSubmitButton
+
+  test("click on submit button", () => {
+    const onSubmitClickMock = jest.fn();
+    const { getByTestId } = render(
+      <RangeDatePicker
+        start="1397/10/10"
+        end="1397/10/15"
+        onClickSubmitButton={onSubmitClickMock}
+      />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    // submit button
+    const submitButton = getByTestId("submit-button");
+    fireEvent.click(submitButton);
+    expect(onSubmitClickMock).toHaveBeenCalledTimes(1);
+
+    function notRendering() {
+      getByTestId("overlay");
+    }
+    expect(notRendering).toThrowError();
+  });
 });

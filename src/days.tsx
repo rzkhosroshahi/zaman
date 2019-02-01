@@ -82,6 +82,7 @@ export interface IDaysProps {
   holiday?: number[];
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
+  onSubmitButton?: () => void;
 }
 
 const boolDataset = (arg: boolean) => {
@@ -113,6 +114,7 @@ export class Days extends React.PureComponent<IDaysProps> {
       isSelecting,
       isRenderingButtons,
       onCancelButton,
+      onSubmitButton,
     } = this.props;
     if (!days.length) {
       return null;
@@ -163,7 +165,9 @@ export class Days extends React.PureComponent<IDaysProps> {
           </Table>
           {isRenderingButtons && (
             <div className="rdp__buttons" data-testid="rdp__buttons">
-              <button>تایید</button>
+              <button data-testid="submit-button" onClick={onSubmitButton}>
+                تایید
+              </button>
               <button data-testid="cancel-button" onClick={onCancelButton}>
                 لغو
               </button>

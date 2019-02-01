@@ -26,6 +26,7 @@ export interface IRangeDatePickerProps {
   theme?: ITheme;
   weekend?: number[];
   isRenderingButtons?: boolean;
+  onClickSubmitButton?: (arg: any) => any;
 }
 
 export interface IRangeDatePickerState {
@@ -203,6 +204,19 @@ export class RangeDatePicker extends React.Component<
     });
   };
 
+  public submitButton = () => {
+    const { startDate: start, endDate: end } = this.state;
+    if (this.props.onClickSubmitButton) {
+      this.props.onClickSubmitButton({
+        start,
+        end,
+      });
+    }
+    this.setState({
+      isOpenModal: false,
+    });
+  };
+
   public render(): React.ReactNode {
     const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
     return (
@@ -242,6 +256,7 @@ export class RangeDatePicker extends React.Component<
             increaseMonth={() => this.changeMonth(1)}
             decreaseMonth={() => this.changeMonth(-1)}
             onCancelButton={this.cancelButton}
+            onSubmitButton={this.submitButton}
           />
         </Modal>
       </RangeDateDiv>
