@@ -78,6 +78,7 @@ export interface IDaysProps {
   increaseMonth: () => void;
   decreaseMonth: () => void;
   isSelecting: boolean;
+  holiday?: number[];
 }
 
 const boolDataset = (arg: boolean) => {
@@ -92,6 +93,7 @@ const boolDataset = (arg: boolean) => {
 export class Days extends React.PureComponent<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     monthName: "",
+    holiday: [],
   };
   public render(): React.ReactNode {
     const {
@@ -142,6 +144,9 @@ export class Days extends React.PureComponent<IDaysProps> {
                       theme={theme}
                       startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
                       isSelecting={isSelecting}
+                      holiday={this.props.holiday.filter(
+                        holiday => holiday === id,
+                      )}
                       {...boolDataset(day.disable)}
                     >
                       {!day.disable ? fa(day.day) : null}

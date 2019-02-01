@@ -63,17 +63,17 @@ const StartEndRangeDay = styled(NormalDay)`
 
 export interface IDayProps {
   startEndRange?: IRangeDays | {};
-  holiday?: boolean;
-  daysEvent?: () => void;
   theme: ITheme;
   isSelecting?: boolean;
+  daysEvent?: () => void;
+  holiday?: number[];
 }
 
 export const Day: React.SFC<IDayProps> = props => {
-  const { startEndRange, holiday, daysEvent, isSelecting } = props;
+  const { startEndRange, holiday, daysEvent } = props;
   if (startEndRange && Object.keys(startEndRange).length) {
     return <StartEndRangeDay {...props} {...daysEvent()} />;
-  } else if (holiday) {
+  } else if (holiday.length) {
     return <HolidayDay {...props} {...daysEvent()} />;
   }
   return <NormalDay {...props} {...daysEvent()} />;

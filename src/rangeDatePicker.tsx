@@ -23,6 +23,7 @@ export interface IRangeDatePickerProps {
   ArrowRight: React.ReactType;
   modalZIndex?: number;
   theme?: ITheme;
+  weekend?: number[];
 }
 
 export interface IRangeDatePickerState {
@@ -52,6 +53,7 @@ export class RangeDatePicker extends React.Component<
     ArrowLeft: Arrows.ArrowLeftCMP,
     ArrowRight: Arrows.ArrowRightCMP,
     theme: defaultTheme,
+    weekend: [6],
   };
 
   constructor(props) {
@@ -215,6 +217,7 @@ export class RangeDatePicker extends React.Component<
             rangeDays={this.state.rangeDays}
             rangeStatus={this.state.rangeStatus}
             daysEvent={this.daysEventListeners}
+            holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}
             ArrowLeft={ArrowLeft}
