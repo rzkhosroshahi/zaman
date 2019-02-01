@@ -15,6 +15,7 @@ import {
   rangeHelper,
   makeRangeStatus,
 } from "./utils/rangeHelper";
+import { IRangeDate } from "./types";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -37,6 +38,7 @@ export interface IRangeDatePickerState {
   isSelecting: boolean;
   rangeStatus: string;
   cloneDays: Moment;
+  initialRange?: IRangeDate;
 }
 
 const RangeDateDiv = styled.div`
@@ -83,6 +85,10 @@ export class RangeDatePicker extends React.Component<
         monthName,
         rangeDays,
         rangeStatus,
+        initialRange: {
+          start,
+          end,
+        },
       };
     });
   }
@@ -188,6 +194,14 @@ export class RangeDatePicker extends React.Component<
     }
     return null;
   };
+  public cancelButton = () => {
+    const { start, end } = this.state.initialRange;
+    this.setState({
+      isOpenModal: false,
+      startDate: start,
+      endDate: end,
+    });
+  };
 
   public render(): React.ReactNode {
     const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
@@ -227,6 +241,7 @@ export class RangeDatePicker extends React.Component<
             ArrowRight={ArrowRight}
             increaseMonth={() => this.changeMonth(1)}
             decreaseMonth={() => this.changeMonth(-1)}
+            onCancelButton={this.cancelButton}
           />
         </Modal>
       </RangeDateDiv>

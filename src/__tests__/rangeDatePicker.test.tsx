@@ -164,6 +164,7 @@ describe("arrows component test ", () => {
 });
 
 describe("buttons test ", () => {
+  afterEach(cleanup);
   test("buttons doesn't rendering when isRenderingButtons is false ", () => {
     const { getByTestId } = render(
       <RangeDatePicker isRenderingButtons={false} />,
@@ -174,5 +175,20 @@ describe("buttons test ", () => {
       getByTestId("rdp__buttons");
     }
     expect(notRendering).toThrowError();
+  });
+
+  test("click on cancel button", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker start="1397/10/10" end="1397/10/15" />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    // change start day
+    const daysFive = getByTestId("day-5");
+    fireEvent.click(daysFive);
+    // cancel button
+    const cancelButton = getByTestId("cancel-button");
+    fireEvent.click(cancelButton);
+    expect((inputStart as HTMLInputElement).value).toBe("1397/10/10");
   });
 });
