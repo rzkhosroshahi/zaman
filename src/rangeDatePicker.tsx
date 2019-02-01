@@ -1,27 +1,29 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import styled, { ThemeProvider } from "styled-components";
-import { Moment } from "jalali-moment";
 import MaskedInput from "react-text-mask";
-import { formatJalaliDate } from "./utils/formatDate";
-import { daysInMonth, IDays } from "./utils";
+import { Moment } from "jalali-moment";
+import { formatJalaliDate } from "./utils";
+import { daysInMonth, IDays } from "./utils/daysInMonth";
+import { Days } from "./days";
+import { Modal } from "./modal";
+import * as Arrows from "./arrows";
+import { defaultTheme, ITheme } from "./theme";
+import { inputMask } from "./utils";
 import {
   IRangeHelper,
   rangeHelper,
   makeRangeStatus,
 } from "./utils/rangeHelper";
-import { Modal } from "./modal";
-import { Days } from "./days";
-import * as Arrows from "./arrows";
-import { defaultTheme, ITheme } from "./theme";
 
 export interface IRangeDatePickerProps {
   start: string;
   end: string;
-  modalZIndex?: number;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
+  modalZIndex?: number;
   theme?: ITheme;
+  weekend?: number[];
 }
 
 export interface IRangeDatePickerState {
@@ -51,6 +53,7 @@ export class RangeDatePicker extends React.Component<
     ArrowLeft: Arrows.ArrowLeftCMP,
     ArrowRight: Arrows.ArrowRightCMP,
     theme: defaultTheme,
+    weekend: [6],
   };
 
   constructor(props) {
@@ -102,28 +105,19 @@ export class RangeDatePicker extends React.Component<
     }
     if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
       const { monthName, days } = daysInMonth(this.state.cloneDays);
-      this.setState(prevDaysState => {
+      this.setState(prevSetState => {
         return {
-          days: [
-            ...prevDaysState.days.slice(prevDaysState.days.length),
-            ...days,
-          ],
+          days: [...prevSetState.days.slice(prevSetState.days.length), ...days],
           monthName,
         };
       });
     }
   }
-  public increaseMonth = () => {
+
+  public changeMonth = amount => {
     this.setState(prevState => {
       return {
-        cloneDays: prevState.cloneDays.clone().add(1, "month"),
-      };
-    });
-  };
-  public decreaseMonth = () => {
-    this.setState(prevState => {
-      return {
-        cloneDays: prevState.cloneDays.clone().add(-1, "month"),
+        cloneDays: prevState.cloneDays.clone().add(amount, "month"),
       };
     });
   };
@@ -134,7 +128,7 @@ export class RangeDatePicker extends React.Component<
       };
     });
   };
-  public changeStartDays = (e: React.SyntheticEvent<EventTarget>) => {
+  public changeStartDay = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate, disable } = (e.target as HTMLHtmlElement).dataset;
     if (!disable) {
       this.setState({
@@ -145,7 +139,7 @@ export class RangeDatePicker extends React.Component<
     }
     return {};
   };
-  public changeEndDays = (e: React.SyntheticEvent<EventTarget>) => {
+  public changeEndDay = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate } = (e.target as HTMLHtmlElement).dataset;
     const { isSelecting } = this.state;
     if (isSelecting) {
@@ -154,16 +148,15 @@ export class RangeDatePicker extends React.Component<
       });
     }
   };
-
   public daysEventListeners = () => {
     const { isSelecting } = this.state;
     if (!isSelecting) {
       return {
-        onClick: this.changeStartDays,
+        onClick: this.changeStartDay,
       };
     } else {
       return {
-        onMouseOver: this.changeEndDays,
+        onMouseOver: this.changeEndDay,
         onClick: this.endSelecting,
       };
     }
@@ -177,6 +170,22 @@ export class RangeDatePicker extends React.Component<
       });
     }
   };
+  public changeInputValues = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    start: boolean = true,
+  ) => {
+    const formattedValue = formatJalaliDate(e.target.value);
+    if (start && formatJalaliDate(e.target.value)) {
+      return this.setState({
+        startDate: formatJalaliDate(e.target.value),
+      });
+    } else if (formattedValue && formattedValue.isAfter(this.state.startDate)) {
+      return this.setState({
+        endDate: formatJalaliDate(e.target.value),
+      });
+    }
+    return null;
+  };
 
   public render(): React.ReactNode {
     const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
@@ -187,51 +196,34 @@ export class RangeDatePicker extends React.Component<
           data-testid="input-start"
           value={this.state.startDate.format("jYYYY/jMM/jDD")}
           onClick={this.toggleModalOpen}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            if (formatJalaliDate(e.target.value)) {
-              return this.setState({
-                startDate: formatJalaliDate(e.target.value),
-              });
-            }
-            return;
-          }}
-          // prettier-ignore
-          mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
+          onChange={e => this.changeInputValues(e)}
+          mask={inputMask}
         />
         <MaskedInput
           className="rdp__input--end"
           data-testid="input-end"
           value={this.state.endDate.format("jYYYY/jMM/jDD")}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const formattedValue = formatJalaliDate(e.target.value);
-            // prettier-ignore
-            if (formattedValue && formattedValue.isAfter(this.state.startDate)) {
-							return this.setState({
-								endDate: formatJalaliDate(e.target.value),
-							});
-						}
-            return;
-          }}
-          // prettier-ignore
-          mask={[/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/]}
+          onChange={e => this.changeInputValues(e, false)}
+          mask={inputMask}
         />
         <Modal
-          isOpen={true}
+          isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
           modalZIndex={modalZIndex}
         >
           <Days
             days={this.state.days}
+            monthName={this.state.monthName}
             rangeDays={this.state.rangeDays}
             rangeStatus={this.state.rangeStatus}
             daysEvent={this.daysEventListeners}
-            ArrowRight={ArrowRight}
-            ArrowLeft={ArrowLeft}
-            monthName={this.state.monthName}
-            increaseMonth={this.increaseMonth}
-            decreaseMonth={this.decreaseMonth}
+            holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}
+            ArrowLeft={ArrowLeft}
+            ArrowRight={ArrowRight}
+            increaseMonth={() => this.changeMonth(1)}
+            decreaseMonth={() => this.changeMonth(-1)}
           />
         </Modal>
       </RangeDateDiv>

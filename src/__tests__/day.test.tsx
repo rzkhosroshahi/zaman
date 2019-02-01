@@ -14,7 +14,7 @@ describe("day test ", () => {
       <Day
         theme={theme}
         daysEvent={mockDaysEvent}
-        holiday={false}
+        holiday={[]}
         startEndRange={false}
       />,
       {
@@ -34,7 +34,7 @@ describe("day test ", () => {
       <Day
         theme={theme}
         daysEvent={mockDaysEvent}
-        holiday
+        holiday={[6]}
         startEndRange={false}
       />,
       {
@@ -56,7 +56,7 @@ describe("startEndRange tests ", () => {
     const { container } = render(
       <Day
         theme={theme}
-        holiday={false}
+        holiday={[]}
         daysEvent={mockDaysEvent}
         startEndRange={{ status: "startRange" }}
       />,
@@ -74,7 +74,7 @@ describe("startEndRange tests ", () => {
     const { container } = render(
       <Day
         theme={theme}
-        holiday={false}
+        holiday={[]}
         daysEvent={mockDaysEvent}
         startEndRange={{ status: "continueRange" }}
       />,

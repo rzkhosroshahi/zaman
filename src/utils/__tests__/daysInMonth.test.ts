@@ -1,4 +1,4 @@
-import { daysInMonth } from "../index";
+import { daysInMonth } from "../daysInMonth";
 import * as moment from "jalali-moment";
 
 test("month name and month", () => {

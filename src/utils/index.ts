@@ -1,56 +1,19 @@
 import * as moment from "jalali-moment";
-import { Moment } from "jalali-moment";
-import { fa } from "./utils";
 
-export interface IDays {
-  day: string;
-  utc: string;
-  faDate: string;
-  disable: boolean;
-}
+export const fa = n =>
+  Number(n).toLocaleString("fa", {
+    useGrouping: false,
+  });
 
-export interface IDaysInMonth {
-  days: IDays[];
-  monthName: string;
-  month: number;
-  today?: string;
-}
-
-const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
-const checkCurrentMonth = (date: Moment) =>
-  moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
-
-export const daysInMonth = (date: Moment): IDaysInMonth => {
-  const days: IDays[] = [];
-  const clonedDate = date.clone();
-  const monthName = `${clonedDate.locale("fa").format("jMMMM")} ${fa(
-    clonedDate.format("jYYYY"),
-  )}`;
-
-  const month = Number(
-    date
-      .clone()
-      .locale("fa")
-      .format("jM"),
-  );
-
-  const firstDayOfWeek = date.clone().startOf("jMonth");
-  const lastDayOfWeek = date.clone().endOf("jMonth");
-  const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
-
-  firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
-
-  while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
-    days.push({
-      day: firstDayOfWeek.clone().format("jDD"),
-      utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
-      faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
-      disable: checkDateMonth(date, firstDayOfWeek),
-    });
-    firstDayOfWeek.add(1, "days");
+// prettier-ignore
+export const inputMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/];
+// week days name
+export const weekDayNames = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
+// format jalali string date into moment
+export const formatJalaliDate = date => {
+  const formattedDate = moment(`${date}`, "jYYYY/jMM/jDD");
+  if (formattedDate.isValid()) {
+    return formattedDate;
   }
-
-  // tslint:disable-next-line:no-console
-  // console.log("days ", { monthName, month });
-  return { monthName, month, days, ...today };
+  return null;
 };

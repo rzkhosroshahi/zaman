@@ -1,6 +1,6 @@
 import { IRangeDate, IRangeDays } from "../types";
 import { Moment } from "jalali-moment";
-import { fa } from "./utils";
+import { fa } from ".";
 
 const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   if (current.isSame(start)) {

@@ -1,18 +1,18 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { IDays } from "./utils";
+import { IDays } from "./utils/daysInMonth";
 import { ITheme } from "./theme";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
-import { fa } from "./utils/utils";
-import { weekDayNames } from "./utils/weeks";
+import { fa } from "./utils";
+import { weekDayNames } from "./utils";
 
 const DaysBody = styled.div`
-  width: 320px;
-  background-color: ${props => props.theme.backColor};
+  max-width: 320px;
   border-radius: ${8 / 16}rem;
   overflow: hidden;
+  background-color: ${props => props.theme.backColor};
   & * {
     box-sizing: border-box;
     margin: 0;
@@ -35,9 +35,9 @@ const HeadTitle = styled.h4`
   align-items: center;
   width: 100%;
   padding: 0 ${8 / 16}rem;
-  color: ${props => props.theme.headTitleColor};
   font-size: 1.618rem;
   text-align: center;
+  color: ${props => props.theme.headTitleColor};
 
   svg {
     fill: ${props => props.theme.headTitleColor};
@@ -62,6 +62,7 @@ const Table = styled.table`
 
   th {
     font-size: 1rem;
+    font-weight: 300;
     color: ${props => props.theme.weekDaysColor};
   }
 `;
@@ -78,9 +79,10 @@ export interface IDaysProps {
   increaseMonth: () => void;
   decreaseMonth: () => void;
   isSelecting: boolean;
+  holiday?: number[];
 }
 
-const boolAttr = (arg: boolean) => {
+const boolDataset = (arg: boolean) => {
   if (arg) {
     return {
       "data-disable": arg,
@@ -89,13 +91,11 @@ const boolAttr = (arg: boolean) => {
   return null;
 };
 
-export class Days extends React.Component<IDaysProps> {
+export class Days extends React.PureComponent<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     monthName: "",
+    holiday: [],
   };
-  public shouldComponentUpdate(nextProps: Readonly<IDaysProps>): boolean {
-    return nextProps !== this.props;
-  }
   public render(): React.ReactNode {
     const {
       days,
@@ -128,12 +128,9 @@ export class Days extends React.Component<IDaysProps> {
           <Table>
             <thead>
               <tr>
-                {weekDayNames
-                  .slice(0)
-                  .reverse()
-                  .map((name, idx) => (
-                    <th key={`weekDayName-${idx}`}>{name}</th>
-                  ))}
+                {weekDayNames.map((name, idx) => (
+                  <th key={`weekDayName-${idx}`}>{name}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -144,11 +141,14 @@ export class Days extends React.Component<IDaysProps> {
                       key={`rdp-days-${id}`}
                       data-testid={`day-${idx * 7 + id + 1}`}
                       data-fadate={`${day.faDate}`}
-                      startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
                       daysEvent={daysEvent}
                       theme={theme}
+                      startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
                       isSelecting={isSelecting}
-                      {...boolAttr(day.disable)}
+                      holiday={this.props.holiday.filter(
+                        holiday => holiday === id,
+                      )}
+                      {...boolDataset(day.disable)}
                     >
                       {!day.disable ? fa(day.day) : null}
                     </Day>

@@ -28,8 +28,8 @@ const theme = {
   endRangeColor: "#000",
   continueRangeBackColor: "#014B64",
   continueRangeColor: "#fff",
-  sameRangeBackColor: "#ACACAC",
-  sameRangeColor: "#000",
+  sameRangeBackColor: "#00213E",
+  sameRangeColor: "#04F5FF",
 };
 
 render(<RangeDatePicker theme={theme} />, document.getElementById("root"));
