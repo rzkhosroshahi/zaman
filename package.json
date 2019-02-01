@@ -8,6 +8,7 @@
   "scripts": {
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
+    "test:update": "NODE_ENV=test jest -- -u",
     "build": "rollup -c rollup.config.js",
     "watch": "rollup -cw",
     "start": "npm run watch & parcel serve/index.html --out-dir build",
