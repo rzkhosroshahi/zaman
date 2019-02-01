@@ -30,6 +30,16 @@ export const theme: ITheme = {
   continueRangeColor: "#000",
   sameRangeBackColor: "#F50057",
   sameRangeColor: "#000",
+
+  // buttons
+  submitBackColor: "#D6D6D6",
+  submitHoverBackColor: "#f3f3f3",
+  submitColor: "#000",
+  submitHoverColor: "#000",
+  cancelBackColor: "#fff",
+  cancelHoverBackColor: "#D6D6D6",
+  cancelColor: "#000",
+  cancelHoverColor: "#000",
 };
 
 export const rangeHelperMock = {

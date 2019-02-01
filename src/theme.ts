@@ -18,6 +18,14 @@ export interface ITheme {
   endRangeColor: string;
   sameRangeBackColor: string;
   sameRangeColor: string;
+  submitBackColor: string;
+  submitHoverBackColor: string;
+  submitColor: string;
+  submitHoverColor: string;
+  cancelBackColor: string;
+  cancelHoverBackColor: string;
+  cancelColor: string;
+  cancelHoverColor: string;
 }
 
 export const defaultTheme: ITheme = {
@@ -45,6 +53,16 @@ export const defaultTheme: ITheme = {
   endRangeColor: "#000",
   continueRangeBackColor: "#f3f3f3",
   continueRangeColor: "#000",
-  sameRangeBackColor: "#D6D6D6",
-  sameRangeColor: "#000",
+  sameRangeBackColor: "#fff",
+  sameRangeColor: "#2979ff",
+
+  // buttons
+  submitBackColor: "#D6D6D6",
+  submitHoverBackColor: "#f3f3f3",
+  submitColor: "#000",
+  submitHoverColor: "#000",
+  cancelBackColor: "#fff",
+  cancelHoverBackColor: "#D6D6D6",
+  cancelColor: "#000",
+  cancelHoverColor: "#000",
 };

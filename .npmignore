@@ -4,3 +4,8 @@ docs
 jest.config.js
 tsconfig.json
 tslint.json
+
+build
+# parcel
+.cache/
+.rpt2_cache

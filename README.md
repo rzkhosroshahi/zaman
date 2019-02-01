@@ -5,16 +5,31 @@
 
 ## Range Date Picker
 
-| props       | type                  | default                         |
-| ----------- | --------------------- | ------------------------------- |
-| start       | string. ex: 1397/5/18 | today date                      |
-| end         | string. ex: 1397/5/18 | today date                      |
-| weekend     | number[]              | `[6]`                           |
-| startWeek   | number                | day: 0                          |
-| ArrowLeft   | React.ReactNode       | default component               |
-| ArrowRight  | React.ReactNode       | default component               |
-| modalZIndex | number                | 9999                            |
-| theme       | object                | default theme you can see here. |
+| props               | type                  | default                                                                                                                                                 |
+| ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| weekend             | number[]              | `[6]`                                                                                                                                                   |
+| startWeek           | number                | day: 0                                                                                                                                                  |
+| ArrowLeft           | React.ReactNode       | default component                                                                                                                                       |
+| ArrowRight          | React.ReactNode       | default component                                                                                                                                       |
+| isRenderingButtons  | boolean               | true.if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                               |
+| onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| modalZIndex         | number                | 9999                                                                                                                                                    |
+| theme               | object                | default theme you can see here.                                                                                                                         |
+
+### onClickSubmitButton
+
+You can access to start and end date when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ start, end }) {
+  console.log("start ", start);
+  console.log("end ", end);
+}
+```
 
 ## Contributors
 

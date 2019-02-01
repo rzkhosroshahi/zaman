@@ -67,6 +67,53 @@ const Table = styled.table`
   }
 `;
 
+const ButtonsDiv = styled.div`
+  margin-top: ${16 / 16}rem;
+  margin-bottom: ${16 / 16}rem;
+
+  button {
+    border: none;
+    margin: 0;
+    padding: ${8 / 16}rem ${24 / 16}rem;
+    width: auto;
+    min-width: 80px;
+    overflow: visible;
+    font: inherit;
+    line-height: normal;
+    appearance: none;
+    outline: 0;
+    border-radius: ${4 / 16}rem;
+    cursor: pointer;
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+      outline: 0;
+    }
+  }
+  .rdp__button--cancel {
+    margin-right: 1rem;
+    color: ${props => props.theme.cancelColor};
+    background-color: ${props => props.theme.cancelBackColor};
+    transition: background-color 0.2s ease;
+    &:hover,
+    &:focus {
+      color: ${props => props.theme.cancelHoverColor};
+      background-color: ${props => props.theme.cancelHoverBackColor};
+    }
+  }
+  .rdp__button--submit {
+    margin-right: 1rem;
+    color: ${props => props.theme.submitColor};
+    background-color: ${props => props.theme.submitBackColor};
+    transition: background-color 0.2s ease;
+    &:hover,
+    &:focus {
+      color: ${props => props.theme.submitHoverColor};
+      background-color: ${props => props.theme.submitHoverBackColor};
+    }
+  }
+`;
+
 export interface IDaysProps {
   days: IDays[];
   theme?: ITheme;
@@ -80,6 +127,9 @@ export interface IDaysProps {
   decreaseMonth: () => void;
   isSelecting: boolean;
   holiday?: number[];
+  isRenderingButtons?: boolean;
+  onCancelButton?: () => void;
+  onSubmitButton?: () => void;
 }
 
 const boolDataset = (arg: boolean) => {
@@ -109,6 +159,9 @@ export class Days extends React.PureComponent<IDaysProps> {
       increaseMonth,
       decreaseMonth,
       isSelecting,
+      isRenderingButtons,
+      onCancelButton,
+      onSubmitButton,
     } = this.props;
     if (!days.length) {
       return null;
@@ -157,6 +210,24 @@ export class Days extends React.PureComponent<IDaysProps> {
               ))}
             </tbody>
           </Table>
+          {isRenderingButtons && (
+            <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">
+              <button
+                data-testid="submit-button"
+                className="rdp__button--submit"
+                onClick={onSubmitButton}
+              >
+                تایید
+              </button>
+              <button
+                data-testid="cancel-button"
+                className="rdp__button--cancel"
+                onClick={onCancelButton}
+              >
+                لغو
+              </button>
+            </ButtonsDiv>
+          )}
         </DaysBody>
       </ThemeProvider>
     );

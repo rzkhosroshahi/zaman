@@ -15,6 +15,7 @@ import {
   rangeHelper,
   makeRangeStatus,
 } from "./utils/rangeHelper";
+import { IRangeDate } from "./types";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -24,6 +25,8 @@ export interface IRangeDatePickerProps {
   modalZIndex?: number;
   theme?: ITheme;
   weekend?: number[];
+  isRenderingButtons?: boolean;
+  onClickSubmitButton?: (arg: any) => any;
 }
 
 export interface IRangeDatePickerState {
@@ -36,6 +39,7 @@ export interface IRangeDatePickerState {
   isSelecting: boolean;
   rangeStatus: string;
   cloneDays: Moment;
+  initialRange?: IRangeDate;
 }
 
 const RangeDateDiv = styled.div`
@@ -54,6 +58,7 @@ export class RangeDatePicker extends React.Component<
     ArrowRight: Arrows.ArrowRightCMP,
     theme: defaultTheme,
     weekend: [6],
+    isRenderingButtons: true,
   };
 
   constructor(props) {
@@ -81,6 +86,10 @@ export class RangeDatePicker extends React.Component<
         monthName,
         rangeDays,
         rangeStatus,
+        initialRange: {
+          start,
+          end,
+        },
       };
     });
   }
@@ -186,6 +195,31 @@ export class RangeDatePicker extends React.Component<
     }
     return null;
   };
+  public cancelButton = () => {
+    const { start, end } = this.state.initialRange;
+    this.setState({
+      isOpenModal: false,
+      startDate: start,
+      endDate: end,
+    });
+  };
+
+  public submitButton = () => {
+    const { startDate: start, endDate: end } = this.state;
+    if (this.props.onClickSubmitButton) {
+      this.props.onClickSubmitButton({
+        start,
+        end,
+      });
+    }
+    this.setState({
+      isOpenModal: false,
+      initialRange: {
+        start,
+        end,
+      },
+    });
+  };
 
   public render(): React.ReactNode {
     const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
@@ -220,10 +254,13 @@ export class RangeDatePicker extends React.Component<
             holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}
+            isRenderingButtons={this.props.isRenderingButtons}
             ArrowLeft={ArrowLeft}
             ArrowRight={ArrowRight}
             increaseMonth={() => this.changeMonth(1)}
             decreaseMonth={() => this.changeMonth(-1)}
+            onCancelButton={this.cancelButton}
+            onSubmitButton={this.submitButton}
           />
         </Modal>
       </RangeDateDiv>
