@@ -1,12 +1,12 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { IDays } from "./utils";
+import { IDays } from "./utils/daysInMonth";
 import { ITheme } from "./theme";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
-import { fa } from "./utils/utils";
-import { weekDayNames } from "./utils/utils";
+import { fa } from "./utils";
+import { weekDayNames } from "./utils";
 
 const DaysBody = styled.div`
   max-width: 320px;

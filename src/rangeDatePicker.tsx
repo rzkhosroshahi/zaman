@@ -3,13 +3,13 @@ import * as moment from "jalali-moment";
 import styled, { ThemeProvider } from "styled-components";
 import MaskedInput from "react-text-mask";
 import { Moment } from "jalali-moment";
-import { formatJalaliDate } from "./utils/utils";
-import { daysInMonth, IDays } from "./utils";
+import { formatJalaliDate } from "./utils";
+import { daysInMonth, IDays } from "./utils/daysInMonth";
 import { Days } from "./days";
 import { Modal } from "./modal";
 import * as Arrows from "./arrows";
 import { defaultTheme, ITheme } from "./theme";
-import { inputMask } from "./utils/utils";
+import { inputMask } from "./utils";
 import {
   IRangeHelper,
   rangeHelper,
