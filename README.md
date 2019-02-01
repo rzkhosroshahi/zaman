@@ -11,14 +11,13 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
 
-Note that all props are **optional**.
+Note that all props are _optional_.
 
 | props               | type                  | default                                                                                                                                                 |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
 | end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
 | weekend             | number[]              | `[6]`                                                                                                                                                   |
-| startWeek           | number                | day: 0                                                                                                                                                  |
 | ArrowLeft           | React.ReactNode       | default component                                                                                                                                       |
 | ArrowRight          | React.ReactNode       | default component                                                                                                                                       |
 | isRenderingButtons  | boolean               | true.if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                               |
@@ -48,6 +47,11 @@ function submitExample({ start, end }) {
   console.log("end ", end);
 }
 ```
+
+## ToDo
+
+- write DatePicker
+- add TimePicker
 
 ## Contributors
 
