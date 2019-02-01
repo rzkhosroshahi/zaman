@@ -1,33 +1,3 @@
-export interface ITheme {
-  backColor: string;
-  headBackColor: string;
-  headTitleColor: string;
-  headArrowColor: string;
-  headRangeBackColor: string;
-  headRangeColor: string;
-  weekDaysColor: string;
-  daysColor: string;
-  daysBackColor: string;
-  holidaysColor: string;
-  holidaysBackColor: string;
-  startRangeBackColor: string;
-  endRangeBackColor: string;
-  continueRangeBackColor: string;
-  continueRangeColor: string;
-  startRangeColor: string;
-  endRangeColor: string;
-  sameRangeBackColor: string;
-  sameRangeColor: string;
-  submitBackColor: string;
-  submitHoverBackColor: string;
-  submitColor: string;
-  submitHoverColor: string;
-  cancelBackColor: string;
-  cancelHoverBackColor: string;
-  cancelColor: string;
-  cancelHoverColor: string;
-}
-
 export const defaultTheme: ITheme = {
   backColor: "#FFFFFF",
   // head
@@ -66,3 +36,33 @@ export const defaultTheme: ITheme = {
   cancelColor: "#000",
   cancelHoverColor: "#000",
 };
+
+export interface ITheme {
+  backColor: string;
+  headBackColor: string;
+  headTitleColor: string;
+  headArrowColor: string;
+  headRangeBackColor: string;
+  headRangeColor: string;
+  weekDaysColor: string;
+  daysColor: string;
+  daysBackColor: string;
+  holidaysColor: string;
+  holidaysBackColor: string;
+  startRangeBackColor: string;
+  endRangeBackColor: string;
+  continueRangeBackColor: string;
+  continueRangeColor: string;
+  startRangeColor: string;
+  endRangeColor: string;
+  sameRangeBackColor: string;
+  sameRangeColor: string;
+  submitBackColor: string;
+  submitHoverBackColor: string;
+  submitColor: string;
+  submitHoverColor: string;
+  cancelBackColor: string;
+  cancelHoverBackColor: string;
+  cancelColor: string;
+  cancelHoverColor: string;
+}
