@@ -30,6 +30,15 @@ const theme = {
   continueRangeColor: "#fff",
   sameRangeBackColor: "#00213E",
   sameRangeColor: "#04F5FF",
+  // buttons
+  submitBackColor: "#04F5FF",
+  submitHoverBackColor: "#014B64",
+  submitColor: "#000",
+  submitHoverColor: "#fff",
+  cancelBackColor: "#00213E",
+  cancelHoverBackColor: "#04F5FF",
+  cancelColor: "#fff",
+  cancelHoverColor: "#000",
 };
 
 render(<RangeDatePicker theme={theme} />, document.getElementById("root"));
