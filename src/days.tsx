@@ -80,6 +80,7 @@ export interface IDaysProps {
   decreaseMonth: () => void;
   isSelecting: boolean;
   holiday?: number[];
+  isRenderingButtons?: boolean;
 }
 
 const boolDataset = (arg: boolean) => {
@@ -109,6 +110,7 @@ export class Days extends React.PureComponent<IDaysProps> {
       increaseMonth,
       decreaseMonth,
       isSelecting,
+      isRenderingButtons,
     } = this.props;
     if (!days.length) {
       return null;
@@ -157,6 +159,12 @@ export class Days extends React.PureComponent<IDaysProps> {
               ))}
             </tbody>
           </Table>
+          {isRenderingButtons && (
+            <div className="rdp__buttons" data-testid="rdp__buttons">
+              <button>تایید</button>
+              <button>لغو</button>
+            </div>
+          )}
         </DaysBody>
       </ThemeProvider>
     );

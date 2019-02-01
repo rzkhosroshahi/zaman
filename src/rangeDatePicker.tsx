@@ -24,6 +24,7 @@ export interface IRangeDatePickerProps {
   modalZIndex?: number;
   theme?: ITheme;
   weekend?: number[];
+  isRenderingButtons?: boolean;
 }
 
 export interface IRangeDatePickerState {
@@ -54,6 +55,7 @@ export class RangeDatePicker extends React.Component<
     ArrowRight: Arrows.ArrowRightCMP,
     theme: defaultTheme,
     weekend: [6],
+    isRenderingButtons: true,
   };
 
   constructor(props) {
@@ -220,6 +222,7 @@ export class RangeDatePicker extends React.Component<
             holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}
+            isRenderingButtons={this.props.isRenderingButtons}
             ArrowLeft={ArrowLeft}
             ArrowRight={ArrowRight}
             increaseMonth={() => this.changeMonth(1)}

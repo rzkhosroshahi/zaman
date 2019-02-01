@@ -162,3 +162,17 @@ describe("arrows component test ", () => {
     expect(daysHeadRange.textContent).toEqual("12 دی تا 8 بهمن");
   });
 });
+
+describe("buttons test ", () => {
+  test("buttons doesn't rendering when isRenderingButtons is false ", () => {
+    const { getByTestId } = render(
+      <RangeDatePicker isRenderingButtons={false} />,
+    );
+    const inputStart = getByTestId("input-start");
+    fireEvent.click(inputStart);
+    function notRendering() {
+      getByTestId("rdp__buttons");
+    }
+    expect(notRendering).toThrowError();
+  });
+});
