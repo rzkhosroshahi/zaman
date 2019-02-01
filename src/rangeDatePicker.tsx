@@ -214,6 +214,10 @@ export class RangeDatePicker extends React.Component<
     }
     this.setState({
       isOpenModal: false,
+      initialRange: {
+        start,
+        end,
+      },
     });
   };
 
