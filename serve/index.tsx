@@ -32,4 +32,4 @@ const theme = {
   sameRangeColor: "#04F5FF",
 };
 
-render(<RangeDatePicker />, document.getElementById("root"));
+render(<RangeDatePicker theme={theme} />, document.getElementById("root"));

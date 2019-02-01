@@ -62,6 +62,7 @@ const Table = styled.table`
 
   th {
     font-size: 1rem;
+    font-weight: 300;
     color: ${props => props.theme.weekDaysColor};
   }
 `;
