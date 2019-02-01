@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
+![alt-text](./help/banner.png)
+
+React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.
+
 ## Range Date Picker
 
 | props               | type                  | default                                                                                                                                                 |

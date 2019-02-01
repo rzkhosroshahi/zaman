@@ -1,8 +1,10 @@
 {
   "name": "react-jalali-datepicker",
   "version": "0.0.1",
-  "description": "",
+  "description": "React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.",
   "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "umd": "dist/index.umd.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll",
@@ -23,8 +25,13 @@
       "pre-commit": "pretty-quick --staged && npm run lint"
     }
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "datepicker",
+    "farsi",
+    "jalali",
+    "shamsi"
+  ],
+  "author": "reza khosroshahi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rzkhosroshahi/react-jalali-datepicker/issues"
