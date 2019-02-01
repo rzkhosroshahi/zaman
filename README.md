@@ -9,6 +9,10 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 ## Range Date Picker
 
+You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
+
+Note that all props are **optional**.
+
 | props               | type                  | default                                                                                                                                                 |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
@@ -20,7 +24,17 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 | isRenderingButtons  | boolean               | true.if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                               |
 | onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
 | modalZIndex         | number                | 9999                                                                                                                                                    |
-| theme               | object                | default theme you can see here.                                                                                                                         |
+| theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts)                   |
+
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { RangeDatePicker } from "react-jalali-datepicker";
+
+render(<RangeDatePicker />, document.getElementById("root"));
+```
 
 ### onClickSubmitButton
 
