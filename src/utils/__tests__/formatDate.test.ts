@@ -1,4 +1,4 @@
-import { formatJalaliDate } from "../formatDate";
+import { formatJalaliDate } from "../utils";
 
 test("format date jalali string to moment ", () => {
   const format = formatJalaliDate("1397/05/18");

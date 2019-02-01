@@ -3,7 +3,7 @@ import * as moment from "jalali-moment";
 import styled, { ThemeProvider } from "styled-components";
 import MaskedInput from "react-text-mask";
 import { Moment } from "jalali-moment";
-import { formatJalaliDate } from "./utils/formatDate";
+import { formatJalaliDate } from "./utils/utils";
 import { daysInMonth, IDays } from "./utils";
 import { Days } from "./days";
 import { Modal } from "./modal";
