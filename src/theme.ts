@@ -1,3 +1,5 @@
+import * as styledComponents from "styled-components";
+
 export const defaultTheme: ITheme = {
   backColor: "#FFFFFF",
   // head
@@ -15,6 +17,7 @@ export const defaultTheme: ITheme = {
   daysBackColor: "#FFFFFF",
   holidaysColor: "#F50057",
   holidaysBackColor: "#FFFFFF",
+  daysRound: "50%",
 
   // start end
   startRangeBackColor: "#D6D6D6",
@@ -46,6 +49,7 @@ export interface ITheme {
   headRangeColor: string;
   weekDaysColor: string;
   daysColor: string;
+  daysRound: any;
   daysBackColor: string;
   holidaysColor: string;
   holidaysBackColor: string;
@@ -66,3 +70,14 @@ export interface ITheme {
   cancelColor: string;
   cancelHoverColor: string;
 }
+
+const {
+  default: styled,
+  css,
+  createGlobalStyle,
+  keyframes,
+  ThemeProvider,
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<ITheme>;
+
+export { css, createGlobalStyle, keyframes, ThemeProvider };
+export default styled;

@@ -20,6 +20,7 @@ const theme = {
   daysBackColor: "#00213E",
   holidaysColor: "#F50057",
   holidaysBackColor: "#00213E",
+  daysRound: "50%",
 
   // start end
   startRangeBackColor: "#04F5FF",

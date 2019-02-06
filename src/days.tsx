@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "./theme";
 import { IDays } from "./utils/daysInMonth";
 import { ITheme } from "./theme";
 import { IRangeDays } from "./types";
@@ -21,7 +21,7 @@ const DaysBody = styled.div`
   }
 `;
 
-const DaysHead = styled.div`
+const DaysHead = styled("div")<ITheme>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +29,7 @@ const DaysHead = styled.div`
   background-color: ${props => props.theme.headBackColor};
 `;
 
-const HeadTitle = styled.h4`
+const HeadTitle = styled("h4")<ITheme>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@ const HeadTitle = styled.h4`
   }
 `;
 
-const HeadRange = styled.h3`
+const HeadRange = styled("h3")<ITheme>`
   margin-top: ${24 / 16}rem;
   margin-bottom: 1rem;
   font-size: 1.618rem;
@@ -67,7 +67,7 @@ const Table = styled.table`
   }
 `;
 
-const ButtonsDiv = styled.div`
+const ButtonsDiv = styled("div")<ITheme>`
   margin-top: ${16 / 16}rem;
   margin-bottom: ${16 / 16}rem;
 

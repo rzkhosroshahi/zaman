@@ -20,6 +20,7 @@ export const theme: ITheme = {
   daysBackColor: "#FFFFFF",
   holidaysColor: "#F50057",
   holidaysBackColor: "#FFFFFF",
+  daysRound: "50%",
 
   // start end
   startRangeColor: "#000",
