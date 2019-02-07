@@ -1,14 +1,14 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "./theme";
 import { IDays } from "./utils/daysInMonth";
-import { ITheme } from "./theme";
+import { styledThemes } from "./types";
 import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils";
 import { weekDayNames } from "./utils";
 
-const DaysBody = styled.div`
+const DaysBody = styled("div")<styledThemes>`
   max-width: 320px;
   border-radius: ${8 / 16}rem;
   overflow: hidden;
@@ -21,7 +21,7 @@ const DaysBody = styled.div`
   }
 `;
 
-const DaysHead = styled("div")<ITheme>`
+const DaysHead = styled("div")<styledThemes>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +29,7 @@ const DaysHead = styled("div")<ITheme>`
   background-color: ${props => props.theme.headBackColor};
 `;
 
-const HeadTitle = styled("h4")<ITheme>`
+const HeadTitle = styled("h4")<styledThemes>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@ const HeadTitle = styled("h4")<ITheme>`
   }
 `;
 
-const HeadRange = styled("h3")<ITheme>`
+const HeadRange = styled("h3")<styledThemes>`
   margin-top: ${24 / 16}rem;
   margin-bottom: 1rem;
   font-size: 1.618rem;
@@ -67,7 +67,7 @@ const Table = styled.table`
   }
 `;
 
-const ButtonsDiv = styled("div")<ITheme>`
+const ButtonsDiv = styled("div")<styledThemes>`
   margin-top: ${16 / 16}rem;
   margin-bottom: ${16 / 16}rem;
 
@@ -116,7 +116,7 @@ const ButtonsDiv = styled("div")<ITheme>`
 
 export interface IDaysProps {
   days: IDays[];
-  theme?: ITheme;
+  theme?: styledThemes;
   rangeDays: IRangeDays;
   daysEvent: any;
   rangeStatus: string;

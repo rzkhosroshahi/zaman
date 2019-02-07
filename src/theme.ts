@@ -1,6 +1,7 @@
 import * as styledComponents from "styled-components";
+import { IRangeDatePickerTheme, styledThemes } from "./types";
 
-export const defaultTheme: ITheme = {
+export const defaultRangeTheme: IRangeDatePickerTheme = {
   backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
@@ -40,44 +41,12 @@ export const defaultTheme: ITheme = {
   cancelHoverColor: "#000",
 };
 
-export interface ITheme {
-  backColor: string;
-  headBackColor: string;
-  headTitleColor: string;
-  headArrowColor: string;
-  headRangeBackColor: string;
-  headRangeColor: string;
-  weekDaysColor: string;
-  daysColor: string;
-  daysRound: any;
-  daysBackColor: string;
-  holidaysColor: string;
-  holidaysBackColor: string;
-  startRangeBackColor: string;
-  endRangeBackColor: string;
-  continueRangeBackColor: string;
-  continueRangeColor: string;
-  startRangeColor: string;
-  endRangeColor: string;
-  sameRangeBackColor: string;
-  sameRangeColor: string;
-  submitBackColor: string;
-  submitHoverBackColor: string;
-  submitColor: string;
-  submitHoverColor: string;
-  cancelBackColor: string;
-  cancelHoverBackColor: string;
-  cancelColor: string;
-  cancelHoverColor: string;
-}
-
 const {
   default: styled,
-  css,
-  createGlobalStyle,
-  keyframes,
   ThemeProvider,
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<ITheme>;
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<
+  styledThemes
+>;
 
-export { css, createGlobalStyle, keyframes, ThemeProvider };
+export { ThemeProvider };
 export default styled;

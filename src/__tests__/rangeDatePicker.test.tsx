@@ -2,7 +2,7 @@ import * as React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
 import { RangeDatePicker } from "../rangeDatePicker";
 import "jest-styled-components";
-import { theme } from "../utils/testUtils";
+import { defaultRangeTheme } from "../theme";
 
 describe("input tests ", () => {
   afterEach(cleanup);
@@ -43,7 +43,10 @@ describe("RangeDatePicker days test", () => {
     const day = getByTestId("day-12");
     fireEvent.click(day);
 
-    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+    expect(day).toHaveStyleRule(
+      "background-color",
+      defaultRangeTheme.startRangeBackColor,
+    );
   });
   test("change continue days by hovering on the days ", () => {
     const { getByTestId } = render(
@@ -54,7 +57,10 @@ describe("RangeDatePicker days test", () => {
     const day = getByTestId("day-12");
     fireEvent.click(day);
 
-    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+    expect(day).toHaveStyleRule(
+      "background-color",
+      defaultRangeTheme.startRangeBackColor,
+    );
 
     const hoveredDay = getByTestId("day-17");
     fireEvent.mouseOver(hoveredDay);
@@ -62,7 +68,7 @@ describe("RangeDatePicker days test", () => {
     const continueDay = getByTestId("day-15");
     expect(continueDay).toHaveStyleRule(
       "background-color",
-      theme.continueRangeBackColor,
+      defaultRangeTheme.continueRangeBackColor,
     );
   });
   test("end select days by clicking on the hovered days ", () => {
@@ -74,7 +80,10 @@ describe("RangeDatePicker days test", () => {
     const day = getByTestId("day-12");
     fireEvent.click(day);
 
-    expect(day).toHaveStyleRule("background-color", theme.startRangeBackColor);
+    expect(day).toHaveStyleRule(
+      "background-color",
+      defaultRangeTheme.startRangeBackColor,
+    );
     // hovering
     const hoveredDay = getByTestId("day-17");
     fireEvent.mouseOver(hoveredDay);
@@ -84,7 +93,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(clickedDay).toHaveStyleRule(
       "background-color",
-      theme.endRangeBackColor,
+      defaultRangeTheme.endRangeBackColor,
     );
   });
 
@@ -151,11 +160,11 @@ describe("arrows component test ", () => {
     fireEvent.click(clickedDay);
     expect(clickedDay).toHaveStyleRule(
       "background-color",
-      theme.endRangeBackColor,
+      defaultRangeTheme.endRangeBackColor,
     );
     expect(clickedDay).toHaveStyleRule(
       "background-color",
-      theme.endRangeBackColor,
+      defaultRangeTheme.endRangeBackColor,
     );
 
     const daysHeadRange = getByTestId("days-head-range");

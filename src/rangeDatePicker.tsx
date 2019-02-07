@@ -8,14 +8,14 @@ import { daysInMonth, IDays } from "./utils/daysInMonth";
 import { Days } from "./days";
 import { Modal } from "./modal";
 import * as Arrows from "./arrows";
-import { defaultTheme, ITheme } from "./theme";
+import { defaultRangeTheme } from "./theme";
 import { inputMask } from "./utils";
 import {
   IRangeHelper,
   rangeHelper,
   makeRangeStatus,
 } from "./utils/rangeHelper";
-import { IRangeDate } from "./types";
+import { IRangeDate, IRangeDatePickerTheme } from "./types";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -23,7 +23,7 @@ export interface IRangeDatePickerProps {
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
   modalZIndex?: number;
-  theme?: ITheme;
+  theme?: IRangeDatePickerTheme;
   weekend?: number[];
   isRenderingButtons?: boolean;
   onClickSubmitButton?: (arg: any) => any;
@@ -56,7 +56,7 @@ export class RangeDatePicker extends React.Component<
     modalZIndex: 9999,
     ArrowLeft: Arrows.ArrowLeftCMP,
     ArrowRight: Arrows.ArrowRightCMP,
-    theme: defaultTheme,
+    theme: defaultRangeTheme,
     weekend: [6],
     isRenderingButtons: true,
   };
