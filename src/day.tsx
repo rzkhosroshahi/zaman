@@ -76,7 +76,7 @@ export interface IDayProps {
   isSelecting?: boolean;
   daysEvent?: () => void;
   holiday?: number[];
-  selectedDay: boolean;
+  selectedDay?: boolean;
 }
 
 export const Day: React.SFC<IDayProps> = props => {
