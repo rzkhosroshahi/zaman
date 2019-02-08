@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "./theme";
 import MaskedInput from "react-text-mask";
 import { Moment } from "jalali-moment";
 import { formatJalaliDate } from "./utils";
@@ -10,12 +10,8 @@ import { Modal } from "./modal";
 import * as Arrows from "./arrows";
 import { defaultRangeTheme } from "./theme";
 import { inputMask } from "./utils";
-import {
-  IRangeHelper,
-  rangeHelper,
-  makeRangeStatus,
-} from "./utils/rangeHelper";
-import { IRangeDate, IRangeDatePickerTheme } from "./types";
+import { rangeHelper, makeRangeStatus } from "./utils/rangeHelper";
+import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "./types";
 
 export interface IRangeDatePickerProps {
   start: string;
@@ -34,7 +30,7 @@ export interface IRangeDatePickerState {
   endDate: Moment;
   monthName?: string;
   days?: IDays[];
-  rangeDays?: IRangeHelper;
+  rangeDays?: IRangeDays;
   isOpenModal: boolean;
   isSelecting: boolean;
   rangeStatus: string;

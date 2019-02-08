@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { ThemeProvider } from "./theme";
 import { IDays } from "./utils/daysInMonth";
 import { styledThemes } from "./types";
-import { IRangeDay } from "./types";
+import { IRangeDays } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils";
@@ -117,7 +117,7 @@ const ButtonsDiv = styled("div")`
 export interface IDaysProps {
   days: IDays[];
   theme?: styledThemes;
-  rangeDays: IRangeDay;
+  rangeDays: IRangeDays;
   daysEvent: any;
   rangeStatus: string;
   ArrowLeft: React.ReactType;
@@ -196,7 +196,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                       data-fadate={`${day.faDate}`}
                       daysEvent={daysEvent}
                       theme={theme}
-                      startEndRange={rangeDays[day.faDate]}
+                      startEndRange={rangeDays && rangeDays[day.faDate]}
                       isSelecting={isSelecting}
                       holiday={this.props.holiday.filter(
                         holiday => holiday === id,
