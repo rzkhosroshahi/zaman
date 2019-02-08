@@ -120,6 +120,7 @@ export interface IDaysProps {
   rangeDays?: IRangeDays;
   daysEventListeners: any;
   selectedPickerStatus: string;
+  selectedDay?: string;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
   monthName: string;
@@ -163,6 +164,7 @@ export class Days extends React.PureComponent<IDaysProps> {
       isRenderingButtons,
       onCancelButton,
       onSubmitButton,
+      selectedDay,
     } = this.props;
     if (!days.length) {
       return null;
@@ -201,6 +203,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                       theme={theme}
                       startEndRange={rangeDays && rangeDays[day.faDate]}
                       isSelecting={isSelecting}
+                      selectedDay={selectedDay === day.faDate}
                       holiday={this.props.holiday.filter(
                         holiday => holiday === id,
                       )}

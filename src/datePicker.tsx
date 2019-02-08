@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import MaskedInput from "react-text-mask";
-import { IRangeDatePickerTheme } from "./types";
+import { IDatePickerTheme, IRangeDatePickerTheme } from "./types";
 import { Moment } from "jalali-moment";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
-import styled, { defaultRangeTheme } from "./theme";
+import styled, { defaultDatePickerTheme, defaultRangeTheme } from "./theme";
 import { Modal } from "./modal";
 import * as Arrows from "./arrows";
 import { Days } from "./days";
@@ -20,7 +20,7 @@ interface IDatePickerProps {
   ArrowLeft?: React.ReactType;
   ArrowRight?: React.ReactType;
   modalZIndex?: number;
-  theme?: IRangeDatePickerTheme;
+  theme?: IDatePickerTheme;
   weekend?: number[];
   isRenderingButtons?: boolean;
   isRenderingTimePicker?: boolean;
@@ -50,7 +50,8 @@ export class DatePicker extends React.PureComponent<
     ArrowRight: Arrows.ArrowRightCMP,
     ArrowLeft: Arrows.ArrowLeftCMP,
     modalZIndex: 9999,
-    theme: defaultRangeTheme,
+    theme: defaultDatePickerTheme,
+    weekend: [6],
   };
 
   constructor(props) {
@@ -150,6 +151,7 @@ export class DatePicker extends React.PureComponent<
             days={this.state.days}
             monthName={this.state.monthName}
             selectedPickerStatus={this.state.dayStatus}
+            selectedDay={this.state.value.format("jYYYY/jMM/jDD")}
             daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}

@@ -2,6 +2,8 @@ import * as React from "react";
 import * as moment from "jalali-moment";
 import { cleanup, render, fireEvent } from "react-testing-library";
 import { DatePicker } from "../datePicker";
+import "jest-styled-components";
+import { defaultDatePickerTheme } from "../theme";
 
 describe("datePicker input tests", () => {
   afterEach(cleanup);
@@ -48,5 +50,9 @@ describe("datePicker input tests", () => {
 
     const dateStatus = getByTestId("days-head-range");
     expect(dateStatus.textContent).toBe("3 بهمن ماه");
+    expect(dateStatus).toHaveStyleRule(
+      "background-color",
+      defaultDatePickerTheme.selectDayBackColor,
+    );
   });
 });
