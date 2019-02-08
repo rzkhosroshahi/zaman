@@ -7,6 +7,22 @@
 
 React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.
 
+## Date Picker
+
+| props                 | type            | default                                                                                                                               |
+| --------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| value                 | timestamp       | today date                                                                                                                            |
+| weekend               | number[]        | `[6]`                                                                                                                                 |
+| ArrowLeft             | React.ReactType | default component                                                                                                                     |
+| ArrowLeft             | React.ReactType | default component                                                                                                                     |
+| ClockIcon             | React.ReactType | default component                                                                                                                     |
+| DateIcon              | React.ReactType | default component                                                                                                                     |
+| isRenderingButtons    | boolean         | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                            |
+| isRenderingTimePicker | boolean         | true.                                                                                                                                 |
+| onClickSubmitButton   | function        | null. if you passed this will be something like                                                                                       |
+| modalZIndex           | number          | 9999                                                                                                                                  |
+| theme                 | object          | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
+
 ## Range Date Picker
 
 You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
@@ -18,9 +34,9 @@ Note that all props are _optional_.
 | start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
 | end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
 | weekend             | number[]              | `[6]`                                                                                                                                                   |
-| ArrowLeft           | React.ReactNode       | default component                                                                                                                                       |
-| ArrowRight          | React.ReactNode       | default component                                                                                                                                       |
-| isRenderingButtons  | boolean               | true.if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                               |
+| ArrowLeft           | React.ReactType       | default component                                                                                                                                       |
+| ArrowRight          | React.ReactType       | default component                                                                                                                                       |
+| isRenderingButtons  | boolean               | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                              |
 | onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
 | modalZIndex         | number                | 9999                                                                                                                                                    |
 | theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts)                   |
