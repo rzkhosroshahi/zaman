@@ -3,13 +3,17 @@ import * as moment from "jalali-moment";
 import MaskedInput from "react-text-mask";
 import { IRangeDatePickerTheme } from "./types";
 import { Moment } from "jalali-moment";
-import { inputFaDateMask, inputFaDateWithTimeMask } from "./utils";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
 import styled, { defaultRangeTheme } from "./theme";
 import { Modal } from "./modal";
 import * as Arrows from "./arrows";
 import { Days } from "./days";
 import { datePickerStatus } from "./utils/rangeHelper";
+import {
+  formatJalaliDate,
+  inputFaDateMask,
+  inputFaDateWithTimeMask,
+} from "./utils";
 
 interface IDatePickerProps {
   value: number | Date | Moment;
@@ -36,7 +40,7 @@ const DatePickerDiv = styled.div`
   direction: rtl;
 `;
 
-export class DatePicker extends React.Component<
+export class DatePicker extends React.PureComponent<
   IDatePickerProps,
   IDatePickerState
 > {
@@ -70,6 +74,17 @@ export class DatePicker extends React.Component<
       };
     });
   }
+  public componentDidUpdate(
+    prevProps: Readonly<IDatePickerProps>,
+    prevState: Readonly<IDatePickerState>,
+  ): void {
+    if (!prevState.value.isSame(this.state.value)) {
+      this.setState({
+        dayStatus: datePickerStatus(moment(this.state.value)),
+      });
+    }
+  }
+
   public changeMonth = amount => {
     this.setState(prevState => {
       return {
@@ -84,9 +99,19 @@ export class DatePicker extends React.Component<
       };
     });
   };
+  public selectDay = (e: React.SyntheticEvent<EventTarget>) => {
+    const { fadate } = (e.target as HTMLHtmlElement).dataset;
+    this.setState(prevState => ({
+      value: formatJalaliDate(fadate),
+    }));
+  };
+  public daysEventListeners = () => {
+    return {
+      onClick: this.selectDay,
+    };
+  };
   public render(): React.ReactNode {
     const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
-
     if (!this.props.isRenderingTimePicker) {
       return (
         <DatePickerDiv>
@@ -125,10 +150,9 @@ export class DatePicker extends React.Component<
             days={this.state.days}
             monthName={this.state.monthName}
             selectedPickerStatus={this.state.dayStatus}
-            // daysEventListeners={this.daysEventListeners}
+            daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}
-            // isSelecting={this.state.isSelecting}
             isRenderingButtons={this.props.isRenderingButtons}
             ArrowLeft={ArrowLeft}
             ArrowRight={ArrowRight}

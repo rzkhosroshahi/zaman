@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render, fireEvent } from "react-testing-library";
 import { DatePicker } from "../datePicker";
 
 describe("datePicker input tests", () => {
@@ -33,5 +33,20 @@ describe("datePicker input tests", () => {
     const input = getByTestId("input-dp");
     const today = moment().format("jYYYY/jM/jD");
     expect((input as HTMLInputElement).value).toBe(today);
+  });
+});
+
+describe("datePicker input tests", () => {
+  afterEach(cleanup);
+  test("pick day ", () => {
+    const { getByTestId } = render(<DatePicker />);
+    const input = getByTestId("input-dp");
+    fireEvent.click(input);
+    // days five
+    const daysFive = getByTestId("day-5");
+    fireEvent.click(daysFive);
+
+    const dateStatus = getByTestId("days-head-range");
+    expect(dateStatus.textContent).toBe("3 بهمن ماه");
   });
 });
