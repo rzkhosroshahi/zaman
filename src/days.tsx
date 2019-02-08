@@ -117,15 +117,15 @@ const ButtonsDiv = styled("div")`
 export interface IDaysProps {
   days: IDays[];
   theme?: styledThemes;
-  rangeDays: IRangeDays;
-  daysEvent: any;
-  rangeStatus: string;
+  rangeDays?: IRangeDays;
+  daysEventListeners: any;
+  selectedPickerStatus: string;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
   monthName: string;
   increaseMonth: () => void;
   decreaseMonth: () => void;
-  isSelecting: boolean;
+  isSelecting?: boolean;
   holiday?: number[];
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
@@ -151,8 +151,8 @@ export class Days extends React.PureComponent<IDaysProps> {
       days,
       theme,
       rangeDays,
-      daysEvent,
-      rangeStatus,
+      daysEventListeners,
+      selectedPickerStatus,
       ArrowLeft,
       ArrowRight,
       monthName,
@@ -176,7 +176,9 @@ export class Days extends React.PureComponent<IDaysProps> {
               <p data-testid="days-head-title-text">{monthName}</p>
               <ArrowLeft onClick={increaseMonth} />
             </HeadTitle>
-            <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
+            <HeadRange data-testid="days-head-range">
+              {selectedPickerStatus}
+            </HeadRange>
           </DaysHead>
           <Table>
             <thead>
@@ -194,7 +196,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                       key={`rdp-days-${id}`}
                       data-testid={`day-${idx * 7 + id + 1}`}
                       data-fadate={`${day.faDate}`}
-                      daysEvent={daysEvent}
+                      daysEvent={daysEventListeners}
                       theme={theme}
                       startEndRange={rangeDays && rangeDays[day.faDate]}
                       isSelecting={isSelecting}

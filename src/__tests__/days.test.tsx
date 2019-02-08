@@ -13,7 +13,7 @@ describe("theme test ", () => {
       <Days
         theme={theme}
         days={mockDays}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -40,7 +40,7 @@ describe("day test ", () => {
       <Days
         days={[]}
         theme={theme}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -53,7 +53,7 @@ describe("day test ", () => {
       <Days
         days={mockDays}
         theme={theme}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -71,7 +71,7 @@ describe("day withRangeDays test ", () => {
         days={mockDays}
         theme={theme}
         rangeDays={rangeHelperMock}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -86,7 +86,7 @@ describe("day withRangeDays test ", () => {
         days={mockDays}
         theme={theme}
         rangeDays={{ "1397/10/02": { status: "sameRange" } }}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,

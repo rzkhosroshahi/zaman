@@ -245,8 +245,8 @@ export class RangeDatePicker extends React.Component<
             days={this.state.days}
             monthName={this.state.monthName}
             rangeDays={this.state.rangeDays}
-            rangeStatus={this.state.rangeStatus}
-            daysEvent={this.daysEventListeners}
+            selectedPickerStatus={this.state.rangeStatus}
+            daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}
