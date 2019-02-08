@@ -55,3 +55,10 @@ export const makeRangeStatus = (start: Moment, end: Moment) => {
   }
   return `${fa(startDay)} تا ${fa(endDay)} ${startMonth} ماه`;
 };
+
+export const datePickerStatus = (date: Moment) => {
+  const day = date.format("jDD");
+  const month = date.locale("fa").format("jMMMM");
+
+  return `${fa(day)} ${month} ماه`;
+};

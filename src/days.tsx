@@ -145,6 +145,7 @@ export class Days extends React.PureComponent<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     monthName: "",
     holiday: [],
+    daysEventListeners: () => null,
   };
   public render(): React.ReactNode {
     const {

@@ -11,13 +11,12 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 | props                 | type            | default                                                                                                                               |
 | --------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| value                 | timestamp       | today date                                                                                                                            |
+| value                 | timestamp       | Date                                                                                                                                  | Moment | today date |
 | weekend               | number[]        | `[6]`                                                                                                                                 |
 | ArrowLeft             | React.ReactType | default component                                                                                                                     |
 | ArrowLeft             | React.ReactType | default component                                                                                                                     |
 | ClockIcon             | React.ReactType | default component                                                                                                                     |
 | DateIcon              | React.ReactType | default component                                                                                                                     |
-| isRenderingButtons    | boolean         | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                            |
 | isRenderingTimePicker | boolean         | true.                                                                                                                                 |
 | onClickSubmitButton   | function        | null. if you passed this will be something like                                                                                       |
 | modalZIndex           | number          | 9999                                                                                                                                  |
