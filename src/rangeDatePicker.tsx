@@ -9,7 +9,7 @@ import { Days } from "./days";
 import { Modal } from "./modal";
 import * as Arrows from "./arrows";
 import { defaultRangeTheme } from "./theme";
-import { inputMask } from "./utils";
+import { inputFaDateMask } from "./utils";
 import { rangeHelper, makeRangeStatus } from "./utils/rangeHelper";
 import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "./types";
 
@@ -227,14 +227,14 @@ export class RangeDatePicker extends React.Component<
           value={this.state.startDate.format("jYYYY/jMM/jDD")}
           onClick={this.toggleModalOpen}
           onChange={e => this.changeInputValues(e)}
-          mask={inputMask}
+          mask={inputFaDateMask}
         />
         <MaskedInput
           className="rdp__input--end"
           data-testid="input-end"
           value={this.state.endDate.format("jYYYY/jMM/jDD")}
           onChange={e => this.changeInputValues(e, false)}
-          mask={inputMask}
+          mask={inputFaDateMask}
         />
         <Modal
           isOpen={this.state.isOpenModal}

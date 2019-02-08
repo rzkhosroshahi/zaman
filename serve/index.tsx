@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { RangeDatePicker } from "../src";
+import { DatePicker } from "../src/datePicker";
 
 // my favorite theme 😌
 const theme = {
@@ -42,4 +42,4 @@ const theme = {
   cancelHoverColor: "#000",
 };
 
-render(<RangeDatePicker theme={theme} />, document.getElementById("root"));
+render(<DatePicker />, document.getElementById("root"));
