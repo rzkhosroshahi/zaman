@@ -11,12 +11,7 @@ describe("day test ", () => {
   test("day test ", () => {
     const table = document.createElement("tr");
     const { container } = render(
-      <Day
-        theme={theme}
-        daysEvent={mockDaysEvent}
-        holiday={[]}
-        startEndRange={false}
-      />,
+      <Day theme={theme} daysEvent={mockDaysEvent} holiday={[]} />,
       {
         container: table,
       },
@@ -31,12 +26,7 @@ describe("day test ", () => {
   test("holiday test ", () => {
     const table = document.createElement("tr");
     const { container } = render(
-      <Day
-        theme={theme}
-        daysEvent={mockDaysEvent}
-        holiday={[6]}
-        startEndRange={false}
-      />,
+      <Day theme={theme} daysEvent={mockDaysEvent} holiday={[6]} />,
       {
         container: table,
       },

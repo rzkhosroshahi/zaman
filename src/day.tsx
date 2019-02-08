@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "./theme";
 import { styledThemes } from "./types";
-import { IRangeDays } from "./types";
+import { IRangeDay } from "./types";
 
-const NormalDay = styled("td")<styledThemes>`
+const NormalDay = styled("td")`
   height: 45px;
   width: 45px;
   text-align: center;
@@ -14,12 +14,12 @@ const NormalDay = styled("td")<styledThemes>`
   transform-style: preserve-3d;
 `;
 
-const HolidayDay = styled(NormalDay)<styledThemes>`
+const HolidayDay = styled(NormalDay)`
   color: ${props => props.theme.holidaysColor};
   background-color: ${props => props.theme.holidaysBackColor};
 `;
 
-const StartEndRangeDay = styled(NormalDay)<styledThemes>`
+const StartEndRangeDay = styled(NormalDay)<IDayProps>`
   color: ${props =>
     props.isSelecting && props.startEndRange.status === "endRange"
       ? props.theme.continueRangeColor
@@ -62,7 +62,7 @@ const StartEndRangeDay = styled(NormalDay)<styledThemes>`
 `;
 
 export interface IDayProps {
-  startEndRange?: IRangeDays | {};
+  startEndRange?: IRangeDay;
   theme: styledThemes;
   isSelecting?: boolean;
   daysEvent?: () => void;

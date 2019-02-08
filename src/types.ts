@@ -10,7 +10,7 @@ export interface IRangeDay {
 }
 
 export interface IRangeDays {
-  [s: string]: Partial<IRangeDay>;
+  [s: string]: IRangeDay;
 }
 
 export interface ITheme {
@@ -61,4 +61,4 @@ export interface IDatePickerTheme extends ITheme {
   pmAmColor?: string;
 }
 
-export type styledThemes = IRangeDatePickerTheme | IDatePickerTheme;
+export type styledThemes = IRangeDatePickerTheme & IDatePickerTheme;

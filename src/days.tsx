@@ -2,13 +2,13 @@ import * as React from "react";
 import styled, { ThemeProvider } from "./theme";
 import { IDays } from "./utils/daysInMonth";
 import { styledThemes } from "./types";
-import { IRangeDays } from "./types";
+import { IRangeDay } from "./types";
 import { Day } from "./day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils";
 import { weekDayNames } from "./utils";
 
-const DaysBody = styled("div")<styledThemes>`
+const DaysBody = styled("div")`
   max-width: 320px;
   border-radius: ${8 / 16}rem;
   overflow: hidden;
@@ -21,7 +21,7 @@ const DaysBody = styled("div")<styledThemes>`
   }
 `;
 
-const DaysHead = styled("div")<styledThemes>`
+const DaysHead = styled("div")`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +29,7 @@ const DaysHead = styled("div")<styledThemes>`
   background-color: ${props => props.theme.headBackColor};
 `;
 
-const HeadTitle = styled("h4")<styledThemes>`
+const HeadTitle = styled("h4")`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@ const HeadTitle = styled("h4")<styledThemes>`
   }
 `;
 
-const HeadRange = styled("h3")<styledThemes>`
+const HeadRange = styled("h3")`
   margin-top: ${24 / 16}rem;
   margin-bottom: 1rem;
   font-size: 1.618rem;
@@ -67,7 +67,7 @@ const Table = styled.table`
   }
 `;
 
-const ButtonsDiv = styled("div")<styledThemes>`
+const ButtonsDiv = styled("div")`
   margin-top: ${16 / 16}rem;
   margin-bottom: ${16 / 16}rem;
 
@@ -117,7 +117,7 @@ const ButtonsDiv = styled("div")<styledThemes>`
 export interface IDaysProps {
   days: IDays[];
   theme?: styledThemes;
-  rangeDays: IRangeDays;
+  rangeDays: IRangeDay;
   daysEvent: any;
   rangeStatus: string;
   ArrowLeft: React.ReactType;
@@ -196,7 +196,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                       data-fadate={`${day.faDate}`}
                       daysEvent={daysEvent}
                       theme={theme}
-                      startEndRange={rangeDays ? rangeDays[day.faDate] : {}}
+                      startEndRange={rangeDays[day.faDate]}
                       isSelecting={isSelecting}
                       holiday={this.props.holiday.filter(
                         holiday => holiday === id,

@@ -6,6 +6,7 @@
   "rules": {
     "ordered-imports": false,
     "object-literal-sort-keys": false,
+    "no-angle-bracket-type-assertion": false,
     "arrow-parens": false
   },
   "member-ordering": [

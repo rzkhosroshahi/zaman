@@ -8,7 +8,11 @@ export interface IModalProps {
   toggleOpen: () => void;
 }
 
-const ModalDiv = styled.div`
+interface IModalStyled {
+  modalZIndex: number;
+}
+
+const ModalDiv = styled("div")<IModalStyled>`
   position: absolute;
   display: flex;
   justify-content: center;

@@ -11,12 +11,10 @@ const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   return "continueRange";
 };
 
-export type IRangeHelper = IRangeDays | {};
-
-export function rangeHelper(range: IRangeDate): IRangeHelper {
+export function rangeHelper(range: IRangeDate) {
   const { start, end } = range;
   const cloneStart = start.clone();
-  const rangeDays = {};
+  const rangeDays = <IRangeDays>{};
 
   if (cloneStart.isSame(end)) {
     rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
