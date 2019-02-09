@@ -36,10 +36,38 @@ describe("datePicker input tests", () => {
   });
 });
 
+describe("arrows tests", () => {
+  afterEach(cleanup);
+
+  test("clicking on left arrow ", () => {
+    const { getByTestId } = render(<DatePicker />);
+    const inputStart = getByTestId("input-dp");
+    fireEvent.click(inputStart);
+
+    const arrowRight = getByTestId("arrow-left");
+    fireEvent.click(arrowRight);
+    const headTitleText = getByTestId("days-head-title-text");
+
+    expect(headTitleText.textContent).toBe("اسفند 1397");
+  });
+
+  test("clicking on left arrow ", () => {
+    const { getByTestId } = render(<DatePicker value={1549706122624} />);
+    const inputStart = getByTestId("input-dp");
+    fireEvent.click(inputStart);
+
+    const arrowRight = getByTestId("arrow-right");
+    fireEvent.click(arrowRight);
+    const headTitleText = getByTestId("days-head-title-text");
+
+    expect(headTitleText.textContent).toBe("دی 1397");
+  });
+});
+
 describe("datePicker input tests", () => {
   afterEach(cleanup);
   test("pick day ", () => {
-    const { getByTestId } = render(<DatePicker />);
+    const { getByTestId } = render(<DatePicker value={1549706122624} />);
     const input = getByTestId("input-dp");
     fireEvent.click(input);
     // days five

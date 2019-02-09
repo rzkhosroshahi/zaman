@@ -90,6 +90,15 @@ export class DatePicker extends React.PureComponent<
         dayStatus: datePickerStatus(moment(this.state.value)),
       });
     }
+    if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
+      const { monthName, days } = daysInMonth(this.state.cloneDays);
+      this.setState(prevSetState => {
+        return {
+          days: [...prevSetState.days.slice(prevSetState.days.length), ...days],
+          monthName,
+        };
+      });
+    }
   }
 
   public changeMonth = amount => {
@@ -150,7 +159,7 @@ export class DatePicker extends React.PureComponent<
             daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}
-            isRenderingButtons={this.props.isRenderingButtons}
+            isRenderingButtons={true}
             ArrowLeft={ArrowLeft}
             ArrowRight={ArrowRight}
             increaseMonth={() => this.changeMonth(1)}
