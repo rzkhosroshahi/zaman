@@ -9,9 +9,11 @@ import { fa } from "./utils";
 import { weekDayNames } from "./utils";
 
 const DaysBody = styled("div")`
-  max-width: 320px;
+  max-width: 310px;
+  max-height: 85%;
+  position: relative;
+  overflow: scroll;
   border-radius: ${8 / 16}rem;
-  overflow: hidden;
   background-color: ${props => props.theme.backColor};
   & * {
     box-sizing: border-box;
@@ -54,11 +56,12 @@ const HeadRange = styled("h3")`
   color: ${props => props.theme.headRangeColor};
 `;
 
-const Table = styled.table`
+const Table = styled("table")<{ timePicker: boolean }>`
   width: 100%;
   font-size: 1rem;
   border-collapse: separate;
-  border-spacing: 0 1em;
+  border-spacing: 0 0.5rem;
+  padding: ${props => (props.timePicker ? `${8 / 16}rem` : 0)};
 
   th {
     font-size: 1rem;
@@ -208,52 +211,54 @@ export class Days extends React.PureComponent<IDaysProps> {
     return (
       <ThemeProvider theme={theme}>
         <DaysBody>
-          <DaysHead data-testid="days-head">
-            <HeadTitle data-testid="days-head-title">
-              <ArrowRight onClick={decreaseMonth} />
-              <p data-testid="days-head-title-text">{monthName}</p>
-              <ArrowLeft onClick={increaseMonth} />
-            </HeadTitle>
-            <HeadRange data-testid="days-head-range">
-              {selectedPickerStatus}
-            </HeadRange>
-          </DaysHead>
           {timePicker && timePickerView ? (
             <p data-testid="dp__timePicker">time picker</p>
           ) : (
-            <Table data-testid="table-days">
-              <thead>
-                <tr>
-                  {weekDayNames.map((name, idx) => (
-                    <th key={`weekDayName-${idx}`}>{name}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {weeks.map((week, idx) => (
-                  <tr data-testid="days" key={`rdp-weeks-${idx}`}>
-                    {week.map((day: IDays, id) => (
-                      <Day
-                        key={`rdp-days-${id}`}
-                        data-testid={`day-${idx * 7 + id + 1}`}
-                        data-fadate={`${day.faDate}`}
-                        daysEvent={daysEventListeners}
-                        theme={theme}
-                        startEndRange={rangeDays && rangeDays[day.faDate]}
-                        isSelecting={isSelecting}
-                        selectedDay={selectedDay === day.faDate}
-                        holiday={this.props.holiday.filter(
-                          holiday => holiday === id,
-                        )}
-                        {...boolDataset(day.disable)}
-                      >
-                        {!day.disable ? fa(day.day) : null}
-                      </Day>
+            <React.Fragment>
+              <DaysHead data-testid="days-head">
+                <HeadTitle data-testid="days-head-title">
+                  <ArrowRight onClick={decreaseMonth} />
+                  <p data-testid="days-head-title-text">{monthName}</p>
+                  <ArrowLeft onClick={increaseMonth} />
+                </HeadTitle>
+                <HeadRange data-testid="days-head-range">
+                  {selectedPickerStatus}
+                </HeadRange>
+              </DaysHead>
+              <Table data-testid="table-days" timePicker={timePicker}>
+                <thead>
+                  <tr>
+                    {weekDayNames.map((name, idx) => (
+                      <th key={`weekDayName-${idx}`}>{name}</th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {weeks.map((week, idx) => (
+                    <tr data-testid="days" key={`rdp-weeks-${idx}`}>
+                      {week.map((day: IDays, id) => (
+                        <Day
+                          key={`rdp-days-${id}`}
+                          data-testid={`day-${idx * 7 + id + 1}`}
+                          data-fadate={`${day.faDate}`}
+                          daysEvent={daysEventListeners}
+                          theme={theme}
+                          startEndRange={rangeDays && rangeDays[day.faDate]}
+                          isSelecting={isSelecting}
+                          selectedDay={selectedDay === day.faDate}
+                          holiday={this.props.holiday.filter(
+                            holiday => holiday === id,
+                          )}
+                          {...boolDataset(day.disable)}
+                        >
+                          {!day.disable ? fa(day.day) : null}
+                        </Day>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </React.Fragment>
           )}
           {isRenderingButtons && (
             <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">

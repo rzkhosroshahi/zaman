@@ -168,6 +168,7 @@ export class DatePicker extends React.PureComponent<
             ClockIcon={ClockIcon}
             increaseMonth={() => this.changeMonth(1)}
             decreaseMonth={() => this.changeMonth(-1)}
+            timePicker
             // onCancelButton={this.cancelButton}
             // onSubmitButton={this.submitButton}
           />
