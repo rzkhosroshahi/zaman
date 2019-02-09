@@ -1,19 +1,100 @@
-# React Jalali Date-Picker
+# Jalali React Date-Picker
 
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
+![alt-text](./help/banner.png)
+
+React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.
+
+## Installation
+
+`$ npm install -S jalali-react-datepicker`
+
+## Date Picker
+
+| props               | type                                | default                                                                                                                               |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                                  | Moment | today date |
+| weekend             | number[]                            | `[6]`                                                                                                                                 |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
+| ClockIcon           | React.ReactType                     | default component                                                                                                                     |
+| DateIcon            | React.ReactType                     | default component                                                                                                                     |
+| timePicker          | boolean                             | true.                                                                                                                                 |
+| onClickSubmitButton | function                            | null. if you passed this will be something like                                                                                       |
+| modalZIndex         | number                              | 9999                                                                                                                                  |
+| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
+
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { DatePicker } from "react-jalali-datepicker";
+
+render(<DatePicker />, document.getElementById("root"));
+```
+
+### onClickSubmitButton
+
+You can access to datePicker value when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ value }) {
+  console.log("value ", value);
+}
+```
+
 ## Range Date Picker
 
-| props      | type                  | default                         |
-| ---------- | --------------------- | ------------------------------- |
-| start      | string. ex: 1397/5/18 | today date                      |
-| end        | string. ex: 1397/5/18 | today date                      |
-| weekend    | number[]              | `[6]`                           |
-| startWeek  | number                | day: 0                          |
-| ArrowLeft  | React.ReactNode       | default component               |
-| ArrowRight | React.ReactNode       | default component               |
-| theme      | object                | default theme you can see here. |
+You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
+
+Note that all props are _optional_.
+
+| props               | type                  | default                                                                                                                                                 |
+| ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| weekend             | number[]              | `[6]`                                                                                                                                                   |
+| ArrowLeft           | React.ReactType       | default component                                                                                                                                       |
+| ArrowRight          | React.ReactType       | default component                                                                                                                                       |
+| isRenderingButtons  | boolean               | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                              |
+| onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| modalZIndex         | number                | 9999                                                                                                                                                    |
+| theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts)                   |
+
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { RangeDatePicker } from "react-jalali-datepicker";
+
+render(<RangeDatePicker />, document.getElementById("root"));
+```
+
+### onClickSubmitButton
+
+You can access to start and end date when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ start, end }) {
+  console.log("start ", start);
+  console.log("end ", end);
+}
+```
+
+## ToDo
+
+- ~~write DatePicker~~
+- add label to inputs
+- create codesandbox page for preview
+- add TimePicker
 
 ## Contributors
 
@@ -27,3 +108,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
+## License
+
+[MIT License](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/datePicker/LICENSE)

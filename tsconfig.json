@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "outDir": "./dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "esModuleInterop": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "src/__tests__/*"]
+  "exclude": ["node_modules", "**/__tests__/*"]
 }
