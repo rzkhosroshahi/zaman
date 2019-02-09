@@ -96,3 +96,27 @@ describe("day withRangeDays test ", () => {
     expect(day).toHaveStyleRule("color", theme.sameRangeColor);
   });
 });
+
+describe("change datePicker and timePicker views", () => {
+  test("should be render timePicker instead days when timePicker prop is true", () => {
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={rangeHelperMock}
+        daysEventListeners={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+        timePicker
+        timePickerView
+      />,
+    );
+    const timePicker = getByTestId("dp__timePicker");
+    expect(timePicker.textContent).toBe("time picker");
+
+    function notRendering() {
+      getByTestId("table-days");
+    }
+    expect(notRendering).toThrowError();
+  });
+});
