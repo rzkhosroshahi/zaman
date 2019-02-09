@@ -131,6 +131,8 @@ export class DatePicker extends React.PureComponent<
       modalZIndex,
       ArrowRight,
       ArrowLeft,
+      DateIcon,
+      ClockIcon,
       theme,
       timePicker,
     } = this.props;
@@ -147,7 +149,7 @@ export class DatePicker extends React.PureComponent<
           style={{ direction: "ltr" }}
         />
         <Modal
-          isOpen={this.state.isOpenModal}
+          isOpen={true}
           toggleOpen={this.toggleModalOpen}
           modalZIndex={modalZIndex}
         >
@@ -162,6 +164,8 @@ export class DatePicker extends React.PureComponent<
             isRenderingButtons={true}
             ArrowLeft={ArrowLeft}
             ArrowRight={ArrowRight}
+            DateIcon={DateIcon}
+            ClockIcon={ClockIcon}
             increaseMonth={() => this.changeMonth(1)}
             decreaseMonth={() => this.changeMonth(-1)}
             // onCancelButton={this.cancelButton}

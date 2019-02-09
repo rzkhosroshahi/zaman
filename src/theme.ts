@@ -72,6 +72,10 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
   cancelHoverBackColor: "#D6D6D6",
   cancelColor: "#000",
   cancelHoverColor: "#000",
+  changeViewButtonBackColor: "#D6D6D6",
+  changeViewButtonHoverBackColor: "#fff",
+  changeViewButtonColor: "#000",
+  changeViewButtonHoverColor: "red",
 };
 
 const {

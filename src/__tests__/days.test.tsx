@@ -1,10 +1,11 @@
 import * as React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render, fireEvent } from "react-testing-library";
 import { Days } from "../days";
-import "jest-styled-components";
 import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
-const mockDaysEvent = jest.fn();
 const Arrow = () => <p>Arrow</p>;
+import { ClockIcon, DateIcon } from "../icons";
+const mockDaysEvent = jest.fn();
+import "jest-styled-components";
 
 describe("theme test ", () => {
   afterEach(cleanup);
@@ -98,6 +99,7 @@ describe("day withRangeDays test ", () => {
 });
 
 describe("change datePicker and timePicker views", () => {
+  afterEach(cleanup);
   test("should be render timePicker instead days when timePicker prop is true", () => {
     const { getByTestId } = render(
       <Days
@@ -118,5 +120,27 @@ describe("change datePicker and timePicker views", () => {
       getByTestId("table-days");
     }
     expect(notRendering).toThrowError();
+  });
+  test("click on change view button", () => {
+    const mockFunc = jest.fn();
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={rangeHelperMock}
+        daysEventListeners={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+        ClockIcon={ClockIcon}
+        DateIcon={DateIcon}
+        toggleView={mockFunc}
+        timePicker
+        timePickerView
+        isRenderingButtons
+      />,
+    );
+    const viewButton = getByTestId("toggle-view");
+    fireEvent.click(viewButton);
+    expect(mockFunc).toHaveBeenCalledTimes(1);
   });
 });

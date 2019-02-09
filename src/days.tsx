@@ -114,6 +114,29 @@ const ButtonsDiv = styled("div")`
   }
 `;
 
+const ChangeViewButton = styled("button")`
+  min-width: 40px !important;
+  min-height: 40px;
+  float: left;
+  margin-left: 16px !important;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  background-color: ${props => props.theme.changeViewButtonBackColor};
+  svg {
+    fill: ${props => props.theme.changeViewButtonColor};
+  }
+  &:hover,
+  &:focus {
+    background-color: ${props => props.theme.changeViewButtonHoverBackColor};
+    svg {
+      fill: ${props => props.theme.changeViewButtonHoverColor};
+    }
+  }
+`;
+
 export interface IDaysProps {
   days: IDays[];
   theme?: styledThemes;
@@ -123,6 +146,8 @@ export interface IDaysProps {
   selectedDay?: string;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
+  ClockIcon?: React.ReactType;
+  DateIcon?: React.ReactType;
   monthName: string;
   increaseMonth: () => void;
   decreaseMonth: () => void;
@@ -131,6 +156,7 @@ export interface IDaysProps {
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
   onSubmitButton?: () => void;
+  toggleView?: () => void;
   timePicker?: boolean;
   timePickerView?: boolean;
 }
@@ -161,6 +187,8 @@ export class Days extends React.PureComponent<IDaysProps> {
       selectedPickerStatus,
       ArrowLeft,
       ArrowRight,
+      ClockIcon,
+      DateIcon,
       monthName,
       increaseMonth,
       decreaseMonth,
@@ -171,6 +199,7 @@ export class Days extends React.PureComponent<IDaysProps> {
       selectedDay,
       timePicker,
       timePickerView,
+      toggleView,
     } = this.props;
     if (!days.length) {
       return null;
@@ -242,6 +271,14 @@ export class Days extends React.PureComponent<IDaysProps> {
               >
                 لغو
               </button>
+              {timePicker && (
+                <ChangeViewButton
+                  onClick={toggleView}
+                  data-testid="toggle-view"
+                >
+                  {timePickerView ? <DateIcon /> : <ClockIcon />}
+                </ChangeViewButton>
+              )}
             </ButtonsDiv>
           )}
         </DaysBody>
