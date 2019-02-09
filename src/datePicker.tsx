@@ -34,6 +34,7 @@ interface IDatePickerProps {
 interface IDatePickerState {
   value: Moment;
   cloneDays: Moment;
+  initialValue?: Moment;
   monthName?: string;
   days?: IDays[];
   isOpenModal: boolean;
@@ -80,6 +81,7 @@ export class DatePicker extends React.PureComponent<
       return {
         days: [...prevState.days, ...days],
         monthName,
+        initialValue: prevState.value,
       };
     });
   }
@@ -135,6 +137,18 @@ export class DatePicker extends React.PureComponent<
       onClick: this.selectDay,
     };
   };
+  public cancelButton = () => {
+    this.setState(prevState => ({
+      isOpenModal: false,
+      value: prevState.initialValue,
+    }));
+  };
+  public submitButton = () => {
+    this.setState({
+      isOpenModal: false,
+      initialValue: this.state.value,
+    });
+  };
   public render(): React.ReactNode {
     const {
       modalZIndex,
@@ -158,7 +172,7 @@ export class DatePicker extends React.PureComponent<
           style={{ direction: "ltr" }}
         />
         <Modal
-          isOpen={true}
+          isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
           modalZIndex={modalZIndex}
         >
@@ -179,9 +193,9 @@ export class DatePicker extends React.PureComponent<
             decreaseMonth={() => this.changeMonth(-1)}
             toggleView={this.toggleTimePickerView}
             timePickerView={this.state.timePickerView}
+            onCancelButton={this.cancelButton}
+            onSubmitButton={this.submitButton}
             timePicker
-            // onCancelButton={this.cancelButton}
-            // onSubmitButton={this.submitButton}
           />
         </Modal>
       </DatePickerDiv>

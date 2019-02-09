@@ -199,7 +199,6 @@ export class RangeDatePicker extends React.Component<
       endDate: end,
     });
   };
-
   public submitButton = () => {
     const { startDate: start, endDate: end } = this.state;
     if (this.props.onClickSubmitButton) {

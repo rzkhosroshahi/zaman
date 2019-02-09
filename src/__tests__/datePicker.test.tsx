@@ -84,11 +84,46 @@ describe("datePicker input tests", () => {
   });
 });
 
+describe("submit and cancel buttons tests", () => {
+  afterEach(cleanup);
+  test("submit button", () => {
+    const { getByTestId } = render(
+      <DatePicker value={1549706122624} timePicker={false} />,
+    );
+    const input = getByTestId("input-dp");
+    fireEvent.click(input);
+
+    // days five
+    const daysFive = getByTestId("day-5");
+    fireEvent.click(daysFive);
+    expect((input as HTMLInputElement).value).toBe("1397/11/03");
+    // cancel button
+    const submitButton = getByTestId("submit-button");
+    fireEvent.click(submitButton);
+    expect((input as HTMLInputElement).value).toBe("1397/11/03");
+  });
+  test("cancel button", () => {
+    const { getByTestId } = render(
+      <DatePicker value={1549706122624} timePicker={false} />,
+    );
+    const input = getByTestId("input-dp");
+    fireEvent.click(input);
+
+    // days five
+    const daysFive = getByTestId("day-5");
+    fireEvent.click(daysFive);
+    expect((input as HTMLInputElement).value).toBe("1397/11/03");
+    // cancel button
+    const cancelButton = getByTestId("cancel-button");
+    fireEvent.click(cancelButton);
+    expect((input as HTMLInputElement).value).toBe("1397/11/20");
+  });
+});
+
 test("should be show timePicker when clicked on toggle-view button", () => {
   const { getByTestId } = render(<DatePicker />);
   const input = getByTestId("input-dp");
   fireEvent.click(input);
-  // days five
   const toggleViewBtn = getByTestId("toggle-view");
   fireEvent.click(toggleViewBtn);
 
