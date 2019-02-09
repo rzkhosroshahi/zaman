@@ -1,5 +1,5 @@
 {
-  "name": "react-jalali-datepicker",
+  "name": "jalali-react-datepicker",
   "version": "0.0.1",
   "description": "React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.",
   "main": "dist/index.js",
