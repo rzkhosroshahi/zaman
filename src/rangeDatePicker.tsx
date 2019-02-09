@@ -7,9 +7,9 @@ import { formatJalaliDate } from "./utils";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
 import { Days } from "./days";
 import { Modal } from "./modal";
-import * as Arrows from "./arrows";
+import * as Arrows from "./icons";
 import { defaultRangeTheme } from "./theme";
-import { inputMask } from "./utils";
+import { inputFaDateMask } from "./utils";
 import { rangeHelper, makeRangeStatus } from "./utils/rangeHelper";
 import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "./types";
 
@@ -199,7 +199,6 @@ export class RangeDatePicker extends React.Component<
       endDate: end,
     });
   };
-
   public submitButton = () => {
     const { startDate: start, endDate: end } = this.state;
     if (this.props.onClickSubmitButton) {
@@ -227,14 +226,14 @@ export class RangeDatePicker extends React.Component<
           value={this.state.startDate.format("jYYYY/jMM/jDD")}
           onClick={this.toggleModalOpen}
           onChange={e => this.changeInputValues(e)}
-          mask={inputMask}
+          mask={inputFaDateMask}
         />
         <MaskedInput
           className="rdp__input--end"
           data-testid="input-end"
           value={this.state.endDate.format("jYYYY/jMM/jDD")}
           onChange={e => this.changeInputValues(e, false)}
-          mask={inputMask}
+          mask={inputFaDateMask}
         />
         <Modal
           isOpen={this.state.isOpenModal}
@@ -245,8 +244,8 @@ export class RangeDatePicker extends React.Component<
             days={this.state.days}
             monthName={this.state.monthName}
             rangeDays={this.state.rangeDays}
-            rangeStatus={this.state.rangeStatus}
-            daysEvent={this.daysEventListeners}
+            selectedPickerStatus={this.state.rangeStatus}
+            daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}
             isSelecting={this.state.isSelecting}

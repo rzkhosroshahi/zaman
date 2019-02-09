@@ -1,5 +1,5 @@
 import * as styledComponents from "styled-components";
-import { IRangeDatePickerTheme, styledThemes } from "./types";
+import { IDatePickerTheme, IRangeDatePickerTheme, styledThemes } from "./types";
 
 export const defaultRangeTheme: IRangeDatePickerTheme = {
   backColor: "#FFFFFF",
@@ -39,6 +39,43 @@ export const defaultRangeTheme: IRangeDatePickerTheme = {
   cancelHoverBackColor: "#D6D6D6",
   cancelColor: "#000",
   cancelHoverColor: "#000",
+};
+
+export const defaultDatePickerTheme: IDatePickerTheme = {
+  backColor: "#FFFFFF",
+  // head
+  headBackColor: "#FFFFFF",
+  headTitleColor: "#000",
+  headArrowColor: "#000",
+  headRangeBackColor: "#D6D6D6",
+  headRangeColor: "#000",
+
+  // weekdays color
+  weekDaysColor: "#3F3F3F",
+
+  // days
+  daysColor: "#000",
+  daysBackColor: "#FFFFFF",
+  holidaysColor: "#F50057",
+  holidaysBackColor: "#FFFFFF",
+  daysRound: "50%",
+
+  selectDayColor: "#000",
+  selectDayBackColor: "#D6D6D6",
+
+  // buttons
+  submitBackColor: "#D6D6D6",
+  submitHoverBackColor: "#f3f3f3",
+  submitColor: "#000",
+  submitHoverColor: "#000",
+  cancelBackColor: "#fff",
+  cancelHoverBackColor: "#D6D6D6",
+  cancelColor: "#000",
+  cancelHoverColor: "#000",
+  changeViewButtonBackColor: "#D6D6D6",
+  changeViewButtonHoverBackColor: "#fff",
+  changeViewButtonColor: "#000",
+  changeViewButtonHoverColor: "red",
 };
 
 const {

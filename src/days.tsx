@@ -9,9 +9,11 @@ import { fa } from "./utils";
 import { weekDayNames } from "./utils";
 
 const DaysBody = styled("div")`
-  max-width: 320px;
+  max-width: 310px;
+  max-height: 85%;
+  position: relative;
+  overflow: scroll;
   border-radius: ${8 / 16}rem;
-  overflow: hidden;
   background-color: ${props => props.theme.backColor};
   & * {
     box-sizing: border-box;
@@ -54,11 +56,12 @@ const HeadRange = styled("h3")`
   color: ${props => props.theme.headRangeColor};
 `;
 
-const Table = styled.table`
+const Table = styled("table")<{ timePicker: boolean }>`
   width: 100%;
   font-size: 1rem;
   border-collapse: separate;
-  border-spacing: 0 1em;
+  border-spacing: 0 0.5rem;
+  padding: ${props => (props.timePicker ? `${8 / 16}rem` : 0)};
 
   th {
     font-size: 1rem;
@@ -114,22 +117,50 @@ const ButtonsDiv = styled("div")`
   }
 `;
 
+const ChangeViewButton = styled("button")`
+  min-width: 40px !important;
+  min-height: 40px;
+  float: left;
+  margin-left: 16px !important;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  background-color: ${props => props.theme.changeViewButtonBackColor};
+  svg {
+    fill: ${props => props.theme.changeViewButtonColor};
+  }
+  &:hover {
+    background-color: ${props => props.theme.changeViewButtonHoverBackColor};
+    svg {
+      fill: ${props => props.theme.changeViewButtonHoverColor};
+    }
+  }
+`;
+
 export interface IDaysProps {
   days: IDays[];
   theme?: styledThemes;
-  rangeDays: IRangeDays;
-  daysEvent: any;
-  rangeStatus: string;
+  rangeDays?: IRangeDays;
+  daysEventListeners: any;
+  selectedPickerStatus: string;
+  selectedDay?: string;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
+  ClockIcon?: React.ReactType;
+  DateIcon?: React.ReactType;
   monthName: string;
   increaseMonth: () => void;
   decreaseMonth: () => void;
-  isSelecting: boolean;
+  isSelecting?: boolean;
   holiday?: number[];
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
   onSubmitButton?: () => void;
+  toggleView?: () => void;
+  timePicker?: boolean;
+  timePickerView?: boolean;
 }
 
 const boolDataset = (arg: boolean) => {
@@ -145,16 +176,21 @@ export class Days extends React.PureComponent<IDaysProps> {
   public static defaultProps: Partial<IDaysProps> = {
     monthName: "",
     holiday: [],
+    daysEventListeners: () => null,
+    timePicker: false,
+    timePickerView: false,
   };
   public render(): React.ReactNode {
     const {
       days,
       theme,
       rangeDays,
-      daysEvent,
-      rangeStatus,
+      daysEventListeners,
+      selectedPickerStatus,
       ArrowLeft,
       ArrowRight,
+      ClockIcon,
+      DateIcon,
       monthName,
       increaseMonth,
       decreaseMonth,
@@ -162,6 +198,10 @@ export class Days extends React.PureComponent<IDaysProps> {
       isRenderingButtons,
       onCancelButton,
       onSubmitButton,
+      selectedDay,
+      timePicker,
+      timePickerView,
+      toggleView,
     } = this.props;
     if (!days.length) {
       return null;
@@ -170,46 +210,55 @@ export class Days extends React.PureComponent<IDaysProps> {
     return (
       <ThemeProvider theme={theme}>
         <DaysBody>
-          <DaysHead data-testid="days-head">
-            <HeadTitle data-testid="days-head-title">
-              <ArrowRight onClick={decreaseMonth} />
-              <p data-testid="days-head-title-text">{monthName}</p>
-              <ArrowLeft onClick={increaseMonth} />
-            </HeadTitle>
-            <HeadRange data-testid="days-head-range">{rangeStatus}</HeadRange>
-          </DaysHead>
-          <Table>
-            <thead>
-              <tr>
-                {weekDayNames.map((name, idx) => (
-                  <th key={`weekDayName-${idx}`}>{name}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {weeks.map((week, idx) => (
-                <tr data-testid="days" key={`rdp-weeks-${idx}`}>
-                  {week.map((day: IDays, id) => (
-                    <Day
-                      key={`rdp-days-${id}`}
-                      data-testid={`day-${idx * 7 + id + 1}`}
-                      data-fadate={`${day.faDate}`}
-                      daysEvent={daysEvent}
-                      theme={theme}
-                      startEndRange={rangeDays && rangeDays[day.faDate]}
-                      isSelecting={isSelecting}
-                      holiday={this.props.holiday.filter(
-                        holiday => holiday === id,
-                      )}
-                      {...boolDataset(day.disable)}
-                    >
-                      {!day.disable ? fa(day.day) : null}
-                    </Day>
+          {timePicker && timePickerView ? (
+            <p data-testid="dp__timePicker">time picker</p>
+          ) : (
+            <React.Fragment>
+              <DaysHead data-testid="days-head">
+                <HeadTitle data-testid="days-head-title">
+                  <ArrowRight onClick={decreaseMonth} />
+                  <p data-testid="days-head-title-text">{monthName}</p>
+                  <ArrowLeft onClick={increaseMonth} />
+                </HeadTitle>
+                <HeadRange data-testid="days-head-range">
+                  {selectedPickerStatus}
+                </HeadRange>
+              </DaysHead>
+              <Table data-testid="table-days" timePicker={timePicker}>
+                <thead>
+                  <tr>
+                    {weekDayNames.map((name, idx) => (
+                      <th key={`weekDayName-${idx}`}>{name}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {weeks.map((week, idx) => (
+                    <tr data-testid="days" key={`rdp-weeks-${idx}`}>
+                      {week.map((day: IDays, id) => (
+                        <Day
+                          key={`rdp-days-${id}`}
+                          data-testid={`day-${idx * 7 + id + 1}`}
+                          data-fadate={`${day.faDate}`}
+                          daysEvent={daysEventListeners}
+                          theme={theme}
+                          startEndRange={rangeDays && rangeDays[day.faDate]}
+                          isSelecting={isSelecting}
+                          selectedDay={selectedDay === day.faDate}
+                          holiday={this.props.holiday.filter(
+                            holiday => holiday === id,
+                          )}
+                          {...boolDataset(day.disable)}
+                        >
+                          {!day.disable ? fa(day.day) : null}
+                        </Day>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                </tbody>
+              </Table>
+            </React.Fragment>
+          )}
           {isRenderingButtons && (
             <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">
               <button
@@ -226,6 +275,14 @@ export class Days extends React.PureComponent<IDaysProps> {
               >
                 لغو
               </button>
+              {timePicker && (
+                <ChangeViewButton
+                  onClick={toggleView}
+                  data-testid="toggle-view"
+                >
+                  {timePickerView ? <DateIcon /> : <ClockIcon />}
+                </ChangeViewButton>
+              )}
             </ButtonsDiv>
           )}
         </DaysBody>

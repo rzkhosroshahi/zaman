@@ -1,10 +1,11 @@
 import * as React from "react";
-import { cleanup, render } from "react-testing-library";
+import { cleanup, render, fireEvent } from "react-testing-library";
 import { Days } from "../days";
-import "jest-styled-components";
 import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
-const mockDaysEvent = jest.fn();
 const Arrow = () => <p>Arrow</p>;
+import { ClockIcon, DateIcon } from "../icons";
+const mockDaysEvent = jest.fn();
+import "jest-styled-components";
 
 describe("theme test ", () => {
   afterEach(cleanup);
@@ -13,7 +14,7 @@ describe("theme test ", () => {
       <Days
         theme={theme}
         days={mockDays}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -40,7 +41,7 @@ describe("day test ", () => {
       <Days
         days={[]}
         theme={theme}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -53,7 +54,7 @@ describe("day test ", () => {
       <Days
         days={mockDays}
         theme={theme}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -71,7 +72,7 @@ describe("day withRangeDays test ", () => {
         days={mockDays}
         theme={theme}
         rangeDays={rangeHelperMock}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -86,7 +87,7 @@ describe("day withRangeDays test ", () => {
         days={mockDays}
         theme={theme}
         rangeDays={{ "1397/10/02": { status: "sameRange" } }}
-        daysEvent={mockDaysEvent}
+        daysEventListeners={mockDaysEvent}
         ArrowLeft={Arrow}
         ArrowRight={Arrow}
       />,
@@ -94,5 +95,52 @@ describe("day withRangeDays test ", () => {
     const day = getByTestId("day-2");
     expect(day).toHaveStyleRule("background-color", theme.sameRangeBackColor);
     expect(day).toHaveStyleRule("color", theme.sameRangeColor);
+  });
+});
+
+describe("change datePicker and timePicker views", () => {
+  afterEach(cleanup);
+  test("should be render timePicker instead days when timePicker prop is true", () => {
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={rangeHelperMock}
+        daysEventListeners={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+        timePicker
+        timePickerView
+      />,
+    );
+    const timePicker = getByTestId("dp__timePicker");
+    expect(timePicker.textContent).toBe("time picker");
+
+    function notRendering() {
+      getByTestId("table-days");
+    }
+    expect(notRendering).toThrowError();
+  });
+  test("click on change view button", () => {
+    const mockFunc = jest.fn();
+    const { getByTestId } = render(
+      <Days
+        days={mockDays}
+        theme={theme}
+        rangeDays={rangeHelperMock}
+        daysEventListeners={mockDaysEvent}
+        ArrowLeft={Arrow}
+        ArrowRight={Arrow}
+        ClockIcon={ClockIcon}
+        DateIcon={DateIcon}
+        toggleView={mockFunc}
+        timePicker
+        timePickerView
+        isRenderingButtons
+      />,
+    );
+    const viewButton = getByTestId("toggle-view");
+    fireEvent.click(viewButton);
+    expect(mockFunc).toHaveBeenCalledTimes(1);
   });
 });

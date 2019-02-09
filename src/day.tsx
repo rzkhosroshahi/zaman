@@ -3,20 +3,29 @@ import styled from "./theme";
 import { styledThemes } from "./types";
 import { IRangeDay } from "./types";
 
-const NormalDay = styled("td")`
+const NormalDay = styled("td")<IDayProps>`
   height: 45px;
   width: 45px;
   text-align: center;
-  color: ${props => props.theme.daysColor};
-  background-color: ${props => props.theme.daysBackColor};
   cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
+  border-radius: ${props => props.theme.daysRound};
+  color: ${props =>
+    props.selectedDay ? props.theme.selectDayColor : props.theme.daysColor};
+  background-color: ${props =>
+    props.selectedDay
+      ? props.theme.selectDayBackColor
+      : props.theme.daysBackColor};
 `;
 
 const HolidayDay = styled(NormalDay)`
-  color: ${props => props.theme.holidaysColor};
-  background-color: ${props => props.theme.holidaysBackColor};
+  color: ${props =>
+    props.selectedDay ? props.theme.selectDayColor : props.theme.holidaysColor};
+  background-color: ${props =>
+    props.selectedDay
+      ? props.theme.selectDayBackColor
+      : props.theme.holidaysBackColor};
 `;
 
 const StartEndRangeDay = styled(NormalDay)<IDayProps>`
@@ -67,6 +76,7 @@ export interface IDayProps {
   isSelecting?: boolean;
   daysEvent?: () => void;
   holiday?: number[];
+  selectedDay?: boolean;
 }
 
 export const Day: React.SFC<IDayProps> = props => {
