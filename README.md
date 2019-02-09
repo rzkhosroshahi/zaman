@@ -22,6 +22,28 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 | modalZIndex         | number                              | 9999                                                                                                                                  |
 | theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
 
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { DatePicker } from "react-jalali-datepicker";
+
+render(<DatePicker />, document.getElementById("root"));
+```
+
+### onClickSubmitButton
+
+You can access to datePicker value when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ value }) {
+  console.log("value ", value);
+}
+```
+
 ## Range Date Picker
 
 You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
