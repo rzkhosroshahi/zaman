@@ -1,4 +1,4 @@
-# React Jalali Date-Picker
+# Jalali React Date-Picker
 
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
@@ -6,6 +6,10 @@
 ![alt-text](./help/banner.png)
 
 React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.
+
+## Installation
+
+`$ npm install -S jalali-react-datepicker`
 
 ## Date Picker
 
@@ -87,7 +91,8 @@ function submitExample({ start, end }) {
 
 ## ToDo
 
-- write DatePicker
+- ~~write DatePicker~~
+- add label to inputs
 - add TimePicker
 
 ## Contributors
