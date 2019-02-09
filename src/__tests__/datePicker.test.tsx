@@ -5,6 +5,7 @@ import { DatePicker } from "../datePicker";
 import "jest-styled-components";
 import { defaultDatePickerTheme } from "../theme";
 
+afterEach(cleanup);
 describe("datePicker input tests", () => {
   afterEach(cleanup);
   test("default value ", () => {
@@ -81,4 +82,15 @@ describe("datePicker input tests", () => {
       defaultDatePickerTheme.selectDayBackColor,
     );
   });
+});
+
+test("should be show timePicker when clicked on toggle-view button", () => {
+  const { getByTestId } = render(<DatePicker />);
+  const input = getByTestId("input-dp");
+  fireEvent.click(input);
+  // days five
+  const toggleViewBtn = getByTestId("toggle-view");
+  fireEvent.click(toggleViewBtn);
+
+  expect(getByTestId("dp__timePicker").textContent).toBe("time picker");
 });

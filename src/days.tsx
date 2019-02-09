@@ -131,8 +131,7 @@ const ChangeViewButton = styled("button")`
   svg {
     fill: ${props => props.theme.changeViewButtonColor};
   }
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: ${props => props.theme.changeViewButtonHoverBackColor};
     svg {
       fill: ${props => props.theme.changeViewButtonHoverColor};
