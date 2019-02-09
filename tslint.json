@@ -7,6 +7,8 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-angle-bracket-type-assertion": false,
+    "no-unused-variable": true,
+    "no-unused-expression": true,
     "arrow-parens": false
   },
   "member-ordering": [

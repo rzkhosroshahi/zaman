@@ -1,15 +1,17 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import MaskedInput from "react-text-mask";
-import { IDatePickerTheme, IRangeDatePickerTheme } from "./types";
+import { IDatePickerTheme } from "./types";
 import { Moment } from "jalali-moment";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
-import styled, { defaultDatePickerTheme, defaultRangeTheme } from "./theme";
+import styled, { defaultDatePickerTheme } from "./theme";
 import { Modal } from "./modal";
-import * as Arrows from "./arrows";
+import * as Arrows from "./icons";
 import { Days } from "./days";
 import { datePickerStatus } from "./utils/rangeHelper";
 import {
+  formatDate,
+  formatDateTime,
   formatJalaliDate,
   inputFaDateMask,
   inputFaDateWithTimeMask,
@@ -23,7 +25,7 @@ interface IDatePickerProps {
   theme?: IDatePickerTheme;
   weekend?: number[];
   isRenderingButtons?: boolean;
-  isRenderingTimePicker?: boolean;
+  timePicker?: boolean;
   onClickSubmitButton?: (arg: any) => any;
 }
 
@@ -46,7 +48,7 @@ export class DatePicker extends React.PureComponent<
 > {
   public static defaultProps: Partial<IDatePickerProps> = {
     value: moment(),
-    isRenderingTimePicker: true,
+    timePicker: true,
     ArrowRight: Arrows.ArrowRightCMP,
     ArrowLeft: Arrows.ArrowLeftCMP,
     modalZIndex: 9999,
@@ -102,9 +104,9 @@ export class DatePicker extends React.PureComponent<
   };
   public selectDay = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate } = (e.target as HTMLHtmlElement).dataset;
-    this.setState(prevState => ({
+    this.setState({
       value: formatJalaliDate(fadate),
-    }));
+    });
   };
   public daysEventListeners = () => {
     return {
@@ -112,33 +114,22 @@ export class DatePicker extends React.PureComponent<
     };
   };
   public render(): React.ReactNode {
-    const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
-    if (!this.props.isRenderingTimePicker) {
-      return (
-        <DatePickerDiv>
-          <MaskedInput
-            className="dp__input"
-            data-testid="input-dp"
-            value={this.state.value.format("jYYYY/jM/jD - HH:mm")}
-            mask={inputFaDateMask}
-            onClick={this.toggleModalOpen}
-            style={{ direction: "ltr" }}
-          />
-          <Modal
-            isOpen={this.state.isOpenModal}
-            toggleOpen={this.toggleModalOpen}
-            modalZIndex={modalZIndex}
-          />
-        </DatePickerDiv>
-      );
-    }
+    const {
+      modalZIndex,
+      ArrowRight,
+      ArrowLeft,
+      theme,
+      timePicker,
+    } = this.props;
     return (
       <DatePickerDiv>
         <MaskedInput
           className="dp__input"
           data-testid="input-dp"
-          value={this.state.value.format("jYYYY/jM/jD - HH:mm")}
-          mask={inputFaDateWithTimeMask}
+          value={this.state.value.format(
+            timePicker ? formatDateTime : formatDate,
+          )}
+          mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
           onClick={this.toggleModalOpen}
           style={{ direction: "ltr" }}
         />

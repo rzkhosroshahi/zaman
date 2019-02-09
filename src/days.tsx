@@ -131,6 +131,7 @@ export interface IDaysProps {
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
   onSubmitButton?: () => void;
+  timePicker?: boolean;
 }
 
 const boolDataset = (arg: boolean) => {
@@ -147,6 +148,7 @@ export class Days extends React.PureComponent<IDaysProps> {
     monthName: "",
     holiday: [],
     daysEventListeners: () => null,
+    timePicker: false,
   };
   public render(): React.ReactNode {
     const {

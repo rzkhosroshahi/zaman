@@ -7,7 +7,7 @@ import { formatJalaliDate } from "./utils";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
 import { Days } from "./days";
 import { Modal } from "./modal";
-import * as Arrows from "./arrows";
+import * as Arrows from "./icons";
 import { defaultRangeTheme } from "./theme";
 import { inputFaDateMask } from "./utils";
 import { rangeHelper, makeRangeStatus } from "./utils/rangeHelper";

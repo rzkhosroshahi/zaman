@@ -9,18 +9,18 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 ## Date Picker
 
-| props                 | type            | default                                                                                                                               |
-| --------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| value                 | timestamp       | Date                                                                                                                                  | Moment | today date |
-| weekend               | number[]        | `[6]`                                                                                                                                 |
-| ArrowLeft             | React.ReactType | default component                                                                                                                     |
-| ArrowLeft             | React.ReactType | default component                                                                                                                     |
-| ClockIcon             | React.ReactType | default component                                                                                                                     |
-| DateIcon              | React.ReactType | default component                                                                                                                     |
-| isRenderingTimePicker | boolean         | true.                                                                                                                                 |
-| onClickSubmitButton   | function        | null. if you passed this will be something like                                                                                       |
-| modalZIndex           | number          | 9999                                                                                                                                  |
-| theme                 | object          | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
+| props               | type                                | default                                                                                                                               |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                                  | Moment | today date |
+| weekend             | number[]                            | `[6]`                                                                                                                                 |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
+| ClockIcon           | React.ReactType                     | default component                                                                                                                     |
+| DateIcon            | React.ReactType                     | default component                                                                                                                     |
+| timePicker          | boolean                             | true.                                                                                                                                 |
+| onClickSubmitButton | function                            | null. if you passed this will be something like                                                                                       |
+| modalZIndex         | number                              | 9999                                                                                                                                  |
+| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
 
 ## Range Date Picker
 

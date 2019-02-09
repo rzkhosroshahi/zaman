@@ -29,9 +29,7 @@ describe("datePicker input tests", () => {
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("when timePicker is false ", () => {
-    const { getByTestId } = render(
-      <DatePicker isRenderingTimePicker={false} />,
-    );
+    const { getByTestId } = render(<DatePicker timePicker={false} />);
     const input = getByTestId("input-dp");
     const today = moment().format("jYYYY/jM/jD");
     expect((input as HTMLInputElement).value).toBe(today);
