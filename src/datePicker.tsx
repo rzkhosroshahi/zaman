@@ -1,12 +1,12 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
+import * as Icons from "./icons";
 import MaskedInput from "react-text-mask";
 import { IDatePickerTheme } from "./types";
 import { Moment } from "jalali-moment";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
 import styled, { defaultDatePickerTheme } from "./theme";
 import { Modal } from "./modal";
-import * as Arrows from "./icons";
 import { Days } from "./days";
 import { datePickerStatus } from "./utils/rangeHelper";
 import {
@@ -21,6 +21,8 @@ interface IDatePickerProps {
   value: number | Date | Moment;
   ArrowLeft?: React.ReactType;
   ArrowRight?: React.ReactType;
+  ClockIcon?: React.ReactType;
+  DateIcon?: React.ReactType;
   modalZIndex?: number;
   theme?: IDatePickerTheme;
   weekend?: number[];
@@ -49,11 +51,13 @@ export class DatePicker extends React.PureComponent<
   public static defaultProps: Partial<IDatePickerProps> = {
     value: moment(),
     timePicker: true,
-    ArrowRight: Arrows.ArrowRightCMP,
-    ArrowLeft: Arrows.ArrowLeftCMP,
+    ArrowRight: Icons.ArrowRightCMP,
+    ArrowLeft: Icons.ArrowLeftCMP,
     modalZIndex: 9999,
     theme: defaultDatePickerTheme,
     weekend: [6],
+    DateIcon: Icons.DateIcon,
+    ClockIcon: Icons.ClockIcon,
   };
 
   constructor(props) {
