@@ -144,6 +144,12 @@ export class DatePicker extends React.PureComponent<
     }));
   };
   public submitButton = () => {
+    const { value } = this.state;
+    if (this.props.onClickSubmitButton) {
+      this.props.onClickSubmitButton({
+        value,
+      });
+    }
     this.setState({
       isOpenModal: false,
       initialValue: this.state.value,
