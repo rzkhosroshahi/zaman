@@ -31,7 +31,7 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 ```jsx
 import React from "react";
 import { render } from "react-dom";
-import { DatePicker } from "react-jalali-datepicker";
+import { DatePicker } from "jalali-react-datepicker";
 
 render(<DatePicker />, document.getElementById("root"));
 ```
@@ -71,7 +71,7 @@ Note that all props are _optional_.
 ```jsx
 import React from "react";
 import { render } from "react-dom";
-import { RangeDatePicker } from "react-jalali-datepicker";
+import { RangeDatePicker } from "jalali-react-datepicker";
 
 render(<RangeDatePicker />, document.getElementById("root"));
 ```
