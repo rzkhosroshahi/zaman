@@ -12,7 +12,7 @@ const DaysBody = styled("div")`
   max-width: 310px;
   max-height: 85%;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   border-radius: ${8 / 16}rem;
   background-color: ${props => props.theme.backColor};
   & * {
