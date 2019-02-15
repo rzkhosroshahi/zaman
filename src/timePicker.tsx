@@ -3,11 +3,9 @@ import { FunctionComponent, useState } from "react";
 import styled from "./theme";
 import { fa } from "./utils";
 import {
-  calculateOffset,
-  center,
+  getAngelValues,
   numberPositionX,
   numberPositionY,
-  radianToDeg,
 } from "./utils/timePicker";
 
 const Clock = styled.div`
@@ -92,63 +90,52 @@ interface ITimePickerProps {
   minute?: number;
 }
 
+interface ITimePickerState {
+  hourState: number;
+  initialHour: number;
+  insideHour: boolean;
+}
+
 export const TimePicker: FunctionComponent<ITimePickerProps> = ({
   hour = 12,
 }) => {
-  const [hourState, setHour] = useState<number>(hour);
-  const [initialHour, setInitialHour] = useState<number>(hour);
-  const [insideHour, setInsideHour] = useState<boolean>(false);
+  const [states, setState] = useState<ITimePickerState>({
+    hourState: hour,
+    initialHour: hour,
+    insideHour: false,
+  });
 
   const changeHour = (hourValue: number, insideHourValue: boolean) => {
-    setInitialHour(hourState);
-    setHour(hourValue);
-    setInsideHour(insideHourValue);
+    setState({
+      initialHour: states.hourState,
+      hourState: hourValue,
+      insideHour: insideHourValue,
+    });
   };
-  const handleMouseUp = (e: React.MouseEvent) => {
-    const { offsetX, offsetY } = calculateOffset(e);
-    const x = offsetX - center.x;
-    const y = offsetY - center.y;
-    const atan = Math.PI - Math.atan2(x, y);
-    const deg = radianToDeg(atan);
-    const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-
+  const changeHourValue = (e: React.MouseEvent | React.TouchEvent) => {
+    const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
-      const value = Math.round(deg * (1 / 30));
       changeHour(value + 12, true);
     } else {
-      const value = Math.round(deg * (1 / 30));
       changeHour(value, false);
     }
   };
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const { offsetX, offsetY } = calculateOffset(e);
-    const x = offsetX - center.x;
-    const y = offsetY - center.y;
-    const atan = Math.PI - Math.atan2(x, y);
-    const deg = radianToDeg(atan);
-    const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-
-    if (Math.round(delta) < 85) {
-      const value = Math.round(deg * (1 / 30));
-      this.changeHour(value + 12, true);
-    } else {
-      const value = Math.round(deg * (1 / 30));
-      this.changeHour(value, false);
-    }
-  };
-
   const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   const hours24 = [24, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
   return (
-    <Clock onMouseUp={handleMouseUp} onTouchMove={handleTouchMove}>
-      <Hand hour={hourState} insideHour={insideHour} diffHours={initialHour}>
+    <Clock onMouseUp={changeHourValue} onTouchMove={changeHourValue}>
+      <Hand
+        hour={states.hourState}
+        insideHour={states.insideHour}
+        diffHours={states.initialHour}
+      >
         <HandCircle />
       </Hand>
       {hours.map((h, i) => (
         <Numbers
           key={`rdp-time${i}`}
           idx={i}
-          style={{ opacity: !insideHour ? 1 : 0.5 }}
+          style={{ opacity: !states.insideHour ? 1 : 0.5 }}
         >
           {fa(h)}
         </Numbers>
@@ -160,7 +147,7 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
           top="15%"
           clockHalfWidth={85}
           numbersPadd={10}
-          style={{ opacity: insideHour ? 1 : 0.5 }}
+          style={{ opacity: states.insideHour ? 1 : 0.5 }}
         >
           {fa(h)}
         </Numbers>

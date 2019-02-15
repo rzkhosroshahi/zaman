@@ -1,3 +1,5 @@
+import * as React from "react";
+
 /**
  * numberPosition functions
  * These functions find position X-axis and Y-axis from half of the clock width
@@ -50,5 +52,37 @@ export const calculateOffset = elem => {
   return {
     offsetX,
     offsetY,
+  };
+};
+
+/**
+ * calculate the value from where the mouse clicked or tapped
+ * step1: calculate deg from the center of the circle not (0, 0)
+ * step1-1: calculate deg with atan2 but instead of using atan2 in this way (y, x) -
+ * I used atan2(x, y) because atan2(y, x) get an angel from (0, 0) not the center of the circle
+ * step-2: decrease atan2 by Math.PI because-
+ * this function returns two degrees that one of them is valid and another isn't. like 90 deg and -90deg and -90deg should be 270
+ * step3: delta: determine the distance of each place that is clicked by the user. calculating the distance between the center of the circle
+ * step4: make value by division deg into the hour or minutes angles. in the hour is 30 deg and in minutes is 6 deg
+ */
+interface IGetAngelValues {
+  value: number;
+  delta: number;
+}
+export const getAngelValues = (
+  e: React.MouseEvent | React.TouchEvent,
+  steps: number = 30,
+): IGetAngelValues => {
+  const { offsetX, offsetY } = calculateOffset(e);
+  const x = offsetX - center.x;
+  const y = offsetY - center.y;
+  const atan = Math.PI - Math.atan2(x, y);
+  const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+  const deg = radianToDeg(atan);
+  const value = Math.round(deg * (1 / steps));
+
+  return {
+    value,
+    delta,
   };
 };
