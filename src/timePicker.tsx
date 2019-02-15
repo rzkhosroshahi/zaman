@@ -1,7 +1,13 @@
 import * as React from "react";
 import styled from "./theme";
 import { fa } from "./utils";
-import { numberPositionX, numberPositionY } from "./utils/timePicker";
+import {
+  calculateOffset,
+  center,
+  numberPositionX,
+  numberPositionY,
+  radianToDeg,
+} from "./utils/timePicker";
 
 const Clock = styled.div`
   width: 260px;
@@ -74,6 +80,7 @@ const HandCircle = styled("div")<any>`
   box-sizing: content-box;
   border-radius: 100%;
   background-color: #7ef38b;
+  pointer-events: none;
 `;
 
 interface ITimePickerProps {
@@ -90,20 +97,65 @@ export class TimePicker extends React.Component<
   ITimePickerState
 > {
   public static defaultProps: Partial<ITimePickerProps> = {
-    hour: 12,
+    hour: 2,
     minute: 0,
   };
   public state = {
     hour: this.props.hour,
     minute: this.props.minute,
-    insideHour: true,
+    insideHour: false,
+  };
+  public changeHour = (hour: number, insideHour: boolean) => {
+    this.setState(prevState => {
+      if (prevState.hour !== hour) {
+        return {
+          insideHour,
+          hour,
+        };
+      }
+    });
+  };
+  public handleMouseMove = (e: React.MouseEvent) => {
+    const { offsetX, offsetY } = calculateOffset(e);
+    const x = offsetX - center.x;
+    const y = offsetY - center.y;
+    const atan = Math.PI - Math.atan2(x, y);
+    const deg = radianToDeg(atan);
+    const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+    if (Math.round(delta) < 85) {
+      const value = Math.round(deg * (1 / 30));
+      this.changeHour(value, true);
+    } else {
+      const value = Math.round(deg * (1 / 30));
+      this.changeHour(value + 12, false);
+    }
+  };
+  public handleTouchMove = (e: React.TouchEvent) => {
+    const { offsetX, offsetY } = calculateOffset(e);
+    const x = offsetX - center.x;
+    const y = offsetY - center.y;
+    const atan = Math.PI - Math.atan2(x, y);
+    const deg = radianToDeg(atan);
+    const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+    if (Math.round(delta) < 85) {
+      const value = Math.round(deg * (1 / 30));
+      this.changeHour(value, true);
+    } else {
+      const value = Math.round(deg * (1 / 30));
+      this.changeHour(value + 12, false);
+    }
   };
   public render(): React.ReactNode {
     const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     const hours24 = [24, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     const { insideHour } = this.state;
     return (
-      <Clock>
+      <Clock
+        onMouseUp={this.handleMouseMove}
+        onTouchMove={this.handleTouchMove}
+      >
         <Hand hour={this.state.hour} insideHour={insideHour}>
           <HandCircle />
         </Hand>
