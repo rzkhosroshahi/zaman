@@ -55,6 +55,7 @@ Numbers.defaultProps = {
 interface IHandProps {
   hour: number;
   insideHour: boolean;
+  diffHours: number;
 }
 
 const Hand = styled("div")<IHandProps>`
@@ -65,8 +66,10 @@ const Hand = styled("div")<IHandProps>`
   position: absolute;
   background-color: burlywood;
   transform-origin: center bottom 0;
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  ${props =>
+    Math.abs(props.hour - props.diffHours) < 10 &&
+    `transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`};
   transform: ${props => `rotateZ(${(props.hour / 12) * 360}deg)`};
 `;
 
@@ -91,6 +94,7 @@ interface ITimePickerState {
   hour: number;
   minute: number;
   insideHour: boolean;
+  initialHour: number;
 }
 export class TimePicker extends React.Component<
   ITimePickerProps,
@@ -104,6 +108,7 @@ export class TimePicker extends React.Component<
     hour: this.props.hour,
     minute: this.props.minute,
     insideHour: false,
+    initialHour: this.props.hour,
   };
   public changeHour = (hour: number, insideHour: boolean) => {
     this.setState(prevState => {
@@ -111,6 +116,7 @@ export class TimePicker extends React.Component<
         return {
           insideHour,
           hour,
+          initialHour: prevState.hour,
         };
       }
     });
@@ -125,10 +131,10 @@ export class TimePicker extends React.Component<
 
     if (Math.round(delta) < 85) {
       const value = Math.round(deg * (1 / 30));
-      this.changeHour(value, true);
+      this.changeHour(value + 12, true);
     } else {
       const value = Math.round(deg * (1 / 30));
-      this.changeHour(value + 12, false);
+      this.changeHour(value, false);
     }
   };
   public handleTouchMove = (e: React.TouchEvent) => {
@@ -141,10 +147,10 @@ export class TimePicker extends React.Component<
 
     if (Math.round(delta) < 85) {
       const value = Math.round(deg * (1 / 30));
-      this.changeHour(value, true);
+      this.changeHour(value + 12, true);
     } else {
       const value = Math.round(deg * (1 / 30));
-      this.changeHour(value + 12, false);
+      this.changeHour(value, false);
     }
   };
   public render(): React.ReactNode {
@@ -156,7 +162,11 @@ export class TimePicker extends React.Component<
         onMouseUp={this.handleMouseMove}
         onTouchMove={this.handleTouchMove}
       >
-        <Hand hour={this.state.hour} insideHour={insideHour}>
+        <Hand
+          hour={this.state.hour}
+          insideHour={insideHour}
+          diffHours={this.state.initialHour}
+        >
           <HandCircle />
         </Hand>
         {hours.map((h, i) => (
