@@ -17,6 +17,7 @@ interface INumbersProps {
   clockHalfWidth?: number;
   numbersPadd?: number;
   top?: string;
+  insideHour?: boolean;
 }
 const Numbers = styled("span")<INumbersProps>`
   left: calc(50% - 16px);
@@ -45,6 +46,36 @@ Numbers.defaultProps = {
   top: "2%",
 };
 
+interface IHandProps {
+  hour: number;
+  insideHour: boolean;
+}
+
+const Hand = styled("div")<IHandProps>`
+  left: calc(50% - 1px);
+  width: 3px;
+  bottom: 50%;
+  height: ${props => (props.insideHour ? "26%" : "40%")};
+  position: absolute;
+  background-color: burlywood;
+  transform-origin: center bottom 0;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transform: ${props => `rotateZ(${(props.hour / 12) * 360}deg)`};
+`;
+
+const HandCircle = styled("div")<any>`
+  top: -21px;
+  left: -15px;
+  width: 4px;
+  height: 4px;
+  border: 14px solid #7ef38b;
+  position: absolute;
+  box-sizing: content-box;
+  border-radius: 100%;
+  background-color: #7ef38b;
+`;
+
 interface ITimePickerProps {
   hour: number;
   minute: number;
@@ -52,6 +83,7 @@ interface ITimePickerProps {
 interface ITimePickerState {
   hour: number;
   minute: number;
+  insideHour: boolean;
 }
 export class TimePicker extends React.Component<
   ITimePickerProps,
@@ -64,14 +96,23 @@ export class TimePicker extends React.Component<
   public state = {
     hour: this.props.hour,
     minute: this.props.minute,
+    insideHour: true,
   };
   public render(): React.ReactNode {
     const hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     const hours24 = [24, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+    const { insideHour } = this.state;
     return (
       <Clock>
+        <Hand hour={this.state.hour} insideHour={insideHour}>
+          <HandCircle />
+        </Hand>
         {hours.map((h, i) => (
-          <Numbers key={`rdp-time${i}`} idx={i}>
+          <Numbers
+            key={`rdp-time${i}`}
+            idx={i}
+            style={{ opacity: !insideHour ? 1 : 0.5 }}
+          >
             {fa(h)}
           </Numbers>
         ))}
@@ -82,6 +123,7 @@ export class TimePicker extends React.Component<
             top="15%"
             clockHalfWidth={85}
             numbersPadd={10}
+            style={{ opacity: insideHour ? 1 : 0.5 }}
           >
             {fa(h)}
           </Numbers>
