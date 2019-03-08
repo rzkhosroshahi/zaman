@@ -23,6 +23,7 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     initialHour: hour,
     insideHour: false,
   });
+  const [isSelecting, setSelecting] = useState<boolean>(false);
 
   const changeHour = (hourValue: number, insideHourValue: boolean) => {
     setState({
@@ -32,6 +33,9 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     });
   };
   const changeHourValue = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isSelecting) {
+      return;
+    }
     const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
       changeHour(value + 12, true);
@@ -40,8 +44,23 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     }
   };
 
+  const changeHourValueClick = (e: React.MouseEvent | React.TouchEvent) => {
+    const { value, delta } = getAngelValues(e);
+    if (Math.round(delta) < 85) {
+      changeHour(value + 12, true);
+    } else {
+      changeHour(value, false);
+    }
+  };
   return (
-    <Clock onMouseUp={changeHourValue} onTouchMove={changeHourValue}>
+    <Clock
+      onMouseMove={changeHourValue}
+      onMouseDown={() => setSelecting(true)}
+      onMouseUp={() => setSelecting(false)}
+      onMouseOut={() => setSelecting(false)}
+      onTouchMove={changeHourValueClick}
+      onClick={changeHourValueClick}
+    >
       <Hand
         hour={states.hourState}
         insideHour={states.insideHour}
@@ -53,7 +72,10 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
         <Numbers
           key={`rdp-time${i}`}
           idx={i}
-          style={{ opacity: !states.insideHour ? 1 : 0.5 }}
+          top="15%"
+          clockHalfWidth={85}
+          numbersPadd={10}
+          style={{ opacity: states.insideHour ? 1 : 0.5 }}
         >
           {fa(h)}
         </Numbers>
@@ -62,10 +84,7 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
         <Numbers
           key={i + 1}
           idx={i}
-          top="15%"
-          clockHalfWidth={85}
-          numbersPadd={10}
-          style={{ opacity: states.insideHour ? 1 : 0.5 }}
+          style={{ opacity: !states.insideHour ? 1 : 0.5 }}
         >
           {fa(h)}
         </Numbers>
