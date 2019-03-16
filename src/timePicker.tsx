@@ -1,7 +1,7 @@
 import * as React from "react";
-import { FunctionComponent, useState } from "react";
+import { Fragment, FunctionComponent, useState } from "react";
 import { fa } from "./utils";
-import { getAngelValues, hours, hours24 } from "./utils/timePicker";
+import { getAngelValues, hours, hours24, minutes } from "./utils/timePicker";
 import { Clock, Hand, HandCircle, Numbers } from "./timePickerCmps";
 
 interface ITimePickerProps {
@@ -15,6 +15,43 @@ interface ITimePickerState {
   insideHour: boolean;
 }
 
+const Hours: FunctionComponent<{
+  insideHour: boolean;
+  hourSelecting: boolean;
+}> = ({ insideHour, hourSelecting }) => {
+  if (!hourSelecting) {
+    return (
+      <Fragment>
+        {minutes.map((h, i) => (
+          <Numbers key={`rdp-time${i}`} idx={i}>
+            {fa(h)}
+          </Numbers>
+        ))}
+      </Fragment>
+    );
+  }
+  return (
+    <Fragment>
+      {hours.map((h, i) => (
+        <Numbers
+          key={`rdp-time${i}`}
+          idx={i}
+          top="15%"
+          clockHalfWidth={85}
+          numbersPadd={10}
+          style={{ opacity: insideHour ? 1 : 0.5 }}
+        >
+          {fa(h)}
+        </Numbers>
+      ))}
+      {hours24.map((h, i) => (
+        <Numbers key={i + 1} idx={i} style={{ opacity: !insideHour ? 1 : 0.5 }}>
+          {fa(h)}
+        </Numbers>
+      ))}
+    </Fragment>
+  );
+};
 export const TimePicker: FunctionComponent<ITimePickerProps> = ({
   hour = 12,
 }) => {
@@ -24,6 +61,7 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     insideHour: false,
   });
   const [isSelecting, setSelecting] = useState<boolean>(false);
+  const [hourSelecting, setHourSelecting] = useState<boolean>(true);
 
   const changeHour = (hourValue: number, insideHourValue: boolean) => {
     setState({
@@ -48,15 +86,21 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
       changeHour(value + 12, true);
+      setHourSelecting(false);
     } else {
       changeHour(value, false);
+      setHourSelecting(false);
     }
+  };
+  const onMouseUp = () => {
+    setSelecting(false);
+    setHourSelecting(false);
   };
   return (
     <Clock
       onMouseMove={changeHourValue}
       onMouseDown={() => setSelecting(true)}
-      onMouseUp={() => setSelecting(false)}
+      onMouseUp={onMouseUp}
       onMouseOut={() => setSelecting(false)}
       onTouchMove={changeHourValueClick}
       onClick={changeHourValueClick}
@@ -68,27 +112,7 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
       >
         <HandCircle />
       </Hand>
-      {hours.map((h, i) => (
-        <Numbers
-          key={`rdp-time${i}`}
-          idx={i}
-          top="15%"
-          clockHalfWidth={85}
-          numbersPadd={10}
-          style={{ opacity: states.insideHour ? 1 : 0.5 }}
-        >
-          {fa(h)}
-        </Numbers>
-      ))}
-      {hours24.map((h, i) => (
-        <Numbers
-          key={i + 1}
-          idx={i}
-          style={{ opacity: !states.insideHour ? 1 : 0.5 }}
-        >
-          {fa(h)}
-        </Numbers>
-      ))}
+      <Hours insideHour={states.insideHour} hourSelecting={hourSelecting} />
     </Clock>
   );
 };
