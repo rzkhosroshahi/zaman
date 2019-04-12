@@ -40,6 +40,8 @@ interface IDatePickerState {
   isOpenModal: boolean;
   dayStatus: string;
   timePickerView: boolean;
+  hour: number;
+  minute: number;
 }
 
 const DatePickerDiv = styled.div`
@@ -72,6 +74,8 @@ export class DatePicker extends React.PureComponent<
       isOpenModal: false,
       timePickerView: false,
       dayStatus: datePickerStatus(moment(this.props.value)),
+      hour: moment(this.props.value).hour(),
+      minute: moment(this.props.value).minute(),
     };
   }
 
@@ -110,6 +114,16 @@ export class DatePicker extends React.PureComponent<
       return {
         cloneDays: prevState.cloneDays.clone().add(amount, "month"),
       };
+    });
+  };
+  public changeHour = value => {
+    this.setState({
+      hour: this.state.value.hour(value).hour(),
+    });
+  };
+  public changeMinute = value => {
+    this.setState({
+      minute: this.state.value.minute(value).minute(),
     });
   };
   public toggleModalOpen = () => {
@@ -199,6 +213,10 @@ export class DatePicker extends React.PureComponent<
             decreaseMonth={() => this.changeMonth(-1)}
             toggleView={this.toggleTimePickerView}
             timePickerView={this.state.timePickerView}
+            hour={this.state.hour}
+            minute={this.state.minute}
+            changeHour={this.changeHour}
+            changeMinute={this.changeMinute}
             onCancelButton={this.cancelButton}
             onSubmitButton={this.submitButton}
             timePicker
