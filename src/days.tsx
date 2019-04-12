@@ -161,6 +161,10 @@ export interface IDaysProps {
   toggleView?: () => void;
   timePicker?: boolean;
   timePickerView?: boolean;
+  hour?: number;
+  minute?: number;
+  changeHour?: (value: number) => void;
+  changeMinute?: (value: number) => void;
 }
 
 const boolDataset = (arg: boolean) => {

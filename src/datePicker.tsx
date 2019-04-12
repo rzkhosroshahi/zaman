@@ -116,6 +116,16 @@ export class DatePicker extends React.PureComponent<
       };
     });
   };
+  public changeHour = value => {
+    this.setState({
+      hour: this.state.value.hour(value).hour(),
+    });
+  };
+  public changeMinute = value => {
+    this.setState({
+      minute: this.state.value.minute(value).minute(),
+    });
+  };
   public toggleModalOpen = () => {
     this.setState(prevState => {
       return {
@@ -203,6 +213,10 @@ export class DatePicker extends React.PureComponent<
             decreaseMonth={() => this.changeMonth(-1)}
             toggleView={this.toggleTimePickerView}
             timePickerView={this.state.timePickerView}
+            hour={this.state.hour}
+            minute={this.state.minute}
+            changeHour={this.changeHour}
+            changeMinute={this.changeMinute}
             onCancelButton={this.cancelButton}
             onSubmitButton={this.submitButton}
             timePicker
