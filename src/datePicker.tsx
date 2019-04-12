@@ -40,6 +40,8 @@ interface IDatePickerState {
   isOpenModal: boolean;
   dayStatus: string;
   timePickerView: boolean;
+  hour: number;
+  minute: number;
 }
 
 const DatePickerDiv = styled.div`
@@ -72,6 +74,8 @@ export class DatePicker extends React.PureComponent<
       isOpenModal: false,
       timePickerView: false,
       dayStatus: datePickerStatus(moment(this.props.value)),
+      hour: moment(this.props.value).hour(),
+      minute: moment(this.props.value).minute(),
     };
   }
 
