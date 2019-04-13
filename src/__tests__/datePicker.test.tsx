@@ -41,7 +41,7 @@ describe("arrows tests", () => {
   afterEach(cleanup);
 
   test("clicking on left arrow ", () => {
-    const { getByTestId } = render(<DatePicker />);
+    const { getByTestId } = render(<DatePicker value={1549706122624} />);
     const inputStart = getByTestId("input-dp");
     fireEvent.click(inputStart);
 

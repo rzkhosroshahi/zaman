@@ -1,0 +1,81 @@
+import styled from "./theme";
+import { numberPositionX, numberPositionY } from "./utils/timePicker";
+
+export const Clock = styled.div`
+  width: 260px;
+  height: 260px;
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  background-color: #ccc;
+`;
+
+export interface INumbersProps {
+  idx: number;
+  clockHalfWidth?: number;
+  numbersPadd?: number;
+  top?: string;
+  insideHour?: boolean;
+}
+
+export const Numbers = styled("span")<INumbersProps>`
+  left: calc(50% - 16px);
+  top: ${props => props.top};
+  width: 32px;
+  color: rgba(0, 0, 0, 0.87);
+  height: 32px;
+  display: inline-flex;
+  position: absolute;
+  align-items: center;
+  border-radius: 50%;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+  transform: ${props =>
+    `translate(${numberPositionX(
+      props.idx,
+      props.clockHalfWidth,
+      props.numbersPadd,
+    )}px,
+  	  ${numberPositionY(props.idx, props.clockHalfWidth, props.numbersPadd)}px)`};
+`;
+
+Numbers.defaultProps = {
+  clockHalfWidth: 130,
+  numbersPadd: 20,
+  top: "2%",
+};
+
+export interface IHandProps {
+  hour: number;
+  insideHour: boolean;
+  diffHours: number;
+}
+
+export const Hand = styled("div")<IHandProps>`
+  left: calc(50% - 1px);
+  width: 3px;
+  bottom: 50%;
+  height: ${props => (props.insideHour ? "26%" : "40%")};
+  position: absolute;
+  background-color: burlywood;
+  transform-origin: center bottom 0;
+  transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  ${props =>
+    Math.abs(props.hour - props.diffHours) < 10 &&
+    `transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`};
+  transform: ${props => `rotateZ(${(props.hour / 12) * 360}deg)`};
+`;
+
+export const HandCircle = styled("div")<any>`
+  top: -21px;
+  left: -15px;
+  width: 4px;
+  height: 4px;
+  border: 14px solid #7ef38b;
+  position: absolute;
+  box-sizing: content-box;
+  border-radius: 100%;
+  background-color: #7ef38b;
+  pointer-events: none;
+`;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { DatePicker } from "../src/datePicker";
+import { TimePicker } from "../src/timePicker";
 
 // my favorite theme 😌
 const theme = {
@@ -42,4 +42,4 @@ const theme = {
   cancelHoverColor: "#000",
 };
 
-render(<DatePicker />, document.getElementById("root"));
+render(<TimePicker />, document.getElementById("root"));
