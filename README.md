@@ -94,7 +94,7 @@ function submitExample({ start, end }) {
 - ~~write DatePicker~~
 - add label to inputs
 - create codesandbox page for preview
-- add TimePicker
+- ~~add TimePicker~~
 
 ## Contributors
 
