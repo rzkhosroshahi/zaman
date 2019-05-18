@@ -3,7 +3,7 @@ import styled, { ThemeProvider } from "./theme";
 import { IDays } from "./utils/daysInMonth";
 import { styledThemes } from "./types";
 import { IRangeDays } from "./types";
-import { Day } from "./day";
+import { Day } from "./components/Day";
 import { chunk } from "./utils/chunk";
 import { fa } from "./utils";
 import { weekDayNames } from "./utils";

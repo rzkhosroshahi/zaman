@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Day } from "../day";
+import { Day } from "../components/Day";
 import { theme } from "../utils/testUtils";
 import "jest-styled-components";
 
