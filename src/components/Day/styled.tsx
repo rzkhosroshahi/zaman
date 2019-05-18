@@ -27,14 +27,9 @@ export const HolidayDay = styled(NormalDay)`
 `;
 
 export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
-  color: ${props =>
-    props.isSelecting && props.startEndRange.status === "endRange"
-      ? props.theme.continueRangeColor
-      : props.theme[`${props.startEndRange.status}Color`]};
+  color: ${props => props.theme[`${props.startEndRange.status}Color`]};
   background-color: ${props =>
-    props.isSelecting && props.startEndRange.status === "endRange"
-      ? props.theme.continueRangeBackColor
-      : props.theme[`${props.startEndRange.status}BackColor`]};
+    props.theme[`${props.startEndRange.status}BackColor`]};
   border-radius: ${props =>
     props.startEndRange.status === "continueRange" ? 0 : props.theme.daysRound};
   z-index: ${props => props.startEndRange.status === "continueRange" && 100};
