@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import { DatePicker } from "../datePicker";
+import { DatePicker } from "../components/DatePicker";
 import "jest-styled-components";
 import { defaultDatePickerTheme } from "../theme";
 

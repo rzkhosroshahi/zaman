@@ -1,52 +1,21 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import * as Icons from "./icons";
+import * as Icons from "../../icons";
 import MaskedInput from "react-text-mask";
-import { IDatePickerTheme } from "./types";
-import { Moment } from "jalali-moment";
-import { daysInMonth, IDays } from "./utils/daysInMonth";
-import styled, { defaultDatePickerTheme } from "./theme";
-import { Modal } from "./modal";
-import { Days } from "./components/Days";
-import { datePickerStatus } from "./utils/rangeHelper";
+import { daysInMonth } from "../../utils/daysInMonth";
+import { defaultDatePickerTheme } from "../../theme";
+import { Modal } from "../../modal";
+import { Days } from "../Days";
+import { datePickerStatus } from "../../utils/rangeHelper";
+import { IDatePickerProps, IDatePickerState } from "./types";
+import { DatePickerDiv } from "./styled";
 import {
   formatDate,
   formatDateTime,
   formatJalaliDate,
   inputFaDateMask,
   inputFaDateWithTimeMask,
-} from "./utils";
-
-interface IDatePickerProps {
-  value: number | Date | Moment;
-  ArrowLeft?: React.ReactType;
-  ArrowRight?: React.ReactType;
-  ClockIcon?: React.ReactType;
-  DateIcon?: React.ReactType;
-  modalZIndex?: number;
-  theme?: IDatePickerTheme;
-  weekend?: number[];
-  isRenderingButtons?: boolean;
-  timePicker?: boolean;
-  onClickSubmitButton?: (arg: any) => any;
-}
-
-interface IDatePickerState {
-  value: Moment;
-  cloneDays: Moment;
-  initialValue?: Moment;
-  monthName?: string;
-  days?: IDays[];
-  isOpenModal: boolean;
-  dayStatus: string;
-  timePickerView: boolean;
-  hour: number;
-  minute: number;
-}
-
-const DatePickerDiv = styled.div`
-  direction: rtl;
-`;
+} from "../../utils";
 
 export class DatePicker extends React.PureComponent<
   IDatePickerProps,
