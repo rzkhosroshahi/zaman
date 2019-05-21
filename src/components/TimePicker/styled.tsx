@@ -1,5 +1,5 @@
-import styled from "./theme";
-import { numberPositionX, numberPositionY } from "./utils/timePicker";
+import styled from "../../theme";
+import { numberPositionX, numberPositionY } from "../../utils/timePicker";
 
 export const Clock = styled.div`
   width: 260px;

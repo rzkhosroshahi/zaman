@@ -1,19 +1,14 @@
 import * as React from "react";
 import { Fragment, FunctionComponent, useState } from "react";
-import { fa } from "./utils";
-import { getAngelValues, hours, hours24, minutes } from "./utils/timePicker";
-import { Clock, Hand, HandCircle, Numbers } from "./timePickerCmps";
-
-interface ITimePickerProps {
-  hour?: number;
-  minute?: number;
-}
-
-interface ITimePickerState {
-  hourState: number;
-  initialHour: number;
-  insideHour: boolean;
-}
+import { fa } from "../../utils";
+import { Clock, Hand, HandCircle, Numbers } from "./styled";
+import { ITimePickerProps, ITimePickerState } from "./types";
+import {
+  getAngelValues,
+  hours,
+  hours24,
+  minutes,
+} from "../../utils/timePicker";
 
 const Hours: FunctionComponent<{
   insideHour: boolean;
