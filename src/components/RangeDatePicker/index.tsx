@@ -5,7 +5,7 @@ import MaskedInput from "react-text-mask";
 import { formatJalaliDate, inputFaDateMask } from "../../utils";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { Days } from "../Days";
-import { Modal } from "../../modal";
+import { Modal } from "../Modal";
 import * as Arrows from "../Icons";
 import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
 import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";

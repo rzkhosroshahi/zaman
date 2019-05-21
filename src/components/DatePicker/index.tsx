@@ -4,7 +4,7 @@ import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { defaultDatePickerTheme } from "../../theme";
-import { Modal } from "../../modal";
+import { Modal } from "../Modal";
 import { Days } from "../Days";
 import { datePickerStatus } from "../../utils/rangeHelper";
 import { IDatePickerProps, IDatePickerState } from "./types";
