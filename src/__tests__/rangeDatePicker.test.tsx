@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
-import { RangeDatePicker } from "../rangeDatePicker";
+import { RangeDatePicker } from "../components/RangeDatePicker";
 import "jest-styled-components";
 import { defaultRangeTheme } from "../theme";
 
