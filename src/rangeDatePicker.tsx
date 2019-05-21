@@ -5,7 +5,7 @@ import MaskedInput from "react-text-mask";
 import { Moment } from "jalali-moment";
 import { formatJalaliDate } from "./utils";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
-import { Days } from "./days";
+import { Days } from "./components/Days";
 import { Modal } from "./modal";
 import * as Arrows from "./icons";
 import { defaultRangeTheme } from "./theme";

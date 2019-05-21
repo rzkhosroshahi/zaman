@@ -7,7 +7,7 @@ import { Moment } from "jalali-moment";
 import { daysInMonth, IDays } from "./utils/daysInMonth";
 import styled, { defaultDatePickerTheme } from "./theme";
 import { Modal } from "./modal";
-import { Days } from "./days";
+import { Days } from "./components/Days";
 import { datePickerStatus } from "./utils/rangeHelper";
 import {
   formatDate,

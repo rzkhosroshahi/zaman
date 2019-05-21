@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import { Days } from "../days";
+import { Days } from "../components/Days";
 import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
 const Arrow = () => <p>Arrow</p>;
 import { ClockIcon, DateIcon } from "../icons";
