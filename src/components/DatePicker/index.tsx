@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import * as Icons from "../../icons";
+import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { defaultDatePickerTheme } from "../../theme";
