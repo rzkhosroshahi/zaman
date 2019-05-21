@@ -45,7 +45,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
   });
   test("change continue days by hovering on the days ", () => {
@@ -59,7 +59,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
 
     const hoveredDay = getByTestId("day-17");
@@ -82,7 +82,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
     // hovering
     const hoveredDay = getByTestId("day-17");

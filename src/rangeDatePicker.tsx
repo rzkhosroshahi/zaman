@@ -139,7 +139,7 @@ export class RangeDatePicker extends React.Component<
       this.setState({
         isSelecting: !this.state.isSelecting,
         startDate: formatJalaliDate(fadate),
-        endDate: formatJalaliDate(fadate).add(2, "day"),
+        endDate: formatJalaliDate(fadate),
       });
     }
     return {};
