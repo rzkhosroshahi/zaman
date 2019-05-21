@@ -1,8 +1,8 @@
 import * as React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
-import { RangeDatePicker } from "../components/RangeDatePicker";
+import { RangeDatePicker } from "../RangeDatePicker";
 import "jest-styled-components";
-import { defaultRangeTheme } from "../theme";
+import { defaultRangeTheme } from "../../theme";
 
 describe("input tests ", () => {
   afterEach(cleanup);

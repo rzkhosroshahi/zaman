@@ -1,9 +1,9 @@
 import * as React from "react";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import { Days } from "../components/Days";
-import { mockDays, rangeHelperMock, theme } from "../utils/testUtils";
+import { Days } from "../Days";
+import { mockDays, rangeHelperMock, theme } from "../../utils/testUtils";
 const Arrow = () => <p>Arrow</p>;
-import { ClockIcon, DateIcon } from "../components/Icons";
+import { ClockIcon, DateIcon } from "../Icons";
 const mockDaysEvent = jest.fn();
 import "jest-styled-components";
 

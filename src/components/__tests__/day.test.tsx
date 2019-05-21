@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cleanup, render } from "react-testing-library";
-import { Day } from "../components/Day";
-import { theme } from "../utils/testUtils";
+import { Day } from "../Day";
+import { theme } from "../../utils/testUtils";
 import "jest-styled-components";
 
 const mockDaysEvent = jest.fn();
