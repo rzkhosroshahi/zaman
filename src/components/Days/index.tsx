@@ -5,15 +5,8 @@ import { IDaysProps } from "./types";
 import { Day } from "../Day";
 import { chunk } from "../../utils/chunk";
 import { fa, weekDayNames } from "../../utils";
-import {
-  ButtonsDiv,
-  ChangeViewButton,
-  DaysBody,
-  DaysHead,
-  HeadRange,
-  HeadTitle,
-  Table,
-} from "./styled";
+import { ButtonsDiv, ChangeViewButton, DaysBody, Table } from "./styled";
+import { DaysHead } from "../DaysHead";
 
 const boolDataset = (arg: boolean) => {
   if (arg) {
@@ -54,6 +47,8 @@ export class Days extends React.PureComponent<IDaysProps> {
       timePicker,
       timePickerView,
       toggleView,
+      hour,
+      minute,
     } = this.props;
     if (!days.length) {
       return null;
@@ -62,20 +57,21 @@ export class Days extends React.PureComponent<IDaysProps> {
     return (
       <ThemeProvider theme={theme}>
         <DaysBody>
+          <DaysHead
+            monthName={monthName}
+            datePickerStatus={selectedPickerStatus}
+            ArrowLeft={ArrowLeft}
+            ArrowRight={ArrowRight}
+            increaseMonth={increaseMonth}
+            decreaseMonth={decreaseMonth}
+            hour={hour}
+            minute={minute}
+            timePickerView={timePickerView}
+          />
           {timePicker && timePickerView ? (
             <p data-testid="dp__timePicker">time picker</p>
           ) : (
             <React.Fragment>
-              <DaysHead data-testid="days-head">
-                <HeadTitle data-testid="days-head-title">
-                  <ArrowRight onClick={decreaseMonth} />
-                  <p data-testid="days-head-title-text">{monthName}</p>
-                  <ArrowLeft onClick={increaseMonth} />
-                </HeadTitle>
-                <HeadRange data-testid="days-head-range">
-                  {selectedPickerStatus}
-                </HeadRange>
-              </DaysHead>
               <Table data-testid="table-days" timePicker={timePicker}>
                 <thead>
                   <tr>
