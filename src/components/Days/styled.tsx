@@ -1,7 +1,7 @@
 import styled from "../../theme";
 
 export const DaysBody = styled("div")`
-  max-width: 310px;
+  max-width: 300px;
   max-height: 85%;
   position: relative;
   overflow: auto;
@@ -13,14 +13,24 @@ export const DaysBody = styled("div")`
     padding: 0;
     user-select: none;
   }
+  @media (min-width: 450px) {
+    max-width: 310px;
+  }
+  @media (min-width: 768px) {
+    max-width: 325px;
+  }
 `;
 
 export const DaysHead = styled("div")`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: ${24 / 16}rem;
+  padding-top: ${8 / 16}rem;
   background-color: ${props => props.theme.headBackColor};
+
+  @media (min-width: 768px) {
+    padding-top: 1rem;
+  }
 `;
 export const HeadTitle = styled("h4")`
   display: flex;
@@ -28,23 +38,30 @@ export const HeadTitle = styled("h4")`
   align-items: center;
   width: 100%;
   padding: 0 ${8 / 16}rem;
-  font-size: 1.618rem;
+  font-size: 1.5rem;
   text-align: center;
   color: ${props => props.theme.headTitleColor};
 
   svg {
     fill: ${props => props.theme.headTitleColor};
   }
+  @media (min-width: 768px) {
+    font-size: 1.618rem;
+  }
 `;
 
 export const HeadRange = styled("h3")`
-  margin-top: ${24 / 16}rem;
-  margin-bottom: 1rem;
-  font-size: 1.618rem;
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
   border-radius: ${20 / 16}rem;
   padding: 0 ${8 / 16}rem;
   background-color: ${props => props.theme.headRangeBackColor};
   color: ${props => props.theme.headRangeColor};
+
+  @media (min-width: 768px) {
+    margin: 1rem 0;
+    font-size: 1.618rem;
+  }
 `;
 export const Table = styled("table")<{ timePicker: boolean }>`
   width: 100%;
@@ -61,7 +78,6 @@ export const Table = styled("table")<{ timePicker: boolean }>`
 `;
 
 export const ButtonsDiv = styled("div")`
-  margin-top: ${16 / 16}rem;
   margin-bottom: ${16 / 16}rem;
 
   button {

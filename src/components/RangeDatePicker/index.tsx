@@ -195,6 +195,7 @@ export class RangeDatePicker extends React.Component<
           value={this.state.startDate.format("jYYYY/jMM/jDD")}
           onClick={this.toggleModalOpen}
           onChange={e => this.changeInputValues(e)}
+          readOnly="true"
           mask={inputFaDateMask}
         />
         <MaskedInput
