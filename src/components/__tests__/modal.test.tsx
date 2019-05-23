@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import { Modal } from "../modal";
+import { Modal } from "../Modal";
 
 describe("modal tests", () => {
   afterEach(cleanup);

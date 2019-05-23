@@ -1,2 +1,2 @@
-export * from "./rangeDatePicker";
-export * from "./datePicker";
+export * from "./components/RangeDatePicker";
+export * from "./components/DatePicker";
