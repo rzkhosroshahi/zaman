@@ -9,7 +9,11 @@ export const DaysHead: React.FunctionComponent<IDaysHeadProps> = ({
   ArrowLeft,
   decreaseMonth,
   increaseMonth,
+  timePickerView,
 }) => {
+  if (timePickerView) {
+    return <p>timePickerView</p>;
+  }
   return (
     <DaysHeadContainer data-testid="days-head">
       <HeadTitle data-testid="days-head-title">

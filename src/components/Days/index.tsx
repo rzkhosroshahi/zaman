@@ -47,6 +47,8 @@ export class Days extends React.PureComponent<IDaysProps> {
       timePicker,
       timePickerView,
       toggleView,
+      hour,
+      minute,
     } = this.props;
     if (!days.length) {
       return null;
@@ -62,6 +64,9 @@ export class Days extends React.PureComponent<IDaysProps> {
             ArrowRight={ArrowRight}
             increaseMonth={increaseMonth}
             decreaseMonth={decreaseMonth}
+            hour={hour}
+            minute={minute}
+            timePickerView={timePickerView}
           />
           {timePicker && timePickerView ? (
             <p data-testid="dp__timePicker">time picker</p>
