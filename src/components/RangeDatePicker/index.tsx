@@ -1,46 +1,15 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import styled from "./theme";
+import { defaultRangeTheme } from "../../theme";
 import MaskedInput from "react-text-mask";
-import { Moment } from "jalali-moment";
-import { formatJalaliDate } from "./utils";
-import { daysInMonth, IDays } from "./utils/daysInMonth";
-import { Days } from "./days";
-import { Modal } from "./modal";
-import * as Arrows from "./icons";
-import { defaultRangeTheme } from "./theme";
-import { inputFaDateMask } from "./utils";
-import { rangeHelper, makeRangeStatus } from "./utils/rangeHelper";
-import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "./types";
-
-export interface IRangeDatePickerProps {
-  start: string;
-  end: string;
-  ArrowLeft: React.ReactType;
-  ArrowRight: React.ReactType;
-  modalZIndex?: number;
-  theme?: IRangeDatePickerTheme;
-  weekend?: number[];
-  isRenderingButtons?: boolean;
-  onClickSubmitButton?: (arg: any) => any;
-}
-
-export interface IRangeDatePickerState {
-  startDate: Moment;
-  endDate: Moment;
-  monthName?: string;
-  days?: IDays[];
-  rangeDays?: IRangeDays;
-  isOpenModal: boolean;
-  isSelecting: boolean;
-  rangeStatus: string;
-  cloneDays: Moment;
-  initialRange?: IRangeDate;
-}
-
-const RangeDateDiv = styled.div`
-  direction: rtl;
-`;
+import { formatJalaliDate, inputFaDateMask } from "../../utils";
+import { daysInMonth } from "../../utils/daysInMonth";
+import { Days } from "../Days";
+import { Modal } from "../Modal";
+import * as Arrows from "../Icons";
+import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
+import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
+import { RangeDateDiv } from "./styled";
 
 export class RangeDatePicker extends React.Component<
   IRangeDatePickerProps,
@@ -139,7 +108,7 @@ export class RangeDatePicker extends React.Component<
       this.setState({
         isSelecting: !this.state.isSelecting,
         startDate: formatJalaliDate(fadate),
-        endDate: formatJalaliDate(fadate).add(2, "day"),
+        endDate: formatJalaliDate(fadate),
       });
     }
     return {};

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
-import { RangeDatePicker } from "../rangeDatePicker";
+import { RangeDatePicker } from "../RangeDatePicker";
 import "jest-styled-components";
-import { defaultRangeTheme } from "../theme";
+import { defaultRangeTheme } from "../../theme";
 
 describe("input tests ", () => {
   afterEach(cleanup);
@@ -45,7 +45,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
   });
   test("change continue days by hovering on the days ", () => {
@@ -59,7 +59,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
 
     const hoveredDay = getByTestId("day-17");
@@ -82,7 +82,7 @@ describe("RangeDatePicker days test", () => {
 
     expect(day).toHaveStyleRule(
       "background-color",
-      defaultRangeTheme.startRangeBackColor,
+      defaultRangeTheme.sameRangeBackColor,
     );
     // hovering
     const hoveredDay = getByTestId("day-17");

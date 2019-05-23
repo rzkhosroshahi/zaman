@@ -1,50 +1,21 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
-import * as Icons from "./icons";
+import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
-import { IDatePickerTheme } from "./types";
-import { Moment } from "jalali-moment";
-import { daysInMonth, IDays } from "./utils/daysInMonth";
-import styled, { defaultDatePickerTheme } from "./theme";
-import { Modal } from "./modal";
-import { Days } from "./days";
-import { datePickerStatus } from "./utils/rangeHelper";
+import { daysInMonth } from "../../utils/daysInMonth";
+import { defaultDatePickerTheme } from "../../theme";
+import { Modal } from "../Modal";
+import { Days } from "../Days";
+import { datePickerStatus } from "../../utils/rangeHelper";
+import { IDatePickerProps, IDatePickerState } from "./types";
+import { DatePickerDiv } from "./styled";
 import {
   formatDate,
   formatDateTime,
   formatJalaliDate,
   inputFaDateMask,
   inputFaDateWithTimeMask,
-} from "./utils";
-
-interface IDatePickerProps {
-  value: number | Date | Moment;
-  ArrowLeft?: React.ReactType;
-  ArrowRight?: React.ReactType;
-  ClockIcon?: React.ReactType;
-  DateIcon?: React.ReactType;
-  modalZIndex?: number;
-  theme?: IDatePickerTheme;
-  weekend?: number[];
-  isRenderingButtons?: boolean;
-  timePicker?: boolean;
-  onClickSubmitButton?: (arg: any) => any;
-}
-
-interface IDatePickerState {
-  value: Moment;
-  cloneDays: Moment;
-  initialValue?: Moment;
-  monthName?: string;
-  days?: IDays[];
-  isOpenModal: boolean;
-  dayStatus: string;
-  timePickerView: boolean;
-}
-
-const DatePickerDiv = styled.div`
-  direction: rtl;
-`;
+} from "../../utils";
 
 export class DatePicker extends React.PureComponent<
   IDatePickerProps,
@@ -72,6 +43,8 @@ export class DatePicker extends React.PureComponent<
       isOpenModal: false,
       timePickerView: false,
       dayStatus: datePickerStatus(moment(this.props.value)),
+      hour: moment(this.props.value).hour(),
+      minute: moment(this.props.value).minute(),
     };
   }
 
@@ -110,6 +83,16 @@ export class DatePicker extends React.PureComponent<
       return {
         cloneDays: prevState.cloneDays.clone().add(amount, "month"),
       };
+    });
+  };
+  public changeHour = value => {
+    this.setState({
+      hour: this.state.value.hour(value).hour(),
+    });
+  };
+  public changeMinute = value => {
+    this.setState({
+      minute: this.state.value.minute(value).minute(),
     });
   };
   public toggleModalOpen = () => {
@@ -199,6 +182,10 @@ export class DatePicker extends React.PureComponent<
             decreaseMonth={() => this.changeMonth(-1)}
             toggleView={this.toggleTimePickerView}
             timePickerView={this.state.timePickerView}
+            hour={this.state.hour}
+            minute={this.state.minute}
+            changeHour={this.changeHour}
+            changeMinute={this.changeMinute}
             onCancelButton={this.cancelButton}
             onSubmitButton={this.submitButton}
             timePicker

@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import { cleanup, render, fireEvent } from "react-testing-library";
-import { DatePicker } from "../datePicker";
+import { DatePicker } from "../DatePicker";
 import "jest-styled-components";
-import { defaultDatePickerTheme } from "../theme";
+import { defaultDatePickerTheme } from "../../theme";
 
 afterEach(cleanup);
 describe("datePicker input tests", () => {
@@ -11,7 +11,7 @@ describe("datePicker input tests", () => {
   test("default value ", () => {
     const { getByTestId } = render(<DatePicker />);
     const input = getByTestId("input-dp");
-    const today = moment().format("jYYYY/jM/jD - HH:mm");
+    const today = moment().format("jYYYY/jMM/jDD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("time stamp value ", () => {
@@ -19,20 +19,20 @@ describe("datePicker input tests", () => {
     const timeStamp = date.getTime();
     const { getByTestId } = render(<DatePicker value={timeStamp} />);
     const input = getByTestId("input-dp");
-    const today = moment(timeStamp).format("jYYYY/jM/jD - HH:mm");
+    const today = moment(timeStamp).format("jYYYY/jMM/jDD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("date value ", () => {
     const date = new Date();
     const { getByTestId } = render(<DatePicker value={date} />);
     const input = getByTestId("input-dp");
-    const today = moment(date).format("jYYYY/jM/jD - HH:mm");
+    const today = moment(date).format("jYYYY/jMM/jDD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("when timePicker is false ", () => {
     const { getByTestId } = render(<DatePicker timePicker={false} />);
     const input = getByTestId("input-dp");
-    const today = moment().format("jYYYY/jM/jD");
+    const today = moment().format("jYYYY/jMM/jDD");
     expect((input as HTMLInputElement).value).toBe(today);
   });
 });
@@ -41,7 +41,7 @@ describe("arrows tests", () => {
   afterEach(cleanup);
 
   test("clicking on left arrow ", () => {
-    const { getByTestId } = render(<DatePicker />);
+    const { getByTestId } = render(<DatePicker value={1549706122624} />);
     const inputStart = getByTestId("input-dp");
     fireEvent.click(inputStart);
 
