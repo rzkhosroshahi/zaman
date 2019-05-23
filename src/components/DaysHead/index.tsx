@@ -1,6 +1,7 @@
 import * as React from "react";
 import { IDaysHeadProps } from "./types";
-import { DaysHeadContainer, HeadRange, HeadTitle } from "./styled";
+import { DaysHeadContainer, HeadRange, HeadTitle, TimeTitle } from "./styled";
+import { fa } from "../../utils";
 
 export const DaysHead: React.FunctionComponent<IDaysHeadProps> = ({
   monthName,
@@ -10,9 +11,17 @@ export const DaysHead: React.FunctionComponent<IDaysHeadProps> = ({
   decreaseMonth,
   increaseMonth,
   timePickerView,
+  hour,
+  minute,
 }) => {
   if (timePickerView) {
-    return <p>timePickerView</p>;
+    return (
+      <DaysHeadContainer data-testid="days-head">
+        <TimeTitle>
+          {fa(hour)} : {fa(minute)}
+        </TimeTitle>
+      </DaysHeadContainer>
+    );
   }
   return (
     <DaysHeadContainer data-testid="days-head">

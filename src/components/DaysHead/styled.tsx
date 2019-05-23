@@ -4,11 +4,14 @@ export const DaysHeadContainer = styled("div")`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   padding-top: ${8 / 16}rem;
   background-color: ${props => props.theme.headBackColor};
+  min-height: 92px;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    min-height: 114px;
   }
 `;
 export const HeadTitle = styled("h4")`
@@ -39,6 +42,16 @@ export const HeadRange = styled("h3")`
 
   @media (min-width: 768px) {
     margin: 1rem 0;
+    font-size: 1.618rem;
+  }
+`;
+
+export const TimeTitle = styled("h3")`
+  direction: ltr;
+  font-size: 1.5rem;
+  color: ${props => props.theme.headRangeColor};
+
+  @media (min-width: 768px) {
     font-size: 1.618rem;
   }
 `;

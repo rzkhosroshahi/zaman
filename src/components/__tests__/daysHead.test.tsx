@@ -20,4 +20,20 @@ describe("daysHead tests", () => {
     }
     expect(notRendering).toThrowError();
   });
+
+  test("time inner Html", () => {
+    const { container } = render(
+      <DaysHead
+        monthName=""
+        datePickerStatus=""
+        timePickerView={true}
+        ArrowLeft={Icons.ArrowLeftCMP}
+        ArrowRight={Icons.ArrowRightCMP}
+        hour={2}
+        minute={20}
+      />,
+    );
+
+    expect(container.textContent).toEqual("2 : 20");
+  });
 });
