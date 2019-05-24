@@ -1,5 +1,6 @@
 import styled from "../../theme";
 import { numberPositionX, numberPositionY } from "../../utils/timePicker";
+import { toRgba } from "../../utils/toRgb";
 
 export const Clock = styled.div`
   width: 260px;
@@ -16,6 +17,7 @@ export interface INumbersProps {
   numbersPadd?: number;
   top?: string;
   insideHour?: boolean;
+  isSelectedNumber?: boolean;
 }
 
 export const Numbers = styled("span")<INumbersProps>`
@@ -31,6 +33,7 @@ export const Numbers = styled("span")<INumbersProps>`
   justify-content: center;
   user-select: none;
   pointer-events: none;
+  color: ${props => props.isSelectedNumber && props.theme.selectedNumberColor};
   transform: ${props =>
     `translate(${numberPositionX(
       props.idx,
@@ -54,7 +57,7 @@ export interface IStyledHandProps {
 
 export const StyledHand = styled("div")<IStyledHandProps>`
   left: calc(50% - 1px);
-  width: 3px;
+  width: 1.5px;
   bottom: 50%;
   height: ${props => (props.isInsideHour ? "26%" : "40%")};
   position: absolute;
@@ -67,15 +70,17 @@ export const StyledHand = styled("div")<IStyledHandProps>`
       : `transform: ${`rotateZ(${(props.value / 60) * 360}deg)`}; `}
 `;
 
-export const HandCircle = styled("div")<any>`
+export const HandCircle = styled("div")<{ isSelectingHour: boolean }>`
   top: -21px;
-  left: -15px;
-  width: 4px;
-  height: 4px;
+  left: -17px;
+  width: 8px;
+  height: 8px;
   border: 14px solid ${props => props.theme.handCircleColor};
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;
   background-color: ${props => props.theme.handCircleColor};
+  background-color: ${props =>
+    !props.isSelectingHour && toRgba(props.theme.handCircleColor, 0.8)};
   pointer-events: none;
 `;

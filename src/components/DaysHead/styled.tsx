@@ -50,7 +50,7 @@ export const HeadRange = styled("h3")`
 export const TimeTitle = styled("h3")`
   direction: ltr;
   font-size: 2.25rem;
-  color: ${props => props.theme.headRangeColor};
+  color: ${props => props.theme.headTimeTitleColor};
 
   @media (min-width: 768px) {
     font-size: 2.618rem;

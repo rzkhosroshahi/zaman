@@ -103,9 +103,11 @@ export class TimePicker extends React.PureComponent<
           isSelectingHour={this.state.isSelectingHour}
           isInsideHour={this.state.isInsideHour}
         >
-          <HandCircle />
+          <HandCircle isSelectingHour={this.state.isSelectingHour} />
         </Hand>
         <Hours
+          hour={this.props.hour}
+          minute={this.props.minute}
           insideHour={this.state.isInsideHour}
           hourSelecting={this.state.isSelectingHour}
         />
