@@ -46,25 +46,25 @@ Numbers.defaultProps = {
   top: "2%",
 };
 
-export interface IHandProps {
-  hour: number;
-  insideHour: boolean;
-  diffHours: number;
+export interface IStyledHandProps {
+  value: number;
+  isInsideHour: boolean;
+  isSelectingHour: boolean;
 }
 
-export const Hand = styled("div")<IHandProps>`
+export const StyledHand = styled("div")<IStyledHandProps>`
   left: calc(50% - 1px);
   width: 3px;
   bottom: 50%;
-  height: ${props => (props.insideHour ? "26%" : "40%")};
+  height: ${props => (props.isInsideHour ? "26%" : "40%")};
   position: absolute;
   background-color: ${props => props.theme.handBackColor};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   ${props =>
-    Math.abs(props.hour - props.diffHours) < 10 &&
-    `transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`};
-  transform: ${props => `rotateZ(${(props.hour / 12) * 360}deg)`};
+    props.isSelectingHour
+      ? `transform: ${`rotateZ(${(props.value / 12) * 360}deg)`}; `
+      : `transform: ${`rotateZ(${(props.value / 60) * 360}deg)`}; `}
 `;
 
 export const HandCircle = styled("div")<any>`
