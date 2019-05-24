@@ -114,7 +114,7 @@ describe("change datePicker and timePicker views", () => {
       />,
     );
     const timePicker = getByTestId("dp__timePicker");
-    expect(timePicker.textContent).toBe("time picker");
+    expect(timePicker).toBeTruthy();
 
     function notRendering() {
       getByTestId("table-days");

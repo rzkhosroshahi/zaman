@@ -127,5 +127,5 @@ test("should be show timePicker when clicked on toggle-view button", () => {
   const toggleViewBtn = getByTestId("toggle-view");
   fireEvent.click(toggleViewBtn);
 
-  expect(getByTestId("dp__timePicker").textContent).toBe("time picker");
+  expect(getByTestId("dp__timePicker")).toBeTruthy();
 });

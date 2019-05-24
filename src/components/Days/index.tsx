@@ -1,12 +1,19 @@
 import * as React from "react";
 import { ThemeProvider } from "../../theme";
-import { IDays } from "../../utils/daysInMonth";
+import { TimePicker } from "../TimePicker";
 import { IDaysProps } from "./types";
-import { Day } from "../Day";
-import { chunk } from "../../utils/chunk";
-import { fa, weekDayNames } from "../../utils";
-import { ButtonsDiv, ChangeViewButton, DaysBody, Table } from "./styled";
 import { DaysHead } from "../DaysHead";
+import { Day } from "../Day";
+import {
+  ButtonsDiv,
+  ChangeViewButton,
+  DaysBody,
+  Table,
+  TimeDays,
+} from "./styled";
+import { chunk } from "../../utils/chunk";
+import { IDays } from "../../utils/daysInMonth";
+import { fa, weekDayNames } from "../../utils";
 
 const boolDataset = (arg: boolean) => {
   if (arg) {
@@ -69,7 +76,9 @@ export class Days extends React.PureComponent<IDaysProps> {
             timePickerView={timePickerView}
           />
           {timePicker && timePickerView ? (
-            <p data-testid="dp__timePicker">time picker</p>
+            <TimeDays data-testid="dp__timePicker">
+              <TimePicker hour={hour} minute={minute} />
+            </TimeDays>
           ) : (
             <React.Fragment>
               <Table data-testid="table-days" timePicker={timePicker}>

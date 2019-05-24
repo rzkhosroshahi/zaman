@@ -1,7 +1,7 @@
 import styled from "../../theme";
 
 export const DaysBody = styled("div")`
-  max-width: 300px;
+  width: 300px;
   max-height: 85%;
   position: relative;
   overflow: auto;
@@ -14,10 +14,10 @@ export const DaysBody = styled("div")`
     user-select: none;
   }
   @media (min-width: 450px) {
-    max-width: 310px;
+    width: 310px;
   }
   @media (min-width: 768px) {
-    max-width: 325px;
+    width: 325px;
   }
 `;
 
@@ -101,4 +101,13 @@ export const ChangeViewButton = styled("button")`
       fill: ${props => props.theme.changeViewButtonHoverColor};
     }
   }
+`;
+
+export const TimeDays = styled("div")`
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
