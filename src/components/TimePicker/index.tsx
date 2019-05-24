@@ -1,113 +1,117 @@
 import * as React from "react";
-import { Fragment, FunctionComponent, useState } from "react";
-import { fa } from "../../utils";
-import { Clock, Hand, HandCircle, Numbers } from "./styled";
+import { Clock, HandCircle } from "./styled";
 import { ITimePickerProps, ITimePickerState } from "./types";
-import {
-  getAngelValues,
-  hours,
-  hours24,
-  minutes,
-} from "../../utils/timePicker";
+import { getAngelValues } from "../../utils/timePicker";
+import { Hours } from "./Hour";
+import { Hand } from "./Hand";
 
-const Hours: FunctionComponent<{
-  insideHour: boolean;
-  hourSelecting: boolean;
-}> = ({ insideHour, hourSelecting }) => {
-  if (!hourSelecting) {
-    return (
-      <Fragment>
-        {minutes.map((h, i) => (
-          <Numbers key={`rdp-time${i}`} idx={i}>
-            {fa(h)}
-          </Numbers>
-        ))}
-      </Fragment>
-    );
+export class TimePicker extends React.PureComponent<
+  ITimePickerProps,
+  ITimePickerState
+> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hour: props.hour,
+      minute: props.minute,
+      isInsideHour: false,
+      isSelectingHour: true,
+      isSelecting: false,
+    };
   }
-  return (
-    <Fragment>
-      {hours.map((h, i) => (
-        <Numbers
-          key={`rdp-time${i}`}
-          idx={i}
-          top="15%"
-          clockHalfWidth={85}
-          numbersPadd={10}
-          style={{ opacity: insideHour ? 1 : 0.5 }}
-        >
-          {fa(h)}
-        </Numbers>
-      ))}
-      {hours24.map((h, i) => (
-        <Numbers key={i + 1} idx={i} style={{ opacity: !insideHour ? 1 : 0.5 }}>
-          {fa(h)}
-        </Numbers>
-      ))}
-    </Fragment>
-  );
-};
-export const TimePicker: FunctionComponent<ITimePickerProps> = ({
-  hour = 12,
-}) => {
-  const [states, setState] = useState<ITimePickerState>({
-    hourState: hour,
-    initialHour: hour,
-    insideHour: false,
-  });
-  const [isSelecting, setSelecting] = useState<boolean>(false);
-  const [hourSelecting, setHourSelecting] = useState<boolean>(true);
+  public componentDidUpdate(
+    prevProps: Readonly<ITimePickerProps>,
+    prevState: Readonly<ITimePickerState>,
+    snapshot?: any,
+  ): void {
+    const { changeHour, changeMinute } = this.props;
+    if (this.state.hour !== prevState.hour) {
+      changeHour(this.state.hour);
+    }
+    if (this.state.minute !== prevState.minute) {
+      changeMinute(this.state.minute);
+    }
+  }
 
-  const changeHour = (hourValue: number, insideHourValue: boolean) => {
-    setState({
-      initialHour: states.hourState,
-      hourState: hourValue,
-      insideHour: insideHourValue,
-    });
-  };
-  const changeHourValue = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isSelecting) {
+  public changeHourState = (
+    e: React.MouseEvent | React.TouchEvent,
+    withClick: boolean,
+  ) => {
+    if (!withClick && !this.state.isSelecting) {
       return;
     }
     const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
-      changeHour(value + 12, true);
+      this.setState({
+        hour: value,
+        isInsideHour: true,
+        isSelectingHour: !withClick,
+      });
     } else {
-      changeHour(value, false);
+      this.setState({
+        hour: value + 12,
+        isInsideHour: false,
+        isSelectingHour: !withClick,
+      });
     }
+  };
+  public changeMinuteState = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!this.state.isSelecting) {
+      return;
+    }
+    const { value } = getAngelValues(e, 6);
+    this.setState({
+      minute: value,
+    });
+  };
+  public decisions = (
+    e: React.MouseEvent | React.TouchEvent,
+    withClick: boolean,
+  ) => {
+    if (this.state.isSelectingHour) {
+      return this.changeHourState(e, withClick);
+    }
+    return this.changeMinuteState(e);
   };
 
-  const changeHourValueClick = (e: React.MouseEvent | React.TouchEvent) => {
-    const { value, delta } = getAngelValues(e);
-    if (Math.round(delta) < 85) {
-      changeHour(value + 12, true);
-      setHourSelecting(false);
-    } else {
-      changeHour(value, false);
-      setHourSelecting(false);
-    }
+  public setSelecting = (value: boolean) => {
+    this.setState({
+      isSelecting: value,
+    });
   };
-  const onMouseUp = () => {
-    setSelecting(false);
-    setHourSelecting(false);
+
+  public onMouseUp = () => {
+    this.setState({
+      isSelecting: false,
+      isSelectingHour: false,
+    });
   };
-  return (
-    <Clock
-      onMouseMove={changeHourValue}
-      onMouseDown={() => setSelecting(true)}
-      onMouseUp={onMouseUp}
-      onMouseOut={() => setSelecting(false)}
-      onTouchMove={changeHourValueClick}
-      onClick={changeHourValueClick}
-    >
-      <Hand
-        hour={states.hourState}
-        insideHour={states.insideHour}
-        diffHours={states.initialHour}
+  public render() {
+    return (
+      <Clock
+        onMouseMove={e => this.decisions(e, false)}
+        onMouseDown={() => this.setSelecting(true)}
+        onMouseUp={this.onMouseUp}
+        onTouchMove={e => this.decisions(e, false)}
+        onTouchStart={() => this.setSelecting(true)}
+        onTouchEnd={() => this.setState({ isSelectingHour: false })}
+        onClick={e => this.decisions(e, true)}
       >
-        <HandCircle />
-      </Hand>
-      <Hours insideHour={states.insideHour} hourSelecting={hourSelecting} />
-    </Clock>
-  );
-};
+        <Hand
+          hour={this.state.hour}
+          minute={this.state.minute}
+          isSelectingHour={this.state.isSelectingHour}
+          isInsideHour={this.state.isInsideHour}
+        >
+          <HandCircle isSelectingHour={this.state.isSelectingHour} />
+        </Hand>
+        <Hours
+          hour={this.props.hour}
+          minute={this.props.minute}
+          insideHour={this.state.isInsideHour}
+          hourSelecting={this.state.isSelectingHour}
+        />
+      </Clock>
+    );
+  }
+}

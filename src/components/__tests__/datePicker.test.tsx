@@ -79,7 +79,7 @@ describe("datePicker input tests", () => {
     expect(dateStatus.textContent).toBe("3 بهمن ماه");
     expect(dateStatus).toHaveStyleRule(
       "background-color",
-      defaultDatePickerTheme.selectDayBackColor,
+      defaultDatePickerTheme.headRangeBackColor,
     );
   });
 });

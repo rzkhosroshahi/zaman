@@ -1,5 +1,6 @@
 import styled from "../../theme";
 import { numberPositionX, numberPositionY } from "../../utils/timePicker";
+import { toRgba } from "../../utils/toRgb";
 
 export const Clock = styled.div`
   width: 260px;
@@ -16,6 +17,7 @@ export interface INumbersProps {
   numbersPadd?: number;
   top?: string;
   insideHour?: boolean;
+  isSelectedNumber?: boolean;
 }
 
 export const Numbers = styled("span")<INumbersProps>`
@@ -31,6 +33,7 @@ export const Numbers = styled("span")<INumbersProps>`
   justify-content: center;
   user-select: none;
   pointer-events: none;
+  color: ${props => props.isSelectedNumber && props.theme.selectedNumberColor};
   transform: ${props =>
     `translate(${numberPositionX(
       props.idx,
@@ -46,36 +49,38 @@ Numbers.defaultProps = {
   top: "2%",
 };
 
-export interface IHandProps {
-  hour: number;
-  insideHour: boolean;
-  diffHours: number;
+export interface IStyledHandProps {
+  value: number;
+  isInsideHour: boolean;
+  isSelectingHour: boolean;
 }
 
-export const Hand = styled("div")<IHandProps>`
+export const StyledHand = styled("div")<IStyledHandProps>`
   left: calc(50% - 1px);
-  width: 3px;
+  width: 1.5px;
   bottom: 50%;
-  height: ${props => (props.insideHour ? "26%" : "40%")};
+  height: ${props => (props.isInsideHour ? "26%" : "40%")};
   position: absolute;
   background-color: ${props => props.theme.handBackColor};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   ${props =>
-    Math.abs(props.hour - props.diffHours) < 10 &&
-    `transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`};
-  transform: ${props => `rotateZ(${(props.hour / 12) * 360}deg)`};
+    props.isSelectingHour
+      ? `transform: ${`rotateZ(${(props.value / 12) * 360}deg)`}; `
+      : `transform: ${`rotateZ(${(props.value / 60) * 360}deg)`}; `}
 `;
 
-export const HandCircle = styled("div")<any>`
+export const HandCircle = styled("div")<{ isSelectingHour: boolean }>`
   top: -21px;
-  left: -15px;
-  width: 4px;
-  height: 4px;
+  left: -17px;
+  width: 8px;
+  height: 8px;
   border: 14px solid ${props => props.theme.handCircleColor};
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;
   background-color: ${props => props.theme.handCircleColor};
+  background-color: ${props =>
+    !props.isSelectingHour && toRgba(props.theme.handCircleColor, 0.8)};
   pointer-events: none;
 `;

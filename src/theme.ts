@@ -45,7 +45,8 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
   backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
-  headTitleColor: "#000",
+  headTitleColor: "#aeaeae",
+  headTimeTitleColor: "#617fdf",
   headArrowColor: "#000",
   headRangeBackColor: "#D6D6D6",
   headRangeColor: "#000",
@@ -56,12 +57,12 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
   // days
   daysColor: "#000",
   daysBackColor: "#FFFFFF",
-  holidaysColor: "#F50057",
+  holidaysColor: "#edb53b",
   holidaysBackColor: "#FFFFFF",
   daysRound: "50%",
 
-  selectDayColor: "#000",
-  selectDayBackColor: "#D6D6D6",
+  selectDayColor: "#fff",
+  selectDayBackColor: "#617fdf",
 
   // buttons
   submitBackColor: "#D6D6D6",
@@ -75,12 +76,13 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
   changeViewButtonBackColor: "#D6D6D6",
   changeViewButtonHoverBackColor: "#fff",
   changeViewButtonColor: "#000",
-  changeViewButtonHoverColor: "red",
+  changeViewButtonHoverColor: "#617fdf",
   // time
-  timeBackColor: "#D6D6D6",
+  timeBackColor: "#f0f0f0",
   timeNumberColor: "#000",
-  handBackColor: "rgba(63,63,63,0.4)",
-  handCircleColor: "#2979ff",
+  handBackColor: "#617fdf",
+  handCircleColor: "#617fdf",
+  selectedNumberColor: "#fff",
 };
 
 const {
