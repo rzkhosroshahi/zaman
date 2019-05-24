@@ -73,9 +73,7 @@ export const StyledHand = styled("div")<IStyledHandProps>`
 export const HandCircle = styled("div")<{ isSelectingHour: boolean }>`
   top: -21px;
   left: -17px;
-  width: 8px;
-  height: 8px;
-  border: 14px solid ${props => props.theme.handCircleColor};
+  border: 16px solid ${props => props.theme.handCircleColor};
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;

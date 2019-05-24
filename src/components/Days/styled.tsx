@@ -1,7 +1,7 @@
 import styled from "../../theme";
 
-export const DaysBody = styled("div")`
-  width: 300px;
+export const DaysBody = styled("div")<{ isDatePicker?: boolean }>`
+  width: ${props => (props.isDatePicker ? "296px" : "280px")};
   max-height: 85%;
   position: relative;
   overflow: auto;
@@ -16,22 +16,54 @@ export const DaysBody = styled("div")`
   p {
     margin: 0;
   }
-  @media (min-width: 450px) {
-    width: 310px;
+  @media (min-width: 576px) {
+    width: ${props => (props.isDatePicker ? "331px" : "315px")};
   }
 `;
 
-export const Table = styled("table")<{ timePicker: boolean }>`
+export const DaysWrapper = styled("div")<{ isDatePicker?: boolean }>`
   width: 100%;
   font-size: 1rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  padding: ${props => (props.timePicker ? `${8 / 16}rem` : 0)};
+  padding: ${props => (props.isDatePicker ? `${8 / 16}rem` : 0)};
 
   th {
     font-size: 1rem;
     font-weight: 300;
     color: ${props => props.theme.weekDaysColor};
+  }
+`;
+
+export const StyledUl = styled("ul")`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+
+    @media (min-width: 576px) {
+      width: 45px;
+      height: 45px;
+    }
+  }
+`;
+
+export const DaysNameList = styled(StyledUl)`
+  align-items: center;
+  color: ${props => props.theme.weekDaysColor};
+`;
+
+export const DaysNumberList = styled(StyledUl)`
+  li {
+    margin-bottom: 0.5rem;
   }
 `;
 

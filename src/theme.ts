@@ -5,7 +5,7 @@ export const defaultRangeTheme: IRangeDatePickerTheme = {
   backColor: "#FFFFFF",
   // head
   headBackColor: "#FFFFFF",
-  headTitleColor: "#000",
+  headTitleColor: "#aeaeae",
   headArrowColor: "#000",
   headRangeBackColor: "#D6D6D6",
   headRangeColor: "#000",

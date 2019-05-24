@@ -189,6 +189,7 @@ export class DatePicker extends React.PureComponent<
             onCancelButton={this.cancelButton}
             onSubmitButton={this.submitButton}
             timePicker
+            isDatePicker
           />
         </Modal>
       </DatePickerDiv>
