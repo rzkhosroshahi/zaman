@@ -71,19 +71,19 @@ export const TimePicker: FunctionComponent<ITimePickerProps> = ({
     }
     const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
-      changeHour(value + 12, true);
+      changeHour(value, true);
     } else {
-      changeHour(value, false);
+      changeHour(value + 12, false);
     }
   };
 
   const changeHourValueClick = (e: React.MouseEvent | React.TouchEvent) => {
     const { value, delta } = getAngelValues(e);
     if (Math.round(delta) < 85) {
-      changeHour(value + 12, true);
+      changeHour(value, true);
       setHourSelecting(false);
     } else {
-      changeHour(value, false);
+      changeHour(value + 12, false);
       setHourSelecting(false);
     }
   };
