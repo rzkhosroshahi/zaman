@@ -7,7 +7,7 @@ export const Clock = styled.div`
   position: relative;
   z-index: 1;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: ${props => props.theme.timeBackColor};
 `;
 
 export interface INumbersProps {
@@ -22,7 +22,7 @@ export const Numbers = styled("span")<INumbersProps>`
   left: calc(50% - 16px);
   top: ${props => props.top};
   width: 32px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => props.theme.timeNumberColor};
   height: 32px;
   display: inline-flex;
   position: absolute;
@@ -58,7 +58,7 @@ export const Hand = styled("div")<IHandProps>`
   bottom: 50%;
   height: ${props => (props.insideHour ? "26%" : "40%")};
   position: absolute;
-  background-color: burlywood;
+  background-color: ${props => props.theme.handBackColor};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   ${props =>
@@ -72,10 +72,10 @@ export const HandCircle = styled("div")<any>`
   left: -15px;
   width: 4px;
   height: 4px;
-  border: 14px solid #7ef38b;
+  border: 14px solid ${props => props.theme.handCircleColor};
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;
-  background-color: #7ef38b;
+  background-color: ${props => props.theme.handCircleColor};
   pointer-events: none;
 `;

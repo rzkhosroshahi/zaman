@@ -9,15 +9,15 @@ export const DaysBody = styled("div")`
   background-color: ${props => props.theme.backColor};
   & * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     user-select: none;
+  }
+
+  h3,
+  p {
+    margin: 0;
   }
   @media (min-width: 450px) {
     width: 310px;
-  }
-  @media (min-width: 768px) {
-    width: 325px;
   }
 `;
 

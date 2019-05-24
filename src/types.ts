@@ -54,11 +54,10 @@ export interface IDatePickerTheme extends ITheme {
   changeViewButtonHoverBackColor?: string;
   changeViewButtonColor?: string;
   changeViewButtonHoverColor?: string;
-  handColor?: string;
+  timeNumberColor?: string;
+  timeBackColor?: string;
+  handBackColor?: string;
   handCircleColor?: string;
-  handCircleMinuteColor?: string;
-  pmAmBackColor?: string;
-  pmAmColor?: string;
 }
 
 export type styledThemes = IRangeDatePickerTheme & IDatePickerTheme;

@@ -76,6 +76,11 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
   changeViewButtonHoverBackColor: "#fff",
   changeViewButtonColor: "#000",
   changeViewButtonHoverColor: "red",
+  // time
+  timeBackColor: "#D6D6D6",
+  timeNumberColor: "#000",
+  handBackColor: "rgba(63,63,63,0.4)",
+  handCircleColor: "#2979ff",
 };
 
 const {

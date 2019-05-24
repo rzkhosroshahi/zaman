@@ -20,6 +20,7 @@ export const HeadTitle = styled("h4")`
   align-items: center;
   width: 100%;
   padding: 0 ${8 / 16}rem;
+  margin: 0;
   font-size: 1.5rem;
   text-align: center;
   color: ${props => props.theme.headTitleColor};
