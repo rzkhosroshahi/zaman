@@ -28,4 +28,5 @@ export interface IDaysProps {
   minute?: number;
   changeHour?: (value: number) => void;
   changeMinute?: (value: number) => void;
+  isDatePicker?: boolean;
 }

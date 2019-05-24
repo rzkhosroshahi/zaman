@@ -8,7 +8,9 @@ import {
   ButtonsDiv,
   ChangeViewButton,
   DaysBody,
-  Table,
+  DaysNameList,
+  DaysNumberList,
+  DaysWrapper,
   TimeDays,
 } from "./styled";
 import { chunk } from "../../utils/chunk";
@@ -58,6 +60,7 @@ export class Days extends React.PureComponent<IDaysProps> {
       minute,
       changeHour,
       changeMinute,
+      isDatePicker,
     } = this.props;
     if (!days.length) {
       return null;
@@ -65,7 +68,7 @@ export class Days extends React.PureComponent<IDaysProps> {
     const weeks = chunk(days, 7);
     return (
       <ThemeProvider theme={theme}>
-        <DaysBody>
+        <DaysBody isDatePicker={isDatePicker}>
           <DaysHead
             monthName={monthName}
             datePickerStatus={selectedPickerStatus}
@@ -88,17 +91,18 @@ export class Days extends React.PureComponent<IDaysProps> {
             </TimeDays>
           ) : (
             <React.Fragment>
-              <Table data-testid="table-days" timePicker={timePicker}>
-                <thead>
-                  <tr>
-                    {weekDayNames.map((name, idx) => (
-                      <th key={`weekDayName-${idx}`}>{name}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
+              <DaysWrapper
+                data-testid="days-wrapper"
+                isDatePicker={isDatePicker}
+              >
+                <DaysNameList>
+                  {weekDayNames.map((name, idx) => (
+                    <li key={`weekDayName-${idx}`}>{name}</li>
+                  ))}
+                </DaysNameList>
+                <div>
                   {weeks.map((week, idx) => (
-                    <tr data-testid="days" key={`rdp-weeks-${idx}`}>
+                    <DaysNumberList data-testid="days" key={`rdp-weeks-${idx}`}>
                       {week.map((day: IDays, id) => (
                         <Day
                           key={`rdp-days-${id}`}
@@ -117,10 +121,10 @@ export class Days extends React.PureComponent<IDaysProps> {
                           {!day.disable ? fa(day.day) : null}
                         </Day>
                       ))}
-                    </tr>
+                    </DaysNumberList>
                   ))}
-                </tbody>
-              </Table>
+                </div>
+              </DaysWrapper>
             </React.Fragment>
           )}
           {isRenderingButtons && (

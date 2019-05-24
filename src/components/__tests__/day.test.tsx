@@ -9,12 +9,8 @@ const mockDaysEvent = jest.fn();
 describe("day test ", () => {
   afterEach(cleanup);
   test("day test ", () => {
-    const table = document.createElement("tr");
     const { container } = render(
       <Day theme={theme} daysEvent={mockDaysEvent} holiday={[]} />,
-      {
-        container: table,
-      },
     );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",
@@ -24,12 +20,8 @@ describe("day test ", () => {
   });
 
   test("holiday test ", () => {
-    const table = document.createElement("tr");
     const { container } = render(
       <Day theme={theme} daysEvent={mockDaysEvent} holiday={[6]} />,
-      {
-        container: table,
-      },
     );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",
@@ -41,7 +33,6 @@ describe("day test ", () => {
 
 describe("startEndRange tests ", () => {
   afterEach(cleanup);
-  const table = document.createElement("tr");
   test("start range ", () => {
     const { container } = render(
       <Day
@@ -50,9 +41,6 @@ describe("startEndRange tests ", () => {
         daysEvent={mockDaysEvent}
         startEndRange={{ status: "startRange" }}
       />,
-      {
-        container: table,
-      },
     );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",
@@ -68,9 +56,6 @@ describe("startEndRange tests ", () => {
         daysEvent={mockDaysEvent}
         startEndRange={{ status: "continueRange" }}
       />,
-      {
-        container: table,
-      },
     );
     expect(container.firstChild).toHaveStyleRule(
       "background-color",

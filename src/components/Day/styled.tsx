@@ -1,10 +1,7 @@
 import styled from "../../theme";
 import { IDayProps } from "./types";
 
-export const NormalDay = styled("td")<IDayProps>`
-  height: 40px;
-  width: 40px;
-
+export const NormalDay = styled("li")<IDayProps>`
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -16,11 +13,6 @@ export const NormalDay = styled("td")<IDayProps>`
     props.selectedDay
       ? props.theme.selectDayBackColor
       : props.theme.daysBackColor};
-
-  //@media (min-width: 768px) {
-  //  height: 45px;
-  //  min-width: 40px;
-  //}
 `;
 
 export const HolidayDay = styled(NormalDay)`
@@ -46,11 +38,15 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				content: "";
 				display: block;
 				width: 25px;
-				height: 45px;
+				height: 40px;
 				position: absolute;
 				top: 45px;
 				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(-25px, -45px, -1px);
+				transform: translate3d(-16px, -45px, -1px);
+				
+				@media (min-width: 576px) {
+					height: 45px;
+				}
 			}
 		`};
   ${props =>
@@ -60,11 +56,15 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				content: "";
 				display: block;
 				width: 25px;
-				height: 45px;
+				height: 40px;
 				position: absolute;
 				top: 45px;
 				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(0px, -45px, -1px);
+				transform: translate3d(16px, -45px, -1px);
+				
+				@media (min-width: 576px) {
+					height: 45px;
+				}
 			}
 		`};
 `;
