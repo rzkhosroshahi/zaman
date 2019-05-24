@@ -36,7 +36,7 @@ export const HeadRange = styled("h3")`
   margin: 0.5rem 0;
   font-size: 1.5rem;
   border-radius: ${20 / 16}rem;
-  padding: 0 ${8 / 16}rem;
+  padding: 0 ${16 / 16}rem;
   background-color: ${props => props.theme.headRangeBackColor};
   color: ${props => props.theme.headRangeColor};
 

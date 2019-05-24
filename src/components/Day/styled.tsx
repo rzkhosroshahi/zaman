@@ -2,8 +2,8 @@ import styled from "../../theme";
 import { IDayProps } from "./types";
 
 export const NormalDay = styled("td")<IDayProps>`
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  min-width: 40px;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -15,6 +15,11 @@ export const NormalDay = styled("td")<IDayProps>`
     props.selectedDay
       ? props.theme.selectDayBackColor
       : props.theme.daysBackColor};
+
+  @media (min-width: 768px) {
+    height: 45px;
+    width: 45px;
+  }
 `;
 
 export const HolidayDay = styled(NormalDay)`
