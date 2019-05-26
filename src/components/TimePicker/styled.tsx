@@ -64,6 +64,7 @@ export const StyledHand = styled("div")<IStyledHandProps>`
   background-color: ${props => props.theme.handBackColor};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
   ${props =>
     props.isSelectingHour
       ? `transform: ${`rotateZ(${(props.value / 12) * 360}deg)`}; `
