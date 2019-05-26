@@ -9,21 +9,10 @@ export const Hand: React.FunctionComponent<IHandProps> = ({
   isSelectingHour,
   children,
 }) => {
-  if (isSelectingHour) {
-    return (
-      <StyledHand
-        isInsideHour={isInsideHour}
-        value={hour}
-        isSelectingHour={isSelectingHour}
-      >
-        {children}
-      </StyledHand>
-    );
-  }
   return (
     <StyledHand
-      isInsideHour={false}
-      value={minute}
+      isInsideHour={isSelectingHour ? isInsideHour : false}
+      value={isSelectingHour ? hour : minute}
       isSelectingHour={isSelectingHour}
     >
       {children}
