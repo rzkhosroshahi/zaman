@@ -14,7 +14,7 @@ export class TimePicker extends React.PureComponent<
     this.state = {
       hour: props.hour,
       minute: props.minute,
-      isInsideHour: false,
+      isInsideHour: props.hour < 13,
       isSelectingHour: true,
       isSelecting: false,
     };
@@ -33,9 +33,6 @@ export class TimePicker extends React.PureComponent<
     }
   }
   public setMinute = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!this.state.isSelecting) {
-      return;
-    }
     const { value } = getAngelValues(e, 6);
     this.setState({
       minute: value,
@@ -48,13 +45,11 @@ export class TimePicker extends React.PureComponent<
       this.setState({
         hour: value,
         isInsideHour: true,
-        isSelectingHour: true,
       });
     } else {
       this.setState({
-        hour: value + 12,
+        hour: value,
         isInsideHour: false,
-        isSelectingHour: true,
       });
     }
   };
@@ -73,10 +68,16 @@ export class TimePicker extends React.PureComponent<
   public handleMouseUp = () => {
     this.setState({ isSelecting: false, isSelectingHour: false });
   };
-  public handleMouseDown = () => {
+
+  public handleMouseDown = e => {
     this.setState({
       isSelecting: true,
     });
+    if (this.state.isSelectingHour) {
+      return this.setHour(e);
+    } else {
+      return this.setMinute(e);
+    }
   };
 
   public handleTouchMove = (e: React.TouchEvent) => {
@@ -91,7 +92,6 @@ export class TimePicker extends React.PureComponent<
   public handleTouchEnd = () => {
     this.setState({
       isSelecting: false,
-      isSelectingHour: false,
     });
   };
 
@@ -104,6 +104,7 @@ export class TimePicker extends React.PureComponent<
         // touch events
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}
+        data-testid="dp__clock"
       >
         <Hand
           hour={this.state.hour}
