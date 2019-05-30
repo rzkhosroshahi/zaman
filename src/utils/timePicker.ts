@@ -1,5 +1,3 @@
-import * as React from "react";
-
 /**
  * numberPosition functions
  * These functions find position X-axis and Y-axis from half of the clock width
@@ -55,6 +53,20 @@ export const calculateOffset = elem => {
   };
 };
 
+export const getValue = (deg: number, delta: number, steps) => {
+  const valueBySteps = Math.round(deg * (1 / steps));
+  // minutes selecting
+  if (steps === 6) {
+    return valueBySteps;
+  }
+  // 24 hour selecting
+  if (Math.round(delta) > 85) {
+    return valueBySteps + 12;
+  }
+  // inside hour selecting
+  return valueBySteps === 0 ? 12 : valueBySteps;
+};
+
 /**
  * calculate the value from where the mouse clicked or tapped
  * step1: calculate deg from the center of the circle not (0, 0)
@@ -79,7 +91,7 @@ export const getAngelValues = (
   const atan = Math.PI - Math.atan2(x, y);
   const delta = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
   const deg = radianToDeg(atan);
-  const value = Math.round(deg * (1 / steps));
+  const value = getValue(deg, delta, steps);
 
   return {
     value,
