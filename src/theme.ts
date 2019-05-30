@@ -88,9 +88,10 @@ export const defaultDatePickerTheme: IDatePickerTheme = {
 const {
   default: styled,
   ThemeProvider,
+  keyframes,
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<
   styledThemes
 >;
 
-export { ThemeProvider };
+export { ThemeProvider, keyframes };
 export default styled;

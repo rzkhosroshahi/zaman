@@ -1,4 +1,5 @@
 import styled from "../../theme";
+import { keyframes } from "../../theme";
 import { numberPositionX, numberPositionY } from "../../utils/timePicker";
 import { toRgba } from "../../utils/toRgb";
 
@@ -9,6 +10,20 @@ export const Clock = styled.div`
   z-index: 1;
   border-radius: 50%;
   background-color: ${props => props.theme.timeBackColor};
+`;
+
+const fade = keyframes`
+  from {
+  	opacity: 0;
+  }
+
+  to {
+  	opacity: 1;
+  }
+`;
+
+export const MinuteWithAnimation = styled("div")`
+  animation: ${fade} 0.7s linear alternate;
 `;
 
 export interface INumbersProps {
