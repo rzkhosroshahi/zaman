@@ -1,4 +1,7 @@
 {
   "baseUrl": "http://localhost:1234/",
-  "integrationFolder": "cypress/e2e"
+  "integrationFolder": "cypress/e2e",
+  "video": true,
+  "viewportWidth": 1440,
+  "viewportHeight": 768
 }

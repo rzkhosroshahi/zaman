@@ -18,7 +18,8 @@ export const DaysHead: React.FunctionComponent<IDaysHeadProps> = ({
     return (
       <DaysHeadContainer data-testid="days-head">
         <TimeTitle>
-          {fa(hour)} : {fa(minute)}
+          <span data-testid="tp__hourPreview">{fa(hour)}</span> :{" "}
+          <span data-testid="tp__minutePreview">{fa(minute)}</span>
         </TimeTitle>
       </DaysHeadContainer>
     );

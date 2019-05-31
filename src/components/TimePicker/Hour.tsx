@@ -1,7 +1,14 @@
 import * as React from "react";
 import { hours, hours24, minutes } from "../../utils/timePicker";
-import { Numbers } from "./styled";
+import { MinuteWithAnimation, Numbers } from "./styled";
 import { fa } from "../../utils";
+
+const convertNumberValue = (n: number): string => {
+  if (n === 24 || n === 0) {
+    return `۰۰`;
+  }
+  return fa(n);
+};
 
 export const Hours: React.FunctionComponent<{
   insideHour: boolean;
@@ -11,13 +18,13 @@ export const Hours: React.FunctionComponent<{
 }> = ({ insideHour, hourSelecting, minute, hour }) => {
   if (!hourSelecting) {
     return (
-      <React.Fragment>
+      <MinuteWithAnimation>
         {minutes.map((m, i) => (
-          <Numbers key={`rdp-time${i}`} idx={i} isSelectedNumber={minute === m}>
-            {fa(m)}
+          <Numbers key={`rdp-time${i}`} idx={i}>
+            {convertNumberValue(m)}
           </Numbers>
         ))}
-      </React.Fragment>
+      </MinuteWithAnimation>
     );
   }
   return (
@@ -30,19 +37,13 @@ export const Hours: React.FunctionComponent<{
           clockHalfWidth={85}
           numbersPadd={10}
           style={{ opacity: insideHour ? 1 : 0.3 }}
-          isSelectedNumber={hour === h}
         >
-          {fa(h)}
+          {convertNumberValue(h)}
         </Numbers>
       ))}
       {hours24.map((h, i) => (
-        <Numbers
-          key={i + 1}
-          idx={i}
-          style={{ opacity: !insideHour ? 1 : 0.3 }}
-          isSelectedNumber={hour === h}
-        >
-          {fa(h)}
+        <Numbers key={i + 1} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
+          {convertNumberValue(h)}
         </Numbers>
       ))}
     </React.Fragment>
