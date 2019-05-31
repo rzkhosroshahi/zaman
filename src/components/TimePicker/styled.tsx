@@ -1,4 +1,5 @@
 import styled from "../../theme";
+import { keyframes } from "../../theme";
 import { numberPositionX, numberPositionY } from "../../utils/timePicker";
 import { toRgba } from "../../utils/toRgb";
 
@@ -9,6 +10,20 @@ export const Clock = styled.div`
   z-index: 1;
   border-radius: 50%;
   background-color: ${props => props.theme.timeBackColor};
+`;
+
+const fade = keyframes`
+  from {
+  	opacity: 0;
+  }
+
+  to {
+  	opacity: 1;
+  }
+`;
+
+export const MinuteWithAnimation = styled("div")`
+  animation: ${fade} 0.7s linear alternate;
 `;
 
 export interface INumbersProps {
@@ -64,6 +79,7 @@ export const StyledHand = styled("div")<IStyledHandProps>`
   background-color: ${props => props.theme.handBackColor};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  pointer-events: none;
   ${props =>
     props.isSelectingHour
       ? `transform: ${`rotateZ(${(props.value / 12) * 360}deg)`}; `

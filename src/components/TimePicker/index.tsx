@@ -14,7 +14,7 @@ export class TimePicker extends React.PureComponent<
     this.state = {
       hour: props.hour,
       minute: props.minute,
-      isInsideHour: false,
+      isInsideHour: props.hour < 13,
       isSelectingHour: true,
       isSelecting: false,
     };
@@ -32,70 +32,79 @@ export class TimePicker extends React.PureComponent<
       changeMinute(this.state.minute);
     }
   }
-
-  public changeHourState = (
-    e: React.MouseEvent | React.TouchEvent,
-    withClick: boolean,
-  ) => {
-    if (!withClick && !this.state.isSelecting) {
-      return;
-    }
-    const { value, delta } = getAngelValues(e);
-    if (Math.round(delta) < 85) {
-      this.setState({
-        hour: value,
-        isInsideHour: true,
-        isSelectingHour: !withClick,
-      });
-    } else {
-      this.setState({
-        hour: value + 12,
-        isInsideHour: false,
-        isSelectingHour: !withClick,
-      });
-    }
-  };
-  public changeMinuteState = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!this.state.isSelecting) {
-      return;
-    }
+  public setMinute = (e: React.MouseEvent | React.TouchEvent) => {
     const { value } = getAngelValues(e, 6);
     this.setState({
       minute: value,
     });
   };
-  public decisions = (
-    e: React.MouseEvent | React.TouchEvent,
-    withClick: boolean,
-  ) => {
-    if (this.state.isSelectingHour) {
-      return this.changeHourState(e, withClick);
+
+  public setHour = (e: React.MouseEvent | React.TouchEvent) => {
+    const { value, delta } = getAngelValues(e);
+    if (Math.round(delta) < 85) {
+      this.setState({
+        hour: value,
+        isInsideHour: true,
+      });
+    } else {
+      this.setState({
+        hour: value,
+        isInsideHour: false,
+      });
     }
-    return this.changeMinuteState(e);
   };
 
-  public setSelecting = (value: boolean) => {
+  public handleMouseMove = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!this.state.isSelecting) {
+      return;
+    }
+    if (this.state.isSelectingHour) {
+      return this.setHour(e);
+    }
+    return this.setMinute(e);
+  };
+
+  public handleMouseUp = () => {
+    this.setState({ isSelecting: false, isSelectingHour: false });
+  };
+
+  public handleMouseDown = e => {
     this.setState({
-      isSelecting: value,
+      isSelecting: true,
     });
+    if (this.state.isSelectingHour) {
+      return this.setHour(e);
+    } else {
+      return this.setMinute(e);
+    }
   };
 
-  public onMouseUp = () => {
+  public handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault();
+    this.setState({ isSelecting: true });
+    if (this.state.isSelectingHour) {
+      return this.setHour(e);
+    }
+    return this.setMinute(e);
+  };
+
+  public handleTouchEnd = () => {
     this.setState({
       isSelecting: false,
-      isSelectingHour: false,
     });
   };
+
   public render() {
     return (
       <Clock
-        onMouseMove={e => this.decisions(e, false)}
-        onMouseDown={() => this.setSelecting(true)}
-        onMouseUp={this.onMouseUp}
-        onTouchMove={e => this.decisions(e, false)}
-        onTouchStart={() => this.setSelecting(true)}
-        onTouchEnd={() => this.setState({ isSelectingHour: false })}
-        onClick={e => this.decisions(e, true)}
+        onMouseMove={this.handleMouseMove}
+        onMouseUp={this.handleMouseUp}
+        onMouseDown={this.handleMouseDown}
+        // touch events
+        onTouchMove={this.handleTouchMove}
+        onTouchEnd={this.handleTouchEnd}
+        data-testid="dp__clock"
       >
         <Hand
           hour={this.state.hour}
