@@ -186,24 +186,37 @@ export class RangeDatePicker extends React.Component<
   };
 
   public render(): React.ReactNode {
-    const { modalZIndex, ArrowRight, ArrowLeft, theme } = this.props;
+    const {
+      modalZIndex,
+      ArrowRight,
+      ArrowLeft,
+      theme,
+      fromLabel,
+      toLabel,
+    } = this.props;
     return (
       <RangeDateDiv>
-        <MaskedInput
-          className="rdp__input--start"
-          data-testid="input-start"
-          value={this.state.startDate.format("jYYYY/jMM/jDD")}
-          onClick={this.toggleModalOpen}
-          onChange={e => this.changeInputValues(e)}
-          mask={inputFaDateMask}
-        />
-        <MaskedInput
-          className="rdp__input--end"
-          data-testid="input-end"
-          value={this.state.endDate.format("jYYYY/jMM/jDD")}
-          onChange={e => this.changeInputValues(e, false)}
-          mask={inputFaDateMask}
-        />
+        <label>{fromLabel}</label>
+        <div>
+          <MaskedInput
+            className="rdp__input--start"
+            data-testid="input-start"
+            value={this.state.startDate.format("jYYYY/jMM/jDD")}
+            onClick={this.toggleModalOpen}
+            onChange={e => this.changeInputValues(e)}
+            mask={inputFaDateMask}
+          />
+        </div>
+        <label>{toLabel}</label>
+        <div>
+          <MaskedInput
+            className="rdp__input--end"
+            data-testid="input-end"
+            value={this.state.endDate.format("jYYYY/jMM/jDD")}
+            onChange={e => this.changeInputValues(e, false)}
+            mask={inputFaDateMask}
+          />
+        </div>
         <Modal
           isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
