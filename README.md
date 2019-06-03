@@ -25,6 +25,7 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 | onClickSubmitButton | function                            | null. if you passed this will be something like                                                                                       |
 | modalZIndex         | number                              | 9999                                                                                                                                  |
 | theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts) |
+| label               | string                              | default is null                                                                                                                       |
 
 ## usage
 
@@ -65,6 +66,8 @@ Note that all props are _optional_.
 | onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
 | modalZIndex         | number                | 9999                                                                                                                                                    |
 | theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/add-something-to-project/src/theme.ts)                   |
+| fromLabel           | string                | default is از تاریخ                                                                                                                                     |
+| toLabel             | string                | default is تا تاریخ                                                                                                                                     |
 
 ## usage
 
@@ -92,7 +95,7 @@ function submitExample({ start, end }) {
 ## ToDo
 
 - ~~write DatePicker~~
-- add label to inputs
+- ~~add label to inputs~~
 - create codesandbox page for preview
 - ~~add TimePicker~~
 

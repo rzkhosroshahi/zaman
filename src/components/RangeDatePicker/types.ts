@@ -13,6 +13,8 @@ export interface IRangeDatePickerProps {
   weekend?: number[];
   isRenderingButtons?: boolean;
   onClickSubmitButton?: (arg: any) => any;
+  fromLabel: string;
+  toLabel: string;
 }
 
 export interface IRangeDatePickerState {

@@ -147,19 +147,23 @@ export class DatePicker extends React.PureComponent<
       ClockIcon,
       theme,
       timePicker,
+      label,
     } = this.props;
     return (
       <DatePickerDiv>
-        <MaskedInput
-          className="dp__input"
-          data-testid="input-dp"
-          value={this.state.value.format(
-            timePicker ? formatDateTime : formatDate,
-          )}
-          mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
-          onClick={this.toggleModalOpen}
-          style={{ direction: "ltr" }}
-        />
+        <label>{label}</label>
+        <div>
+          <MaskedInput
+            className="dp__input"
+            data-testid="input-dp"
+            value={this.state.value.format(
+              timePicker ? formatDateTime : formatDate,
+            )}
+            mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
+            onClick={this.toggleModalOpen}
+            style={{ direction: "ltr" }}
+          />
+        </div>
         <Modal
           isOpen={this.state.isOpenModal}
           toggleOpen={this.toggleModalOpen}
