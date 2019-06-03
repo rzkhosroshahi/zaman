@@ -15,6 +15,7 @@ export interface IDatePickerProps {
   isRenderingButtons?: boolean;
   timePicker?: boolean;
   onClickSubmitButton?: (arg: any) => any;
+  label: string;
 }
 
 export interface IDatePickerState {
