@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "sourceMap": true,
     "esModuleInterop": false
   },
