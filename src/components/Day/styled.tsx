@@ -42,7 +42,7 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				position: absolute;
 				top: 45px;
 				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(-16px, -45px, -1px);
+				transform: translate3d(-10px, -45px, -1px);
 				
 				@media (min-width: 576px) {
 					height: 45px;
@@ -60,7 +60,7 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				position: absolute;
 				top: 45px;
 				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(16px, -45px, -1px);
+				transform: translate3d(10px, -45px, -1px);
 				
 				@media (min-width: 576px) {
 					height: 45px;
