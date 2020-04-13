@@ -96,8 +96,8 @@ export class Days extends React.PureComponent<IDaysProps> {
                 isDatePicker={isDatePicker}
               >
                 <DaysNameList>
-                  {weekDayNames.map((name, idx) => (
-                    <li key={`weekDayName-${idx}`}>{name}</li>
+                  {weekDayNames.map(name => (
+                    <li key={name}>{name}</li>
                   ))}
                 </DaysNameList>
                 <div>
@@ -105,7 +105,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                     <DaysNumberList data-testid="days" key={`rdp-weeks-${idx}`}>
                       {week.map((day: IDays, id) => (
                         <Day
-                          key={`rdp-days-${id}`}
+                          key={day.utc}
                           data-testid={`day-${idx * 7 + id + 1}`}
                           data-fadate={`${day.faDate}`}
                           daysEvent={daysEventListeners}
