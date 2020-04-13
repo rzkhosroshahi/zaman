@@ -31,6 +31,7 @@ export class DatePicker extends React.PureComponent<
     weekend: [6],
     DateIcon: Icons.DateIcon,
     ClockIcon: Icons.ClockIcon,
+    className: 'dp__input'
   };
 
   constructor(props) {
@@ -148,13 +149,14 @@ export class DatePicker extends React.PureComponent<
       theme,
       timePicker,
       label,
+      className,
     } = this.props;
     return (
       <DatePickerDiv>
         <label>{label}</label>
         <div>
           <MaskedInput
-            className="dp__input"
+            className={className}
             data-testid="input-dp"
             value={this.state.value.format(
               timePicker ? formatDateTime : formatDate,
