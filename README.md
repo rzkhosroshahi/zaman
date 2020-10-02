@@ -13,19 +13,19 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 ## Date Picker
 
-| props               | type                                | default                                                                                                                               |
-| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                                  | Moment | today date |
-| weekend             | number[]                            | `[6]`                                                                                                                                 |
-| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
-| ArrowLeft           | React.ReactType                     | default component                                                                                                                     |
-| ClockIcon           | React.ReactType                     | default component                                                                                                                     |
-| DateIcon            | React.ReactType                     | default component                                                                                                                     |
-| timePicker          | boolean                             | true.                                                                                                                                 |
-| onClickSubmitButton | function                            | null. if you passed this will be something like                                                                                       |
-| modalZIndex         | number                              | 9999                                                                                                                                  |
-| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts) |
-| label               | string                              | default is null                                                                                                                       |
+| props               | type                               | default                                                                                                             |
+| ------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| value               | timestamp &#124; Date &#124; DayJS | Date                                                                                                                | DayJS | today date |
+| weekend             | number[]                           | `[6]`                                                                                                               |
+| ArrowLeft           | React.ReactType                    | default component                                                                                                   |
+| ArrowLeft           | React.ReactType                    | default component                                                                                                   |
+| ClockIcon           | React.ReactType                    | default component                                                                                                   |
+| DateIcon            | React.ReactType                    | default component                                                                                                   |
+| timePicker          | boolean                            | true.                                                                                                               |
+| onClickSubmitButton | function                           | null. if you passed this will be something like                                                                     |
+| modalZIndex         | number                             | 9999                                                                                                                |
+| theme               | object                             | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts) |
+| label               | string                             | default is null                                                                                                     |
 
 ## usage
 
@@ -65,7 +65,7 @@ Note that all props are _optional_.
 | isRenderingButtons  | boolean               | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                              |
 | onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
 | modalZIndex         | number                | 9999                                                                                                                                                    |
-| theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                   |
+| theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                                     |
 | fromLabel           | string                | default is از تاریخ                                                                                                                                     |
 | toLabel             | string                | default is تا تاریخ                                                                                                                                     |
 

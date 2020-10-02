@@ -1,9 +1,14 @@
 import * as React from "react";
-import * as moment from "jalali-moment";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import jalaliday from "jalaliday";
 import { cleanup, render, fireEvent } from "react-testing-library";
 import { DatePicker } from "../DatePicker";
 import "jest-styled-components";
 import { defaultDatePickerTheme } from "../../theme";
+
+dayjs.extend(jalaliday);
+dayjs.extend(isSameOrBefore);
 
 afterEach(cleanup);
 describe("datePicker input tests", () => {
@@ -11,7 +16,9 @@ describe("datePicker input tests", () => {
   test("default value ", () => {
     const { getByTestId } = render(<DatePicker />);
     const input = getByTestId("input-dp");
-    const today = moment().format("jYYYY/jMM/jDD - HH:mm");
+    const today = dayjs()
+      .calendar("jalali")
+      .format("YYYY/MM/DD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("time stamp value ", () => {
@@ -19,20 +26,26 @@ describe("datePicker input tests", () => {
     const timeStamp = date.getTime();
     const { getByTestId } = render(<DatePicker value={timeStamp} />);
     const input = getByTestId("input-dp");
-    const today = moment(timeStamp).format("jYYYY/jMM/jDD - HH:mm");
+    const today = dayjs(timeStamp)
+      .calendar("jalali")
+      .format("YYYY/MM/DD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("date value ", () => {
     const date = new Date();
     const { getByTestId } = render(<DatePicker value={date} />);
     const input = getByTestId("input-dp");
-    const today = moment(date).format("jYYYY/jMM/jDD - HH:mm");
+    const today = dayjs(date)
+      .calendar("jalali")
+      .format("YYYY/MM/DD - HH:mm");
     expect((input as HTMLInputElement).value).toBe(today);
   });
   test("when timePicker is false ", () => {
     const { getByTestId } = render(<DatePicker timePicker={false} />);
     const input = getByTestId("input-dp");
-    const today = moment().format("jYYYY/jMM/jDD");
+    const today = dayjs()
+      .calendar("jalali")
+      .format("YYYY/MM/DD");
     expect((input as HTMLInputElement).value).toBe(today);
   });
 });
