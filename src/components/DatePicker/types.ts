@@ -28,6 +28,4 @@ export interface IDatePickerState {
   isOpenModal: boolean;
   dayStatus: string;
   timePickerView: boolean;
-  hour: number;
-  minute: number;
 }

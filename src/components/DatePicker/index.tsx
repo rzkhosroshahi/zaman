@@ -44,8 +44,6 @@ export class DatePicker extends React.PureComponent<
       isOpenModal: false,
       timePickerView: false,
       dayStatus: datePickerStatus(dayjs(this.props.value)),
-      hour: dayjs(this.props.value).hour(),
-      minute: dayjs(this.props.value).minute(),
     };
   }
 
@@ -90,14 +88,12 @@ export class DatePicker extends React.PureComponent<
     const nextValue = this.state.value.hour(value);
     this.setState({
       value: nextValue,
-      hour: nextValue.hour(),
     });
   };
   public changeMinute = value => {
     const nextValue = this.state.value.minute(value);
     this.setState({
       value: nextValue,
-      minute: nextValue.minute(),
     });
   };
   public toggleModalOpen = () => {
@@ -194,8 +190,8 @@ export class DatePicker extends React.PureComponent<
             decreaseMonth={() => this.changeMonth(-1)}
             toggleView={this.toggleTimePickerView}
             timePickerView={this.state.timePickerView}
-            hour={this.state.hour}
-            minute={this.state.minute}
+            hour={this.state.value.hour()}
+            minute={this.state.value.minute()}
             changeHour={this.changeHour}
             changeMinute={this.changeMinute}
             onCancelButton={this.cancelButton}
