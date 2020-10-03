@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 export const fa = n => {
-  if (process.env.NODE_ENV) {
+  if (process.env.NODE_ENV === "test") {
     return n;
   }
   return Number(n).toLocaleString("fa", {
