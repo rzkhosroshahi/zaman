@@ -73,7 +73,8 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "jalali-moment": "^3.3.1"
+    "dayjs": "^1.9.1",
+    "jalaliday": "^2.3.0"
   },
   "prettier": {
     "trailingComma": "all"

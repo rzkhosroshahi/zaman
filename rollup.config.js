@@ -11,13 +11,6 @@ export default {
   plugins: [
     builtins(),
     terser(),
-    {
-      name: "replace moment imports",
-      transform: code => ({
-        code: code.replace(/import\s*\*\s*as\s*moment/g, "import      moment"),
-        map: null,
-      }),
-    },
     rollupTypescript({
       tsconfigDefaults: {
         sourceMap: true,
@@ -60,7 +53,7 @@ export default {
         "styled-component": "styled",
         "bootstrap-styled": "Jumbotron",
         classnames: "cn",
-        "jalali-moment": "moment",
+        dayjs: "dayjs",
       },
     },
     {
@@ -78,7 +71,7 @@ export default {
         "styled-component": "styled",
         "bootstrap-styled": "Jumbotron",
         classnames: "cn",
-        "jalali-moment": "moment",
+        dayjs: "dayjs",
       },
     },
     {
@@ -96,7 +89,7 @@ export default {
         "styled-component": "styled",
         "bootstrap-styled": "Jumbotron",
         classnames: "cn",
-        "jalali-moment": "moment",
+        dayjs: "dayjs",
       },
     },
   ],
