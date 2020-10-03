@@ -16,6 +16,7 @@ export interface IDatePickerProps {
   timePicker?: boolean;
   onClickSubmitButton?: (arg: any) => any;
   label: string;
+  className: string | object;
 }
 
 export interface IDatePickerState {

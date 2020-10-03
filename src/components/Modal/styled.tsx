@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IModalStyled } from "./types";
 
 export const ModalDiv = styled("div")<IModalStyled>`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;

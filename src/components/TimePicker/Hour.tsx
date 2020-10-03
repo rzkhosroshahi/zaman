@@ -20,7 +20,7 @@ export const Hours: React.FunctionComponent<{
     return (
       <MinuteWithAnimation>
         {minutes.map((m, i) => (
-          <Numbers key={`rdp-time${i}`} idx={i}>
+          <Numbers key={m} idx={i}>
             {convertNumberValue(m)}
           </Numbers>
         ))}
@@ -31,7 +31,7 @@ export const Hours: React.FunctionComponent<{
     <React.Fragment>
       {hours.map((h, i) => (
         <Numbers
-          key={`rdp-time${i}`}
+          key={h}
           idx={i}
           top="15%"
           clockHalfWidth={85}
@@ -42,7 +42,7 @@ export const Hours: React.FunctionComponent<{
         </Numbers>
       ))}
       {hours24.map((h, i) => (
-        <Numbers key={i + 1} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
+        <Numbers key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
           {convertNumberValue(h)}
         </Numbers>
       ))}
