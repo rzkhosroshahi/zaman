@@ -1,9 +1,13 @@
 import * as moment from "jalali-moment";
 
-export const fa = n =>
-  Number(n).toLocaleString("fa", {
+export const fa = n => {
+  if (process.env.NODE_ENV) {
+    return n;
+  }
+  return Number(n).toLocaleString("fa", {
     useGrouping: false,
   });
+};
 
 // prettier-ignore
 export const inputFaDateMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/];

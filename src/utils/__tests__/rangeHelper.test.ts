@@ -46,7 +46,7 @@ describe("rangeHelper status", () => {
       end: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
     };
 
-    expect(makeRangeStatus(range.start, range.end)).toBe("4 تا 8 دی ماه");
+    expect(makeRangeStatus(range.start, range.end)).toBe("04 تا 08 دی ماه");
   });
 
   test("when end range before start ", () => {
@@ -54,7 +54,7 @@ describe("rangeHelper status", () => {
       start: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
       end: moment("Tue, 25 Dec 2018 20:01:44 GMT"),
     };
-    expect(makeRangeStatus(range.start, range.end)).toEqual("8 دی ماه");
+    expect(makeRangeStatus(range.start, range.end)).toEqual("08 دی ماه");
   });
 
   test("when start and date into separate months", () => {
@@ -62,6 +62,6 @@ describe("rangeHelper status", () => {
       start: moment("Sat, 29 Dec 2018 20:01:44 GMT"),
       end: moment("Fri, 01 Feb 2019 00:41:54 GMT"),
     };
-    expect(makeRangeStatus(range.start, range.end)).toEqual("8 دی تا 12 بهمن");
+    expect(makeRangeStatus(range.start, range.end)).toEqual("08 دی تا 12 بهمن");
   });
 });

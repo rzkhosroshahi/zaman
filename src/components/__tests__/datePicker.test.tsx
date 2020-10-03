@@ -76,7 +76,7 @@ describe("datePicker input tests", () => {
     fireEvent.click(daysFive);
 
     const dateStatus = getByTestId("days-head-range");
-    expect(dateStatus.textContent).toBe("3 بهمن ماه");
+    expect(dateStatus.textContent).toBe("03 بهمن ماه");
     expect(dateStatus).toHaveStyleRule(
       "background-color",
       defaultDatePickerTheme.headRangeBackColor,

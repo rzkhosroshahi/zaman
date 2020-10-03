@@ -168,7 +168,7 @@ describe("arrows component test ", () => {
     );
 
     const daysHeadRange = getByTestId("days-head-range");
-    expect(daysHeadRange.textContent).toEqual("12 دی تا 8 بهمن");
+    expect(daysHeadRange.textContent).toEqual("12 دی تا 08 بهمن");
   });
 });
 

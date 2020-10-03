@@ -21,7 +21,7 @@ export interface IDaysProps {
   isRenderingButtons?: boolean;
   onCancelButton?: () => void;
   onSubmitButton?: () => void;
-  toggleView?: () => void;
+  toggleView?: (e: any) => void;
   timePicker?: boolean;
   timePickerView?: boolean;
   hour?: number;
