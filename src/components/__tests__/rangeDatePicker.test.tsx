@@ -1,5 +1,12 @@
 import * as React from "react";
 import { render, fireEvent, cleanup } from "react-testing-library";
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import jalaliday from "jalaliday";
+
+dayjs.extend(jalaliday);
+dayjs.extend(isSameOrBefore);
+
 import { RangeDatePicker } from "../RangeDatePicker";
 import "jest-styled-components";
 import { defaultRangeTheme } from "../../theme";
