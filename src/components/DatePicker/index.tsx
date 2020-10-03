@@ -103,7 +103,8 @@ export class DatePicker extends React.PureComponent<
       };
     });
   };
-  public toggleTimePickerView = () => {
+  public toggleTimePickerView = (e) => {
+    e.preventDefault();
     this.setState(prevState => {
       return {
         timePickerView: !prevState.timePickerView,
