@@ -1,8 +1,8 @@
 import { IRangeDate, IRangeDays } from "../types";
-import { Dayjs } from "dayjs";
+import { Moment } from "jalali-moment";
 import { fa } from ".";
 
-const stateRange = (current: Dayjs, start: Dayjs, end: Dayjs): string => {
+const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   if (current.isSame(start)) {
     return "startRange";
   } else if (current.isSame(end)) {
@@ -13,11 +13,11 @@ const stateRange = (current: Dayjs, start: Dayjs, end: Dayjs): string => {
 
 export function rangeHelper(range: IRangeDate) {
   const { start, end } = range;
-  let cloneStart = start.clone();
+  const cloneStart = start.clone();
   const rangeDays = <IRangeDays>{};
 
   if (cloneStart.isSame(end)) {
-    rangeDays[cloneStart.calendar("jalali").format("YYYY/MM/DD")] = {
+    rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
       status: "sameRange",
     };
 
@@ -29,28 +29,22 @@ export function rangeHelper(range: IRangeDate) {
   }
 
   while (cloneStart.isSameOrBefore(end)) {
-    rangeDays[cloneStart.calendar("jalali").format("YYYY/MM/DD")] = {
+    rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
       status: stateRange(cloneStart, start, end),
     };
-    cloneStart = cloneStart.add(1, "day");
+    cloneStart.add("day", 1);
   }
 
   return rangeDays;
 }
 
-export const makeRangeStatus = (start: Dayjs, end: Dayjs) => {
+export const makeRangeStatus = (start: Moment, end: Moment) => {
   const cloneStart = start.clone();
   const cloneEnd = end.clone();
-  const startMonth = cloneStart
-    .calendar("jalali")
-    .locale("fa")
-    .format("MMMM");
-  const endMonth = cloneEnd
-    .calendar("jalali")
-    .locale("fa")
-    .format("MMMM");
-  const startDay = start.calendar("jalali").format("DD");
-  const endDay = end.calendar("jalali").format("DD");
+  const startMonth = cloneStart.locale("fa").format("jMMMM");
+  const endMonth = cloneEnd.locale("fa").format("jMMMM");
+  const startDay = start.format("jDD");
+  const endDay = end.format("jDD");
 
   if (cloneStart.isAfter(end)) {
     return `${fa(startDay)} ${startMonth} ماه`;
@@ -62,12 +56,9 @@ export const makeRangeStatus = (start: Dayjs, end: Dayjs) => {
   return `${fa(startDay)} تا ${fa(endDay)} ${startMonth} ماه`;
 };
 
-export const datePickerStatus = (date: Dayjs) => {
-  const day = date.calendar("jalali").format("DD");
-  const month = date
-    .calendar("jalali")
-    .locale("fa")
-    .format("MMMM");
+export const datePickerStatus = (date: Moment) => {
+  const day = date.format("jDD");
+  const month = date.locale("fa").format("jMMMM");
 
   return `${fa(day)} ${month} ماه`;
 };

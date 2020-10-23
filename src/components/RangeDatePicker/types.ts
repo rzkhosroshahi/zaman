@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "../../types";
-import { Dayjs } from "dayjs";
+import { Moment } from "jalali-moment";
 import { IDays } from "../../utils/daysInMonth";
 
 export interface IRangeDatePickerProps {
@@ -18,14 +18,14 @@ export interface IRangeDatePickerProps {
 }
 
 export interface IRangeDatePickerState {
-  startDate: Dayjs;
-  endDate: Dayjs;
+  startDate: Moment;
+  endDate: Moment;
   monthName?: string;
   days?: IDays[];
   rangeDays?: IRangeDays;
   isOpenModal: boolean;
   isSelecting: boolean;
   rangeStatus: string;
-  cloneDays: Dayjs;
+  cloneDays: Moment;
   initialRange?: IRangeDate;
 }

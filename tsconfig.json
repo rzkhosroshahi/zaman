@@ -8,7 +8,7 @@
     "declaration": true,
     "declarationMap": false,
     "sourceMap": true,
-    "esModuleInterop": true
+    "esModuleInterop": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/__tests__/*"]

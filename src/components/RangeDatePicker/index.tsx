@@ -1,5 +1,5 @@
 import * as React from "react";
-import dayjs from "dayjs";
+import * as moment from "jalali-moment";
 import { defaultRangeTheme } from "../../theme";
 import MaskedInput from "react-text-mask";
 import { formatJalaliDate, inputFaDateMask } from "../../utils";
@@ -16,12 +16,8 @@ export class RangeDatePicker extends React.Component<
   IRangeDatePickerState
 > {
   public static defaultProps: Partial<IRangeDatePickerProps> = {
-    start: dayjs()
-      .calendar("jalali")
-      .format("YYYY/MM/DD"),
-    end: dayjs()
-      .calendar("jalali")
-      .format("YYYY/MM/DD"),
+    start: moment().format("jYYYY/jMM/jDD"),
+    end: moment().format("jYYYY/jMM/jDD"),
     modalZIndex: 9999,
     ArrowLeft: Arrows.ArrowLeftCMP,
     ArrowRight: Arrows.ArrowRightCMP,
@@ -95,7 +91,7 @@ export class RangeDatePicker extends React.Component<
   public changeMonth = amount => {
     this.setState(prevState => {
       return {
-        cloneDays: prevState.cloneDays.add(amount, "month"),
+        cloneDays: prevState.cloneDays.clone().add(amount, "month"),
       };
     });
   };
@@ -205,7 +201,7 @@ export class RangeDatePicker extends React.Component<
           <MaskedInput
             className="rdp__input--start"
             data-testid="input-start"
-            value={this.state.startDate.calendar("jalali").format("YYYY/MM/DD")}
+            value={this.state.startDate.format("jYYYY/jMM/jDD")}
             onClick={this.toggleModalOpen}
             onChange={e => this.changeInputValues(e)}
             mask={inputFaDateMask}
@@ -216,7 +212,7 @@ export class RangeDatePicker extends React.Component<
           <MaskedInput
             className="rdp__input--end"
             data-testid="input-end"
-            value={this.state.endDate.calendar("jalali").format("YYYY/MM/DD")}
+            value={this.state.endDate.format("jYYYY/jMM/jDD")}
             onChange={e => this.changeInputValues(e, false)}
             mask={inputFaDateMask}
           />

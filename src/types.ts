@@ -1,8 +1,8 @@
-import { Dayjs } from "dayjs";
+import { Moment } from "jalali-moment";
 
 export interface IRangeDate {
-  start: Dayjs;
-  end: Dayjs;
+  start: Moment;
+  end: Moment;
 }
 
 export interface IRangeDay {

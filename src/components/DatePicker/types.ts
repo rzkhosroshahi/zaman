@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Dayjs } from "dayjs";
+import { Moment } from "jalali-moment";
 import { IDatePickerTheme } from "../../types";
 import { IDays } from "../../utils/daysInMonth";
 
 export interface IDatePickerProps {
-  value: number | Date | Dayjs;
+  value: number | Date | Moment;
   ArrowLeft?: React.ReactType;
   ArrowRight?: React.ReactType;
   ClockIcon?: React.ReactType;
@@ -20,9 +20,9 @@ export interface IDatePickerProps {
 }
 
 export interface IDatePickerState {
-  value: Dayjs;
-  cloneDays: Dayjs;
-  initialValue?: Dayjs;
+  value: Moment;
+  cloneDays: Moment;
+  initialValue?: Moment;
   monthName?: string;
   days?: IDays[];
   isOpenModal: boolean;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import dayjs from "dayjs";
+import * as moment from "jalali-moment";
 import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
 import { daysInMonth } from "../../utils/daysInMonth";
@@ -22,7 +22,7 @@ export class DatePicker extends React.PureComponent<
   IDatePickerState
 > {
   public static defaultProps: Partial<IDatePickerProps> = {
-    value: dayjs(),
+    value: moment(),
     timePicker: true,
     ArrowRight: Icons.ArrowRightCMP,
     ArrowLeft: Icons.ArrowLeftCMP,
@@ -31,21 +31,21 @@ export class DatePicker extends React.PureComponent<
     weekend: [6],
     DateIcon: Icons.DateIcon,
     ClockIcon: Icons.ClockIcon,
-    className: "dp__input",
+    className: 'dp__input'
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: dayjs(this.props.value),
-      cloneDays: dayjs(this.props.value),
+      value: moment(this.props.value),
+      cloneDays: moment(this.props.value),
       monthName: "",
       days: [],
       isOpenModal: false,
       timePickerView: false,
-      dayStatus: datePickerStatus(dayjs(this.props.value)),
-      hour: dayjs(this.props.value).hour(),
-      minute: dayjs(this.props.value).minute(),
+      dayStatus: datePickerStatus(moment(this.props.value)),
+      hour: moment(this.props.value).hour(),
+      minute: moment(this.props.value).minute(),
     };
   }
 
@@ -65,7 +65,7 @@ export class DatePicker extends React.PureComponent<
   ): void {
     if (!prevState.value.isSame(this.state.value)) {
       this.setState({
-        dayStatus: datePickerStatus(dayjs(this.state.value)),
+        dayStatus: datePickerStatus(moment(this.state.value)),
       });
     }
     if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
@@ -82,22 +82,18 @@ export class DatePicker extends React.PureComponent<
   public changeMonth = amount => {
     this.setState(prevState => {
       return {
-        cloneDays: prevState.cloneDays.add(amount, "month"),
+        cloneDays: prevState.cloneDays.clone().add(amount, "month"),
       };
     });
   };
   public changeHour = value => {
-    const nextValue = this.state.value.hour(value);
     this.setState({
-      value: nextValue,
-      hour: nextValue.hour(),
+      hour: this.state.value.hour(value).hour(),
     });
   };
   public changeMinute = value => {
-    const nextValue = this.state.value.minute(value);
     this.setState({
-      value: nextValue,
-      minute: nextValue.minute(),
+      minute: this.state.value.minute(value).minute(),
     });
   };
   public toggleModalOpen = () => {
@@ -163,9 +159,9 @@ export class DatePicker extends React.PureComponent<
           <MaskedInput
             className={className}
             data-testid="input-dp"
-            value={this.state.value
-              .calendar("jalali")
-              .format(timePicker ? formatDateTime : formatDate)}
+            value={this.state.value.format(
+              timePicker ? formatDateTime : formatDate,
+            )}
             mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
             onClick={this.toggleModalOpen}
             style={{ direction: "ltr" }}
@@ -180,9 +176,7 @@ export class DatePicker extends React.PureComponent<
             days={this.state.days}
             monthName={this.state.monthName}
             selectedPickerStatus={this.state.dayStatus}
-            selectedDay={this.state.value
-              .calendar("jalali")
-              .format("YYYY/MM/DD")}
+            selectedDay={this.state.value.format("jYYYY/jMM/jDD")}
             daysEventListeners={this.daysEventListeners}
             holiday={this.props.weekend}
             theme={theme}
