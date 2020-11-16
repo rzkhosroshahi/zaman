@@ -1,10 +1,10 @@
-import { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import * as moment from "jalali-moment";
+import { Moment } from "jalali-moment";
 import { fa } from "./index";
 
 export interface IDays {
   day: string;
-  // utc: string;
+  utc: string;
   faDate: string;
   disable: boolean;
 }
@@ -15,44 +15,39 @@ export interface IDaysInMonth {
   month: number;
   today?: string;
 }
-const checkDateMonth = (date, current) =>
-  current.calendar("jalali").month() < date.calendar("jalali").month();
-const checkCurrentMonth = (date: Dayjs) =>
-  dayjs()
-    .calendar("jalali")
-    .format("YYYY/MM") === date.calendar("jalali").format("YYYY/MM");
 
-export const daysInMonth = (date: Dayjs): IDaysInMonth => {
+const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
+const checkCurrentMonth = (date: Moment) =>
+  moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
+
+export const daysInMonth = (date: Moment): IDaysInMonth => {
   const days: IDays[] = [];
-  const monthName = `${date
-    .calendar("jalali")
-    .locale("fa")
-    .format("MMMM")} ${fa(date.calendar("jalali").format("YYYY"))}`;
+  const clonedDate = date.clone();
+  const monthName = `${clonedDate.locale("fa").format("jMMMM")} ${fa(
+    clonedDate.format("jYYYY"),
+  )}`;
 
-  const month = +date
-    .calendar("jalali")
-    .locale("fa")
-    .format("M");
-
-  let firstDayOfWeek = date.calendar("jalali").startOf("month");
-  const lastDayOfWeek = date.calendar("jalali").endOf("month");
-  const today = checkCurrentMonth(date)
-    ? { today: date.calendar("jalali").format("DD") }
-    : null;
-
-  firstDayOfWeek = firstDayOfWeek.subtract(
-    (firstDayOfWeek.day() + 1) % 7,
-    "day",
+  const month = Number(
+    date
+      .clone()
+      .locale("fa")
+      .format("jM"),
   );
+
+  const firstDayOfWeek = date.clone().startOf("jMonth");
+  const lastDayOfWeek = date.clone().endOf("jMonth");
+  const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
+
+  firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
 
   while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
     days.push({
-      day: firstDayOfWeek.calendar("jalali").format("DD"),
-      // utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
-      faDate: firstDayOfWeek.calendar("jalali").format("YYYY/MM/DD"),
+      day: firstDayOfWeek.clone().format("jDD"),
+      utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
+      faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
       disable: checkDateMonth(date, firstDayOfWeek),
     });
-    firstDayOfWeek = firstDayOfWeek.add(1, "day");
+    firstDayOfWeek.add(1, "days");
   }
 
   // tslint:disable-next-line:no-console

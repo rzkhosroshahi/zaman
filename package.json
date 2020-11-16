@@ -1,6 +1,6 @@
 {
   "name": "jalali-react-datepicker",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
@@ -44,7 +44,7 @@
     "@types/jest": "^23.3.9",
     "@types/react": "^16.8.3",
     "@types/react-dom": "^16.8.1",
-    "@types/styled-components": "^4.1.8",
+    "@types/styled-components": "^5.1.4",
     "all-contributors-cli": "^5.4.1",
     "cypress": "^3.1.5",
     "cypress-testing-library": "^2.3.6",
@@ -55,26 +55,25 @@
     "parcel-bundler": "^1.11.0",
     "prettier": "^1.15.2",
     "pretty-quick": "^1.8.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-testing-library": "^5.8.0",
-    "rollup": "^1.0.0",
-    "rollup-plugin-commonjs": "^9.2.0",
+    "react-text-mask": "^5.4.3",
+    "rollup": "^2.32.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-terser": "^5.0.0",
-    "rollup-plugin-typescript2": "^0.18.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.28.0",
+    "styled-components": "^4.1.2",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-text-mask": "^5.4.3",
-    "styled-components": "^4.1.2",
-    "typescript": "^3.1.6"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
-    "dayjs": "^1.9.1",
-    "jalaliday": "^2.3.0"
+    "jalali-moment": "^3.3.1"
   },
   "prettier": {
     "trailingComma": "all"
