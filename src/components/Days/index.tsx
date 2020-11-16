@@ -130,6 +130,7 @@ export class Days extends React.PureComponent<IDaysProps> {
           {isRenderingButtons && (
             <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">
               <button
+                type="button"
                 data-testid="submit-button"
                 className="rdp__button--submit"
                 onClick={onSubmitButton}
@@ -137,6 +138,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                 تایید
               </button>
               <button
+                type="button"
                 data-testid="cancel-button"
                 className="rdp__button--cancel"
                 onClick={onCancelButton}
@@ -145,6 +147,7 @@ export class Days extends React.PureComponent<IDaysProps> {
               </button>
               {timePicker && (
                 <ChangeViewButton
+                  type="button"
                   onClick={toggleView}
                   data-testid="toggle-view"
                 >
