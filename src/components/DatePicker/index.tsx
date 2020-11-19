@@ -31,7 +31,7 @@ export class DatePicker extends React.PureComponent<
     weekend: [6],
     DateIcon: Icons.DateIcon,
     ClockIcon: Icons.ClockIcon,
-    className: 'dp__input'
+    className: "dp__input",
   };
 
   constructor(props) {
@@ -103,7 +103,7 @@ export class DatePicker extends React.PureComponent<
       };
     });
   };
-  public toggleTimePickerView = (e) => {
+  public toggleTimePickerView = e => {
     e.preventDefault();
     this.setState(prevState => {
       return {
@@ -195,7 +195,7 @@ export class DatePicker extends React.PureComponent<
             changeMinute={this.changeMinute}
             onCancelButton={this.cancelButton}
             onSubmitButton={this.submitButton}
-            timePicker
+            timePicker={timePicker}
             isDatePicker
           />
         </Modal>
