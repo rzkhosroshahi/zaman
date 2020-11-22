@@ -42,4 +42,9 @@ const theme = {
   cancelHoverColor: "#000",
 };
 
-render(<DatePicker />, document.getElementById("root"));
+render(
+  <DatePicker
+  // timePicker={false} // to disable timePicker
+  />,
+  document.getElementById("root"),
+);
