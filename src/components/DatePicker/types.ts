@@ -17,6 +17,8 @@ export interface IDatePickerProps {
   onClickSubmitButton?: (arg: any) => any;
   label: string;
   className: string | object;
+  open?: boolean;
+  onToggle?: (arg?: boolean) => any;
 }
 
 export interface IDatePickerState {
