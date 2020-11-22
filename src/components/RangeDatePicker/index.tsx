@@ -86,6 +86,18 @@ export class RangeDatePicker extends React.Component<
         };
       });
     }
+    if (prevProps.open !== this.props.open) {
+      this.setState({
+        isOpenModal: this.props.open,
+      });
+    }
+    if (prevState.isOpenModal !== this.state.isOpenModal) {
+      const { onToggle } = this.props;
+
+      if (typeof onToggle === "function") {
+        onToggle(this.state.isOpenModal);
+      }
+    }
   }
 
   public changeMonth = amount => {

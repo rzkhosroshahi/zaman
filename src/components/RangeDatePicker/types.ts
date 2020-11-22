@@ -15,6 +15,8 @@ export interface IRangeDatePickerProps {
   onClickSubmitButton?: (arg: any) => any;
   fromLabel: string;
   toLabel: string;
+  open?: boolean;
+  onToggle?: (arg?: boolean) => any;
 }
 
 export interface IRangeDatePickerState {

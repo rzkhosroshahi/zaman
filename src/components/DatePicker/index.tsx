@@ -41,7 +41,7 @@ export class DatePicker extends React.PureComponent<
       cloneDays: moment(this.props.value),
       monthName: "",
       days: [],
-      isOpenModal: false,
+      isOpenModal: this.props.open,
       timePickerView: false,
       dayStatus: datePickerStatus(moment(this.props.value)),
       hour: moment(this.props.value).hour(),
@@ -76,6 +76,18 @@ export class DatePicker extends React.PureComponent<
           monthName,
         };
       });
+    }
+    if (prevProps.open !== this.props.open) {
+      this.setState({
+        isOpenModal: this.props.open,
+      });
+    }
+    if (prevState.isOpenModal !== this.state.isOpenModal) {
+      const { onToggle } = this.props;
+
+      if (typeof onToggle === "function") {
+        onToggle(this.state.isOpenModal);
+      }
     }
   }
 
