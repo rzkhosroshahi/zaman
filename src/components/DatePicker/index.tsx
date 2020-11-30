@@ -63,11 +63,11 @@ export class DatePicker extends React.PureComponent<
     prevProps: Readonly<IDatePickerProps>,
     prevState: Readonly<IDatePickerState>,
   ): void {
-    if (!prevState.value.isSame(this.state.value)) {
-      this.setState({
-        dayStatus: datePickerStatus(moment(this.state.value)),
-      });
-    }
+    this.watchCloneDaysChanges(prevState);
+    this.watchValueChanges(prevState);
+    this.watchModalChanges(prevProps, prevState);
+  }
+  public watchCloneDaysChanges = prevState => {
     if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
       const { monthName, days } = daysInMonth(this.state.cloneDays);
       this.setState(prevSetState => {
@@ -77,6 +77,15 @@ export class DatePicker extends React.PureComponent<
         };
       });
     }
+  };
+  public watchValueChanges = prevState => {
+    if (!prevState.value.isSame(this.state.value)) {
+      this.setState({
+        dayStatus: datePickerStatus(moment(this.state.value)),
+      });
+    }
+  };
+  public watchModalChanges = (prevProps, prevState) => {
     if (prevProps.open !== this.props.open) {
       this.setState({
         isOpenModal: this.props.open,
@@ -89,8 +98,7 @@ export class DatePicker extends React.PureComponent<
         onToggle(this.state.isOpenModal);
       }
     }
-  }
-
+  };
   public changeMonth = amount => {
     this.setState(prevState => {
       return {
