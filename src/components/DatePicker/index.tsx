@@ -37,13 +37,13 @@ export class DatePicker extends React.PureComponent<
   constructor(props) {
     super(props);
     this.state = {
-      value: moment(this.props.value),
-      cloneDays: moment(this.props.value),
+      value: moment(this.setInitialValue()),
+      cloneDays: moment(this.setInitialValue()),
       monthName: "",
       days: [],
       isOpenModal: this.props.open,
       timePickerView: false,
-      dayStatus: datePickerStatus(moment(this.props.value)),
+      dayStatus: datePickerStatus(moment(this.setInitialValue())),
       hour: moment(this.props.value).hour(),
       minute: moment(this.props.value).minute(),
     };
@@ -63,11 +63,11 @@ export class DatePicker extends React.PureComponent<
     prevProps: Readonly<IDatePickerProps>,
     prevState: Readonly<IDatePickerState>,
   ): void {
-    if (!prevState.value.isSame(this.state.value)) {
-      this.setState({
-        dayStatus: datePickerStatus(moment(this.state.value)),
-      });
-    }
+    this.watchCloneDaysChanges(prevState);
+    this.watchValueChanges(prevProps, prevState);
+    this.watchModalChanges(prevProps, prevState);
+  }
+  public watchCloneDaysChanges = prevState => {
     if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
       const { monthName, days } = daysInMonth(this.state.cloneDays);
       this.setState(prevSetState => {
@@ -77,6 +77,21 @@ export class DatePicker extends React.PureComponent<
         };
       });
     }
+  };
+  public watchValueChanges = (prevProps, prevState) => {
+    if (!moment(this.props.value).isSame(moment(prevProps.value))) {
+      this.setState({
+        value: moment(this.props.value),
+        dayStatus: datePickerStatus(moment(this.props.value)),
+      });
+    }
+    if (!prevState.value.isSame(this.state.value)) {
+      this.setState({
+        dayStatus: datePickerStatus(moment(this.state.value)),
+      });
+    }
+  };
+  public watchModalChanges = (prevProps, prevState) => {
     if (prevProps.open !== this.props.open) {
       this.setState({
         isOpenModal: this.props.open,
@@ -89,8 +104,10 @@ export class DatePicker extends React.PureComponent<
         onToggle(this.state.isOpenModal);
       }
     }
-  }
-
+  };
+  public setInitialValue = () => {
+    return this.props.value ? this.props.value : new Date();
+  };
   public changeMonth = amount => {
     this.setState(prevState => {
       return {

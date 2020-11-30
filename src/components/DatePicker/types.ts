@@ -4,7 +4,7 @@ import { IDatePickerTheme } from "../../types";
 import { IDays } from "../../utils/daysInMonth";
 
 export interface IDatePickerProps {
-  value: number | Date | Moment;
+  value: number | Date | Moment | string;
   ArrowLeft?: React.ReactType;
   ArrowRight?: React.ReactType;
   ClockIcon?: React.ReactType;
