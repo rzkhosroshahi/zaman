@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
+import { FC, useState, useEffect, useCallback, SyntheticEvent } from "react";
 import * as moment from "jalali-moment";
 import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
@@ -17,7 +18,127 @@ import {
   inputFaDateWithTimeMask,
 } from "../../utils";
 
-export class DatePicker extends React.PureComponent<
+export const DatePicker: React.FC<IDatePickerProps> = ({
+  label,
+  value: defaultValue = moment(),
+  timePicker = true,
+  ArrowRight=Icons.ArrowRightCMP,
+  ArrowLeft=Icons.ArrowLeftCMP,
+  modalZIndex=9999,
+  theme=defaultDatePickerTheme,
+  weekend=[6],
+  DateIcon=Icons.DateIcon,
+  ClockIcon=Icons.ClockIcon,
+  className="dp__input",
+  onClickSubmitButton,
+  open
+}) => {
+  const [initialValue, setInitialValue] = React.useState(null);
+  const [value, setValue] = React.useState(moment(defaultValue));
+  const [cloneDays, setCloneDays] = React.useState(moment(defaultValue));
+  const [monthName, setMonthName] = React.useState("");
+  const [days, setDays] = React.useState([]);
+  const [isOpenModal, setIsOpenModal] = React.useState(open);
+  const [timePickerView, setTimePickerView] = React.useState(false);
+  const [dayStatus, setDayStatus] = React.useState(datePickerStatus(moment(defaultValue)));
+  const [hour, setHour] = React.useState(moment(defaultValue).hour());
+  const [minute, setMinute] = React.useState(moment(defaultValue).minute());
+
+  React.useEffect(() => {
+    const { monthName, days } = daysInMonth(cloneDays);
+    setDays(oldDays => [...oldDays, ...days]);
+    setMonthName(monthName);
+  }, []);
+
+  const changeMonth = (amount) => {
+    setCloneDays(oldClone => oldClone?.clone().add(amount, "month"));
+  }
+
+  const changeHour = (value) => {
+    setHour(value.hour(value).hour());
+  }
+
+  const changeMinute = (value) => {
+    setHour(value.minute(value).minute());
+  }
+
+  const toggleModalOpen = () => {
+    setIsOpenModal(prev => !prev);
+  }
+  
+  const toggleTimePickerView = (e: SyntheticEvent<EventTarget>) => {
+    e.preventDefault();
+    setTimePickerView(prev => !prev);
+  }
+
+  const selectDay = (e: SyntheticEvent<EventTarget>) => {
+    const { fadate } = (e.target as HTMLHtmlElement).dataset;
+    setValue(formatJalaliDate(fadate));
+  }
+
+  const cancelButton = () => {
+    setIsOpenModal(false);
+    setValue(initialValue)
+  }
+  
+  const submitButton = () => {
+    onClickSubmitButton?.(value);
+    setIsOpenModal(false);
+    setInitialValue(value);
+  }
+
+  return (
+    <DatePickerDiv>
+      <label>{label}</label>
+      <div>
+        <MaskedInput
+          className={className}
+          data-testid="input-dp"
+          value={value.format(
+            timePicker ? formatDateTime : formatDate,
+          )}
+          mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
+          onClick={toggleModalOpen}
+          style={{ direction: "ltr" }}
+        />
+      </div>
+      <Modal
+        isOpen={isOpenModal}
+        toggleOpen={toggleModalOpen}
+        modalZIndex={modalZIndex}
+      >
+        <Days
+          days={days}
+          monthName={monthName}
+          selectedPickerStatus={dayStatus}
+          selectedDay={value.format("jYYYY/jMM/jDD")}
+          daysEventListeners={selectDay}
+          holiday={weekend}
+          theme={theme}
+          isRenderingButtons={true}
+          ArrowLeft={ArrowLeft}
+          ArrowRight={ArrowRight}
+          DateIcon={DateIcon}
+          ClockIcon={ClockIcon}
+          increaseMonth={() => changeMonth(1)}
+          decreaseMonth={() => changeMonth(-1)}
+          toggleView={toggleTimePickerView}
+          timePickerView={timePickerView}
+          hour={hour}
+          minute={minute}
+          changeHour={changeHour}
+          changeMinute={changeMinute}
+          onCancelButton={cancelButton}
+          onSubmitButton={submitButton}
+          timePicker={timePicker}
+          isDatePicker
+        />
+      </Modal>
+    </DatePickerDiv>
+  );
+};
+
+export class DatePicker2 extends React.PureComponent<
   IDatePickerProps,
   IDatePickerState
 > {
@@ -152,6 +273,7 @@ export class DatePicker extends React.PureComponent<
       initialValue: this.state.value,
     });
   };
+
   public render(): React.ReactNode {
     const {
       modalZIndex,
