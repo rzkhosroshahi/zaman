@@ -13,6 +13,34 @@ export const NormalDay = styled("li")<IDayProps>`
     props.selectedDay
       ? props.theme.selectDayBackColor
       : props.theme.daysBackColor};
+
+  &[data-disable] {
+    color: #ccc;
+  }
+`;
+
+export const Today = styled(NormalDay)`
+  /* color: ${props =>
+    props.selectedDay
+      ? props.theme.selectDayColor
+      : props.theme.holidaysColor}; */
+  background-color: ${props =>
+    props.selectedDay
+      ? props.theme.selectDayBackColor
+      : props.theme.holidaysBackColor};
+
+  &:before {
+    content: "";
+    width: 80%;
+    height: 80%;
+    display: inline-block;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid ${props => props.theme.selectDayBackColor};
+  }
 `;
 
 export const HolidayDay = styled(NormalDay)`

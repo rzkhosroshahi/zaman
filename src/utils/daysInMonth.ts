@@ -7,6 +7,7 @@ export interface IDays {
   utc: string;
   faDate: string;
   disable: boolean;
+  today: boolean;
 }
 
 export interface IDaysInMonth {
@@ -16,7 +17,7 @@ export interface IDaysInMonth {
   today?: string;
 }
 
-const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
+const checkDateMonth = (date, current) => current.jMonth() !== date.jMonth();
 const checkCurrentMonth = (date: Moment) =>
   moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
 
@@ -35,9 +36,18 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
   );
 
   const firstDayOfWeek = date.clone().startOf("jMonth");
-  const lastDayOfWeek = date.clone().endOf("jMonth");
+  // const lastDayOfWeek = date.clone().endOf("jMonth");
+  const lastDayOfMonth = date.clone().endOf("jMonth");
+  const lastDayOfWeek = lastDayOfMonth
+    .clone()
+    .add(7 - ((lastDayOfMonth.day() + 2) % 7), "days");
   const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
 
+  console.log(
+    "🚀 ~ file: daysInMonth.ts ~ line 46 ~ daysInMonth ~ firstDayOfWeek.day()",
+    firstDayOfWeek,
+    firstDayOfWeek.day(),
+  );
   firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
 
   while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
@@ -46,6 +56,7 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
       utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
       faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
       disable: checkDateMonth(date, firstDayOfWeek),
+      today: today && firstDayOfWeek.format("jDD") === today.today,
     });
     firstDayOfWeek.add(1, "days");
   }

@@ -33,7 +33,7 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   onClickSubmitButton,
   open
 }) => {
-  const [initialValue, setInitialValue] = React.useState(null);
+  const [initialValue, setInitialValue] = React.useState(defaultValue);
   const [value, setValue] = React.useState(moment(defaultValue));
   const [cloneDays, setCloneDays] = React.useState(moment(defaultValue));
   const [monthName, setMonthName] = React.useState("");
@@ -50,16 +50,29 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
     setMonthName(monthName);
   }, []);
 
+  React.useEffect(() => {
+    setDayStatus(datePickerStatus(moment(value)));
+  }, [value]);
+
+  React.useEffect(() => {
+    // if (!cloneDays.isSame(cloneDays)) {
+      const { monthName, days } = daysInMonth(cloneDays);
+      setDays(oldDays => [...oldDays.slice(oldDays.length), ...days]
+      );
+      setMonthName(monthName);
+    // }
+  }, [cloneDays]);
+
   const changeMonth = (amount) => {
     setCloneDays(oldClone => oldClone?.clone().add(amount, "month"));
   }
 
-  const changeHour = (value) => {
-    setHour(value.hour(value).hour());
+  const changeHour = (h) => {
+    setHour(value.hour(h).hour());
   }
 
-  const changeMinute = (value) => {
-    setHour(value.minute(value).minute());
+  const changeMinute = (m) => {
+    setMinute(value.minute(m).minute());
   }
 
   const toggleModalOpen = () => {
@@ -120,8 +133,12 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
           ArrowRight={ArrowRight}
           DateIcon={DateIcon}
           ClockIcon={ClockIcon}
-          increaseMonth={() => changeMonth(1)}
-          decreaseMonth={() => changeMonth(-1)}
+          increaseMonth={() => 
+            changeMonth(1)
+          }
+          decreaseMonth={() => 
+            changeMonth(-1)
+          }
           toggleView={toggleTimePickerView}
           timePickerView={timePickerView}
           hour={hour}
