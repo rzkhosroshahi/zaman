@@ -13,7 +13,7 @@ export default {
     terser(),
     {
       name: "replace moment imports",
-      transform: code => ({
+      transform: (code) => ({
         code: code.replace(/import\s*\*\s*as\s*moment/g, "import      moment"),
         map: null,
       }),
@@ -26,19 +26,21 @@ export default {
     commonjs({
       include: "node_modules/**",
       namedExports: {
-        "node_modules/react/index.js": [
-          "cloneElement",
-          "createContext",
-          "Component",
-          "createElement",
-          "PropTypes",
-        ],
+        react: Object.keys(require("react")),
+        "react-is": Object.keys(require("react-is")),
+        // "node_modules/react/index.js": [
+        //   "cloneElement",
+        //   "createContext",
+        //   "Component",
+        //   "createElement",
+        //   "PropTypes",
+        // ],
         "node_modules/react-dom/index.js": ["render", "hydrate"],
-        "node_modules/react-is/index.js": [
-          "isElement",
-          "isValidElementType",
-          "ForwardRef",
-        ],
+        // "node_modules/react-is/index.js": [
+        //   "isElement",
+        //   "isValidElementType",
+        //   "ForwardRef",
+        // ],
       },
     }),
     resolve(),

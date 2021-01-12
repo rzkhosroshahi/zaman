@@ -1,12 +1,12 @@
 import styled from "../../theme";
 
 export const DaysBody = styled("div")<{ isDatePicker?: boolean }>`
-  width: ${props => (props.isDatePicker ? "296px" : "280px")};
+  width: ${(props) => (props.isDatePicker ? "296px" : "280px")};
   max-height: 85%;
   position: relative;
   overflow: auto;
   border-radius: ${8 / 16}rem;
-  background-color: ${props => props.theme.backColor};
+  background-color: ${(props) => props.theme.backColor};
   & * {
     box-sizing: border-box;
     user-select: none;
@@ -17,7 +17,7 @@ export const DaysBody = styled("div")<{ isDatePicker?: boolean }>`
     margin: 0;
   }
   @media (min-width: 576px) {
-    width: ${props => (props.isDatePicker ? "331px" : "315px")};
+    width: ${(props) => (props.isDatePicker ? "331px" : "315px")};
   }
 `;
 
@@ -26,12 +26,12 @@ export const DaysWrapper = styled("div")<{ isDatePicker?: boolean }>`
   font-size: 1rem;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  padding: ${props => (props.isDatePicker ? `${8 / 16}rem` : 0)};
+  padding: ${(props) => (props.isDatePicker ? `${8 / 16}rem` : 0)};
 
   th {
     font-size: 1rem;
     font-weight: 300;
-    color: ${props => props.theme.weekDaysColor};
+    color: ${(props) => props.theme.weekDaysColor};
   }
 `;
 
@@ -39,7 +39,8 @@ export const StyledUl = styled("ul")`
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
+  /* display: flex; */
+
   li {
     display: flex;
     justify-content: center;
@@ -58,13 +59,34 @@ export const StyledUl = styled("ul")`
 
 export const DaysNameList = styled(StyledUl)`
   align-items: center;
-  color: ${props => props.theme.weekDaysColor};
+  color: ${(props) => props.theme.weekDaysColor};
+
+  display: grid;
+  grid-template: 1fr / repeat(7, 1fr);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  /* gap: 0.5em; */
 `;
 
 export const DaysNumberList = styled(StyledUl)`
+  display: contents;
   li {
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
   }
+`;
+
+export const DaysNumberListWrapper = styled.div`
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(7, 1fr);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  /* gap: 0.5em; */
 `;
 
 export const ButtonsDiv = styled("div")`
@@ -91,24 +113,24 @@ export const ButtonsDiv = styled("div")`
   }
   .rdp__button--cancel {
     margin-right: 1rem;
-    color: ${props => props.theme.cancelColor};
-    background-color: ${props => props.theme.cancelBackColor};
+    color: ${(props) => props.theme.cancelColor};
+    background-color: ${(props) => props.theme.cancelBackColor};
     transition: background-color 0.2s ease;
     &:hover,
     &:focus {
-      color: ${props => props.theme.cancelHoverColor};
-      background-color: ${props => props.theme.cancelHoverBackColor};
+      color: ${(props) => props.theme.cancelHoverColor};
+      background-color: ${(props) => props.theme.cancelHoverBackColor};
     }
   }
   .rdp__button--submit {
     margin-right: 1rem;
-    color: ${props => props.theme.submitColor};
-    background-color: ${props => props.theme.submitBackColor};
+    color: ${(props) => props.theme.submitColor};
+    background-color: ${(props) => props.theme.submitBackColor};
     transition: background-color 0.2s ease;
     &:hover,
     &:focus {
-      color: ${props => props.theme.submitHoverColor};
-      background-color: ${props => props.theme.submitHoverBackColor};
+      color: ${(props) => props.theme.submitHoverColor};
+      background-color: ${(props) => props.theme.submitHoverBackColor};
     }
   }
 `;
@@ -123,14 +145,14 @@ export const ChangeViewButton = styled("button")`
   justify-content: center;
   align-items: center;
   transition: background-color 0.2s ease;
-  background-color: ${props => props.theme.changeViewButtonBackColor};
+  background-color: ${(props) => props.theme.changeViewButtonBackColor};
   svg {
-    fill: ${props => props.theme.changeViewButtonColor};
+    fill: ${(props) => props.theme.changeViewButtonColor};
   }
   &:hover {
-    background-color: ${props => props.theme.changeViewButtonHoverBackColor};
+    background-color: ${(props) => props.theme.changeViewButtonHoverBackColor};
     svg {
-      fill: ${props => props.theme.changeViewButtonHoverColor};
+      fill: ${(props) => props.theme.changeViewButtonHoverColor};
     }
   }
 `;
