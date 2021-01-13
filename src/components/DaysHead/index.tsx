@@ -13,13 +13,30 @@ export const DaysHead: React.FunctionComponent<IDaysHeadProps> = ({
   timePickerView,
   hour,
   minute,
+  toggleView,
+  isGregorian,
 }) => {
   if (timePickerView) {
     return (
       <DaysHeadContainer data-testid="days-head">
         <TimeTitle>
-          <span data-testid="tp__hourPreview">{fa(hour)}</span> :{" "}
-          <span data-testid="tp__minutePreview">{fa(minute)}</span>
+          <span
+            data-testid="tp__hourPreview"
+            onClick={(e) => {
+              toggleView("hour");
+            }}
+          >
+            {fa(hour, isGregorian)}
+          </span>{" "}
+          :{" "}
+          <span
+            data-testid="tp__minutePreview"
+            onClick={(e) => {
+              toggleView("minute");
+            }}
+          >
+            {fa(minute, isGregorian)}
+          </span>
         </TimeTitle>
       </DaysHeadContainer>
     );

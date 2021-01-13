@@ -9,5 +9,7 @@ export interface IDaysHeadProps {
   decreaseMonth?: () => void;
   hour?: number;
   minute?: number;
-  timePickerView: boolean;
+  timePickerView: string | null;
+  toggleView: Function;
+  isGregorian: boolean;
 }

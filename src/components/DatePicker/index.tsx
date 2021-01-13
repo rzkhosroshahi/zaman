@@ -11,11 +11,13 @@ import { datePickerStatus } from "../../utils/rangeHelper";
 import { IDatePickerProps } from "./types";
 import { DatePickerDiv } from "./styled";
 import {
-  formatDate,
-  formatDateTime,
-  formatJalaliDate,
+  formatDateString,
+  getFormatTime,
+  getFormatDate,
   inputFaDateMask,
   inputFaDateWithTimeMask,
+  inputEnDateWithTimeMask,
+  inputEnDateMask,
 } from "../../utils";
 
 export const DatePicker: React.FC<IDatePickerProps> = ({
@@ -32,6 +34,7 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   className = "dp__input",
   onClickSubmitButton,
   open,
+  gregorian = false,
 }) => {
   const [initialValue, setInitialValue] = React.useState(defaultValue);
   const [value, setValue] = React.useState(moment(defaultValue));
@@ -39,21 +42,23 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
   const [isOpenModal, setIsOpenModal] = React.useState(open);
-  const [timePickerView, setTimePickerView] = React.useState(false);
+  const [timePickerView, setTimePickerView] = React.useState(null);
   const [dayStatus, setDayStatus] = React.useState(
-    datePickerStatus(moment(defaultValue)),
+    datePickerStatus(moment(defaultValue), { isGregorian: gregorian }),
   );
   const [hour, setHour] = React.useState(moment(defaultValue).hour());
   const [minute, setMinute] = React.useState(moment(defaultValue).minute());
 
   React.useEffect(() => {
-    const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays);
+    const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
+      isGregorian: gregorian,
+    });
     setDays((oldDays) => [...newDays]);
     setMonthName(newMonthName);
   }, [cloneDays]);
 
   React.useEffect(() => {
-    setDayStatus(datePickerStatus(moment(value)));
+    setDayStatus(datePickerStatus(moment(value), { isGregorian: gregorian }));
   }, [value]);
 
   // React.useEffect(() => {
@@ -80,15 +85,16 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
     setIsOpenModal((prev) => !prev);
   };
 
-  const toggleTimePickerView = (e: SyntheticEvent<EventTarget>) => {
-    e.preventDefault();
-    setTimePickerView((prev) => !prev);
-  };
-
-  const selectDay = (e: SyntheticEvent<EventTarget>) => {
-    const { fadate } = (e.target as HTMLHtmlElement).dataset;
-    setValue(formatJalaliDate(fadate));
-  };
+  const selectDay = () => ({
+    onClick: (e: SyntheticEvent<EventTarget>) => {
+      const { fadate } = (e.target as HTMLHtmlElement).dataset;
+      console.log(
+        "🚀 ~ file: index.tsx ~ line 88 ~ selectDay ~ fadate",
+        fadate,
+      );
+      setValue(formatDateString(fadate, { isGregorian: gregorian }));
+    },
+  });
 
   const cancelButton = () => {
     setIsOpenModal(false);
@@ -102,14 +108,28 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   };
 
   return (
-    <DatePickerDiv>
+    <DatePickerDiv isGregorian={gregorian}>
       <label>{label}</label>
       <div>
         <MaskedInput
           className={className}
           data-testid="input-dp"
-          value={value.format(timePicker ? formatDateTime : formatDate)}
-          mask={timePicker ? inputFaDateWithTimeMask : inputFaDateMask}
+          value={value.format(
+            timePicker
+              ? `${getFormatDate({
+                  isGregorian: gregorian,
+                })} - ${getFormatTime()}`
+              : getFormatDate({ isGregorian: gregorian }),
+          )}
+          mask={
+            timePicker
+              ? gregorian
+                ? inputEnDateWithTimeMask
+                : inputFaDateWithTimeMask
+              : gregorian
+              ? inputEnDateMask
+              : inputFaDateMask
+          }
           onClick={toggleModalOpen}
           style={{ direction: "ltr" }}
         />
@@ -123,18 +143,18 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
           days={days}
           monthName={monthName}
           selectedPickerStatus={dayStatus}
-          selectedDay={value.format("jYYYY/jMM/jDD")}
+          selectedDay={value.format(getFormatDate({ isGregorian: gregorian }))}
           daysEventListeners={selectDay}
           holiday={weekend}
           theme={theme}
           isRenderingButtons={true}
-          ArrowLeft={ArrowLeft}
-          ArrowRight={ArrowRight}
+          ArrowLeft={gregorian ? ArrowRight : ArrowLeft}
+          ArrowRight={gregorian ? ArrowLeft : ArrowRight}
           DateIcon={DateIcon}
           ClockIcon={ClockIcon}
           increaseMonth={() => changeMonth(1)}
           decreaseMonth={() => changeMonth(-1)}
-          toggleView={toggleTimePickerView}
+          toggleView={setTimePickerView}
           timePickerView={timePickerView}
           hour={hour}
           minute={minute}
@@ -144,6 +164,7 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
           onSubmitButton={submitButton}
           timePicker={timePicker}
           isDatePicker
+          isGregorian={gregorian}
         />
       </Modal>
     </DatePickerDiv>

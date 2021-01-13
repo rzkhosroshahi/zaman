@@ -3,25 +3,26 @@ import { hours, hours24, minutes } from "../../utils/timePicker";
 import { MinuteWithAnimation, Numbers } from "./styled";
 import { fa } from "../../utils";
 
-const convertNumberValue = (n: number): string => {
+const convertNumberValue = (n: number, isGregorian: boolean): string => {
   if (n === 24 || n === 0) {
     return `۰۰`;
   }
-  return fa(n);
+  return fa(n, isGregorian);
 };
 
-export const Hours: React.FunctionComponent<{
+export const Hours: React.FC<{
   insideHour: boolean;
   hourSelecting: boolean;
   hour: number;
   minute: number;
-}> = ({ insideHour, hourSelecting, minute, hour }) => {
+  isGregorian: boolean;
+}> = ({ insideHour, hourSelecting, minute, hour, isGregorian }) => {
   if (!hourSelecting) {
     return (
       <MinuteWithAnimation>
         {minutes.map((m, i) => (
           <Numbers key={m} idx={i}>
-            {convertNumberValue(m)}
+            {convertNumberValue(m, isGregorian)}
           </Numbers>
         ))}
       </MinuteWithAnimation>
@@ -33,17 +34,17 @@ export const Hours: React.FunctionComponent<{
         <Numbers
           key={h}
           idx={i}
-          top="15%"
+          top="16%"
           clockHalfWidth={85}
           numbersPadd={10}
           style={{ opacity: insideHour ? 1 : 0.3 }}
         >
-          {convertNumberValue(h)}
+          {convertNumberValue(h, isGregorian)}
         </Numbers>
       ))}
       {hours24.map((h, i) => (
         <Numbers key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
-          {convertNumberValue(h)}
+          {convertNumberValue(h, isGregorian)}
         </Numbers>
       ))}
     </React.Fragment>

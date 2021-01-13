@@ -19,26 +19,17 @@ export const NormalDay = styled("li")<IDayProps>`
   }
 
   &[data-disable] {
-    color: #ccc;
+    color: ${(props) => props.theme.shadowDaysColor};
   }
 `;
 
 export const Today = styled(NormalDay)`
-  /* color: ${(props) =>
-    props.selectedDay
-      ? props.theme.selectDayColor
-      : props.theme.holidaysColor}; */
-  background-color: ${(props) =>
-    props.selectedDay
-      ? props.theme.selectDayBackColor
-      : props.theme.holidaysBackColor};
-
   &:before {
     content: "";
     width: 80%;
     height: 80%;
     display: inline-block;
-    border-radius: 50%;
+    border-radius: ${(props) => props.theme.daysRound};
     position: absolute;
     top: 50%;
     left: 50%;
@@ -73,8 +64,8 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				height: 40px;
 				position: absolute;
 				top: 45px;
-				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(-10px, -45px, -1px);
+				background-color: ${props.theme.continueRangeBackColor};
+				transform: translate3d(${props.isGregorian ? "10px" : "-10px"}, -45px, -1px);
 				
 				@media (min-width: 576px) {
 					height: 45px;
@@ -91,8 +82,8 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
 				height: 40px;
 				position: absolute;
 				top: 45px;
-				background-color: ${props.theme.continueRangeBackColor}
-				transform: translate3d(10px, -45px, -1px);
+				background-color: ${props.theme.continueRangeBackColor};
+				transform: translate3d(${props.isGregorian ? "-10px" : "10px"}, -45px, -1px);
 				
 				@media (min-width: 576px) {
 					height: 45px;

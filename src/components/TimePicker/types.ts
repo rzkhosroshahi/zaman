@@ -5,6 +5,9 @@ export interface ITimePickerProps {
   minute?: number;
   changeHour?: (value: number) => void;
   changeMinute?: (value: number) => void;
+  timePickerView?: string;
+  toggleView?(value: string): void;
+  isGregorian: boolean;
 }
 
 export interface ITimePickerState {

@@ -1,6 +1,6 @@
 import { IRangeDate, IRangeDays } from "../types";
 import { Moment } from "jalali-moment";
-import { fa } from ".";
+import { fa, getFormatDate } from ".";
 
 const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   if (current.isSame(start)) {
@@ -11,13 +11,28 @@ const stateRange = (current: Moment, start: Moment, end: Moment): string => {
   return "continueRange";
 };
 
-export function rangeHelper(range: IRangeDate) {
+function ordinal_suffix_of(i) {
+  var j = i % 10,
+    k = i % 100;
+  if (j == 1 && k != 11) {
+    return i + "st";
+  }
+  if (j == 2 && k != 12) {
+    return i + "nd";
+  }
+  if (j == 3 && k != 13) {
+    return i + "rd";
+  }
+  return i + "th";
+}
+
+export function rangeHelper(range: IRangeDate, { isGregorian }) {
   const { start, end } = range;
   const cloneStart = start.clone();
   const rangeDays = <IRangeDays>{};
 
   if (cloneStart.isSame(end)) {
-    rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
+    rangeDays[cloneStart.format(getFormatDate({ isGregorian }))] = {
       status: "sameRange",
     };
 
@@ -29,7 +44,7 @@ export function rangeHelper(range: IRangeDate) {
   }
 
   while (cloneStart.isSameOrBefore(end)) {
-    rangeDays[cloneStart.format("jYYYY/jMM/jDD")] = {
+    rangeDays[cloneStart.format(getFormatDate({ isGregorian }))] = {
       status: stateRange(cloneStart, start, end),
     };
     cloneStart.add("day", 1);
@@ -38,27 +53,49 @@ export function rangeHelper(range: IRangeDate) {
   return rangeDays;
 }
 
-export const makeRangeStatus = (start: Moment, end: Moment) => {
+export const makeRangeStatus = (
+  start: Moment,
+  end: Moment,
+  { isGregorian },
+) => {
   const cloneStart = start.clone();
   const cloneEnd = end.clone();
-  const startMonth = cloneStart.locale("fa").format("jMMMM");
-  const endMonth = cloneEnd.locale("fa").format("jMMMM");
-  const startDay = start.format("jDD");
-  const endDay = end.format("jDD");
+  const startMonth = cloneStart
+    .locale(isGregorian ? "en" : "fa")
+    .format(isGregorian ? "MMMM" : "jMMMM");
+  const endMonth = cloneEnd
+    .locale(isGregorian ? "en" : "fa")
+    .format(isGregorian ? "MMMM" : "jMMMM");
+  const startDay = start.format(isGregorian ? "DD" : "jDD");
+  const endDay = end.format(isGregorian ? "DD" : "jDD");
 
   if (cloneStart.isAfter(end)) {
-    return `${fa(startDay)} ${startMonth} ماه`;
+    return `${fa(startDay, isGregorian)} ${startMonth} ${
+      isGregorian ? "" : "ماه"
+    }`;
   }
 
   if (startMonth !== endMonth) {
-    return `${fa(startDay)} ${startMonth} تا ${fa(endDay)} ${endMonth}`;
+    return `${fa(startDay, isGregorian)} ${startMonth} ${
+      isGregorian ? "to" : "تا"
+    } ${fa(endDay, isGregorian)} ${endMonth}`;
   }
-  return `${fa(startDay)} تا ${fa(endDay)} ${startMonth} ماه`;
+  return `${
+    isGregorian
+      ? ordinal_suffix_of(Number(startDay))
+      : fa(startDay, isGregorian)
+  } ${isGregorian ? "to" : "تا"} ${
+    isGregorian ? ordinal_suffix_of(Number(endDay)) : fa(endDay, isGregorian)
+  } ${startMonth} ${isGregorian ? "" : "ماه"}`;
 };
 
-export const datePickerStatus = (date: Moment) => {
-  const day = date.format("jDD");
-  const month = date.locale("fa").format("jMMMM");
+export const datePickerStatus = (date: Moment, { isGregorian }) => {
+  const day = date.format(isGregorian ? "DD" : "jDD");
+  const month = date
+    .locale(isGregorian ? "en" : "fa")
+    .format(isGregorian ? "MMMM" : "jMMMM");
 
-  return `${fa(day)} ${month} ماه`;
+  return isGregorian
+    ? `${month} ${ordinal_suffix_of(Number(day))}`
+    : `${fa(day, isGregorian)} ${month} ماه`;
 };

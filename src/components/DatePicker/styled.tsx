@@ -1,5 +1,9 @@
 import styled from "../../theme";
 
-export const DatePickerDiv = styled.div`
-  direction: rtl;
+interface IDatePickerDiv {
+  isGregorian: boolean;
+}
+
+export const DatePickerDiv = styled.div<IDatePickerDiv>`
+  direction: ${(props) => (props.isGregorian ? "ltr" : "rtl")};
 `;

@@ -1,6 +1,8 @@
+// @ts-nocheck
+
 import * as React from "react";
 import { render } from "react-dom";
-import { DatePicker } from "../src";
+import { DatePicker, RangeDatePicker } from "../src";
 
 // my favorite theme 😌
 const theme = {
@@ -42,9 +44,21 @@ const theme = {
   cancelHoverColor: "#000",
 };
 
-render(
-  <DatePicker
-  // timePicker={false} // to disable timePicker
-  />,
-  document.getElementById("root"),
+const App = () => (
+  <div>
+    <DatePicker
+      // timePicker={false} // to disable timePicker
+      label="تاریخ شمسی"
+    />
+    <DatePicker
+      // timePicker={false} // to disable timePicker
+      gregorian
+      label="Gregorian Date"
+    />
+
+    <RangeDatePicker fromLabel="از" toLabel="تا" />
+    <RangeDatePicker gregorian fromLabel="from" toLabel="to" />
+  </div>
 );
+
+render(<App />, document.getElementById("root"));

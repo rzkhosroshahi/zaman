@@ -5,6 +5,7 @@ import { IDaysProps } from "./types";
 import { DaysHead } from "../DaysHead";
 import { Day } from "../Day";
 import {
+  ButtonsDivWrapper,
   ButtonsDiv,
   ChangeViewButton,
   DaysBody,
@@ -46,7 +47,7 @@ export const Days: React.FC<IDaysProps> = ({
   onSubmitButton,
   selectedDay,
   timePicker = false,
-  timePickerView = false,
+  timePickerView = null,
   toggleView,
   hour,
   minute,
@@ -54,6 +55,7 @@ export const Days: React.FC<IDaysProps> = ({
   changeMinute,
   isDatePicker,
   holiday = [],
+  isGregorian,
 }) => {
   if (!days.length) {
     return null;
@@ -73,6 +75,8 @@ export const Days: React.FC<IDaysProps> = ({
           hour={hour}
           minute={minute}
           timePickerView={timePickerView}
+          toggleView={toggleView}
+          isGregorian={isGregorian}
         />
         {timePicker && timePickerView ? (
           <TimeDays data-testid="dp__timePicker">
@@ -81,13 +85,16 @@ export const Days: React.FC<IDaysProps> = ({
               minute={minute}
               changeHour={changeHour}
               changeMinute={changeMinute}
+              timePickerView={timePickerView}
+              toggleView={toggleView}
+              isGregorian={isGregorian}
             />
           </TimeDays>
         ) : (
           <React.Fragment>
             <DaysWrapper data-testid="days-wrapper" isDatePicker={isDatePicker}>
               <DaysNameList>
-                {weekDayNames.map((name) => (
+                {weekDayNames({ isGregorian }).map((name) => (
                   <li key={name}>{name}</li>
                 ))}
               </DaysNameList>
@@ -111,10 +118,11 @@ export const Days: React.FC<IDaysProps> = ({
                           (holiday) => holiday === dayIdx,
                         )}
                         today={day.today}
+                        isGregorian={isGregorian}
                         {...boolDataset(day.disable)}
                       >
                         {/* {!day.disable ? fa(day.day) : null} */}
-                        {fa(day.day)}
+                        {fa(day.day, isGregorian)}
                       </Day>
                     ))}
                   </DaysNumberList>
@@ -124,54 +132,47 @@ export const Days: React.FC<IDaysProps> = ({
           </React.Fragment>
         )}
         {isRenderingButtons && (
-          <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">
-            <button
-              type="button"
-              data-testid="submit-button"
-              className="rdp__button--submit"
-              onClick={onSubmitButton}
-            >
-              تایید
-            </button>
-            <button
-              type="button"
-              data-testid="cancel-button"
-              className="rdp__button--cancel"
-              onClick={onCancelButton}
-            >
-              لغو
-            </button>
+          <ButtonsDivWrapper
+            className="rdp__buttons"
+            data-testid="rdp__buttons"
+          >
+            <ButtonsDiv>
+              <button
+                type="button"
+                data-testid="submit-button"
+                className="rdp__button--submit"
+                onClick={onSubmitButton}
+              >
+                تایید
+              </button>
+              <button
+                type="button"
+                data-testid="cancel-button"
+                className="rdp__button--cancel"
+                onClick={onCancelButton}
+              >
+                لغو
+              </button>
+            </ButtonsDiv>
             {timePicker && (
               <ChangeViewButton
                 type="button"
-                onClick={toggleView}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleView(timePickerView ? null : "hour");
+                }}
                 data-testid="toggle-view"
               >
                 {timePickerView ? <DateIcon /> : <ClockIcon />}
               </ChangeViewButton>
             )}
-          </ButtonsDiv>
+          </ButtonsDivWrapper>
         )}
       </DaysBody>
     </ThemeProvider>
   );
 };
 
-// export class Days2 extends React.PureComponent<IDaysProps> {
-//   public static defaultProps: Partial<IDaysProps> = {
-//     monthName: "",
-//     holiday: [],
-//     daysEventListeners: () => null,
-//     timePicker: false,
-//     timePickerView: false,
-//   };
-//   public render(): React.ReactNode {
-//     const {
-//       days,
-//       theme,
-//       rangeDays,
-//       daysEventListeners,
-//       selectedPickerStatus,
 //       ArrowLeft,
 //       ArrowRight,
 //       ClockIcon,

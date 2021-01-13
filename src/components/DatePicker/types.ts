@@ -4,6 +4,7 @@ import { IDatePickerTheme } from "../../types";
 import { IDays } from "../../utils/daysInMonth";
 
 export interface IDatePickerProps {
+  gregorian: boolean;
   value: number | Date | Moment;
   ArrowLeft?: React.ReactType;
   ArrowRight?: React.ReactType;
@@ -29,7 +30,7 @@ export interface IDatePickerState {
   days?: IDays[];
   isOpenModal: boolean;
   dayStatus: string;
-  timePickerView: boolean;
+  timePickerView: string | null;
   hour: number;
   minute: number;
 }

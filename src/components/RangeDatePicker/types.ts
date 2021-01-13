@@ -4,8 +4,9 @@ import { Moment } from "jalali-moment";
 import { IDays } from "../../utils/daysInMonth";
 
 export interface IRangeDatePickerProps {
-  start: string;
-  end: string;
+  gregorian: boolean;
+  start: Moment;
+  end: Moment;
   ArrowLeft: React.ReactType;
   ArrowRight: React.ReactType;
   modalZIndex?: number;
@@ -17,6 +18,7 @@ export interface IRangeDatePickerProps {
   toLabel: string;
   open?: boolean;
   onToggle?: (arg?: boolean) => any;
+  monthNameNew?: string;
 }
 
 export interface IRangeDatePickerState {

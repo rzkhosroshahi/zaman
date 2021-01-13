@@ -23,10 +23,11 @@ export interface IDaysProps {
   onSubmitButton?: () => void;
   toggleView?: (e: any) => void;
   timePicker?: boolean;
-  timePickerView?: boolean;
+  timePickerView?: string | null;
   hour?: number;
   minute?: number;
   changeHour?: (value: number) => void;
   changeMinute?: (value: number) => void;
   isDatePicker?: boolean;
+  isGregorian?: boolean;
 }

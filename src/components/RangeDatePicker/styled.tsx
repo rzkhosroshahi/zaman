@@ -1,5 +1,9 @@
 import styled from "../../theme";
 
-export const RangeDateDiv = styled.div`
-  direction: rtl;
+interface IRangeDateDiv {
+  isGregorian: boolean;
+}
+
+export const RangeDateDiv = styled.div<IRangeDateDiv>`
+  direction: ${(props) => (props.isGregorian ? "ltr" : "rtl")};
 `;

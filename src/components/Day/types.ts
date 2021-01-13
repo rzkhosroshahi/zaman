@@ -8,4 +8,5 @@ export interface IDayProps {
   holiday?: number[];
   selectedDay?: boolean;
   today: boolean;
+  isGregorian: boolean;
 }

@@ -89,7 +89,11 @@ export const DaysNumberListWrapper = styled.div`
   /* gap: 0.5em; */
 `;
 
-export const ButtonsDiv = styled("div")`
+export const ButtonsDivWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
   margin-bottom: ${16 / 16}rem;
 
   button {
@@ -111,8 +115,15 @@ export const ButtonsDiv = styled("div")`
       outline: 0;
     }
   }
+`;
+
+export const ButtonsDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+
   .rdp__button--cancel {
-    margin-right: 1rem;
     color: ${(props) => props.theme.cancelColor};
     background-color: ${(props) => props.theme.cancelBackColor};
     transition: background-color 0.2s ease;
@@ -123,7 +134,6 @@ export const ButtonsDiv = styled("div")`
     }
   }
   .rdp__button--submit {
-    margin-right: 1rem;
     color: ${(props) => props.theme.submitColor};
     background-color: ${(props) => props.theme.submitBackColor};
     transition: background-color 0.2s ease;
@@ -139,7 +149,7 @@ export const ChangeViewButton = styled("button")`
   min-width: 40px !important;
   min-height: 40px;
   float: left;
-  margin-left: 16px !important;
+  /* margin-left: 16px !important; */
   text-align: center;
   display: flex;
   justify-content: center;
