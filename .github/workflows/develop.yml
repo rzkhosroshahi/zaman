@@ -17,7 +17,7 @@ jobs:
       - name: Bundle 📦
         run: |
           npm ci
-          parcel build serve/index.html --out-dir build
+          parcel build serve/index.html --out-dir build --public-url './'
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
