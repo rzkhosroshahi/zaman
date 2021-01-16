@@ -6,7 +6,7 @@ export const Day: React.FC<IDayProps> = (props) => {
   const { startEndRange, holiday, daysEvent, today } = props;
   if (startEndRange && Object.keys(startEndRange).length) {
     return <StartEndRangeDay {...props} {...daysEvent()} />;
-  } else if (holiday.length) {
+  } else if (holiday) {
     return <HolidayDay {...props} {...daysEvent()} />;
   } else if (today) {
     return <Today {...props} {...daysEvent()} />;

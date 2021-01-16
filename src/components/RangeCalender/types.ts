@@ -21,8 +21,6 @@ export interface IRangeDatePickerProps {
   modal?: boolean;
   onToggle?: (arg?: boolean) => any;
   monthNameNew?: string;
-  className?: string;
-  tetherAttachment?: string;
 }
 
 export interface IRangeDatePickerState {

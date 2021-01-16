@@ -1,5 +1,4 @@
 import styled from "../../theme";
-import * as InputMask from "react-input-mask";
 
 interface IDatePickerDiv {
   isGregorian: boolean;
@@ -7,8 +6,4 @@ interface IDatePickerDiv {
 
 export const DatePickerDiv = styled.div<IDatePickerDiv>`
   direction: ${(props) => (props.isGregorian ? "ltr" : "rtl")};
-`;
-
-export const InputMaskStyled = styled(InputMask)`
-  font-family: Vazir;
 `;

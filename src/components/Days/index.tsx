@@ -28,132 +28,146 @@ const boolDataset = (arg: boolean) => {
   return null;
 };
 
-export const Days: React.FC<IDaysProps> = ({
-  days,
-  theme,
-  rangeDays,
-  daysEventListeners = () => null,
-  selectedPickerStatus,
-  ArrowLeft,
-  ArrowRight,
-  ClockIcon,
-  DateIcon,
-  monthName = "",
-  increaseMonth,
-  decreaseMonth,
-  isSelecting,
-  isRenderingButtons,
-  onCancelButton,
-  onSubmitButton,
-  selectedDay,
-  timePicker = false,
-  timePickerView = null,
-  toggleView,
-  hour,
-  minute,
-  changeHour,
-  changeMinute,
-  isDatePicker,
-  holiday = [],
-  isGregorian,
-}) => {
-  if (!days.length) {
-    return null;
-  }
-  const weeks = chunk(days, 7);
+export const Days = React.forwardRef<Element, IDaysProps>(
+  (
+    {
+      days,
+      theme,
+      rangeDays,
+      daysEventListeners = () => null,
+      selectedPickerStatus,
+      ArrowLeft,
+      ArrowRight,
+      ClockIcon,
+      DateIcon,
+      monthName = "",
+      increaseMonth,
+      decreaseMonth,
+      isSelecting,
+      submittable,
+      onCancelButton,
+      onSubmitButton,
+      selectedDay,
+      timePicker = false,
+      timePickerView = null,
+      toggleView,
+      hour,
+      minute,
+      changeHour,
+      changeMinute,
+      isDatePicker,
+      holiday = [],
+      isGregorian,
+      plain,
+    },
+    ref,
+  ) => {
+    if (!days.length) {
+      return null;
+    }
+    const weeks = chunk(days, 7);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <DaysBody isDatePicker={isDatePicker}>
-        <DaysHead
-          monthName={monthName}
-          datePickerStatus={selectedPickerStatus}
-          ArrowLeft={ArrowLeft}
-          ArrowRight={ArrowRight}
-          increaseMonth={increaseMonth}
-          decreaseMonth={decreaseMonth}
-          hour={hour}
-          minute={minute}
-          timePickerView={timePickerView}
-          toggleView={toggleView}
+    return (
+      <ThemeProvider theme={theme}>
+        <DaysBody
+          isDatePicker={isDatePicker}
+          plain={plain}
+          ref={ref}
           isGregorian={isGregorian}
-        />
-        {timePicker && timePickerView ? (
-          <TimeDays data-testid="dp__timePicker">
-            <TimePicker
-              hour={hour}
-              minute={minute}
-              changeHour={changeHour}
-              changeMinute={changeMinute}
-              timePickerView={timePickerView}
-              toggleView={toggleView}
-              isGregorian={isGregorian}
-            />
-          </TimeDays>
-        ) : (
-          <React.Fragment>
-            <DaysWrapper data-testid="days-wrapper" isDatePicker={isDatePicker}>
-              <DaysNameList>
-                {weekDayNames({ isGregorian }).map((name) => (
-                  <li key={name}>{name}</li>
-                ))}
-              </DaysNameList>
-              <DaysNumberListWrapper>
-                {weeks.map((week, weekIdx) => (
-                  <DaysNumberList
-                    data-testid="days"
-                    key={`rdp-weeks-${weekIdx}`}
-                  >
-                    {week.map((day: IDays, dayIdx) => (
-                      <Day
-                        key={dayIdx}
-                        data-testid={`day-${weekIdx * 7 + dayIdx + 1}`}
-                        data-fadate={`${day.faDate}`}
-                        daysEvent={daysEventListeners}
-                        theme={theme}
-                        startEndRange={rangeDays && rangeDays[day.faDate]}
-                        isSelecting={isSelecting}
-                        selectedDay={selectedDay === day.faDate}
-                        holiday={holiday.filter(
-                          (holiday) => holiday === dayIdx,
-                        )}
-                        today={day.today}
-                        isGregorian={isGregorian}
-                        {...boolDataset(day.disable)}
-                      >
-                        {/* {!day.disable ? fa(day.day) : null} */}
-                        {fa(day.day, isGregorian)}
-                      </Day>
-                    ))}
-                  </DaysNumberList>
-                ))}
-              </DaysNumberListWrapper>
-            </DaysWrapper>
-          </React.Fragment>
-        )}
-        {isRenderingButtons && (
+        >
+          <DaysHead
+            monthName={monthName}
+            datePickerStatus={selectedPickerStatus}
+            ArrowLeft={ArrowLeft}
+            ArrowRight={ArrowRight}
+            increaseMonth={increaseMonth}
+            decreaseMonth={decreaseMonth}
+            hour={hour}
+            minute={minute}
+            timePickerView={timePickerView}
+            toggleView={toggleView}
+            isGregorian={isGregorian}
+          />
+          {timePicker && timePickerView ? (
+            <TimeDays data-testid="dp__timePicker">
+              <TimePicker
+                hour={hour}
+                minute={minute}
+                changeHour={changeHour}
+                changeMinute={changeMinute}
+                timePickerView={timePickerView}
+                toggleView={toggleView}
+                isGregorian={isGregorian}
+              />
+            </TimeDays>
+          ) : (
+            <React.Fragment>
+              <DaysWrapper
+                data-testid="days-wrapper"
+                isDatePicker={isDatePicker}
+              >
+                <DaysNameList>
+                  {weekDayNames({ isGregorian }).map((name) => (
+                    <li key={name}>{name}</li>
+                  ))}
+                </DaysNameList>
+                <DaysNumberListWrapper>
+                  {weeks.map((week, weekIdx) => (
+                    <DaysNumberList
+                      data-testid="days"
+                      key={`rdp-weeks-${weekIdx}`}
+                    >
+                      {week.map((day: IDays, dayIdx) => (
+                        <Day
+                          key={dayIdx}
+                          data-testid={`day-${weekIdx * 7 + dayIdx + 1}`}
+                          data-fadate={`${day.faDate}`}
+                          daysEvent={daysEventListeners}
+                          theme={theme}
+                          startEndRange={rangeDays && rangeDays[day.faDate]}
+                          isSelecting={isSelecting}
+                          selectedDay={selectedDay === day.faDate}
+                          holiday={holiday.some(
+                            (holiday) => holiday === dayIdx,
+                          )}
+                          today={day.today}
+                          isGregorian={isGregorian}
+                          {...boolDataset(day.disable)}
+                        >
+                          {/* {!day.disable ? fa(day.day) : null} */}
+                          {fa(day.day, isGregorian)}
+                        </Day>
+                      ))}
+                    </DaysNumberList>
+                  ))}
+                </DaysNumberListWrapper>
+              </DaysWrapper>
+            </React.Fragment>
+          )}
           <ButtonsDivWrapper
             className="rdp__buttons"
             data-testid="rdp__buttons"
           >
-            <ButtonsDiv>
-              <button
-                type="button"
-                data-testid="submit-button"
-                className="rdp__button--submit"
-                onClick={onSubmitButton}
-              >
-                تایید
-              </button>
-              <button
-                type="button"
-                data-testid="cancel-button"
-                className="rdp__button--cancel"
-                onClick={onCancelButton}
-              >
-                لغو
-              </button>
-            </ButtonsDiv>
+            {submittable && (
+              <ButtonsDiv>
+                <button
+                  type="button"
+                  data-testid="submit-button"
+                  className="rdp__button--submit"
+                  onClick={onSubmitButton}
+                >
+                  تایید
+                </button>
+                <button
+                  type="button"
+                  data-testid="cancel-button"
+                  className="rdp__button--cancel"
+                  onClick={onCancelButton}
+                >
+                  لغو
+                </button>
+              </ButtonsDiv>
+            )}
             {timePicker && (
               <ChangeViewButton
                 type="button"
@@ -167,11 +181,11 @@ export const Days: React.FC<IDaysProps> = ({
               </ChangeViewButton>
             )}
           </ButtonsDivWrapper>
-        )}
-      </DaysBody>
-    </ThemeProvider>
-  );
-};
+        </DaysBody>
+      </ThemeProvider>
+    );
+  },
+);
 
 //       ArrowLeft,
 //       ArrowRight,
@@ -181,7 +195,7 @@ export const Days: React.FC<IDaysProps> = ({
 //       increaseMonth,
 //       decreaseMonth,
 //       isSelecting,
-//       isRenderingButtons,
+//       submittable,
 //       onCancelButton,
 //       onSubmitButton,
 //       selectedDay,
@@ -259,7 +273,7 @@ export const Days: React.FC<IDaysProps> = ({
 //               </DaysWrapper>
 //             </React.Fragment>
 //           )}
-//           {isRenderingButtons && (
+//           {submittable && (
 //             <ButtonsDiv className="rdp__buttons" data-testid="rdp__buttons">
 //               <button
 //                 type="button"

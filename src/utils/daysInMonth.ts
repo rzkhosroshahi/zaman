@@ -32,20 +32,12 @@ const checkCurrentMonth = (date: Moment, isGregorian) =>
 export const daysInMonth = (date: Moment, { isGregorian }): IDaysInMonth => {
   const days: IDays[] = [];
   const clonedDate = date.clone();
-  console.log(
-    "🚀 ~ file: daysInMonth.ts ~ line 27 ~ daysInMonth ~ clonedDate",
-    clonedDate,
-  );
   const monthName = `${clonedDate
     .locale(isGregorian ? "en" : "fa")
     .format(isGregorian ? "MMMM" : "jMMMM")} ${fa(
     clonedDate.format(isGregorian ? "YYYY" : "jYYYY"),
     isGregorian,
   )}`;
-  console.log(
-    "🚀 ~ file: daysInMonth.ts ~ line 27 ~ daysInMonth ~ clonedDate",
-    clonedDate,
-  );
 
   const month = Number(
     date
@@ -58,17 +50,21 @@ export const daysInMonth = (date: Moment, { isGregorian }): IDaysInMonth => {
   // const lastDayOfWeek = date.clone().endOf("jMonth");
   const lastDayOfMonth = date.clone().endOf(isGregorian ? "month" : "jMonth");
 
+  const FixWeekStartDay = isGregorian ? 1 : 2;
   // Add some days from *month after* (to complete the grid)
   const lastDayOfWeek = lastDayOfMonth
     .clone()
-    .add(7 - ((lastDayOfMonth.day() + 2) % 7), "days");
+    .add(7 - ((lastDayOfMonth.day() + FixWeekStartDay) % 7), "days");
 
   const today = checkCurrentMonth(date, isGregorian)
     ? { today: date.format(isGregorian ? "DD" : "jDD") }
     : null;
 
   // Add some days from *month before* (to complete the grid)
-  firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
+  firstDayOfWeek.subtract(
+    (firstDayOfWeek.day() + FixWeekStartDay - 1) % 7,
+    "days",
+  );
 
   while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
     days.push({

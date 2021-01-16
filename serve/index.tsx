@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { render } from "react-dom";
-import { DatePicker, RangeDatePicker } from "../src";
+import styled from "../src/theme";
+import { DatePicker, Calender, RangeDatePicker, RangeCalender } from "../src";
 
 // my favorite theme 😌
 const theme = {
@@ -44,21 +45,96 @@ const theme = {
   cancelHoverColor: "#000",
 };
 
-const App = () => (
-  <div>
-    <DatePicker
-      // timePicker={false} // to disable timePicker
-      label="تاریخ شمسی"
-    />
-    <DatePicker
-      // timePicker={false} // to disable timePicker
-      gregorian
-      label="Gregorian Date"
-    />
+const Row = styled.section`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2em;
+  padding: 2em;
+  border-bottom: 2px dotted #ccc;
 
-    <RangeDatePicker fromLabel="از" toLabel="تا" />
-    <RangeDatePicker gregorian fromLabel="from" toLabel="to" />
-  </div>
+  .dp__input,
+  .rdp__input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+  }
+`;
+
+const App = () => (
+  <main>
+    <section>
+      <h2>انتخاب تاریخ - Date Picker</h2>
+
+      <Row>
+        <DatePicker
+          // timePicker={false} // to disable timePicker
+          modal
+          label="انتخاب تاریخ شمسی (مودال)"
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+        <DatePicker modal gregorian label="Gregorian DatePicker (Modal)" />
+      </Row>
+
+      <Row>
+        <DatePicker
+          label="انتخاب تاریخ شمسی"
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+        <DatePicker
+          gregorian
+          label="Gregorian DatePicker"
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+      </Row>
+
+      <Row>
+        <Calender
+          label="تقویم شمسی"
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+        <Calender
+          label="Gregorian Calendar"
+          gregorian
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+      </Row>
+    </section>
+    <section>
+      <h2>انتخاب بازه تاریخ - Range Date Picker</h2>
+
+      <Row>
+        <RangeDatePicker modal fromLabel="از (مودال)" toLabel="تا" />
+        <RangeDatePicker
+          modal
+          gregorian
+          fromLabel="from (modal)"
+          toLabel="to"
+        />
+      </Row>
+
+      <Row>
+        <RangeDatePicker fromLabel="از" toLabel="تا" />
+        <RangeDatePicker gregorian fromLabel="from" toLabel="to" />
+      </Row>
+
+      <Row>
+        <RangeCalender
+          fromLabel="از"
+          toLabel="تا"
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+
+        <RangeCalender
+          fromLabel="from"
+          toLabel="to"
+          gregorian
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+      </Row>
+    </section>
+  </main>
 );
 
 render(<App />, document.getElementById("root"));

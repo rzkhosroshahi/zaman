@@ -11,12 +11,21 @@ export const fa = (n, isGregorian) => {
   });
 };
 
+export const toPersianDigits = (str) => {
+  if (!str) return str;
+  const regex = /[0-9]/g;
+  const id = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return str.replace(regex, function (w) {
+    return id[+w];
+  });
+};
+
 // prettier-ignore
-export const inputFaDateMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/];
+export const inputFaDateMask = [/[\u06F0-\u06F1]/,/[\u06F0-\u06F4]/,/[\u06F0-\u06F9]/,/[\u06F0-\u06F9]/, '/', /[\u06F0-\u06F1]/, /[\u06F0-\u06F9]/, '/', /[\u06F0-\u06F3]/, /[\u06F0-\u06F9]/];
 // prettier-ignore
 export const inputEnDateMask = [/[1-2]/,/[0-9]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/];
 // prettier-ignore
-export const inputFaDateWithTimeMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/, ' ','-',' ', /[0-2]/,/[0-9]/, ':', /[0-5]/,/[0-9]/];
+export const inputFaDateWithTimeMask = [/[۰-۱]/,/[۰-۴]/,/[۰-۹]/,/[۰-۹]/, '/', /[۰-۱]/, /[۰-۹]/, '/', /[۰-۳]/, /[۰-۹]/, ' ','-',' ', /[۰-۲]/,/[۰-۹]/, ':', /[۰-۵]/,/[۰-۹]/];
 // prettier-ignore
 export const inputEnDateWithTimeMask = [/[1-2]/,/[0-9]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/, ' ','-',' ', /[0-2]/,/[0-9]/, ':', /[0-5]/,/[0-9]/];
 
@@ -28,7 +37,7 @@ export const getFormatTime = () => "HH:mm";
 // week days name
 export const weekDayNames = ({ isGregorian }) =>
   isGregorian
-    ? ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+    ? ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
     : ["ش", "ی", "د", "س", "چ", "پ", "ج"];
 // format jalali string date into moment
 export const formatDateString = (date, { isGregorian }) => {

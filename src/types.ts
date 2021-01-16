@@ -47,6 +47,8 @@ export interface IRangeDatePickerTheme extends ITheme {
   sameRangeColor?: string;
   shadowDaysColor?: string;
   shadowDaysBackColor?: string;
+  todayColor?: string;
+  todayBorderColor?: string;
 }
 
 export interface IDatePickerTheme extends ITheme {
@@ -64,6 +66,8 @@ export interface IDatePickerTheme extends ITheme {
   selectedNumberColor?: string;
   shadowDaysColor?: string;
   shadowDaysBackColor?: string;
+  todayColor?: string;
+  todayBorderColor?: string;
 }
 
 export type styledThemes = IRangeDatePickerTheme & IDatePickerTheme;

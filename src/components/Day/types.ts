@@ -5,7 +5,7 @@ export interface IDayProps {
   theme: styledThemes;
   isSelecting?: boolean;
   daysEvent?: () => void;
-  holiday?: number[];
+  holiday?: boolean;
   selectedDay?: boolean;
   today: boolean;
   isGregorian: boolean;

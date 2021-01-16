@@ -1,52 +1,34 @@
 import * as React from "react";
 import * as moment from "jalali-moment";
 import { defaultRangeTheme } from "../../theme";
-import TetherComponent from "react-tether";
 
-import {
-  formatDateString,
-  getFormatTime,
-  getFormatDate,
-  inputFaDateMask,
-  inputFaDateWithTimeMask,
-  inputEnDateWithTimeMask,
-  inputEnDateMask,
-  toPersianDigits,
-} from "../../utils";
+import { formatDateString, getFormatDate } from "../../utils";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { Days } from "../Days";
-import { Modal } from "../Modal";
 import * as Arrows from "../Icons";
 import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
 import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
-import { RangeDateDiv, InputMaskStyled } from "./styled";
+import { RangeDateDiv } from "./styled";
 
-export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
+export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
   start = moment(),
   end = moment(),
-  modalZIndex = 9999,
   ArrowLeft = Arrows.ArrowLeftCMP,
   ArrowRight = Arrows.ArrowRightCMP,
   theme = defaultRangeTheme,
   weekend,
   submittable = false,
-  open,
-  className = "rdp__input",
-  onToggle,
   onClickSubmitButton,
   onDateChange,
   fromLabel,
   toLabel,
   gregorian = false,
-  modal = false,
-  tetherAttachment,
 }) => {
   const [startDate, setStartDate] = React.useState(start);
   const [endDate, setEndDate] = React.useState(end);
   const [cloneDays, setCloneDays] = React.useState(start);
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
-  const [isOpenModal, setIsOpenModal] = React.useState(open);
   const [isSelecting, setIsSelecting] = React.useState(false);
   const [rangeDays, setRangeDays] = React.useState(
     rangeHelper({ start: startDate, end: endDate }, { isGregorian: gregorian }),
@@ -97,18 +79,8 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
     setMonthName(newMonthName);
   }, [cloneDays]);
 
-  React.useEffect(() => {
-    if (typeof onToggle === "function") {
-      onToggle(isOpenModal);
-    }
-  }, [isOpenModal]);
-
   const changeMonth = (amount) => {
     setCloneDays(cloneDays.clone().add(amount, "month"));
-  };
-
-  const toggleModalOpen = () => {
-    setIsOpenModal(!isOpenModal);
   };
 
   const changeStartDay = (e: React.SyntheticEvent<EventTarget>) => {
@@ -155,11 +127,12 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
     if (isSelecting) {
       setIsSelecting(false);
     }
-    if (onDateChange)
+    if (onDateChange) {
       onDateChange({
         start: startDate.format(getFormatDate({ isGregorian: gregorian })),
         end: endDate.format(getFormatDate({ isGregorian: gregorian })),
       });
+    }
   };
 
   const changeInputValues = (
@@ -183,7 +156,6 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
 
   const cancelButton = () => {
     const { start, end } = initialRange;
-    setIsOpenModal(false);
     setStartDate(start);
     setEndDate(end);
   };
@@ -195,123 +167,30 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
         endDate,
       });
     }
-    setIsOpenModal(false);
     setInitialRange({ start: startDate, end: endDate });
   };
 
-  const RenderInput = React.forwardRef(({}, ref: any) => (
-    <>
-      <label>{fromLabel}</label>
-      <div>
-        <span ref={ref}>
-          <InputMaskStyled
-            className={`${className} start`}
-            data-testid="input-start"
-            value={
-              gregorian
-                ? startDate.format(getFormatDate({ isGregorian: gregorian }))
-                : toPersianDigits(
-                    startDate.format(getFormatDate({ isGregorian: gregorian })),
-                  )
-            }
-            onClick={toggleModalOpen}
-            // onBlur={(e) => {
-            //   setIsOpenModal(false);
-            // }}
-            onChange={(e) => changeInputValues(e)}
-            mask={gregorian ? inputEnDateMask : inputFaDateMask}
-          />
-        </span>
-      </div>
-      <label>{toLabel}</label>
-      <div>
-        <InputMaskStyled
-          className={`${className} end`}
-          data-testid="input-end"
-          value={
-            gregorian
-              ? endDate.format(getFormatDate({ isGregorian: gregorian }))
-              : toPersianDigits(
-                  endDate.format(getFormatDate({ isGregorian: gregorian })),
-                )
-          }
-          onChange={(e) => changeInputValues(e, false)}
-          mask={gregorian ? inputEnDateMask : inputFaDateMask}
-        />
-      </div>
-    </>
-  ));
-
   return (
     <RangeDateDiv isGregorian={gregorian}>
-      {modal ? (
-        <>
-          <RenderInput />
-          <Modal
-            isOpen={isOpenModal}
-            toggleOpen={toggleModalOpen}
-            modalZIndex={modalZIndex}
-          >
-            <Days
-              days={days}
-              monthName={monthName}
-              rangeDays={rangeDays}
-              selectedPickerStatus={rangeStatus}
-              daysEventListeners={() => daysEventListeners()}
-              holiday={weekend || (gregorian ? [0, 6] : [6])}
-              theme={theme}
-              isSelecting={isSelecting}
-              submittable={submittable}
-              ArrowLeft={gregorian ? ArrowRight : ArrowLeft}
-              ArrowRight={gregorian ? ArrowLeft : ArrowRight}
-              increaseMonth={() => changeMonth(1)}
-              decreaseMonth={() => changeMonth(-1)}
-              onCancelButton={cancelButton}
-              onSubmitButton={submitButton}
-              isGregorian={gregorian}
-            />
-          </Modal>
-        </>
-      ) : (
-        <TetherComponent
-          attachment={tetherAttachment || "top center"}
-          constraints={[
-            {
-              to: "scrollParent",
-              attachment: "together",
-              pin: true,
-            },
-          ]}
-          offset="-10px 0"
-          /* renderTarget: This is what the item will be tethered to, make sure to attach the ref */
-          renderTarget={(ref) => <RenderInput ref={ref} />}
-          /* renderElement: If present, this item will be tethered to the the component returned by renderTarget */
-          renderElement={(ref) =>
-            isOpenModal && (
-              <Days
-                ref={ref}
-                days={days}
-                monthName={monthName}
-                rangeDays={rangeDays}
-                selectedPickerStatus={rangeStatus}
-                daysEventListeners={() => daysEventListeners()}
-                holiday={weekend || (gregorian ? [0, 6] : [6])}
-                theme={theme}
-                isSelecting={isSelecting}
-                submittable={submittable}
-                ArrowLeft={gregorian ? ArrowRight : ArrowLeft}
-                ArrowRight={gregorian ? ArrowLeft : ArrowRight}
-                increaseMonth={() => changeMonth(1)}
-                decreaseMonth={() => changeMonth(-1)}
-                onCancelButton={cancelButton}
-                onSubmitButton={submitButton}
-                isGregorian={gregorian}
-                plain={true}
-              />
-            )
-          }
-        />
-      )}
+      <Days
+        days={days}
+        monthName={monthName}
+        rangeDays={rangeDays}
+        selectedPickerStatus={rangeStatus}
+        daysEventListeners={() => daysEventListeners()}
+        holiday={weekend || (gregorian ? [0, 6] : [6])}
+        theme={theme}
+        isSelecting={isSelecting}
+        submittable={submittable}
+        ArrowLeft={gregorian ? ArrowRight : ArrowLeft}
+        ArrowRight={gregorian ? ArrowLeft : ArrowRight}
+        increaseMonth={() => changeMonth(1)}
+        decreaseMonth={() => changeMonth(-1)}
+        onCancelButton={cancelButton}
+        onSubmitButton={submitButton}
+        isGregorian={gregorian}
+        plain={true}
+      />
     </RangeDateDiv>
   );
 };

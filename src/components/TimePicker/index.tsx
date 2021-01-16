@@ -26,10 +26,6 @@ export const TimePicker: React.FC<ITimePickerProps> = ({
   }, [hour, minute]);
 
   React.useEffect(() => {
-    console.log(
-      "🚀 ~ file: index.tsx ~ line 30 ~ timePickerView",
-      timePickerView,
-    );
     if (timePickerView === "hour") setIsSelectingHour(true);
     if (timePickerView === "minute") setIsSelectingHour(false);
   }, [timePickerView]);

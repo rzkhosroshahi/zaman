@@ -174,10 +174,8 @@ describe("arrows component test ", () => {
 
 describe("buttons test ", () => {
   afterEach(cleanup);
-  test("buttons doesn't rendering when isRenderingButtons is false ", () => {
-    const { getByTestId } = render(
-      <RangeDatePicker isRenderingButtons={false} />,
-    );
+  test("buttons doesn't rendering when submittable is false ", () => {
+    const { getByTestId } = render(<RangeDatePicker submittable={false} />);
     const inputStart = getByTestId("input-start");
     fireEvent.click(inputStart);
     function notRendering() {

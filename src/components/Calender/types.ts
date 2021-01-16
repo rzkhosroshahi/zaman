@@ -22,7 +22,6 @@ export interface IDatePickerProps {
   open?: boolean;
   modal?: boolean;
   onToggle?: (arg?: boolean) => any;
-  tetherAttachment?: string;
 }
 
 export interface IDatePickerState {

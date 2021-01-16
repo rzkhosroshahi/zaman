@@ -136,7 +136,7 @@ describe("change datePicker and timePicker views", () => {
         toggleView={mockFunc}
         timePicker
         timePickerView
-        isRenderingButtons
+        submittable
       />,
     );
     const viewButton = getByTestId("toggle-view");

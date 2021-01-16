@@ -24,6 +24,9 @@ export const NormalDay = styled("li")<IDayProps>`
 `;
 
 export const Today = styled(NormalDay)`
+  color: ${(props) =>
+    props.selectedDay ? props.theme.selectDayColor : props.theme.todayColor};
+
   &:before {
     content: "";
     width: 80%;
@@ -34,7 +37,7 @@ export const Today = styled(NormalDay)`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 3px solid ${(props) => props.theme.selectDayBackColor};
+    border: 2px solid ${(props) => props.theme.todayBorderColor};
   }
 `;
 
@@ -49,6 +52,11 @@ export const HolidayDay = styled(NormalDay)`
 
 export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
   color: ${(props) => props.theme[`${props.startEndRange.status}Color`]};
+
+  &[data-disable] {
+    color: ${(props) => props.theme[`${props.startEndRange.status}Color`]};
+  }
+
   background-color: ${(props) =>
     props.theme[`${props.startEndRange.status}BackColor`]};
   border-radius: ${(props) =>

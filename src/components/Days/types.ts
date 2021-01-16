@@ -3,6 +3,7 @@ import { IDays } from "../../utils/daysInMonth";
 import { IRangeDays, styledThemes } from "../../types";
 
 export interface IDaysProps {
+  ref?: any;
   days: IDays[];
   theme?: styledThemes;
   rangeDays?: IRangeDays;
@@ -18,7 +19,7 @@ export interface IDaysProps {
   decreaseMonth: () => void;
   isSelecting?: boolean;
   holiday?: number[];
-  isRenderingButtons?: boolean;
+  submittable?: boolean;
   onCancelButton?: () => void;
   onSubmitButton?: () => void;
   toggleView?: (e: any) => void;
@@ -30,4 +31,5 @@ export interface IDaysProps {
   changeMinute?: (value: number) => void;
   isDatePicker?: boolean;
   isGregorian?: boolean;
+  plain?: boolean;
 }

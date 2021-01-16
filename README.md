@@ -15,21 +15,25 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 
 ## Date Picker
 
-| props               | type                                | default                                                                                                             |
-| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                | Moment | today date |
-| weekend             | number[]                            | `[6]`                                                                                                               |
-| ArrowLeft           | React.ReactType                     | default component                                                                                                   |
-| ArrowLeft           | React.ReactType                     | default component                                                                                                   |
-| ClockIcon           | React.ReactType                     | default component                                                                                                   |
-| DateIcon            | React.ReactType                     | default component                                                                                                   |
-| timePicker          | boolean                             | true.                                                                                                               |
-| onClickSubmitButton | function                            | null. if you passed this will be something like                                                                     |
-| modalZIndex         | number                              | 9999                                                                                                                |
-| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts) |
-| label               | string                              | default is null                                                                                                     |
-| open                | boolean                             | default is false. control opening and close modal from outside                                                      |
-| onToggle            | function                            | default is undefined. this function will be called when the modal open and close state is changed                   |
+| props               | type                                | default                                                                                                                                                 |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ---------- |
+| gregorian           | boolean                             | false                                                                                                                                                   |
+| modal               | boolean                             | false. If set to true, date picker will be opened in modal.                                                                                             |
+| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                                                    | Moment | today date |
+| weekend             | number[]                            | `[6]` for jalali and `[0, 6]` for gregorian                                                                                                             |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                                       |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                                       |
+| submittable         | boolean                             | false. if it is true rangeDatePicker show submit and cancel                                                                                             |
+| ClockIcon           | React.ReactType                     | default component                                                                                                                                       |
+| DateIcon            | React.ReactType                     | default component                                                                                                                                       |
+| timePicker          | boolean                             | true.                                                                                                                                                   |
+| onClickSubmitButton | function                            | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| onDateChange        | function                            | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| modalZIndex         | number                              | 9999                                                                                                                                                    |
+| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                                     |
+| label               | string                              | default is null                                                                                                                                         |
+| open                | boolean                             | default is false. control opening and close modal from outside                                                                                          |
+| onToggle            | function                            | default is undefined. this function will be called when the modal open and close state is changed                                                       |
 
 ## usage
 
@@ -53,6 +57,73 @@ function submitExample({ value }) {
 }
 ```
 
+### onDateChange
+
+You can access to datePicker value when date is changed.
+
+example:
+
+```javascript
+function dateChangeExample({ value }) {
+  console.log("value ", value);
+}
+```
+
+## Calender
+
+| props               | type                                | default                                                                                                                                                 |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ---------- |
+| gregorian           | boolean                             | false                                                                                                                                                   |
+| value               | timestamp &#124; Date &#124; Moment | Date                                                                                                                                                    | Moment | today date |
+| weekend             | number[]                            | `[6]` for jalali and `[0, 6]` for gregorian                                                                                                             |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                                       |
+| ArrowLeft           | React.ReactType                     | default component                                                                                                                                       |
+| submittable         | boolean                             | false. if it is true rangeDatePicker show submit and cancel                                                                                             |
+| ClockIcon           | React.ReactType                     | default component                                                                                                                                       |
+| DateIcon            | React.ReactType                     | default component                                                                                                                                       |
+| timePicker          | boolean                             | true.                                                                                                                                                   |
+| onClickSubmitButton | function                            | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| onDateChange        | function                            | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| modalZIndex         | number                              | 9999                                                                                                                                                    |
+| theme               | object                              | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                                     |
+| label               | string                              | default is null                                                                                                                                         |
+| open                | boolean                             | default is false. control opening and close modal from outside                                                                                          |
+| onToggle            | function                            | default is undefined. this function will be called when the modal open and close state is changed                                                       |
+
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { Calender } from "jalali-react-datepicker";
+
+render(<Calender />, document.getElementById("root"));
+```
+
+### onClickSubmitButton
+
+You can access to datePicker value when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ value }) {
+  console.log("value ", value);
+}
+```
+
+### onDateChange
+
+You can access to datePicker value when date is changed.
+
+example:
+
+```javascript
+function dateChangeExample({ value }) {
+  console.log("value ", value);
+}
+```
+
 ## Range Date Picker
 
 You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
@@ -61,13 +132,16 @@ Note that all props are _optional_.
 
 | props               | type                  | default                                                                                                                                                 |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gregorian           | boolean               | false                                                                                                                                                   |
+| modal               | boolean               | false. If set to true, date picker will be opened in modal.                                                                                             |
 | start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
 | end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
-| weekend             | number[]              | `[6]`                                                                                                                                                   |
+| weekend             | number[]              | `[6]` for jalali and `[0, 6]` for gregorian                                                                                                             |
 | ArrowLeft           | React.ReactType       | default component                                                                                                                                       |
 | ArrowRight          | React.ReactType       | default component                                                                                                                                       |
-| isRenderingButtons  | boolean               | true. if it is false rangeDatePicker doesnt show submit and cancel buttons                                                                              |
+| submittable         | boolean               | false. if it is true rangeDatePicker show submit and cancel buttons                                                                                     |
 | onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| onDateChange        | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
 | modalZIndex         | number                | 9999                                                                                                                                                    |
 | theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                                     |
 | fromLabel           | string                | default is از تاریخ                                                                                                                                     |
@@ -95,6 +169,77 @@ example:
 function submitExample({ start, end }) {
   console.log("start ", start);
   console.log("end ", end);
+}
+```
+
+### onDateChange
+
+You can access to datePicker value when date is changed.
+
+example:
+
+```javascript
+function dateChangeExample({ value }) {
+  console.log("value ", value);
+}
+```
+
+## Range Calender
+
+You can make range date picker with this component. In the below table you can see all the props you can pass to this component.
+
+Note that all props are _optional_.
+
+| props               | type                  | default                                                                                                                                                 |
+| ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gregorian           | boolean               | false                                                                                                                                                   |
+| start               | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| end                 | string. ex: 1397/5/18 | today date                                                                                                                                              |
+| weekend             | number[]              | `[6]`                                                                                                                                                   |
+| ArrowLeft           | React.ReactType       | default component                                                                                                                                       |
+| ArrowRight          | React.ReactType       | default component                                                                                                                                       |
+| submittable         | boolean               | false. if it is true rangeDatePicker show submit and cancel buttons                                                                                     |
+| onClickSubmitButton | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| onDateChange        | function              | null. if you passed this will be something like [this](https://github.com/rzkhosroshahi/react-jalali-datepicker/tree/submit-button#onClickSubmitButton) |
+| modalZIndex         | number                | 9999                                                                                                                                                    |
+| theme               | object                | default theme you can see [here](https://github.com/rzkhosroshahi/react-jalali-datepicker/blob/master/src/theme.ts)                                     |
+| fromLabel           | string                | default is از تاریخ                                                                                                                                     |
+| toLabel             | string                | default is تا تاریخ                                                                                                                                     |
+| open                | boolean               | default is false. control opening and close modal from outside                                                                                          |
+| onToggle            | function              | default is undefined. this function will be called when the modal open and close state is changed                                                       |
+
+## usage
+
+```jsx
+import React from "react";
+import { render } from "react-dom";
+import { RangeCalender } from "jalali-react-datepicker";
+
+render(<RangeCalender />, document.getElementById("root"));
+```
+
+### onClickSubmitButton
+
+You can access to start and end date when submit button is clicked.
+
+example:
+
+```javascript
+function submitExample({ start, end }) {
+  console.log("start ", start);
+  console.log("end ", end);
+}
+```
+
+### onDateChange
+
+You can access to datePicker value when date is changed.
+
+example:
+
+```javascript
+function dateChangeExample({ value }) {
+  console.log("value ", value);
 }
 ```
 

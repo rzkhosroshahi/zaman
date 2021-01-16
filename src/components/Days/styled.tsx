@@ -1,12 +1,26 @@
 import styled from "../../theme";
 
-export const DaysBody = styled("div")<{ isDatePicker?: boolean }>`
+export const DaysBody = styled("div")<{
+  isDatePicker?: boolean;
+  plain?: boolean;
+  isGregorian?: boolean;
+  ref?: any;
+}>`
   width: ${(props) => (props.isDatePicker ? "296px" : "280px")};
   max-height: 85%;
   position: relative;
   overflow: auto;
   border-radius: ${8 / 16}rem;
   background-color: ${(props) => props.theme.backColor};
+
+  direction: ${(props) => (props.isGregorian ? "ltr" : "rtl")};
+
+  ${(props) =>
+    props.plain &&
+    `
+    border: 1px solid #ccc;
+		`};
+
   & * {
     box-sizing: border-box;
     user-select: none;
