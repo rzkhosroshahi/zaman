@@ -15,7 +15,7 @@ import { datePickerStatus } from "../../utils/rangeHelper";
 import { IDatePickerProps } from "./types";
 import { DatePickerDiv, InputMaskStyled } from "./styled";
 import {
-  formatDateString,
+  formatDateFromString,
   getFormatTime,
   getFormatDate,
   inputFaDateMask,
@@ -27,7 +27,7 @@ import {
 
 export const DatePicker: React.FC<IDatePickerProps> = ({
   label,
-  value: defaultValue = moment(),
+  value: defaultValue,
   timePicker = true,
   ArrowRight = Icons.ArrowRightCMP,
   ArrowLeft = Icons.ArrowLeftCMP,
@@ -45,18 +45,28 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   modal = false,
   tetherAttachment,
 }) => {
-  const [initialValue, setInitialValue] = React.useState(defaultValue);
-  const [value, setValue] = React.useState(moment(defaultValue));
-  const [cloneDays, setCloneDays] = React.useState(moment(defaultValue));
+  const [initialValue, setInitialValue] = React.useState(moment());
+  const [value, setValue] = React.useState(moment());
+  const [cloneDays, setCloneDays] = React.useState(moment());
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
   const [isOpenModal, setIsOpenModal] = React.useState(open);
   const [timePickerView, setTimePickerView] = React.useState(null);
   const [dayStatus, setDayStatus] = React.useState(
-    datePickerStatus(moment(defaultValue), { isGregorian: gregorian }),
+    datePickerStatus(moment(initialValue), { isGregorian: gregorian }),
   );
-  const [hour, setHour] = React.useState(moment(defaultValue).hour());
-  const [minute, setMinute] = React.useState(moment(defaultValue).minute());
+  const [hour, setHour] = React.useState(moment(initialValue).hour());
+  const [minute, setMinute] = React.useState(moment(initialValue).minute());
+
+  React.useEffect(() => {
+    if (defaultValue) {
+      const defaultValueasDate = formatDateFromString(defaultValue, {
+        isGregorian: gregorian,
+      });
+      setInitialValue(defaultValueasDate);
+      setValue(defaultValueasDate);
+    }
+  }, [defaultValue]);
 
   React.useEffect(() => {
     const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
@@ -89,7 +99,7 @@ export const DatePicker: React.FC<IDatePickerProps> = ({
   const selectDay = () => ({
     onClick: (e: SyntheticEvent<EventTarget>) => {
       const { fadate } = (e.target as HTMLHtmlElement).dataset;
-      setValue(formatDateString(fadate, { isGregorian: gregorian }));
+      setValue(formatDateFromString(fadate, { isGregorian: gregorian }));
       if (onDateChange) {
         if (timePicker) {
           onDateChange({ date: fadate, time: hour + ":" + minute });

@@ -9,10 +9,10 @@ import { Days } from "../Days";
 import { datePickerStatus } from "../../utils/rangeHelper";
 import { IDatePickerProps } from "./types";
 import { DatePickerDiv } from "./styled";
-import { formatDateString, getFormatDate } from "../../utils";
+import { formatDateFromString, getFormatDate } from "../../utils";
 
 export const Calender: React.FC<IDatePickerProps> = ({
-  value: defaultValue = moment(),
+  value: defaultValue,
   timePicker = true,
   ArrowRight = Icons.ArrowRightCMP,
   ArrowLeft = Icons.ArrowLeftCMP,
@@ -25,17 +25,27 @@ export const Calender: React.FC<IDatePickerProps> = ({
   onDateChange,
   gregorian = false,
 }) => {
-  const [initialValue, setInitialValue] = React.useState(defaultValue);
-  const [value, setValue] = React.useState(moment(defaultValue));
-  const [cloneDays, setCloneDays] = React.useState(moment(defaultValue));
+  const [initialValue, setInitialValue] = React.useState(moment());
+  const [value, setValue] = React.useState(moment());
+  const [cloneDays, setCloneDays] = React.useState(moment());
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
   const [timePickerView, setTimePickerView] = React.useState(null);
   const [dayStatus, setDayStatus] = React.useState(
-    datePickerStatus(moment(defaultValue), { isGregorian: gregorian }),
+    datePickerStatus(moment(initialValue), { isGregorian: gregorian }),
   );
-  const [hour, setHour] = React.useState(moment(defaultValue).hour());
-  const [minute, setMinute] = React.useState(moment(defaultValue).minute());
+  const [hour, setHour] = React.useState(moment(initialValue).hour());
+  const [minute, setMinute] = React.useState(moment(initialValue).minute());
+
+  React.useEffect(() => {
+    if (defaultValue) {
+      const defaultValueasDate = formatDateFromString(defaultValue, {
+        isGregorian: gregorian,
+      });
+      setInitialValue(defaultValueasDate);
+      setValue(defaultValueasDate);
+    }
+  }, [defaultValue]);
 
   React.useEffect(() => {
     const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
@@ -72,7 +82,7 @@ export const Calender: React.FC<IDatePickerProps> = ({
   const selectDay = () => ({
     onClick: (e: SyntheticEvent<EventTarget>) => {
       const { fadate } = (e.target as HTMLHtmlElement).dataset;
-      setValue(formatDateString(fadate, { isGregorian: gregorian }));
+      setValue(formatDateFromString(fadate, { isGregorian: gregorian }));
       if (onDateChange) onDateChange(fadate);
     },
   });

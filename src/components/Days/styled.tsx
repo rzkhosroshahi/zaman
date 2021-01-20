@@ -7,7 +7,7 @@ export const DaysBody = styled("div")<{
   ref?: any;
 }>`
   width: ${(props) => (props.isDatePicker ? "296px" : "280px")};
-  max-height: 85%;
+  // max-height: 85%;
   position: relative;
   overflow: auto;
   border-radius: ${8 / 16}rem;
@@ -37,9 +37,11 @@ export const DaysBody = styled("div")<{
 
 export const DaysWrapper = styled("div")<{ isDatePicker?: boolean }>`
   width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   font-size: 1rem;
-  border-collapse: separate;
-  border-spacing: 0 0.5rem;
+  /* border-collapse: separate;
+  border-spacing: 0 0.5rem; */
   padding: ${(props) => (props.isDatePicker ? `${8 / 16}rem` : 0)};
 
   th {

@@ -2,7 +2,11 @@ import * as React from "react";
 import * as moment from "jalali-moment";
 import { defaultRangeTheme } from "../../theme";
 
-import { formatDateString, getFormatDate } from "../../utils";
+import {
+  formatDateFromString,
+  getFormatDate,
+  formatDateToString,
+} from "../../utils";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { Days } from "../Days";
 import * as Arrows from "../Icons";
@@ -11,8 +15,8 @@ import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
 import { RangeDateDiv } from "./styled";
 
 export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
-  start = moment(),
-  end = moment(),
+  start,
+  end,
   ArrowLeft = Arrows.ArrowLeftCMP,
   ArrowRight = Arrows.ArrowRightCMP,
   theme = defaultRangeTheme,
@@ -24,9 +28,9 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
   toLabel,
   gregorian = false,
 }) => {
-  const [startDate, setStartDate] = React.useState(start);
-  const [endDate, setEndDate] = React.useState(end);
-  const [cloneDays, setCloneDays] = React.useState(start);
+  const [startDate, setStartDate] = React.useState(moment());
+  const [endDate, setEndDate] = React.useState(moment());
+  const [cloneDays, setCloneDays] = React.useState(moment());
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
   const [isSelecting, setIsSelecting] = React.useState(false);
@@ -39,6 +43,19 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
     end: endDate,
   });
   const [pivotDate, setPivotDate] = React.useState(start);
+
+  React.useEffect(() => {
+    console.log({ start, end });
+    if (start && end) {
+      const startAsdate = formatDateFromString(start, {
+        isGregorian: gregorian,
+      });
+      const endAsdate = formatDateFromString(end, { isGregorian: gregorian });
+      setStartDate(startAsdate);
+      setEndDate(endAsdate);
+      setPivotDate(startAsdate);
+    }
+  }, [start, end]);
 
   React.useEffect(() => {
     const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
@@ -75,7 +92,7 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
     const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
       isGregorian: gregorian,
     });
-    setDays((oldDays) => [...days.slice(days.length), ...newDays]);
+    setDays([...newDays]);
     setMonthName(newMonthName);
   }, [cloneDays]);
 
@@ -87,7 +104,9 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
     const { fadate, disable } = (e.target as HTMLHtmlElement).dataset;
     if (!disable) {
       setIsSelecting(!isSelecting);
-      const selectedDate = formatDateString(fadate, { isGregorian: gregorian });
+      const selectedDate = formatDateFromString(fadate, {
+        isGregorian: gregorian,
+      });
       setStartDate(selectedDate);
       setEndDate(selectedDate);
       setPivotDate(selectedDate);
@@ -97,7 +116,7 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
 
   const changeStartEndDay = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate } = (e.target as HTMLHtmlElement).dataset;
-    const thisDate = formatDateString(fadate, { isGregorian: gregorian });
+    const thisDate = formatDateFromString(fadate, { isGregorian: gregorian });
 
     if (isSelecting) {
       if (thisDate.isBefore(pivotDate)) {
@@ -139,16 +158,19 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
     e: React.ChangeEvent<HTMLInputElement>,
     start: boolean = true,
   ) => {
-    const formattedValue = formatDateString(e.target.value, {
+    const formattedValue = formatDateFromString(e.target.value, {
       isGregorian: gregorian,
     });
-    if (start && formatDateString(e.target.value, { isGregorian: gregorian })) {
+    if (
+      start &&
+      formatDateFromString(e.target.value, { isGregorian: gregorian })
+    ) {
       return setStartDate(
-        formatDateString(e.target.value, { isGregorian: gregorian }),
+        formatDateFromString(e.target.value, { isGregorian: gregorian }),
       );
     } else if (formattedValue && formattedValue.isAfter(startDate)) {
       return setEndDate(
-        formatDateString(e.target.value, { isGregorian: gregorian }),
+        formatDateFromString(e.target.value, { isGregorian: gregorian }),
       );
     }
     return null;

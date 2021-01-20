@@ -4,7 +4,7 @@ import { defaultRangeTheme } from "../../theme";
 import TetherComponent from "react-tether";
 
 import {
-  formatDateString,
+  formatDateFromString,
   getFormatTime,
   getFormatDate,
   inputFaDateMask,
@@ -22,8 +22,8 @@ import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
 import { RangeDateDiv, InputMaskStyled } from "./styled";
 
 export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
-  start = moment(),
-  end = moment(),
+  start,
+  end,
   modalZIndex = 9999,
   ArrowLeft = Arrows.ArrowLeftCMP,
   ArrowRight = Arrows.ArrowRightCMP,
@@ -41,9 +41,9 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
   modal = false,
   tetherAttachment,
 }) => {
-  const [startDate, setStartDate] = React.useState(start);
-  const [endDate, setEndDate] = React.useState(end);
-  const [cloneDays, setCloneDays] = React.useState(start);
+  const [startDate, setStartDate] = React.useState(start || moment());
+  const [endDate, setEndDate] = React.useState(end || moment());
+  const [cloneDays, setCloneDays] = React.useState(start || moment());
   const [monthName, setMonthName] = React.useState("");
   const [days, setDays] = React.useState([]);
   const [isOpenModal, setIsOpenModal] = React.useState(open);
@@ -57,6 +57,18 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
     end: endDate,
   });
   const [pivotDate, setPivotDate] = React.useState(start);
+
+  React.useEffect(() => {
+    if (start && end) {
+      const startAsdate = formatDateFromString(start, {
+        isGregorian: gregorian,
+      });
+      const endAsdate = formatDateFromString(end, { isGregorian: gregorian });
+      setStartDate(startAsdate);
+      setEndDate(endAsdate);
+      setPivotDate(startAsdate);
+    }
+  }, [start, end]);
 
   React.useEffect(() => {
     const { monthName: newMonthName, days: newDays } = daysInMonth(cloneDays, {
@@ -115,7 +127,9 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
     const { fadate, disable } = (e.target as HTMLHtmlElement).dataset;
     if (!disable) {
       setIsSelecting(!isSelecting);
-      const selectedDate = formatDateString(fadate, { isGregorian: gregorian });
+      const selectedDate = formatDateFromString(fadate, {
+        isGregorian: gregorian,
+      });
       setStartDate(selectedDate);
       setEndDate(selectedDate);
       setPivotDate(selectedDate);
@@ -125,7 +139,7 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
 
   const changeStartEndDay = (e: React.SyntheticEvent<EventTarget>) => {
     const { fadate } = (e.target as HTMLHtmlElement).dataset;
-    const thisDate = formatDateString(fadate, { isGregorian: gregorian });
+    const thisDate = formatDateFromString(fadate, { isGregorian: gregorian });
 
     if (isSelecting) {
       if (thisDate.isBefore(pivotDate)) {
@@ -166,16 +180,19 @@ export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({
     e: React.ChangeEvent<HTMLInputElement>,
     start: boolean = true,
   ) => {
-    const formattedValue = formatDateString(e.target.value, {
+    const formattedValue = formatDateFromString(e.target.value, {
       isGregorian: gregorian,
     });
-    if (start && formatDateString(e.target.value, { isGregorian: gregorian })) {
+    if (
+      start &&
+      formatDateFromString(e.target.value, { isGregorian: gregorian })
+    ) {
       return setStartDate(
-        formatDateString(e.target.value, { isGregorian: gregorian }),
+        formatDateFromString(e.target.value, { isGregorian: gregorian }),
       );
     } else if (formattedValue && formattedValue.isAfter(startDate)) {
       return setEndDate(
-        formatDateString(e.target.value, { isGregorian: gregorian }),
+        formatDateFromString(e.target.value, { isGregorian: gregorian }),
       );
     }
     return null;

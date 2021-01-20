@@ -40,10 +40,14 @@ export const weekDayNames = ({ isGregorian }) =>
     ? ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
     : ["ش", "ی", "د", "س", "چ", "پ", "ج"];
 // format jalali string date into moment
-export const formatDateString = (date, { isGregorian }) => {
+export const formatDateFromString = (date, { isGregorian }) => {
   const formattedDate = moment(`${date}`, getFormatDate({ isGregorian }));
   if (formattedDate.isValid()) {
     return formattedDate;
   }
   return null;
+};
+
+export const formatDateToString = (date, { isGregorian }) => {
+  return date.clone().format(getFormatDate({ isGregorian }));
 };
