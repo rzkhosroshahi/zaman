@@ -143,7 +143,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                 className="rdp__button--cancel"
                 onClick={onCancelButton}
               >
-                لغو
+               بستن
               </button>
               {timePicker && (
                 <ChangeViewButton
