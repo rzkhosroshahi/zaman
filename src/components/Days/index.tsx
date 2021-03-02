@@ -145,7 +145,7 @@ export class Days extends React.PureComponent<IDaysProps> {
               >
                 لغو
               </button>
-              {timePicker && (
+              {timePicker && timePicker === true && (
                 <ChangeViewButton
                   type="button"
                   onClick={toggleView}
