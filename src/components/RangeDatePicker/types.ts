@@ -5,10 +5,10 @@ import { IDays } from "../../utils/daysInMonth";
 
 export interface IRangeDatePickerProps {
   gregorian: boolean;
-  start: Moment;
-  end: Moment;
-  ArrowLeft: React.ReactType;
-  ArrowRight: React.ReactType;
+  start?: Moment;
+  end?: Moment;
+  ArrowLeft?: React.ReactType;
+  ArrowRight?: React.ReactType;
   modalZIndex?: number;
   theme?: IRangeDatePickerTheme;
   weekend?: number[];
