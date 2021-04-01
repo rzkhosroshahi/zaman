@@ -24,8 +24,6 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
   submittable = false,
   onClickSubmitButton,
   onDateChange,
-  fromLabel,
-  toLabel,
   gregorian = false,
 }) => {
   const [startDate, setStartDate] = React.useState(moment());
