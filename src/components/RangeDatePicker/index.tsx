@@ -5,11 +5,8 @@ import TetherComponent from "react-tether";
 
 import {
   formatDateFromString,
-  getFormatTime,
   getFormatDate,
   inputFaDateMask,
-  inputFaDateWithTimeMask,
-  inputEnDateWithTimeMask,
   inputEnDateMask,
   toPersianDigits,
 } from "../../utils";
@@ -18,7 +15,7 @@ import { Days } from "../Days";
 import { Modal } from "../Modal";
 import * as Arrows from "../Icons";
 import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
-import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
+import { IRangeDatePickerProps } from "./types";
 import { RangeDateDiv, InputMaskStyled } from "./styled";
 
 export const RangeDatePicker: React.FC<IRangeDatePickerProps> = ({

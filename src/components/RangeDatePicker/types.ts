@@ -1,10 +1,9 @@
 import * as React from "react";
-import { IRangeDate, IRangeDatePickerTheme, IRangeDays } from "../../types";
+import { IRangeDatePickerTheme } from "../../types";
 import { Moment } from "jalali-moment";
-import { IDays } from "../../utils/daysInMonth";
 
 export interface IRangeDatePickerProps {
-  gregorian: boolean;
+  gregorian?: boolean;
   start?: Moment;
   end?: Moment;
   ArrowLeft?: React.ReactType;
@@ -25,15 +24,15 @@ export interface IRangeDatePickerProps {
   tetherAttachment?: string;
 }
 
-export interface IRangeDatePickerState {
-  startDate: Moment;
-  endDate: Moment;
-  monthName?: string;
-  days?: IDays[];
-  rangeDays?: IRangeDays;
-  isOpenModal: boolean;
-  isSelecting: boolean;
-  rangeStatus: string;
-  cloneDays: Moment;
-  initialRange?: IRangeDate;
-}
+// export interface IRangeDatePickerState {
+//   startDate: Moment;
+//   endDate: Moment;
+//   monthName?: string;
+//   days?: IDays[];
+//   rangeDays?: IRangeDays;
+//   isOpenModal: boolean;
+//   isSelecting: boolean;
+//   rangeStatus: string;
+//   cloneDays: Moment;
+//   initialRange?: IRangeDate;
+// }

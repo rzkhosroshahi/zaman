@@ -2,16 +2,12 @@ import * as React from "react";
 import * as moment from "jalali-moment";
 import { defaultRangeTheme } from "../../theme";
 
-import {
-  formatDateFromString,
-  getFormatDate,
-  formatDateToString,
-} from "../../utils";
+import { formatDateFromString, getFormatDate } from "../../utils";
 import { daysInMonth } from "../../utils/daysInMonth";
 import { Days } from "../Days";
 import * as Arrows from "../Icons";
 import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
-import { IRangeDatePickerProps, IRangeDatePickerState } from "./types";
+import { IRangeDatePickerProps } from "./types";
 import { RangeDateDiv } from "./styled";
 
 export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
@@ -43,7 +39,6 @@ export const RangeCalender: React.FC<IRangeDatePickerProps> = ({
   const [pivotDate, setPivotDate] = React.useState(start);
 
   React.useEffect(() => {
-    console.log({ start, end });
     if (start && end) {
       const startAsdate = formatDateFromString(start, {
         isGregorian: gregorian,

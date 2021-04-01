@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as React from "react";
 import { render } from "react-dom";
 import styled from "../src/theme";
@@ -90,12 +88,8 @@ const App = () => (
       </Row>
 
       <Row>
+        <Calender onDateChange={(date) => console.log("onDateChange", date)} />
         <Calender
-          label="تقویم شمسی"
-          onDateChange={(date) => console.log("onDateChange", date)}
-        />
-        <Calender
-          label="Gregorian Calendar"
           gregorian
           onDateChange={(date) => console.log("onDateChange", date)}
         />
@@ -121,14 +115,10 @@ const App = () => (
 
       <Row>
         <RangeCalender
-          fromLabel="از"
-          toLabel="تا"
           onDateChange={(date) => console.log("onDateChange", date)}
         />
 
         <RangeCalender
-          fromLabel="from"
-          toLabel="to"
           gregorian
           onDateChange={(date) => console.log("onDateChange", date)}
         />
