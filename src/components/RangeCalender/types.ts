@@ -7,16 +7,14 @@ export interface IRangeDatePickerProps {
   gregorian: boolean;
   start: Moment;
   end: Moment;
-  ArrowLeft: React.ReactType;
-  ArrowRight: React.ReactType;
+  ArrowLeft?: React.ReactType;
+  ArrowRight?: React.ReactType;
   modalZIndex?: number;
   theme?: IRangeDatePickerTheme;
   weekend?: number[];
   submittable?: boolean;
   onClickSubmitButton?: (arg: any) => any;
   onDateChange?: (arg: any) => any;
-  fromLabel: string;
-  toLabel: string;
   open?: boolean;
   modal?: boolean;
   onToggle?: (arg?: boolean) => any;
