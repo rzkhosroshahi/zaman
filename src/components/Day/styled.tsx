@@ -1,7 +1,7 @@
 import styled from "../../theme";
 import { IDayProps } from "./types";
 
-export const NormalDay = styled("li")<IDayProps>`
+export const NormalDay = styled.li<IDayProps>`
   text-align: center;
   cursor: pointer;
   position: relative;

@@ -1,6 +1,6 @@
 import styled from "../../theme";
 
-export const DaysBody = styled("div")<{
+export const DaysBody = styled.div<{
   isDatePicker?: boolean;
   plain?: boolean;
   isGregorian?: boolean;
@@ -35,7 +35,7 @@ export const DaysBody = styled("div")<{
   }
 `;
 
-export const DaysWrapper = styled("div")<{ isDatePicker?: boolean }>`
+export const DaysWrapper = styled.div<{ isDatePicker?: boolean }>`
   width: 100%;
   max-width: 100%;
   overflow: hidden;
@@ -51,7 +51,7 @@ export const DaysWrapper = styled("div")<{ isDatePicker?: boolean }>`
   }
 `;
 
-export const StyledUl = styled("ul")`
+export const StyledUl = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -161,7 +161,7 @@ export const ButtonsDiv = styled.div`
   }
 `;
 
-export const ChangeViewButton = styled("button")`
+export const ChangeViewButton = styled.button`
   min-width: 40px !important;
   min-height: 40px;
   float: left;
@@ -183,7 +183,7 @@ export const ChangeViewButton = styled("button")`
   }
 `;
 
-export const TimeDays = styled("div")`
+export const TimeDays = styled.div`
   width: 100%;
   font-size: 1rem;
   padding: 0.5rem;

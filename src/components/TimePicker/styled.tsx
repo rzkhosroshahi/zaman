@@ -22,7 +22,7 @@ const fade = keyframes`
   }
 `;
 
-export const MinuteWithAnimation = styled("div")`
+export const MinuteWithAnimation = styled.div`
   animation: ${fade} 0.7s linear alternate;
 `;
 
@@ -35,7 +35,7 @@ export interface INumbersProps {
   isSelectedNumber?: boolean;
 }
 
-export const Numbers = styled("span")<INumbersProps>`
+export const Numbers = styled.span<INumbersProps>`
   left: calc(50% - 16px);
   top: ${(props) => props.top};
   width: 32px;
@@ -71,7 +71,7 @@ export interface IStyledHandProps {
   isSelectingHour: boolean;
 }
 
-export const StyledHand = styled("div")<IStyledHandProps>`
+export const StyledHand = styled.div<IStyledHandProps>`
   left: calc(50% - 1px);
   width: 1.5px;
   bottom: 50%;
@@ -87,7 +87,7 @@ export const StyledHand = styled("div")<IStyledHandProps>`
       : `transform: ${`rotateZ(${(props.value / 60) * 360}deg)`}; `}
 `;
 
-export const HandCircle = styled("div")<{ isSelectingHour: boolean }>`
+export const HandCircle = styled.div<{ isSelectingHour: boolean }>`
   top: -23px;
   left: -15px;
   border: 16px solid ${(props) => props.theme.handCircleColor};
