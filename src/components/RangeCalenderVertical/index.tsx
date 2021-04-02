@@ -10,6 +10,7 @@ import { makeRangeStatus, rangeHelper } from "../../utils/rangeHelper";
 import { IRangeDatePickerProps } from "./types";
 import { RangeDateDiv } from "./styled";
 
+const today = moment();
 export const RangeCalenderVertical: React.FC<IRangeDatePickerProps> = ({
   start,
   end,
@@ -21,7 +22,7 @@ export const RangeCalenderVertical: React.FC<IRangeDatePickerProps> = ({
   onClickSubmitButton,
   onDateChange,
   gregorian = false,
-  inputDate = moment(),
+  inputDate = today,
   hasHead = true,
 }) => {
   const [startDate, setStartDate] = React.useState(
@@ -112,7 +113,11 @@ export const RangeCalenderVertical: React.FC<IRangeDatePickerProps> = ({
   };
 
   const changeDate = (date) => {
-    setCloneDays(moment(date, gregorian ? "YYYY/MM/DD" : "jYYYY/jMM/jDD"));
+    setCloneDays(
+      typeof date === "string"
+        ? moment(date, gregorian ? "YYYY/MM/DD" : "jYYYY/jMM/jDD")
+        : date,
+    );
   };
 
   const changeStartDay = (e: React.SyntheticEvent<EventTarget>) => {
