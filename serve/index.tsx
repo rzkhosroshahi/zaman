@@ -1,7 +1,13 @@
 import * as React from "react";
 import { render } from "react-dom";
 import styled from "../src/theme";
-import { DatePicker, Calender, RangeDatePicker, RangeCalender } from "../src";
+import {
+  DatePicker,
+  Calender,
+  RangeDatePicker,
+  RangeCalender,
+  RangeCalenderVertical,
+} from "../src";
 
 // my favorite theme 😌
 const theme = {
@@ -22,6 +28,10 @@ const theme = {
   holidaysColor: "#F50057",
   holidaysBackColor: "#00213E",
   daysRound: "50%",
+  daysRoundStart: "50% 50% 0 0",
+  daysRoundEnd: "0 0 50% 50% ",
+  daysRoundContinue: "none",
+  shadowDaysColor: "#ccc",
 
   // start end
   startRangeBackColor: "#04F5FF",
@@ -119,6 +129,18 @@ const App = () => (
         />
 
         <RangeCalender
+          gregorian
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+      </Row>
+      <h2>انتخاب بازه تاریخ عمودی - Vertical Range Date Picker</h2>
+      <Row>
+        <RangeCalenderVertical
+          theme={theme}
+          onDateChange={(date) => console.log("onDateChange", date)}
+        />
+        <RangeCalenderVertical
+          theme={theme}
           gregorian
           onDateChange={(date) => console.log("onDateChange", date)}
         />

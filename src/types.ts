@@ -23,6 +23,9 @@ export interface ITheme {
   weekDaysColor?: string;
   daysColor?: string;
   daysRound?: any;
+  daysRoundStart?: any;
+  daysRoundEnd?: any;
+  daysRoundContinue?: string;
   daysBackColor?: string;
   holidaysColor?: string;
   holidaysBackColor?: string;

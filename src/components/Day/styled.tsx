@@ -60,14 +60,26 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
   background-color: ${(props) =>
     props.theme[`${props.startEndRange.status}BackColor`]};
   border-radius: ${(props) =>
-    props.startEndRange.status === "continueRange" ? 0 : props.theme.daysRound};
+    props.startEndRange.status === "continueRange"
+      ? 0
+      : props.startEndRange.status === "startRange"
+      ? props.theme.daysRoundStart
+        ? props.theme.daysRoundStart
+        : props.theme.daysRound
+      : props.theme.daysRoundEnd
+      ? props.theme.daysRoundEnd
+      : props.theme.daysRound};
   z-index: ${(props) => props.startEndRange.status === "continueRange" && 100};
   ${(props) =>
     props.startEndRange.status === "startRange" &&
     `
 			&:after {
 				content: "";
-				display: block;
+				display: ${
+          props.theme.daysRoundContinue
+            ? props.theme.daysRoundContinue
+            : "block"
+        };
 				width: 25px;
 				height: 40px;
 				position: absolute;
@@ -85,7 +97,11 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
     `
 			&:after {
 				content: "";
-				display: block;
+				display: ${
+          props.theme.daysRoundContinue
+            ? props.theme.daysRoundContinue
+            : "block"
+        };
 				width: 25px;
 				height: 40px;
 				position: absolute;
