@@ -53,7 +53,10 @@ export const weekDayNamesComplete = ({ isGregorian }) =>
     : ["شنبه", "یک‌شنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه"];
 // format jalali string date into moment
 export const formatDateFromString = (date, { isGregorian }) => {
-  const formattedDate = moment(`${date}`, getFormatDate({ isGregorian }));
+  let formattedDate;
+  if (typeof date === "string")
+    formattedDate = moment(`${date}`, getFormatDate({ isGregorian }));
+  else formattedDate = date;
   if (formattedDate.isValid()) {
     return formattedDate;
   }

@@ -9,6 +9,8 @@ import {
   RangeCalenderVertical,
 } from "../src";
 
+import * as moment from "jalali-moment";
+
 // my favorite theme 😌
 const theme = {
   backColor: "#00213E",
@@ -126,6 +128,8 @@ const App = () => (
       <Row>
         <RangeCalender
           onDateChange={(date) => console.log("onDateChange", date)}
+          // start={moment().subtract(2, "d")}
+          // end={moment()}
         />
 
         <RangeCalender
@@ -142,6 +146,8 @@ const App = () => (
         <RangeCalenderVertical
           theme={theme}
           gregorian
+          start={moment().subtract(6, "d")}
+          end={moment()}
           onDateChange={(date) => console.log("onDateChange", date)}
         />
       </Row>

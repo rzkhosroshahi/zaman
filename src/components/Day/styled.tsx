@@ -66,9 +66,11 @@ export const StartEndRangeDay = styled(NormalDay)<IDayProps>`
       ? props.theme.daysRoundStart
         ? props.theme.daysRoundStart
         : props.theme.daysRound
-      : props.theme.daysRoundEnd
+      : props.startEndRange.status === "endRange"
       ? props.theme.daysRoundEnd
-      : props.theme.daysRound};
+        ? props.theme.daysRoundEnd
+        : props.theme.daysRound
+      : "50%"};
   z-index: ${(props) => props.startEndRange.status === "continueRange" && 100};
   ${(props) =>
     props.startEndRange.status === "startRange" &&

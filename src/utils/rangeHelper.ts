@@ -47,7 +47,7 @@ export function rangeHelper(range: IRangeDate, { isGregorian }) {
     rangeDays[cloneStart.format(getFormatDate({ isGregorian }))] = {
       status: stateRange(cloneStart, start, end),
     };
-    cloneStart.add("day", 1);
+    cloneStart.add(1, "d");
   }
 
   return rangeDays;
