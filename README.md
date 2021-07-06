@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
-🚨 I start to redesigning this package. [Here](https://www.figma.com/file/tuXbhHlGs8eQpL1l0NAHHe/Calender?node-id=0%3A1) you can see the new artboards that well designed by [eanlami](https://dribbble.com/eanlami). If you want to collabrate for this version feel free to make changes or [contact me](rzkhosroshahi@gmail.com) 😊
+🚨 I start to redesigning this package. [Here](https://www.figma.com/file/tuXbhHlGs8eQpL1l0NAHHe/Calender?node-id=0%3A1) you can see the new artboards that well designed by [eanlami](https://dribbble.com/eanlami). If you want to collabrate for this version feel free to make changes or [contact me](mailto:rzkhosroshahi@gmail.com) 😊
 
 ![alt-text](./help/banner.png)
 
