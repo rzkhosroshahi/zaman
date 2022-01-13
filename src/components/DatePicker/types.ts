@@ -9,6 +9,8 @@ export interface IDatePickerProps {
   ArrowRight?: React.ReactType;
   ClockIcon?: React.ReactType;
   DateIcon?: React.ReactType;
+  limitStart?: Moment;
+  limitEnd?: Moment;
   modalZIndex?: number;
   theme?: IDatePickerTheme;
   weekend?: number[];

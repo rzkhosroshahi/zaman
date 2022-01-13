@@ -1,7 +1,7 @@
 # Jalali React Date-Picker
 
 [![Build Status](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker.svg?branch=master)](https://travis-ci.org/rzkhosroshahi/react-jalali-datepicker)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 🚨 I start to redesigning this package. [Here](https://www.figma.com/file/tuXbhHlGs8eQpL1l0NAHHe/Calender?node-id=0%3A1) you can see the new artboards that well designed by [eanlami](https://dribbble.com/eanlami). If you want to collabrate for this version feel free to make changes or [contact me](rzkhosroshahi@gmail.com) 😊
 
@@ -30,6 +30,8 @@ React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. 
 | label               | string                              | default is null                                                                                                     |
 | open                | boolean                             | default is false. control opening and close modal from outside                                                      |
 | onToggle            | function                            | default is undefined. this function will be called when the modal open and close state is changed                   |
+| limitStart          | Moment                              | default is undefined. There is no limit initially                                                                   |
+| limitEnd            | Moment                              | default is undefined. There is no limit initially                                                                   |
 
 ## usage
 
@@ -111,8 +113,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars1.githubusercontent.com/u/11410506?v=4" width="100px;" alt="Reza Khosroshahi"/><br /><sub><b>Reza Khosroshahi</b></sub>](https://reza.blue)<br />[💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Code") [📖](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Documentation") [💡](#example-rzkhosroshahi "Examples") [🤔](#ideas-rzkhosroshahi "Ideas, Planning, & Feedback") [⚠️](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Tests") | [<img src="https://avatars2.githubusercontent.com/u/15178117?v=4" width="100px;" alt="saeedjalali"/><br /><sub><b>saeedjalali</b></sub>](http://saeedjalali.ir)<br />[💬](#question-saeedjalali1 "Answering Questions") [🐛](https://github.com/rzkhosroshahi/react-jalali-datepicker/issues?q=author%3Asaeedjalali1 "Bug reports") [💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=saeedjalali1 "Code") [🤔](#ideas-saeedjalali1 "Ideas, Planning, & Feedback") [👀](#review-saeedjalali1 "Reviewed Pull Requests") [📢](#talk-saeedjalali1 "Talks") | [<img src="https://avatars1.githubusercontent.com/u/13132435?v=4" width="100px;" alt="ZMashhadizadeh"/><br /><sub><b>ZMashhadizadeh</b></sub>](https://github.com/ZMashhadizadeh)<br />[💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=ZMashhadizadeh "Code") [📦](#platform-ZMashhadizadeh "Packaging/porting to new platform") |
-| :---: | :---: | :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/11410506?v=4" width="100px;" alt="Reza Khosroshahi"/><br /><sub><b>Reza Khosroshahi</b></sub>](https://reza.blue)<br />[💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Code") [📖](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Documentation") [💡](#example-rzkhosroshahi "Examples") [🤔](#ideas-rzkhosroshahi "Ideas, Planning, & Feedback") [⚠️](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=rzkhosroshahi "Tests") | [<img src="https://avatars2.githubusercontent.com/u/15178117?v=4" width="100px;" alt="saeedjalali"/><br /><sub><b>saeedjalali</b></sub>](http://saeedjalali.ir)<br />[💬](#question-saeedjalali1 "Answering Questions") [🐛](https://github.com/rzkhosroshahi/react-jalali-datepicker/issues?q=author%3Asaeedjalali1 "Bug reports") [💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=saeedjalali1 "Code") [🤔](#ideas-saeedjalali1 "Ideas, Planning, & Feedback") [👀](#review-saeedjalali1 "Reviewed Pull Requests") [📢](#talk-saeedjalali1 "Talks") | [<img src="https://avatars1.githubusercontent.com/u/13132435?v=4" width="100px;" alt="ZMashhadizadeh"/><br /><sub><b>ZMashhadizadeh</b></sub>](https://github.com/ZMashhadizadeh)<br />[💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=ZMashhadizadeh "Code") [📦](#platform-ZMashhadizadeh "Packaging/porting to new platform") | [<img src="https://avatars.githubusercontent.com/u/67825501?v=4" width="100px;" alt="M. Mahdi Gheysari"/><br /><sub><b>M. Mahdi Gheysari</b></sub>](https://github.com/mmgh900)<br />[💻](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=mmgh900 "Code") [📖](https://github.com/rzkhosroshahi/react-jalali-datepicker/commits?author=mmgh900 "Documentation") |
+| :---: | :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

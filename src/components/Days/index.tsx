@@ -106,6 +106,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                       {week.map((day: IDays, id) => (
                         <Day
                           key={day.utc}
+                          inactive={day.inactive}
                           data-testid={`day-${idx * 7 + id + 1}`}
                           data-fadate={`${day.faDate}`}
                           daysEvent={daysEventListeners}

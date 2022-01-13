@@ -50,7 +50,11 @@ export class DatePicker extends React.PureComponent<
   }
 
   public componentDidMount(): void {
-    const { monthName, days } = daysInMonth(this.state.cloneDays);
+    const { monthName, days } = daysInMonth(
+      this.state.cloneDays,
+      this.props.limitStart,
+      this.props.limitEnd,
+    );
     this.setState(prevState => {
       return {
         days: [...prevState.days, ...days],
@@ -69,7 +73,11 @@ export class DatePicker extends React.PureComponent<
       });
     }
     if (!prevState.cloneDays.isSame(this.state.cloneDays)) {
-      const { monthName, days } = daysInMonth(this.state.cloneDays);
+      const { monthName, days } = daysInMonth(
+        this.state.cloneDays,
+        this.props.limitStart,
+        this.props.limitEnd,
+      );
       this.setState(prevSetState => {
         return {
           days: [...prevSetState.days.slice(prevSetState.days.length), ...days],
