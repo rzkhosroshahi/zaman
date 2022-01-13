@@ -2,6 +2,9 @@ import styled from "../../theme";
 import { IDayProps } from "./types";
 
 export const NormalDay = styled("li")<IDayProps>`
+  &:hover {
+    filter: brightness(85%);
+  }
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -13,6 +16,12 @@ export const NormalDay = styled("li")<IDayProps>`
     props.selectedDay
       ? props.theme.selectDayBackColor
       : props.theme.daysBackColor};
+`;
+export const Inactive = styled(NormalDay)`
+  &:hover {
+    filter: none;
+  }
+  opacity: 20%;
 `;
 
 export const HolidayDay = styled(NormalDay)`

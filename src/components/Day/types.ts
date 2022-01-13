@@ -7,4 +7,5 @@ export interface IDayProps {
   daysEvent?: () => void;
   holiday?: number[];
   selectedDay?: boolean;
+  inactive?: boolean;
 }

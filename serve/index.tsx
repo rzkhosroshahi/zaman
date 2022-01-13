@@ -1,6 +1,7 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { DatePicker } from "../src";
+import moment = require("jalali-moment");
 
 // my favorite theme 😌
 const theme = {
@@ -44,7 +45,9 @@ const theme = {
 
 render(
   <DatePicker
-  // timePicker={false} // to disable timePicker
+  /*limitStart={moment.from("1400/10/11", "fa", "YYYY/MM/DD")}
+    limitEnd={moment.from("1400/10/30", "fa", "YYYY/MM/DD")}
+    timePicker={false} // to disable timePicker*/
   />,
   document.getElementById("root"),
 );

@@ -7,6 +7,7 @@ export interface IDays {
   utc: string;
   faDate: string;
   disable: boolean;
+  inactive: boolean;
 }
 
 export interface IDaysInMonth {
@@ -20,7 +21,11 @@ const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 const checkCurrentMonth = (date: Moment) =>
   moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
 
-export const daysInMonth = (date: Moment): IDaysInMonth => {
+export const daysInMonth = (
+  date: Moment,
+  limitStartDate?: Moment,
+  limitEndDate?: Moment,
+): IDaysInMonth => {
   const days: IDays[] = [];
   const clonedDate = date.clone();
   const monthName = `${clonedDate.locale("fa").format("jMMMM")} ${fa(
@@ -37,7 +42,6 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
   const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
-
   firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, "days");
 
   while (firstDayOfWeek.isBefore(lastDayOfWeek)) {
@@ -46,11 +50,17 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
       utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
       faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
       disable: checkDateMonth(date, firstDayOfWeek),
+      inactive: limitStartDate
+        ? !(
+            firstDayOfWeek.isSameOrAfter(limitStartDate) &&
+            firstDayOfWeek.isSameOrBefore(limitEndDate)
+          )
+        : null,
     });
+
     firstDayOfWeek.add(1, "days");
   }
 
-  // tslint:disable-next-line:no-console
   // console.log("days ", { monthName, month });
   return { monthName, month, days, ...today };
 };
