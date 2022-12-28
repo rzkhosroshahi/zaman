@@ -23,20 +23,28 @@ const checkCurrentMonth = (date: Moment) =>
   moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
 
 export const getExcludeDates = excludeDates => {
-  if (!excludeDates) return []
-  excludeDates.map(date => {
-  let mDate;
-  if (moment.isMoment(date)) 
-  mDate = date.locale('fa');
-  else if (date instanceof Date) 
-  mDate = moment(date as Date).locale('fa');
-  else if (typeof date == "string" && formatJalaliDate(date)) 
-  mDate = moment(date).locale('fa');
+  if (!excludeDates) {
+    return [];
+  }
+  return excludeDates
+    .map(date => {
+      let mDate;
+      if (moment.isMoment(date)) {
+        mDate = date.locale("fa");
+      } else if (date instanceof Date) {
+        mDate = moment(date as Date).locale("fa");
+      } else if (typeof date === "string" && formatJalaliDate(date)) {
+        mDate = moment(date).locale("fa");
+      }
 
-  return mDate.format("jYYYY/jMM/jDD")
-}).filter(Boolean);
-}
-export const checkExcludeDate = (excludeDates: string[], date: Moment) => excludeDates.some(exDate => formatJalaliDate(exDate) && exDate == date.format(formatDate))
+      return mDate.format("jYYYY/jMM/jDD");
+    })
+    .filter(Boolean);
+};
+export const checkExcludeDate = (excludeDates: string[], date: Moment) =>
+  excludeDates.some(
+    exDate => formatJalaliDate(exDate) && exDate === date.format(formatDate),
+  );
 
 export const daysInMonth = (
   date: Moment,
@@ -55,7 +63,7 @@ export const daysInMonth = (
       .format("jM"),
   );
 
-  const excludeDatesJMoment = getExcludeDates(excludeDates)
+  const excludeDatesJMoment = getExcludeDates(excludeDates);
 
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
@@ -69,7 +77,9 @@ export const daysInMonth = (
       utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
       faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
       disable: checkDateMonth(date, firstDayOfWeek),
-      exclude: !!(excludeDatesJMoment?.some(date => date == firstDayOfWeek.format("jYYYY/jMM/jDD")))
+      exclude: excludeDatesJMoment.some(
+        (eDate: string) => eDate === firstDayOfWeek.format("jYYYY/jMM/jDD"),
+      ),
     });
     firstDayOfWeek.add(1, "days");
   }
