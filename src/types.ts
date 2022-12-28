@@ -58,6 +58,7 @@ export interface IDatePickerTheme extends ITheme {
   timeNumberColor?: string;
   timeBackColor?: string;
   handBackColor?: string;
+  excludeDayOpacity?: string;
   handCircleColor?: string;
   selectedNumberColor?: string;
 }

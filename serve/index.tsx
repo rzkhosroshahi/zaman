@@ -44,7 +44,8 @@ const theme = {
 
 render(
   <DatePicker
-  // timePicker={false} // to disable timePicker
+    excludeDates={[new Date()]}
+    // timePicker={false} // to disable timePicker
   />,
   document.getElementById("root"),
 );

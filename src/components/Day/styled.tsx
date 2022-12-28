@@ -6,6 +6,9 @@ export const NormalDay = styled("li")<IDayProps>`
   cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
+  opacity: ${props =>
+    props.isExclude ? props.theme.excludeDayOpacity || ".5" : 1};
+  pointer-events: ${props => (props.isExclude ? "none" : "unset")};
   border-radius: ${props => props.theme.daysRound};
   color: ${props =>
     props.selectedDay ? props.theme.selectDayColor : props.theme.daysColor};

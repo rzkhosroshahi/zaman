@@ -116,6 +116,7 @@ export class Days extends React.PureComponent<IDaysProps> {
                           holiday={this.props.holiday.filter(
                             holiday => holiday === id,
                           )}
+                          isExclude={day.exclude}
                           {...boolDataset(day.disable)}
                         >
                           {!day.disable ? fa(day.day) : null}

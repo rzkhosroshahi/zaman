@@ -14,6 +14,7 @@ export interface IDatePickerProps {
   weekend?: number[];
   isRenderingButtons?: boolean;
   timePicker?: boolean;
+  excludeDates?: Date[] | string[] | Moment[];
   onClickSubmitButton?: (arg: any) => any;
   label: string;
   className: string | object;

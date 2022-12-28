@@ -2,7 +2,11 @@ import * as React from "react";
 import * as moment from "jalali-moment";
 import * as Icons from "../Icons";
 import MaskedInput from "react-text-mask";
-import { daysInMonth } from "../../utils/daysInMonth";
+import {
+  checkExcludeDate,
+  daysInMonth,
+  getExcludeDates,
+} from "../../utils/daysInMonth";
 import { defaultDatePickerTheme } from "../../theme";
 import { Modal } from "../Modal";
 import { Days } from "../Days";
@@ -31,13 +35,19 @@ export class DatePicker extends React.PureComponent<
     weekend: [6],
     DateIcon: Icons.DateIcon,
     ClockIcon: Icons.ClockIcon,
+    excludeDates: [],
     className: "dp__input",
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: moment(this.props.value),
+      value: checkExcludeDate(
+        getExcludeDates(this.props.excludeDates),
+        moment(this.props.value),
+      )
+        ? moment(this.props.value).add(1, "days")
+        : moment(this.props.value),
       cloneDays: moment(this.props.value),
       monthName: "",
       days: [],
@@ -50,7 +60,10 @@ export class DatePicker extends React.PureComponent<
   }
 
   public componentDidMount(): void {
-    const { monthName, days } = daysInMonth(this.state.cloneDays);
+    const { monthName, days } = daysInMonth(
+      this.state.cloneDays,
+      this.props.excludeDates,
+    );
     this.setState(prevState => {
       return {
         days: [...prevState.days, ...days],

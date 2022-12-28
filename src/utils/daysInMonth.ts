@@ -1,12 +1,14 @@
 import * as moment from "jalali-moment";
 import { Moment } from "jalali-moment";
-import { fa } from "./index";
+import { IDatePickerProps } from "../components/DatePicker/types";
+import { fa, formatDate, formatJalaliDate } from "./index";
 
 export interface IDays {
   day: string;
   utc: string;
   faDate: string;
   disable: boolean;
+  exclude: boolean;
 }
 
 export interface IDaysInMonth {
@@ -20,7 +22,26 @@ const checkDateMonth = (date, current) => current.jMonth() < date.jMonth();
 const checkCurrentMonth = (date: Moment) =>
   moment().format("jYYYY/jMM") === date.format("jYYYY/jMM");
 
-export const daysInMonth = (date: Moment): IDaysInMonth => {
+export const getExcludeDates = excludeDates => {
+  if (!excludeDates) return []
+  excludeDates.map(date => {
+  let mDate;
+  if (moment.isMoment(date)) 
+  mDate = date.locale('fa');
+  else if (date instanceof Date) 
+  mDate = moment(date as Date).locale('fa');
+  else if (typeof date == "string" && formatJalaliDate(date)) 
+  mDate = moment(date).locale('fa');
+
+  return mDate.format("jYYYY/jMM/jDD")
+}).filter(Boolean);
+}
+export const checkExcludeDate = (excludeDates: string[], date: Moment) => excludeDates.some(exDate => formatJalaliDate(exDate) && exDate == date.format(formatDate))
+
+export const daysInMonth = (
+  date: Moment,
+  excludeDates?: IDatePickerProps["excludeDates"],
+): IDaysInMonth => {
   const days: IDays[] = [];
   const clonedDate = date.clone();
   const monthName = `${clonedDate.locale("fa").format("jMMMM")} ${fa(
@@ -34,6 +55,8 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
       .format("jM"),
   );
 
+  const excludeDatesJMoment = getExcludeDates(excludeDates)
+
   const firstDayOfWeek = date.clone().startOf("jMonth");
   const lastDayOfWeek = date.clone().endOf("jMonth");
   const today = checkCurrentMonth(date) ? { today: date.format("jDD") } : null;
@@ -46,6 +69,7 @@ export const daysInMonth = (date: Moment): IDaysInMonth => {
       utc: new Date(firstDayOfWeek.clone().format("YYYY/M/DD")).toUTCString(),
       faDate: firstDayOfWeek.clone().format("jYYYY/jMM/jDD"),
       disable: checkDateMonth(date, firstDayOfWeek),
+      exclude: !!(excludeDatesJMoment?.some(date => date == firstDayOfWeek.format("jYYYY/jMM/jDD")))
     });
     firstDayOfWeek.add(1, "days");
   }
