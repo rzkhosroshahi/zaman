@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`day test  day  1`] = `"<li data-testid=\\"day-1\\" data-fadate=\\"1397/10/01\\" class=\\"sc-dnqmqq kBLrkd\\">01</li><li data-testid=\\"day-2\\" data-fadate=\\"1397/10/02\\" class=\\"sc-dnqmqq kBLrkd\\">02</li><li data-testid=\\"day-3\\" data-fadate=\\"1397/10/03\\" class=\\"sc-dnqmqq kBLrkd\\">03</li><li data-testid=\\"day-4\\" data-fadate=\\"1397/10/04\\" class=\\"sc-dnqmqq kBLrkd\\">04</li><li data-testid=\\"day-5\\" data-fadate=\\"1397/10/05\\" class=\\"sc-dnqmqq kBLrkd\\">05</li><li data-testid=\\"day-6\\" data-fadate=\\"1397/10/06\\" class=\\"sc-dnqmqq kBLrkd\\">06</li><li data-testid=\\"day-7\\" data-fadate=\\"1397/10/07\\" class=\\"sc-dnqmqq kBLrkd\\">07</li>"`;

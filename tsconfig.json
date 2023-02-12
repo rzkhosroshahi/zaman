@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
+    "module": "esnext",
     "outDir": "./dist",
     "moduleResolution": "node",
+    "noEmitOnError": true,
+    "lib": ["es2017", "DOM"],
+    "strict": true,
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
+    "rootDir": "./src",
     "jsx": "react",
-    "declaration": true,
-    "declarationMap": false,
-    "sourceMap": true,
-    "esModuleInterop": false
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "include": ["./src/**/*.tsx", "./client/**/*.tsx"],
+  "exclude": ["node_modules", "**/__tests__/*"],
 }

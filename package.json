@@ -3,19 +3,15 @@
   "version": "1.2.1",
   "description": "React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.",
   "main": "dist/index.js",
-  "module": "dist/index.module.js",
-  "umd": "dist/index.umd.js",
+  "type": "module",
   "scripts": {
     "test:e2e:dev": "npm-run-all --parallel dev cyp:open",
     "test": "NODE_ENV=test jest",
-    "cyp:open": "cypress open",
     "test:watch": "NODE_ENV=test jest --watchAll",
     "test:update": "NODE_ENV=test jest -- -u",
-    "build": "rollup -c rollup.config.js",
-    "watch": "rollup -cw",
-    "dev": "parcel serve/index.html --out-dir build",
-    "start": "npm-run-all --parallel watch dev",
-    "prepublish": "npm run build",
+    "build": "rollup -c",
+    "dev": "vite",
+    "watch": "rollup -c rollup.config.js -w",
     "lint": "tslint --project .",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
@@ -25,9 +21,7 @@
     "url": "git@github.com:rzkhosroshahi/react-jalali-datepicker.git"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && npm run lint && npm run test"
-    }
+    "hooks": {}
   },
   "keywords": [
     "datepicker",
@@ -41,58 +35,29 @@
     "url": "https://github.com/rzkhosroshahi/react-jalali-datepicker/issues"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/react": "^16.8.3",
-    "@types/react-dom": "^16.8.1",
-    "@types/styled-components": "^5.1.4",
-    "all-contributors-cli": "^5.4.1",
-    "cypress": "^3.1.5",
-    "cypress-testing-library": "^2.3.6",
-    "husky": "^1.1.4",
-    "jest": "^23.6.0",
-    "jest-styled-components": "^6.3.1",
-    "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.11.0",
-    "prettier": "^1.15.2",
-    "pretty-quick": "^1.8.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-testing-library": "^5.8.0",
-    "react-text-mask": "^5.4.3",
-    "rollup": "^2.32.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.28.0",
-    "styled-components": "^4.1.2",
-    "ts-jest": "^23.10.4",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.16.0",
-    "typescript": "^4.0.3"
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.13.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.15.0",
+    "typescript": "*",
+    "vite": "^4.1.0"
   },
   "dependencies": {
-    "jalali-moment": "^3.3.1"
-  },
-  "prettier": {
-    "trailingComma": "all"
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "transform": {
-      "^.+\\.(tsx|ts)?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "jalali-moment": "^3.3.11"
   }
 }
