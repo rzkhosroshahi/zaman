@@ -3,6 +3,8 @@
     "target": "es2018",
     "module": "esnext",
     "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./types",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "lib": ["es2017", "DOM"],
@@ -12,6 +14,6 @@
     "rootDir": "./src",
     "jsx": "react",
   },
-  "include": ["./src/**/*.tsx", "./client/**/*.tsx"],
+  "include": ["./src/**/*.tsx"],
   "exclude": ["node_modules", "**/__tests__/*"],
 }

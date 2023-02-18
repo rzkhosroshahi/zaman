@@ -8,7 +8,7 @@ export default {
     format: 'es'
   },
   plugins: [
-    typescript({ compilerOptions: { lib: ['es5', 'es6', 'dom'], target: 'es5' } }),
+    typescript({ tsconfig: './tsconfig.json' }),
     resolve({
       browser: true
     })
