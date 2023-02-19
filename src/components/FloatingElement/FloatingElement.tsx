@@ -13,8 +13,11 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
 
     if (destinationRef != null && floatWrapperRef !== null) {
       const floatWrapper = floatWrapperRef.current
+      if (floatWrapper === null) {
+        return
+      }
       const { top: destTop, bottom: destBottom, right: destRight, left: destLeft } = destinationRef?.current?.getBoundingClientRect() as DOMRect
-      const { height: itemsHeight } = floatWrapper?.getBoundingClientRect() as DOMRect
+      const { height: itemsHeight } = floatWrapper?.getBoundingClientRect()
       const isThereSpaceBelowDest = (window.innerHeight - destBottom) > itemsHeight
 
       if (isThereSpaceBelowDest) {
@@ -23,15 +26,11 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
         top = (destTop + window.scrollY) - itemsHeight - (gap * 2)
       }
 
-      if (floatWrapper != null) {
-        floatWrapper.style.top = `${top + gap}px`
-      }
+      floatWrapper.style.top = `${top + gap}px`
 
-      if (floatWrapper != null && isRtl()) {
+      if (isRtl()) {
         floatWrapper.style.right = `${(document.body.clientWidth - destRight) * -1}px`
-      }
-
-      if (floatWrapper != null && !isRtl()) {
+      } else {
         floatWrapper.style.left = `${(destLeft)}px`
       }
     }
