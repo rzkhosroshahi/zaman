@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import type { FloatingElementProps } from './FloatingElement.types'
 import { Wrapper } from './FloatingElement.styled'
+import { isRtl } from '../../utils'
 
 const FloatingElement: React.FC<FloatingElementProps> = (props) => {
   const { children, destinationRef } = props
@@ -12,7 +13,7 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
 
     if (destinationRef != null && floatWrapperRef !== null) {
       const floatWrapper = floatWrapperRef.current
-      const { top: destTop, bottom: destBottom, right: destRight } = destinationRef?.current?.getBoundingClientRect() as DOMRect
+      const { top: destTop, bottom: destBottom, right: destRight, left: destLeft } = destinationRef?.current?.getBoundingClientRect() as DOMRect
       const { height: itemsHeight } = floatWrapper?.getBoundingClientRect() as DOMRect
       const isThereSpaceBelowDest = (window.innerHeight - destBottom) > itemsHeight
 
@@ -24,7 +25,14 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
 
       if (floatWrapper != null) {
         floatWrapper.style.top = `${top + gap}px`
+      }
+
+      if (floatWrapper != null && isRtl()) {
         floatWrapper.style.right = `${(document.body.clientWidth - destRight) * -1}px`
+      }
+
+      if (floatWrapper != null && !isRtl()) {
+        floatWrapper.style.left = `${(destLeft)}px`
       }
     }
   }, [destinationRef])
