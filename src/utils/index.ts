@@ -5,3 +5,12 @@ export const isRtl = (): boolean => {
   const { body } = document
   return getComputedStyle(body).direction === 'rtl'
 }
+
+export const faNumber = (n: string) => {
+  if (process.env.NODE_ENV === 'test') {
+    return n
+  }
+  return Number(n).toLocaleString('fa', {
+    useGrouping: false
+  })
+}
