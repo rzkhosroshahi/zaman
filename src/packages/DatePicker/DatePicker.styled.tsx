@@ -28,5 +28,4 @@ export const Day = styled.div`
   justify-content: center;
   width: ${ITEMS_WIDTH}px;
   min-height: 240px;
-  background-color: wheat;
 `
