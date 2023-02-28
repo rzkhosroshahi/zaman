@@ -11,9 +11,8 @@
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "rootDir": "./src",
     "jsx": "react",
   },
-  "include": ["./src"],
-  "exclude": ["node_modules", "**/__tests__/*"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
