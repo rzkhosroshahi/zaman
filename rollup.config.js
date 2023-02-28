@@ -14,7 +14,7 @@ export default {
     }
   ],
   plugins: [
-    typescript({ tsconfig: './tsconfig.json' }),
+    typescript({ tsconfig: './tsconfig.json', exclude: ['**/__tests__', '**/*.test.ts', 'client/**/*'] }),
     resolve({
       browser: true
     }),

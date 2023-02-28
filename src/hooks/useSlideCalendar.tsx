@@ -4,6 +4,7 @@ import moment, { type Moment } from 'jalali-moment'
 import { isRtl } from '../utils'
 import { daysInMonth, type IDaysInMonth } from '../utils/daysInMonth'
 import { ITEMS_WIDTH, TIME, ANIMATE_FUNC } from '../constants'
+import type { DatePickerValue } from '../types'
 
 const toRight = () => {
   if (isRtl()) {
@@ -16,10 +17,11 @@ interface UseSliderTypes {
   daysElementRefs: RefObject<HTMLDivElement[]>
   days: IDaysInMonth[]
   setDays: Dispatch<SetStateAction<IDaysInMonth[]>>
+  value: DatePickerValue
 }
-export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTypes) => {
+export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseSliderTypes) => {
   const isAnimating = useRef(false)
-  const now = useRef<Moment>(moment())
+  const now = useRef<Moment>(moment(value))
 
   const slideToTheNextMonth = () => {
     if (isAnimating.current) {

@@ -13,6 +13,6 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "client/**/*"],
   "exclude": ["node_modules"]
 }
