@@ -1,13 +1,7 @@
-import moment from 'jalali-moment'
 import type { Moment } from 'jalali-moment'
+import moment from 'jalali-moment'
 import { faNumber } from './index'
-
-export interface IDays {
-  day: string
-  utc: string
-  faDate: string
-  disable: boolean
-}
+import type { IDays } from '../types'
 
 export interface IDaysInMonth {
   id: number
