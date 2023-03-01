@@ -6,9 +6,13 @@ import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import type { DatePickerProps } from './DatePicker.types'
 import type { DatePickerValue, IDays } from '../../types'
 import { chunk } from '../../utils/chunk'
-import { faNumber } from '../../utils'
-import { Container, SlideDays, Wrapper, WrapperDays, Days, Header, HeaderTitle, SubHeader } from './DatePicker.styled'
+import { faNumber, weekDayNames } from '../../utils'
+import { Container, SlideDays, Wrapper, WrapperDays, Days, Header, HeaderTitle, SubHeader, DayName } from './DatePicker.styled'
 import CalendarItem from '../../components/CalendarItem'
+import ChevronRight from '../../components/Icons/ChevronRight'
+import ChevronLeft from '../../components/Icons/ChevronLeft'
+import IconButton from '../../components/IconButton'
+import { ITEMS_WIDTH } from '../../constants'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange } = props
@@ -24,6 +28,9 @@ export const DatePicker = (props: DatePickerProps) => {
     useSlideCalendar({ daysElementRefs, days, setDays, value })
 
   const handleSelectDay = (day: IDays) => {
+    if (day.disable) {
+      return
+    }
     setValue(day.utc)
 
     if (typeof onChange === 'function') {
@@ -34,25 +41,34 @@ export const DatePicker = (props: DatePickerProps) => {
   }
   return (
     <div>
-      <button onClick={handlers.slideToPrevMonth}>{'<'}</button>
       <input
         ref={inputRef}
         onClick={() => setShowCalendar(true)}
         type="text"
+        style={{ width: ITEMS_WIDTH, fontFamily: 'inherit' }}
         value={moment(value).format('jYYYY/jMM/jDD')}
         readOnly
       />
-      <button onClick={handlers.slideToTheNextMonth}> {'>'} </button>
       { showCalendar
         ? <FloatingElement destinationRef={inputRef}>
             <Container>
               <Wrapper>
                 <Header>
+                  <IconButton onClick={handlers.slideToPrevMonth}>
+                    <ChevronRight />
+                  </IconButton>
                   <HeaderTitle>
                     {days[0].monthName}
                   </HeaderTitle>
+                  <IconButton onClick={handlers.slideToTheNextMonth}>
+                    <ChevronLeft />
+                  </IconButton>
                 </Header>
-                <SubHeader />
+                <SubHeader>
+                  {weekDayNames.map((name) => (
+                    <DayName key={name}>{name}</DayName>
+                  ))}
+                </SubHeader>
                 <WrapperDays>
                   {
                     days.map((day, idx) => (

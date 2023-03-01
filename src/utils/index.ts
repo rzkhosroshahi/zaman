@@ -14,3 +14,5 @@ export const faNumber = (n: string) => {
     useGrouping: false
   })
 }
+
+export const weekDayNames = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج']
