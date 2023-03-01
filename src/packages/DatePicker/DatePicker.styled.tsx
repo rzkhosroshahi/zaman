@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
   width: ${ITEMS_WIDTH}px;
-  min-height: 340px;
+  min-height: 372px;
   border: 1px solid #cccc;
   border-radius: 16px;
 `
@@ -19,35 +19,35 @@ export const WrapperDays = styled.div`
   display: flex;
   position: absolute;
   overflow: hidden;
+  right: 8px;
 `
 
 export const SlideDays = styled.div`
   will-change: transform;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
   width: ${ITEMS_WIDTH}px;
-  min-height: 340px;
   gap: 4px;
 `
 export const Days = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 4px;
 `
-export const Day = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
+
+export const Header = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  
-  &:hover {
-    background-color: wheat;
-  }
+  align-items: center;
+  height: 56px;
+  background-color: #E6F4FE;
+`
+
+export const HeaderTitle = styled.div`
+`
+
+export const SubHeader = styled.div`
+  margin-top: 12px;
+  margin-bottom: 8px;
+  background-color: #ccc;
+  height: 24px;
 `

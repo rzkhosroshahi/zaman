@@ -1,33 +1,58 @@
 import React, { useRef, useState } from 'react'
 import moment from 'jalali-moment'
 import FloatingElement from '../../components/FloatingElement'
-import { daysInMonth, type IDaysInMonth } from '../../utils/daysInMonth'
-import { Container, SlideDays, Wrapper, WrapperDays, Days, Day } from './DatePicker.styled'
+import { daysInMonth, getMomentFormatted, type IDaysInMonth } from '../../utils/daysInMonth'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import type { DatePickerProps } from './DatePicker.types'
-import { type DatePickerValue, type IDays } from '../../types'
+import type { DatePickerValue, IDays } from '../../types'
 import { chunk } from '../../utils/chunk'
+import { faNumber } from '../../utils'
+import { Container, SlideDays, Wrapper, WrapperDays, Days, Header, HeaderTitle, SubHeader } from './DatePicker.styled'
+import CalendarItem from '../../components/CalendarItem'
 
 export const DatePicker = (props: DatePickerProps) => {
+  const { defaultValue, onChange } = props
+
   const inputRef = useRef<HTMLInputElement>(null)
-  const [showCalendar, setShowCalendar] = useState<boolean>(false)
-  const [value, setValue] = useState<DatePickerValue>(props.value !== undefined ? props.value : new Date())
-  const today = useRef(daysInMonth(moment(value)))
-  const [days, setDays] = useState<IDaysInMonth[]>([today.current])
   const daysElementRefs = useRef<HTMLDivElement[]>([])
+
+  const [value, setValue] = useState<DatePickerValue>(defaultValue !== undefined ? defaultValue : new Date())
+  const [days, setDays] = useState<IDaysInMonth[]>([daysInMonth(value)])
+  const [showCalendar, setShowCalendar] = useState<boolean>(false)
+
   const handlers =
     useSlideCalendar({ daysElementRefs, days, setDays, value })
 
+  const handleSelectDay = (day: IDays) => {
+    setValue(day.utc)
+
+    if (typeof onChange === 'function') {
+      onChange(day)
+    }
+    setShowCalendar(false)
+    return day
+  }
   return (
     <div>
       <button onClick={handlers.slideToPrevMonth}>{'<'}</button>
-      <input ref={inputRef} onClick={() => { setShowCalendar(true) }} type="text" value={moment(value).format('jYYYY/jMM/jDD')} />
+      <input
+        ref={inputRef}
+        onClick={() => setShowCalendar(true)}
+        type="text"
+        value={moment(value).format('jYYYY/jMM/jDD')}
+        readOnly
+      />
       <button onClick={handlers.slideToTheNextMonth}> {'>'} </button>
       { showCalendar
         ? <FloatingElement destinationRef={inputRef}>
             <Container>
               <Wrapper>
-                {days[0].monthName}
+                <Header>
+                  <HeaderTitle>
+                    {days[0].monthName}
+                  </HeaderTitle>
+                </Header>
+                <SubHeader />
                 <WrapperDays>
                   {
                     days.map((day, idx) => (
@@ -40,7 +65,16 @@ export const DatePicker = (props: DatePickerProps) => {
                           chunk(day.days, 7).map((weeks, id) => (
                             <Days key={id}>
                               {
-                                (weeks as IDays[]).map((day) => (<Day key={day.utc}>{day.day}</Day>))
+                                (weeks as IDays[]).map((day) => (
+                                  <CalendarItem
+                                    key={day.utc}
+                                    selected={getMomentFormatted(value) === day.faDate}
+                                    disabled={day.disable}
+                                    onClick={() => handleSelectDay(day)}
+                                  >
+                                    {faNumber(day.day)}
+                                  </CalendarItem>
+                                ))
                               }
                             </Days>
                           ))
@@ -55,6 +89,10 @@ export const DatePicker = (props: DatePickerProps) => {
         : null }
     </div>
   )
+}
+
+DatePicker.defaultProps = {
+  locale: 'fa'
 }
 
 export default DatePicker

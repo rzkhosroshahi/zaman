@@ -23,5 +23,6 @@ module.exports = {
       {'ts-ignore': 'allow-with-description'},
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
   }
 }

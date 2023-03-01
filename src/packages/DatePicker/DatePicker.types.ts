@@ -1,5 +1,7 @@
-import type { DatePickerValue } from '../../types'
+import type { DatePickerValue, IDays, Locales } from '../../types'
 
 export interface DatePickerProps {
-  value?: DatePickerValue
+  defaultValue?: DatePickerValue
+  locale?: keyof Locales
+  onChange?: (value: IDays) => void
 }

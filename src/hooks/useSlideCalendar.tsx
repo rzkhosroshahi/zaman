@@ -52,7 +52,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseS
         lastItemRef.style.transition = null
         lastItemRef.style.transform = null
         isAnimating.current = false
-      }, TIME)
+      }, TIME + 50)
     })
   }
   const slideToPrevMonth = () => {
@@ -88,7 +88,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseS
           firstItemRef.style.transform = null
           now.current = prevMonth
           isAnimating.current = false
-        }, TIME)
+        }, TIME + 50)
       })
     })
   }
