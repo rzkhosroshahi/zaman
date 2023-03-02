@@ -13,37 +13,43 @@ import ChevronRight from '../../components/Icons/ChevronRight'
 import ChevronLeft from '../../components/Icons/ChevronLeft'
 import IconButton from '../../components/IconButton'
 import { ITEMS_WIDTH } from '../../constants'
+import useClickOutside from '../../hooks/useClickOutside'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange } = props
-
+  // refs
   const inputRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const daysElementRefs = useRef<HTMLDivElement[]>([])
-
+  // states
   const [value, setValue] = useState<DatePickerValue>(defaultValue !== undefined ? defaultValue : new Date())
   const [days, setDays] = useState<IDaysInMonth[]>([daysInMonth(value)])
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
-
+  // hooks
   const handlers =
     useSlideCalendar({ daysElementRefs, days, setDays, value })
+  useClickOutside(containerRef, () => setShowCalendar(false))
+  // handlers
+  const toggleShowCalendar = () => {
+    setShowCalendar(!showCalendar)
+  }
 
   const handleSelectDay = (day: IDays) => {
     if (day.disable) {
       return
     }
-    setValue(day.utc)
 
+    setValue(day.utc)
     if (typeof onChange === 'function') {
       onChange(day)
     }
-    setShowCalendar(false)
     return day
   }
   return (
-    <div>
+    <div ref={containerRef}>
       <input
         ref={inputRef}
-        onClick={() => setShowCalendar(true)}
+        onClick={toggleShowCalendar}
         type="text"
         style={{ width: ITEMS_WIDTH, fontFamily: 'inherit' }}
         value={moment(value).format('jYYYY/jMM/jDD')}
