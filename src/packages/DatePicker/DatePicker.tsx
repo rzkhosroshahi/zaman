@@ -1,22 +1,19 @@
 import React, { useRef, useState } from 'react'
 import moment from 'jalali-moment'
+import Header from '../../components/Header'
 import FloatingElement from '../../components/FloatingElement'
-import { daysInMonth, getMomentFormatted, type IDaysInMonth } from '../../utils/daysInMonth'
+import CalendarItem from '../../components/CalendarItem'
+import useClickOutside from '../../hooks/useClickOutside'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
+import { daysInMonth, getMomentFormatted, type IDaysInMonth } from '../../utils/daysInMonth'
+import { chunk } from '../../utils/chunk'
+import { faNumber } from '../../utils'
+import { SlideDays, Wrapper, WrapperDays, Days } from './DatePicker.styled'
 import type { DatePickerProps } from './DatePicker.types'
 import type { DatePickerValue, IDays } from '../../types'
-import { chunk } from '../../utils/chunk'
-import { faNumber, weekDayNames } from '../../utils'
-import { Container, SlideDays, Wrapper, WrapperDays, Days, Header, HeaderTitle, SubHeader, DayName } from './DatePicker.styled'
-import CalendarItem from '../../components/CalendarItem'
-import ChevronRight from '../../components/Icons/ChevronRight'
-import ChevronLeft from '../../components/Icons/ChevronLeft'
-import IconButton from '../../components/IconButton'
-import { ITEMS_WIDTH } from '../../constants'
-import useClickOutside from '../../hooks/useClickOutside'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange } = props
+  const { defaultValue, onChange, round = 'roundX2' } = props
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -51,70 +48,53 @@ export const DatePicker = (props: DatePickerProps) => {
         ref={inputRef}
         onClick={toggleShowCalendar}
         type="text"
-        style={{ width: ITEMS_WIDTH, fontFamily: 'inherit' }}
         value={moment(value).format('jYYYY/jMM/jDD')}
         readOnly
       />
       { showCalendar
         ? <FloatingElement destinationRef={inputRef}>
-            <Container>
-              <Wrapper>
-                <Header>
-                  <IconButton onClick={handlers.slideToPrevMonth}>
-                    <ChevronRight />
-                  </IconButton>
-                  <HeaderTitle>
-                    {days[0].monthName}
-                  </HeaderTitle>
-                  <IconButton onClick={handlers.slideToTheNextMonth}>
-                    <ChevronLeft />
-                  </IconButton>
-                </Header>
-                <SubHeader>
-                  {weekDayNames.map((name) => (
-                    <DayName key={name}>{name}</DayName>
-                  ))}
-                </SubHeader>
-                <WrapperDays>
-                  {
-                    days.map((day, idx) => (
-                      <SlideDays
-                        key={day.id}
-                        className="item"
-                        ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
-                      >
-                        {
-                          chunk(day.days, 7).map((weeks, id) => (
-                            <Days key={id}>
-                              {
-                                (weeks as IDays[]).map((day) => (
-                                  <CalendarItem
-                                    key={day.utc}
-                                    selected={getMomentFormatted(value) === day.faDate}
-                                    disabled={day.disable}
-                                    onClick={() => handleSelectDay(day)}
-                                  >
-                                    {faNumber(day.day)}
-                                  </CalendarItem>
-                                ))
-                              }
-                            </Days>
-                          ))
-                        }
-                      </SlideDays>
-                    ))
-                  }
-                </WrapperDays>
-              </Wrapper>
-            </Container>
+            <Wrapper round={round} className="ddd">
+              <Header
+                monthName={days[0].monthName}
+                onNextClick={handlers.slideToTheNextMonth}
+                onPrevClick={handlers.slideToPrevMonth}
+              />
+              <WrapperDays>
+                {
+                  days.map((day, idx) => (
+                    <SlideDays
+                      key={day.id}
+                      className="item"
+                      ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
+                    >
+                      {
+                        chunk(day.days, 7).map((weeks, id) => (
+                          <Days key={id}>
+                            {
+                              (weeks as IDays[]).map((day) => (
+                                <CalendarItem
+                                  key={day.utc}
+                                  selected={getMomentFormatted(value) === day.faDate}
+                                  disabled={day.disable}
+                                  onClick={() => handleSelectDay(day)}
+                                  round={round}
+                                >
+                                  {faNumber(day.day)}
+                                </CalendarItem>
+                              ))
+                            }
+                          </Days>
+                        ))
+                      }
+                    </SlideDays>
+                  ))
+                }
+              </WrapperDays>
+            </Wrapper>
         </FloatingElement>
         : null }
     </div>
   )
-}
-
-DatePicker.defaultProps = {
-  locale: 'fa'
 }
 
 export default DatePicker

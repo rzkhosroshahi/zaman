@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import type { CalendarItemProps } from './CalendarItem.types'
+import { radius } from '../../style/radius'
 
 export const CalendarItem = styled.div<CalendarItemProps>`
   display: flex;
@@ -7,7 +8,6 @@ export const CalendarItem = styled.div<CalendarItemProps>`
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 16px;
   border: 1px solid transparent;
   transition: all 0.2s ease-in;
   user-select: none;
@@ -21,6 +21,7 @@ export const CalendarItem = styled.div<CalendarItemProps>`
   background-color: ${props => ((props?.selected) === true) && '#0184DC'};
   color: ${props => ((props?.selected) === true) && '#fff'};
   opacity: ${props => ((props?.disabled) === true) && '0.5'};
+  border-radius: ${props => radius[props.round].calendarItem}px;
 `
 
 export default CalendarItem
