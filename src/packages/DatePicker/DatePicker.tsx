@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import moment from 'jalali-moment'
+import { ThemeProvider } from '@emotion/react'
 import Header from '../../components/Header'
 import CalendarItem from '../../components/CalendarItem'
 import RenderCalendar from '../../components/RenderCalendar'
@@ -8,12 +9,16 @@ import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import { daysInMonth, getMomentFormatted, type IDaysInMonth } from '../../utils/daysInMonth'
 import { chunk } from '../../utils/chunk'
 import { faNumber } from '../../utils'
-import { SlideDays, Wrapper, WrapperDays, Days } from './DatePicker.styled'
-import type { DatePickerProps } from './DatePicker.types'
+import { Days, SlideDays, Wrapper, WrapperDays } from './DatePicker.styled'
+import { makeColorPallet } from '../../style/colorPallete'
+import { ACCENT_COLOR } from '../../constants'
+import type { DatePickerProps, Theme } from './DatePicker.types'
 import type { DatePickerValue, IDays } from '../../types'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, round = 'roundX2' } = props
+  const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR } = props
+  const colors = useMemo(() => makeColorPallet(accentColor), [])
+
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -42,8 +47,9 @@ export const DatePicker = (props: DatePickerProps) => {
     }
     return day
   }
+  const theme: Theme = { colors, round }
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <input
         ref={inputRef}
         onClick={toggleShowCalendar}
@@ -56,7 +62,7 @@ export const DatePicker = (props: DatePickerProps) => {
         showCalendar={showCalendar}
         destinationRef={inputRef}
       >
-        <Wrapper round={round} className="ddd" ref={containerRef}>
+        <Wrapper round={round} ref={containerRef}>
           <Header
             monthName={days[0].monthName}
             onNextClick={handlers.slideToTheNextMonth}
@@ -80,7 +86,6 @@ export const DatePicker = (props: DatePickerProps) => {
                               selected={getMomentFormatted(value) === day.faDate}
                               disabled={day.disable}
                               onClick={() => handleSelectDay(day)}
-                              round={round}
                             >
                               {faNumber(day.day)}
                             </CalendarItem>
@@ -95,7 +100,7 @@ export const DatePicker = (props: DatePickerProps) => {
           </WrapperDays>
         </Wrapper>
       </RenderCalendar>
-    </div>
+    </ThemeProvider>
   )
 }
 

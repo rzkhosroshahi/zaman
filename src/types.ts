@@ -1,5 +1,6 @@
 import type { Moment } from 'jalali-moment'
-
+import '@emotion/react'
+import type { Radius } from './style/radius'
 export type DatePickerValue = number | Date | Moment | string
 
 export interface IDays {
@@ -12,4 +13,11 @@ export interface IDays {
 export enum Locales {
   fa,
   en,
+}
+
+declare module '@emotion/react' {
+  export interface Theme {
+    colors: Record<number, string>
+    round: keyof typeof Radius
+  }
 }

@@ -6,4 +6,10 @@ export interface DatePickerProps {
   locale?: keyof Locales
   onChange?: (value: IDays) => void
   round?: keyof typeof Radius
+  accentColor?: string
+}
+
+export interface Theme {
+  colors: Record<number, string>
+  round: keyof typeof Radius
 }
