@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import moment from 'jalali-moment'
 import Header from '../../components/Header'
-import FloatingElement from '../../components/FloatingElement'
 import CalendarItem from '../../components/CalendarItem'
+import RenderCalendar from '../../components/RenderCalendar'
 import useClickOutside from '../../hooks/useClickOutside'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import { daysInMonth, getMomentFormatted, type IDaysInMonth } from '../../utils/daysInMonth'
@@ -43,7 +43,7 @@ export const DatePicker = (props: DatePickerProps) => {
     return day
   }
   return (
-    <div ref={containerRef}>
+    <div>
       <input
         ref={inputRef}
         onClick={toggleShowCalendar}
@@ -51,48 +51,50 @@ export const DatePicker = (props: DatePickerProps) => {
         value={moment(value).format('jYYYY/jMM/jDD')}
         readOnly
       />
-      { showCalendar
-        ? <FloatingElement destinationRef={inputRef}>
-            <Wrapper round={round} className="ddd">
-              <Header
-                monthName={days[0].monthName}
-                onNextClick={handlers.slideToTheNextMonth}
-                onPrevClick={handlers.slideToPrevMonth}
-              />
-              <WrapperDays>
-                {
-                  days.map((day, idx) => (
-                    <SlideDays
-                      key={day.id}
-                      className="item"
-                      ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
-                    >
-                      {
-                        chunk(day.days, 7).map((weeks, id) => (
-                          <Days key={id}>
-                            {
-                              (weeks as IDays[]).map((day) => (
-                                <CalendarItem
-                                  key={day.utc}
-                                  selected={getMomentFormatted(value) === day.faDate}
-                                  disabled={day.disable}
-                                  onClick={() => handleSelectDay(day)}
-                                  round={round}
-                                >
-                                  {faNumber(day.day)}
-                                </CalendarItem>
-                              ))
-                            }
-                          </Days>
-                        ))
-                      }
-                    </SlideDays>
-                  ))
-                }
-              </WrapperDays>
-            </Wrapper>
-        </FloatingElement>
-        : null }
+      <RenderCalendar
+        toggleOpen={toggleShowCalendar}
+        showCalendar={showCalendar}
+        destinationRef={inputRef}
+      >
+        <Wrapper round={round} className="ddd" ref={containerRef}>
+          <Header
+            monthName={days[0].monthName}
+            onNextClick={handlers.slideToTheNextMonth}
+            onPrevClick={handlers.slideToPrevMonth}
+          />
+          <WrapperDays>
+            {
+              days.map((day, idx) => (
+                <SlideDays
+                  key={day.id}
+                  className="item"
+                  ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
+                >
+                  {
+                    chunk(day.days, 7).map((weeks, id) => (
+                      <Days key={id}>
+                        {
+                          (weeks as IDays[]).map((day) => (
+                            <CalendarItem
+                              key={day.utc}
+                              selected={getMomentFormatted(value) === day.faDate}
+                              disabled={day.disable}
+                              onClick={() => handleSelectDay(day)}
+                              round={round}
+                            >
+                              {faNumber(day.day)}
+                            </CalendarItem>
+                          ))
+                        }
+                      </Days>
+                    ))
+                  }
+                </SlideDays>
+              ))
+            }
+          </WrapperDays>
+        </Wrapper>
+      </RenderCalendar>
     </div>
   )
 }

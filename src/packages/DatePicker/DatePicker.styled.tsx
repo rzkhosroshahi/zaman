@@ -9,6 +9,7 @@ export const Wrapper = styled.div <Partial<DatePickerProps>>`
   width: ${ITEMS_WIDTH}px;
   min-height: 372px;
   border: 1px solid #cccc;
+  background-color: #fff;
   border-radius: ${props => props.round !== undefined && radius[props.round].wrapper}px;
 `
 
