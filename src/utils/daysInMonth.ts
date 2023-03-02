@@ -21,7 +21,7 @@ export const getMomentFormatted = (date: DatePickerValue, locale: keyof typeof L
   return moment(date).format(format)
 }
 
-const checkDateMonth = (date: moment.Moment, current: moment.Moment) => current.jMonth() < date.jMonth()
+const checkDateMonth = (date: moment.Moment, current: moment.Moment) => current.jMonth() !== date.jMonth()
 const checkCurrentMonth = (date: Moment) =>
   moment().format('jYYYY/jMM') === date.format('jYYYY/jMM')
 
@@ -41,7 +41,7 @@ export const daysInMonth = (value: DatePickerValue, locale: string = 'fa'): IDay
   )
 
   const firstDayOfWeek = date.clone().startOf('jMonth')
-  const lastDayOfWeek = date.clone().endOf('jMonth')
+  const lastDayOfWeek = date.clone().add(3, 'week').endOf('jMonth')
   const today = checkCurrentMonth(date) ? { today: date.format('jDD') } : null
 
   firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, 'days')

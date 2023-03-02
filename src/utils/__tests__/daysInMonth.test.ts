@@ -8,12 +8,6 @@ test('month name and month', () => {
   expect(date.month).toBe(5)
 })
 
-test('last month day disable property should be false', () => {
-  const momentDate = moment('2018/08/09', 'YYYY/MM/DD')
-  const { days } = daysInMonth(momentDate)
-  expect(days[days.length - 1].disable).toBe(false)
-})
-
 test('next month', () => {
   const momentDate = moment('2018/08/09', 'YYYY/MM/DD')
   const nextMonth = momentDate.clone().add(1, 'month')
