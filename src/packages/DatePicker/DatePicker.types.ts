@@ -1,11 +1,12 @@
-import type { DatePickerValue, IDays } from '../../types'
+import type { DatePickerValue } from '../../types'
 import type { Radius } from '../../style/radius'
 
 export interface DatePickerProps {
   defaultValue?: DatePickerValue
-  onChange?: (value: IDays) => void
+  onChange?: (value: Date) => void
   round?: keyof typeof Radius
   accentColor?: string
+  locale?: string
 }
 
 export interface Theme {

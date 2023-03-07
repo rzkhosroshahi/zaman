@@ -1,10 +1,11 @@
+import dayjs from 'dayjs'
 import { useRef } from 'react'
 import type { Dispatch, RefObject, SetStateAction } from 'react'
-import moment, { type Moment } from 'jalali-moment'
 import { isRtl } from '../utils'
-import { daysInMonth, type IDaysInMonth } from '../utils/daysInMonth'
 import { ITEMS_WIDTH, TIME, ANIMATE_FUNC } from '../constants'
 import type { DatePickerValue } from '../types'
+import getDays from '../utils/month'
+import type { DaysInMonth } from '../utils/month/month.types'
 
 const toRight = () => {
   if (isRtl()) {
@@ -15,20 +16,21 @@ const toRight = () => {
 
 interface UseSliderTypes {
   daysElementRefs: RefObject<HTMLDivElement[]>
-  days: IDaysInMonth[]
-  setDays: Dispatch<SetStateAction<IDaysInMonth[]>>
   value: DatePickerValue
+  days: DaysInMonth[]
+  setDays: Dispatch<SetStateAction<DaysInMonth[]>>
 }
 export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseSliderTypes) => {
   const isAnimating = useRef(false)
-  const now = useRef<Moment>(moment(value))
+  const date = useRef(dayjs(value))
 
   const slideToTheNextMonth = () => {
     if (isAnimating.current) {
       return
     }
-    const nextMonth = now.current.clone().add(1, 'month')
-    const newValue = daysInMonth(nextMonth)
+    const nextMonth = date.current.add(1, 'month')
+    const newValue = getDays({ date: nextMonth.toDate() })
+
     setDays([
       ...days,
       newValue
@@ -48,7 +50,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseS
         setDays(oldItems => {
           return oldItems.filter((items) => items.id === newValue.id)
         })
-        now.current = nextMonth
+        date.current = nextMonth
         lastItemRef.style.transition = null
         lastItemRef.style.transform = null
         isAnimating.current = false
@@ -59,8 +61,8 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseS
     if (isAnimating.current) {
       return
     }
-    const prevMonth = now.current.clone().subtract(1, 'month')
-    const newValue = daysInMonth(prevMonth)
+    const prevMonth = date.current.subtract(1, 'month')
+    const newValue = getDays({ date: prevMonth.toDate() })
 
     setDays([
       newValue,
@@ -86,7 +88,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays, value }: UseS
           })
           firstItemRef.style.transition = null
           firstItemRef.style.transform = null
-          now.current = prevMonth
+          date.current = prevMonth
           isAnimating.current = false
         }, TIME + 50)
       })
