@@ -2,11 +2,14 @@ import React from 'react'
 import IconButton from '../IconButton'
 import ChevronRight from '../Icons/ChevronRight'
 import ChevronLeft from '../Icons/ChevronLeft'
-import { weekDayNames } from '../../utils'
 import { Wrapper, HeaderTitle, SubHeader, DayName } from './Header.styled'
 import type { HeaderProps } from './Header.types'
+import localeCache from '../../utils/locale'
+import locales from '../../utils/locales'
 
 export const Header = (props: HeaderProps) => {
+  const { locale } = localeCache
+
   return (
     <>
       <Wrapper>
@@ -21,8 +24,8 @@ export const Header = (props: HeaderProps) => {
         </IconButton>
       </Wrapper>
       <SubHeader>
-        {weekDayNames.map((name) => (
-          <DayName key={name}>{name}</DayName>
+        {locales[locale].shortWeekDays.map((day) => (
+          <DayName key={day.key}>{day.name}</DayName>
         ))}
       </SubHeader>
     </>
