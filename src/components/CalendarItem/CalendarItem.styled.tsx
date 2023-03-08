@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import type { CalendarItemProps } from './CalendarItem.types'
 import { radius } from '../../style/radius'
+import { ANIMATE_FUNC } from '../../constants'
 
 export const CalendarItem = styled.button<CalendarItemProps>`
   outline: none;
@@ -12,22 +13,30 @@ export const CalendarItem = styled.button<CalendarItemProps>`
   width: 40px;
   height: 40px;
   border: 1px solid transparent;
-  transition: all 0.2s ease-in;
+  transition: all 0.2s ${ANIMATE_FUNC};
   user-select: none;
-  
-  ${props => (((props?.selected) === false) && ((props?.disabled) === false)) && `
-    :hover {
-        border-color: #BFBFBF;
-    }`
-  }
-  cursor: ${props => ((props?.disabled) === false) && 'pointer'};
-  background-color: ${props => ((props?.selected) === true) && props.theme.colors[50]};
-  color: ${props => ((props?.selected) === true) && '#fff'};
-  opacity: ${props => ((props?.disabled) === true) && '0.5'};
   border-radius: ${props => radius[props.theme.round].calendarItem}px;
   
+  &:hover {
+    border-color: #BFBFBF;
+  }
   &:active {
-    background-color: ${props => ((props?.selected) === true) && props.theme.colors[40]};
+    background-color: ${props => props.theme.colors[40]};
+    border-color: transparent;
+    color: #fff
+  }
+  
+  &[data-selected=true] {
+    background-color: ${props => props.theme.colors[50]};
+    border-color: transparent;
+    color: #fff
+  }
+  &[data-disabled=true] {
+    opacity: 0.5;
+    border-color: transparent;
+  }
+  &:not([data-disabled=true]) {
+    cursor: pointer;
   }
 `
 

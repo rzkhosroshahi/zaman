@@ -83,6 +83,8 @@ export const DatePicker = (props: DatePickerProps) => {
                               key={day.getTime()}
                               selected={sameDay(value as Date, day)}
                               disabled={!sameMonth(weeks.firstDayOfMonth, day)}
+                              data-selected={sameDay(value as Date, day)}
+                              data-disabled={!sameMonth(weeks.firstDayOfMonth, day)}
                               onClick={() => handleSelectDay(day)}
                             >
                               {formatDate(day, 'DD')}
