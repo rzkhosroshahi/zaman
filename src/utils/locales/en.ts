@@ -29,7 +29,8 @@ export const en: LocalesTypes = {
       key: 6,
       name: 'F'
     }
-  ]
+  ],
+  format: 'MM-DD-YY'
 }
 
 export default en

@@ -15,6 +15,7 @@ import formatDate from '../../utils/format'
 import { type DaysInMonth } from '../../utils/month/month.types'
 import { sameDay, sameMonth } from '../../utils/dateHelper/dateHelper'
 import localeCache from '../../utils/locale'
+import locales from '../../utils/locales'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa' } = props
@@ -52,7 +53,7 @@ export const DatePicker = (props: DatePickerProps) => {
         ref={inputRef}
         onClick={toggleShowCalendar}
         type="text"
-        value={formatDate(value as Date, 'YYYY/MM/DD')}
+        value={formatDate(value as Date, locales[locale].format)}
         readOnly
       />
       <RenderCalendar

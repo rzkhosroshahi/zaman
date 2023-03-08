@@ -29,7 +29,8 @@ export const fa: LocalesTypes = {
       key: 6,
       name: 'ج'
     }
-  ]
+  ],
+  format: 'YYYY/MM/DD'
 }
 
 export default fa

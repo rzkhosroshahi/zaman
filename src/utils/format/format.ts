@@ -11,8 +11,10 @@ export const formats: Record<Formats, formatFunctions> = {
   D: getDayString
 }
 
+const regex = /\/|\s|-/
+
 const validateFormat = (format: string) => {
-  const splitFormat = format.trimStart().trimEnd().split(/\/|\s/) as Formats[]
+  const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
   if (format === '' || format.trim() === '') {
     throw new Error('format is empty')
   }
@@ -25,8 +27,8 @@ const validateFormat = (format: string) => {
 export const formatDate = (date: Date, format: string): string => {
   try {
     validateFormat(format)
-    const splitFormat = format.trimStart().trimEnd().split(/\/|\s/) as Formats[]
-    const splitCharacterSearch = format.match(/\/|\s/)
+    const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
+    const splitCharacterSearch = format.match(regex)
     const splitCharacter = splitCharacterSearch !== null ? splitCharacterSearch[0] : ''
 
     return splitFormat.map((format) => {

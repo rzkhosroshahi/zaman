@@ -4,4 +4,5 @@ interface ShortWeekDays {
 }
 export interface LocalesTypes {
   shortWeekDays: ShortWeekDays[]
+  format: string
 }
