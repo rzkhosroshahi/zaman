@@ -5,7 +5,6 @@ import { getDayOfMonth } from '../dateTimeFormat/dateTimeFormat'
 import formatDate from '../format'
 import type { DaysInMonth, GetDaysTypes } from './month.types'
 import localeCache from '../locale'
-import 'dayjs/locale/fa'
 
 dayjs.extend(weekday)
 dayjs.extend(LocalizedFormat)
@@ -16,7 +15,7 @@ const getDays = ({
   const { locale } = localeCache
   dayjs.locale(locale)
   const firstDayOfMonth = dayjs(new Date(date)).subtract(getDayOfMonth(new Date(date)) - 1, 'days')
-  const dayNumberOfWeek = firstDayOfMonth.weekday()
+  const dayNumberOfWeek = firstDayOfMonth.day()
   const firstDayOfWeek = dayjs(firstDayOfMonth).subtract(dayNumberOfWeek, 'days')
 
   const weeks = []

@@ -1,7 +1,6 @@
-import type { Moment } from 'jalali-moment'
 import '@emotion/react'
 import type { Radius } from './style/radius'
-export type DatePickerValue = number | Date | Moment | string
+export type DatePickerValue = number | Date | string
 
 export interface IDays {
   day: string

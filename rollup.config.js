@@ -1,6 +1,9 @@
 import typescript from '@rollup/plugin-typescript'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import terser from '@rollup/plugin-terser'
+
 export default {
   input: './src/index.tsx',
   output: [
@@ -16,12 +19,15 @@ export default {
   plugins: [
     typescript({ tsconfig: './tsconfig.json', exclude: ['**/__tests__', '**/*.test.ts', 'client/**/*'] }),
     resolve({
-      browser: true
+      dedupe: ['dayjs']
     }),
-    babel({ babelHelpers: 'bundled' })
+    babel({ babelHelpers: 'bundled' }),
+    commonjs(),
+    terser()
   ],
   external: [
     'react',
+    'react-dom',
     'jalali-moment',
     '@emotion/react',
     '@emotion/styled'
