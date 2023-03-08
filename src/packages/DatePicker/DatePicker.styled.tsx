@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { ITEMS_WIDTH } from '../../constants'
 import type { DatePickerProps } from './DatePicker.types'
 import { radius } from '../../style/radius'
+import { isRtl } from '../../utils'
 
 export const Wrapper = styled.div <Partial<DatePickerProps>>`
   overflow: hidden;
@@ -17,7 +18,8 @@ export const WrapperDays = styled.div`
   display: flex;
   position: absolute;
   overflow: hidden;
-  right: 8px;
+  right: ${isRtl() ? '8px' : 'unset'};
+  left: ${!isRtl() ? '8px' : 'unset'};
 `
 
 export const SlideDays = styled.div`
