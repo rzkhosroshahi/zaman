@@ -29,7 +29,7 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
       floatWrapper.style.top = `${top + gap}px`
 
       if (isRtl()) {
-        floatWrapper.style.right = `${(document.body.clientWidth - destRight) * -1}px`
+        floatWrapper.style.right = `${Math.abs(document.body.clientWidth - destRight)}px`
       } else {
         floatWrapper.style.left = `${(destLeft)}px`
       }
