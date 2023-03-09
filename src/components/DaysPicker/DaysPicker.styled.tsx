@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ITEMS_WIDTH } from '../../constants'
+import { CALENDAR_WIDTH, CALENDAR_HEIGHT } from '../../constants'
 import { radius } from '../../style/radius'
 import { isRtl } from '../../utils'
 import type { DaysPickerProps } from './DaysPicker.types'
@@ -7,8 +7,8 @@ import type { DaysPickerProps } from './DaysPicker.types'
 export const Wrapper = styled.div<Pick<DaysPickerProps, 'round'>>`
   overflow: hidden;
   position: relative;
-  width: ${ITEMS_WIDTH}px;
-  min-height: 372px;
+  width: ${CALENDAR_WIDTH}px;
+  min-height: ${CALENDAR_HEIGHT}px;
   border: 1px solid #cccc;
   background-color: #fff;
   border-radius: ${props => props.round !== undefined && radius[props.round].wrapper}px;
@@ -26,7 +26,7 @@ export const SlideDays = styled.div`
   will-change: transform;
   display: flex;
   flex-direction: column;
-  width: ${ITEMS_WIDTH}px;
+  width: ${CALENDAR_WIDTH}px;
   gap: 4px;
 `
 export const Days = styled.div`

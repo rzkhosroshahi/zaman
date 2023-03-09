@@ -2,16 +2,16 @@ import dayjs from 'dayjs'
 import { useRef } from 'react'
 import type { Dispatch, RefObject, SetStateAction } from 'react'
 import { isRtl } from '../utils'
-import { ITEMS_WIDTH, TIME, ANIMATE_FUNC } from '../constants'
+import { CALENDAR_WIDTH, TIME, ANIMATE_FUNC } from '../constants'
 import type { DatePickerValue } from '../types'
 import getDays from '../utils/month'
 import type { DaysInMonth } from '../utils/month/month.types'
 
 const toRight = () => {
   if (isRtl()) {
-    return ITEMS_WIDTH
+    return CALENDAR_WIDTH
   }
-  return ITEMS_WIDTH * -1
+  return CALENDAR_WIDTH * -1
 }
 
 interface UseSliderTypes {
