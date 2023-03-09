@@ -9,7 +9,6 @@ import localeCache from '../../utils/locale'
 import locales from '../../utils/locales'
 import { ACCENT_COLOR } from '../../constants'
 import type { DatePickerProps, Theme } from './DatePicker.types'
-import type { DatePickerValue } from '../../types'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa' } = props
@@ -20,7 +19,7 @@ export const DatePicker = (props: DatePickerProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   // states
-  const [value, setValue] = useState<DatePickerValue>(defaultValue !== undefined ? defaultValue : new Date())
+  const [value, setValue] = useState<Date>(defaultValue !== undefined ? new Date(defaultValue) : new Date())
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
   // hooks
   useClickOutside(containerRef, () => setShowCalendar(false))
@@ -42,7 +41,7 @@ export const DatePicker = (props: DatePickerProps) => {
         ref={inputRef}
         onClick={toggleShowCalendar}
         type="text"
-        value={formatDate(value as Date, locales[locale].format)}
+        value={formatDate(value, locales[locale].format)}
         readOnly
       />
       <RenderCalendar

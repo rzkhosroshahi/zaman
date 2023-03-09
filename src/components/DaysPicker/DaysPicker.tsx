@@ -39,9 +39,9 @@ const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref
                       week.map((day) => (
                         <CalendarItem
                           key={day.getTime()}
-                          selected={sameDay(value as Date, day)}
+                          selected={sameDay(value, day)}
                           disabled={!sameMonth(weeks.firstDayOfMonth, day)}
-                          data-selected={sameDay(value as Date, day)}
+                          data-selected={sameDay(value, day)}
                           data-disabled={!sameMonth(weeks.firstDayOfMonth, day)}
                           onClick={() => onChange(day)}
                         >
