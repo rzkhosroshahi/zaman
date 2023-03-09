@@ -8,8 +8,3 @@ export interface DatePickerProps {
   accentColor?: string
   locale?: keyof typeof Locales
 }
-
-export interface Theme {
-  colors: Record<number, string>
-  round: keyof typeof Radius
-}

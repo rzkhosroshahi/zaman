@@ -7,11 +7,11 @@ export const Wrapper = styled.div`
   height: 56px;
   padding-right: 8px;
   padding-left: 8px;
-  background-color: ${props => props.theme.colors[95]};
-  border-bottom: 2px solid ${props => props.theme.colors[85]};
+  background-color: ${props => props.theme.colors.primary[95]};
+  border-bottom: 2px solid ${props => props.theme.colors.primary[85]};
 `
 export const HeaderTitle = styled.div`
-  color: ${props => props.theme.colors[50]};
+  color: ${props => props.theme.colors.primary[50]};
   font-weight: 500;
 `
 export const SubHeader = styled.div`

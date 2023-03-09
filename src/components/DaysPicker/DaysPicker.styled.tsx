@@ -9,7 +9,7 @@ export const Wrapper = styled.div<Pick<DaysPickerProps, 'round'>>`
   position: relative;
   width: ${CALENDAR_WIDTH}px;
   min-height: ${CALENDAR_HEIGHT}px;
-  border: 1px solid #cccc;
+  border: 1px solid ${props => props.theme.colors.gray[40]};
   background-color: #fff;
   border-radius: ${props => props.round !== undefined && radius[props.round].wrapper}px;
 `

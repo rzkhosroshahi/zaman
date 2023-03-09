@@ -8,12 +8,13 @@ import formatDate from '../../utils/format'
 import localeCache from '../../utils/locale'
 import locales from '../../utils/locales'
 import { ACCENT_COLOR } from '../../constants'
-import type { DatePickerProps, Theme } from './DatePicker.types'
+import { gray } from '../../style/colors'
+import type { DatePickerProps } from './DatePicker.types'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa' } = props
   // memos
-  const colors = useMemo(() => makeColorPallet(accentColor), [])
+  const prColors = useMemo(() => makeColorPallet(accentColor), [])
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
@@ -34,7 +35,13 @@ export const DatePicker = (props: DatePickerProps) => {
     }
     return day
   }
-  const theme: Theme = { colors, round }
+  const theme = {
+    colors: {
+      primary: prColors,
+      gray
+    },
+    round
+  }
   return (
     <ThemeProvider theme={theme}>
       <input

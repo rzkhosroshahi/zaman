@@ -16,20 +16,21 @@ export const CalendarItem = styled.button<CalendarItemProps>`
   transition: all 0.2s ${ANIMATE_FUNC};
   user-select: none;
   border-radius: ${props => radius[props.theme.round].calendarItem}px;
+  color: ${props => props.theme.colors.gray[600]};
   
   &:hover {
-    border-color: #BFBFBF;
+    border-color: ${props => props.theme.colors.gray[50]};
   }
   &:active {
-    background-color: ${props => props.theme.colors[40]};
+    background-color: ${props => props.theme.colors.primary[40]};
     border-color: transparent;
-    color: #fff
+    color: ${props => props.theme.colors.gray[0]};
   }
   
   &[data-selected=true] {
-    background-color: ${props => props.theme.colors[50]};
+    background-color: ${props => props.theme.colors.primary[50]};
     border-color: transparent;
-    color: #fff
+    color: ${props => props.theme.colors.gray[0]};
   }
   &[data-disabled=true] {
     opacity: 0.5;
