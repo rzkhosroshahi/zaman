@@ -17,7 +17,7 @@ describe('formatDate test', () => {
 
   test('format with dash date', () => {
     localeCache.setLocale('en')
-    expect(formatDate(new Date(date), 'MM-DD-YY')).toBe('2023-03-8')
+    expect(formatDate(new Date(date), 'MM-DD-YY')).toBe('03-8-23')
   })
 
   test('get month', () => {
