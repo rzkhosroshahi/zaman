@@ -36,6 +36,9 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     opacity: 0.5;
     border-color: transparent;
   }
+  &:not([data-selected=true])&[data-weekend=true] {
+    color: #ff4d4d;
+  }
   &:not([data-disabled=true]) {
     cursor: pointer;
   }

@@ -10,7 +10,7 @@ import type { DaysInMonth } from '../../utils/month/month.types'
 import type { DaysPickerProps } from './DaysPicker.types'
 
 const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref) => {
-  const { value, round, onChange } = props
+  const { value, round, onChange, weekends } = props
   const getAllDays = useMemo(() => getDays({ date: value }), [])
   const [days, setDays] = useState<DaysInMonth[]>([getAllDays])
   const daysElementRefs = useRef<HTMLDivElement[]>([])
@@ -36,11 +36,12 @@ const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref
                 weeks.weeks.map((week, id) => (
                   <Days key={id}>
                     {
-                      week.map((day) => (
+                      week.map((day, idx) => (
                         <CalendarItem
                           key={day.date.getTime()}
                           data-disabled={day.disabled}
                           data-selected={sameDay(value, day.date)}
+                          data-weekend={weekends.some(wDay => wDay === idx)}
                           onClick={() => onChange(day.date, day.disabled)}
                         >
                           {formatDate(day.date, 'DD')}

@@ -1,4 +1,4 @@
-import type { DatePickerValue, Locales } from '../../types'
+import type { DatePickerValue, DaysRange, Locales } from '../../types'
 import type { Radius } from '../../style/radius'
 
 export interface DatePickerProps {
@@ -7,4 +7,5 @@ export interface DatePickerProps {
   round?: keyof typeof Radius
   accentColor?: string
   locale?: keyof typeof Locales
+  weekends?: DaysRange[]
 }

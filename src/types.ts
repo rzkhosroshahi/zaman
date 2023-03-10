@@ -7,6 +7,8 @@ export enum Locales {
   en,
 }
 
+export type DaysRange = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
 declare module '@emotion/react' {
   export interface Theme {
     colors: {

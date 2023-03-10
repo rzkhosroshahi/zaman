@@ -12,7 +12,7 @@ import { gray } from '../../style/colors'
 import type { DatePickerProps } from './DatePicker.types'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa' } = props
+  const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa', weekends = [6] } = props
   // memos
   const prColors = useMemo(() => makeColorPallet(accentColor), [])
   useMemo(() => localeCache.setLocale(locale), [locale])
@@ -60,9 +60,10 @@ export const DatePicker = (props: DatePickerProps) => {
         destinationRef={inputRef}
       >
         <DaysPicker
-          round={round}
           value={value}
+          round={round}
           ref={containerRef}
+          weekends={weekends}
           onChange={handleSelectDay}
         />
       </RenderCalendar>
