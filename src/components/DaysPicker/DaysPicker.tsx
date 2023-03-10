@@ -3,7 +3,7 @@ import { Days, SlideDays, Wrapper, WrapperDays } from './DaysPicker.styled'
 import Header from '../Header'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import CalendarItem from '../CalendarItem'
-import { sameDay, sameMonth } from '../../utils/dateHelper/dateHelper'
+import { sameDay } from '../../utils/dateHelper/dateHelper'
 import formatDate from '../../utils/format'
 import getDays from '../../utils/month'
 import type { DaysInMonth } from '../../utils/month/month.types'
@@ -38,14 +38,12 @@ const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref
                     {
                       week.map((day) => (
                         <CalendarItem
-                          key={day.getTime()}
-                          selected={sameDay(value, day)}
-                          disabled={!sameMonth(weeks.firstDayOfMonth, day)}
-                          data-selected={sameDay(value, day)}
-                          data-disabled={!sameMonth(weeks.firstDayOfMonth, day)}
-                          onClick={() => onChange(day)}
+                          key={day.date.getTime()}
+                          data-disabled={day.disabled}
+                          data-selected={sameDay(value, day.date)}
+                          onClick={() => onChange(day.date, day.disabled)}
                         >
-                          {formatDate(day, 'DD')}
+                          {formatDate(day.date, 'DD')}
                         </CalendarItem>
                       ))
                     }

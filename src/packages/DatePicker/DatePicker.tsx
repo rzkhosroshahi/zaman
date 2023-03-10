@@ -28,7 +28,10 @@ export const DatePicker = (props: DatePickerProps) => {
   const toggleShowCalendar = () => {
     setShowCalendar(!showCalendar)
   }
-  const handleSelectDay = (day: Date) => {
+  const handleSelectDay = (day: Date, disabled: boolean) => {
+    if (disabled) {
+      return
+    }
     setValue(day)
     if (typeof onChange === 'function') {
       onChange(day)

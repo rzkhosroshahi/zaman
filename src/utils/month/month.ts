@@ -1,11 +1,12 @@
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
 import LocalizedFormat from 'dayjs/plugin/LocalizedFormat'
-import { getDayOfMonth } from '../dateTimeFormat/dateTimeFormat'
-import formatDate from '../format'
-import type { DaysInMonth, GetDaysTypes } from './month.types'
-import localeCache from '../locale'
 import 'dayjs/locale/fa'
+import { getDayOfMonth } from '../dateTimeFormat/dateTimeFormat'
+import { sameMonth } from '../dateHelper/dateHelper'
+import formatDate from '../format'
+import localeCache from '../locale'
+import type { DaysInMonth, GetDaysTypes } from './month.types'
 
 dayjs.extend(weekday)
 dayjs.extend(LocalizedFormat)
@@ -25,7 +26,11 @@ const getDays = ({
   for (let i = 0; i <= 5; i++) {
     const day = []
     for (let j = 0; j < 7; j++) {
-      day.push(new Date(initialDate.format()))
+      const currentDay = new Date(initialDate.format())
+      day.push({
+        date: currentDay,
+        disabled: !sameMonth(firstDayOfMonth.toDate(), currentDay)
+      })
       initialDate = initialDate.add(1, 'day')
     }
     weeks.push(day)

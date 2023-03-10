@@ -6,9 +6,14 @@ export interface GetDaysTypes {
   locale?: keyof typeof Locales
 }
 
+export interface WeekDays {
+  date: Date
+  disabled: boolean
+}
+
 export interface DaysInMonth {
   id: number
   monthName: string
   firstDayOfMonth: Date
-  weeks: Date[][]
+  weeks: WeekDays[][]
 }
