@@ -1,16 +1,16 @@
 import React, { useMemo, useRef, useState } from 'react'
-import { Days, SlideDays, Wrapper, WrapperDays } from './DaysPicker.styled'
-import Header from '../Header'
+import { Days, SlideDays, Wrapper, WrapperDays } from './Calendar.styled'
+import Header from '../../components/Header'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
-import CalendarItem from '../CalendarItem'
+import CalendarItem from '../../components/CalendarItem'
 import { sameDay } from '../../utils/dateHelper/dateHelper'
 import formatDate from '../../utils/format'
 import getDays from '../../utils/month'
 import type { DaysInMonth } from '../../utils/month/month.types'
-import type { DaysPickerProps } from './DaysPicker.types'
+import type { CalendarProps } from './Calendar.types'
 
-const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref) => {
-  const { value, round, onChange, weekends } = props
+const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
+  const { value, onChange, weekends } = props
   const getAllDays = useMemo(() => getDays({ date: value }), [])
   const [days, setDays] = useState<DaysInMonth[]>([getAllDays])
   const daysElementRefs = useRef<HTMLDivElement[]>([])
@@ -18,7 +18,7 @@ const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref
   const handlers =
     useSlideCalendar({ daysElementRefs, value, days, setDays })
   return (
-    <Wrapper round={round} ref={ref}>
+    <Wrapper ref={ref}>
       <Header
         monthName={days[0].monthName}
         onNextClick={handlers.slideToTheNextMonth}
@@ -59,6 +59,6 @@ const DaysPicker = React.forwardRef<HTMLDivElement, DaysPickerProps>((props, ref
   )
 })
 
-DaysPicker.displayName = 'DaysPicker'
+Calendar.displayName = 'Calendar'
 
-export default DaysPicker
+export default Calendar

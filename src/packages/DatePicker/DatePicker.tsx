@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react'
 import RenderCalendar from '../../components/RenderCalendar'
-import DaysPicker from '../../components/DaysPicker'
+import Calendar from '../Calendar'
 import useClickOutside from '../../hooks/useClickOutside'
 import formatDate from '../../utils/format'
 import locales from '../../utils/locales'
@@ -50,9 +50,8 @@ export const DatePicker = (props: DatePickerProps) => {
         showCalendar={showCalendar}
         destinationRef={inputRef}
       >
-        <DaysPicker
+        <Calendar
           value={value}
-          round={round}
           ref={containerRef}
           weekends={weekends}
           onChange={handleSelectDay}

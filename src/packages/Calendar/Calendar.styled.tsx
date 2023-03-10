@@ -2,16 +2,15 @@ import styled from '@emotion/styled'
 import { CALENDAR_WIDTH, CALENDAR_HEIGHT } from '../../constants'
 import { radius } from '../../style/radius'
 import { isRtl } from '../../utils'
-import type { DaysPickerProps } from './DaysPicker.types'
 
-export const Wrapper = styled.div<Pick<DaysPickerProps, 'round'>>`
+export const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
   width: ${CALENDAR_WIDTH}px;
   min-height: ${CALENDAR_HEIGHT}px;
   border: 1px solid ${props => props.theme.colors.gray[40]};
   background-color: #fff;
-  border-radius: ${props => props.round !== undefined && radius[props.round].wrapper}px;
+  border-radius: ${props => radius[props.theme.round].wrapper}px;
 `
 
 export const WrapperDays = styled.div`
