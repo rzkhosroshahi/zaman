@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import type { FloatingElementProps } from './FloatingElement.types'
 import { Wrapper } from './FloatingElement.styled'
 import { isRtl } from '../../utils'
@@ -35,10 +36,16 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
       }
     }
   }, [destinationRef])
+
   return (
-    <Wrapper ref={floatWrapperRef}>
-      {children}
-    </Wrapper>
+    <>
+      {createPortal(
+        <Wrapper ref={floatWrapperRef}>
+          {children}
+        </Wrapper>
+        , document.body
+      )}
+    </>
   )
 }
 
