@@ -1,20 +1,15 @@
 import React, { useMemo, useRef, useState } from 'react'
-import { ThemeProvider } from '@emotion/react'
 import RenderCalendar from '../../components/RenderCalendar'
 import DaysPicker from '../../components/DaysPicker'
 import useClickOutside from '../../hooks/useClickOutside'
-import { makeColorPallet } from '../../style/colorPallete'
 import formatDate from '../../utils/format'
-import localeCache from '../../utils/locale'
 import locales from '../../utils/locales'
-import { ACCENT_COLOR } from '../../constants'
-import { gray } from '../../style/colors'
 import type { DatePickerProps } from './DatePicker.types'
+import CalendarProvider from '../CalendarProvider/CalendarProvider'
+import localeCache from '../../utils/locale'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, round = 'thin', accentColor = ACCENT_COLOR, locale = 'fa', weekends = [6] } = props
-  // memos
-  const prColors = useMemo(() => makeColorPallet(accentColor), [])
+  const { defaultValue, onChange, round = 'thin', locale = 'fa', weekends = [6] } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
@@ -38,15 +33,11 @@ export const DatePicker = (props: DatePickerProps) => {
     }
     return day
   }
-  const theme = {
-    colors: {
-      primary: prColors,
-      gray
-    },
-    round
-  }
   return (
-    <ThemeProvider theme={theme}>
+    <CalendarProvider
+      accentColor={props.accentColor}
+      round={props.round}
+    >
       <input
         ref={inputRef}
         onClick={toggleShowCalendar}
@@ -67,7 +58,7 @@ export const DatePicker = (props: DatePickerProps) => {
           onChange={handleSelectDay}
         />
       </RenderCalendar>
-    </ThemeProvider>
+    </CalendarProvider>
   )
 }
 

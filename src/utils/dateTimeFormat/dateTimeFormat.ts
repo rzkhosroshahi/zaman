@@ -2,6 +2,7 @@ import localeCache from '../locale'
 
 export const getDateFormat = (date: Date, options: Intl.DateTimeFormatOptions) => {
   const { locale } = localeCache
+  console.log('locale main >>', locale)
   return new Intl.DateTimeFormat(locale, options).format(date)
 }
 
