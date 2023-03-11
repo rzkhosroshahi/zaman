@@ -16,7 +16,7 @@ export const MonthPicker = (props: MonthPickerProps) => {
         <CalendarItem
           key={month.key}
           width={90}
-          height={59}
+          height={48}
           data-selected={month.key === parseInt(currentMonth, 10)}
           onClick={() => props.onMonthSelect(month.key)}
         >

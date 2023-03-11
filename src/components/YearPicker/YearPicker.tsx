@@ -28,7 +28,7 @@ export const YearPicker = (props: YearPickerProps) => {
         <CalendarItem
           key={year}
           width={90}
-          height={59}
+          height={48}
           data-selected={currentYear === year}
           onClick={() => props.onYearSelect(year)}
         >
