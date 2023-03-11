@@ -30,6 +30,56 @@ export const fa: LocalesTypes = {
       name: 'ج'
     }
   ],
+  months: [
+    {
+      key: 1,
+      name: 'فروردین'
+    },
+    {
+      key: 2,
+      name: 'اردیبهشت'
+    },
+    {
+      key: 3,
+      name: 'خرداد'
+    },
+    {
+      key: 4,
+      name: 'تیر'
+    },
+    {
+      key: 5,
+      name: 'مرداد'
+    },
+    {
+      key: 6,
+      name: 'شهریور'
+    },
+    {
+      key: 7,
+      name: 'مهر'
+    },
+    {
+      key: 8,
+      name: 'آبان'
+    },
+    {
+      key: 9,
+      name: 'آذر'
+    },
+    {
+      key: 10,
+      name: 'دی'
+    },
+    {
+      key: 11,
+      name: 'بهمن'
+    },
+    {
+      key: 12,
+      name: 'اسفند'
+    }
+  ],
   format: 'YYYY/MM/DD'
 }
 

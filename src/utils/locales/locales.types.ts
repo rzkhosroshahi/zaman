@@ -1,8 +1,9 @@
-interface ShortWeekDays {
+interface localesNames {
   key: number
   name: string
 }
 export interface LocalesTypes {
-  shortWeekDays: ShortWeekDays[]
+  shortWeekDays: localesNames[]
+  months: localesNames[]
   format: string
 }
