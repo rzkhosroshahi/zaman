@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import CalendarItem from '../CalendarItem'
 import { Wrapper } from './YearPicker.styled'
 import { getYears } from '../../utils/dateHelper/dateHelper'
@@ -7,18 +7,18 @@ import type { YearPickerProps } from './YearPicker.types'
 import { localizeNumber } from '../../utils'
 
 export const YearPicker = (props: YearPickerProps) => {
-  const wrapperRef = useRef<HTMLDivElement>(null)
   const currentYear = parseInt(formatDate(props.value, 'YYYY', 'latn'), 10)
   const years: number[] = useMemo(() => getYears(props.value), [])
 
-  useEffect(() => {
-    if (wrapperRef.current !== null) {
-      const qu = wrapperRef.current.querySelector('button[data-selected=true]')
-      if (qu != null) {
-        const { height: wrapperHeight } = wrapperRef.current.getBoundingClientRect()
-        const { top } = qu.getBoundingClientRect()
-        wrapperRef.current.scrollTop = top - wrapperHeight
-      }
+  const wrapperRef = React.useCallback((wrapper: HTMLDivElement) => {
+    if (wrapper === null) {
+      return
+    }
+    const qu = wrapper.querySelector('button[data-selected=true]')
+    if (qu != null) {
+      const { height: wrapperHeight } = wrapper.getBoundingClientRect()
+      const { top } = qu.getBoundingClientRect()
+      wrapper.scrollTop = top - wrapperHeight
     }
   }, [])
 
