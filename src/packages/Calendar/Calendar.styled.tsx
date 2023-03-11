@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { CALENDAR_WIDTH, CALENDAR_HEIGHT } from '../../constants'
+import { CALENDAR_HEIGHT, CALENDAR_WIDTH } from '../../constants'
 import { radius } from '../../style/radius'
 import { isRtl } from '../../utils'
 
@@ -30,5 +30,14 @@ export const SlideDays = styled.div`
 `
 export const Days = styled.div`
   display: flex;
+  gap: 4px;
+`
+export const SubHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  height: 24px;
   gap: 4px;
 `

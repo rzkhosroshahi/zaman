@@ -9,7 +9,7 @@ import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import localeCache from '../../utils/locale'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, round = 'thin', locale = 'fa', weekends = [6] } = props
+  const { defaultValue, onChange, locale = 'fa', weekends = [6] } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
@@ -23,10 +23,7 @@ export const DatePicker = (props: DatePickerProps) => {
   const toggleShowCalendar = () => {
     setShowCalendar(!showCalendar)
   }
-  const handleSelectDay = (day: Date, disabled: boolean) => {
-    if (disabled) {
-      return
-    }
+  const handleSelectDay = (day: Date) => {
     setValue(day)
     if (typeof onChange === 'function') {
       onChange(day)

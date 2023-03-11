@@ -9,6 +9,8 @@ export enum Locales {
 
 export type DaysRange = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
+export type Pickers = 'days' | 'year' | 'month'
+
 declare module '@emotion/react' {
   export interface Theme {
     colors: {
