@@ -10,8 +10,8 @@ export const CalendarItem = styled.button<CalendarItemProps>`
   font-family: inherit;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
   border: 1px solid transparent;
   transition: all 0.2s ${ANIMATE_FUNC};
   user-select: none;
@@ -43,5 +43,8 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     cursor: pointer;
   }
 `
-
+CalendarItem.defaultProps = {
+  width: 40,
+  height: 40
+}
 export default CalendarItem
