@@ -1,10 +1,10 @@
 import type React from 'react'
-import { type Radius } from '../../style/radius'
-import { type Locales } from '../../types'
+import type { Radius } from '../../style/radius'
+import type { Locales } from '../../types'
 
 export interface CalendarProviderProps {
-  round?: keyof typeof Radius
+  round?: Radius
   accentColor?: string
-  locale?: keyof typeof Locales
+  locale?: Locales
   children: React.ReactNode
 }

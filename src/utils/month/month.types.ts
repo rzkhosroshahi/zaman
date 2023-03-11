@@ -3,7 +3,7 @@ import type { Locales } from '../../types'
 export interface GetDaysTypes {
   date?: string | Date | number
   startWeek?: number
-  locale?: keyof typeof Locales
+  locale?: Locales
 }
 
 export interface WeekDays {

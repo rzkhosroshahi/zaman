@@ -1,10 +1,4 @@
-export enum Radius {
-  thin = 'thin',
-  roundX1 = 'roundX1',
-  roundX2 = 'roundX2',
-  roundX3 = 'roundX3',
-  roundX4 = 'roundX4',
-}
+export type Radius = 'thin' | 'roundX1' | 'roundX2' | 'roundX3' | 'roundX4'
 
 interface radiusObject {
   wrapper: number

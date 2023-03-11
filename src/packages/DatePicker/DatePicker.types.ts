@@ -4,8 +4,8 @@ import type { Radius } from '../../style/radius'
 export interface DatePickerProps {
   defaultValue?: DatePickerValue
   onChange?: (value: Date) => void
-  round?: keyof typeof Radius
+  round?: Radius
   accentColor?: string
-  locale?: keyof typeof Locales
+  locale?: Locales
   weekends?: DaysRange[]
 }
