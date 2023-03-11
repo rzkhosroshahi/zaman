@@ -15,6 +15,6 @@ declare module '@emotion/react' {
       gray: Record<number, string>
       primary: Record<number, string>
     }
-    round: keyof typeof Radius
+    round: Radius
   }
 }
