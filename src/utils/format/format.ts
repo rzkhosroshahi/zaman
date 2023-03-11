@@ -24,7 +24,7 @@ const validateFormat = (format: string) => {
     }
   })
 }
-export const formatDate = (date: Date, format: string): string => {
+export const formatDate = (date: Date, format: string, numberingSystem?: string): string => {
   try {
     validateFormat(format)
     const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
@@ -32,7 +32,7 @@ export const formatDate = (date: Date, format: string): string => {
     const splitCharacter = splitCharacterSearch !== null ? splitCharacterSearch[0] : ''
 
     return splitFormat.map((format) => {
-      return formats[format](date)
+      return formats[format](date, numberingSystem)
     }).join(splitCharacter)
   } catch (ex) {
     console.error(ex)

@@ -14,6 +14,7 @@ dayjs.extend(LocalizedFormat)
 const getDays = ({
   date = new Date()
 }: GetDaysTypes): DaysInMonth => {
+  console.log('getDays val >>', date)
   const { locale } = localeCache
   dayjs.locale(locale)
   const selectedDayOnMonth = getDayOfMonth(new Date(date))

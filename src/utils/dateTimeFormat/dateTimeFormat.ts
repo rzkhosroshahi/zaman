@@ -1,30 +1,34 @@
 import localeCache from '../locale'
 
-export const getDateFormat = (date: Date, options: Intl.DateTimeFormatOptions) => {
+export const getDateFormat = (date: Date, options: Intl.DateTimeFormatOptions, numberingSystem?: string) => {
   const { locale } = localeCache
-  return new Intl.DateTimeFormat(locale, options).format(date)
+  const defaultOptions = {
+    ...options,
+    ...((numberingSystem != null) && { numberingSystem })
+  }
+  return new Intl.DateTimeFormat(locale, defaultOptions).format(date)
 }
 
 export const getDayOfMonth = (date: Date): number => {
-  return parseInt(getDateFormat(date, { day: 'numeric', numberingSystem: 'latn' }), 10)
+  return parseInt(getDateFormat(date, { day: 'numeric' }, 'latn'), 10)
 }
 
-export const getDayString = (date: Date): string => {
-  return getDateFormat(date, { day: 'numeric' })
+export const getDayString = (date: Date, numberingSystem?: string): string => {
+  return getDateFormat(date, { day: 'numeric' }, numberingSystem)
 }
-export const getYear = (date: Date): string => {
-  return getDateFormat(date, { year: 'numeric' })
+export const getYear = (date: Date, numberingSystem?: string): string => {
+  return getDateFormat(date, { year: 'numeric' }, numberingSystem)
 }
-export const getYear2Digit = (date: Date): string => {
-  return getDateFormat(date, { year: '2-digit' })
-}
-
-export const getMonthName = (date: Date): string => {
-  return getDateFormat(date, { month: 'short' })
+export const getYear2Digit = (date: Date, numberingSystem?: string): string => {
+  return getDateFormat(date, { year: '2-digit' }, numberingSystem)
 }
 
-export const getMonth = (date: Date): string => {
-  return getDateFormat(date, { month: '2-digit' })
+export const getMonthName = (date: Date, numberingSystem?: string): string => {
+  return getDateFormat(date, { month: 'short' }, numberingSystem)
+}
+
+export const getMonth = (date: Date, numberingSystem?: string): string => {
+  return getDateFormat(date, { month: '2-digit' }, numberingSystem)
 }
 
 export default {
