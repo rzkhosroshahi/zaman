@@ -28,7 +28,7 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) =>
   // handlers
   const handlers = useSlideCalendar({
     daysElementRefs,
-    value,
+    value: days[0].middleOfMonth,
     days,
     setDays
   })
@@ -44,7 +44,7 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) =>
     setPicker('year')
   }
   const handleMonthSelect = (month: number) => {
-    const date = selectMonth(value, month)
+    const date = selectMonth(days[0].middleOfMonth, month)
     onChange(date)
     setDays([getDays({ date })])
     setPicker('days')

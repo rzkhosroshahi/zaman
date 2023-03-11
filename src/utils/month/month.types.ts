@@ -14,6 +14,6 @@ export interface WeekDays {
 export interface DaysInMonth {
   id: number
   monthName: string
-  firstDayOfMonth: Date
+  middleOfMonth: Date
   weeks: WeekDays[][]
 }

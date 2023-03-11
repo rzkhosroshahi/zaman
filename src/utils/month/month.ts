@@ -20,6 +20,7 @@ const getDays = ({
   const firstDayOfMonth = dayjs(new Date(date)).subtract(selectedDayOnMonth - 1, 'days')
   const dayNumberOfWeek = firstDayOfMonth.weekday()
   const firstDayOfWeek = dayjs(firstDayOfMonth).subtract(dayNumberOfWeek, 'days')
+  const middleOfMonth = firstDayOfMonth.add(15, 'days')
 
   const weeks = []
   let initialDate = dayjs(firstDayOfWeek.format())
@@ -39,7 +40,7 @@ const getDays = ({
   return {
     id: Date.now(),
     monthName: formatDate(new Date(date), 'MMMM YYYY'),
-    firstDayOfMonth: firstDayOfMonth.toDate(),
+    middleOfMonth: middleOfMonth.toDate(),
     weeks
   }
 }
