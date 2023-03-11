@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { radius } from '../../style/radius'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,12 +11,17 @@ export const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.primary[95]};
   border-bottom: 2px solid ${props => props.theme.colors.primary[85]};
 `
-export const HeaderTitle = styled.div`
+export const HeaderTitle = styled.button`
+  outline: none;
+  border: 0;
+  font-family: inherit;
+  background-color: transparent;
   cursor: pointer;
   color: ${props => props.theme.colors.primary[50]};
-  padding: 4px 8px;
+  padding: 8px 16px;
   font-weight: 500;
   transition: background-color 0.2s ease-in;
+  border-radius: ${props => radius[props.theme.round].calendarItem}px;
   
   &:hover {
     background-color: ${props => props.theme.colors.primary[90]};
