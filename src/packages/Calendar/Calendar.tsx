@@ -3,10 +3,11 @@ import { Days, SlideDays, SubHeader, Wrapper, WrapperDays } from './Calendar.sty
 import Header from '../../components/Header'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import CalendarItem from '../../components/CalendarItem'
-import { sameDay, selectMonth } from '../../utils/dateHelper/dateHelper'
+import { sameDay, selectMonth, selectYear } from '../../utils/dateHelper/dateHelper'
 import formatDate from '../../utils/format'
 import getDays from '../../utils/month'
 import MonthPicker from '../../components/MonthPicker'
+import YearPicker from '../../components/YearPicker'
 import { DayName } from '../../components/Header/Header.styled'
 import locales from '../../utils/locales'
 import localeCache from '../../utils/locale'
@@ -40,13 +41,19 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) =>
       setPicker('days')
       return
     }
-    setPicker('month')
+    setPicker('year')
   }
   const handleMonthSelect = (month: number) => {
     const date = selectMonth(value, month)
     onChange(date)
     setDays([getDays({ date })])
     setPicker('days')
+  }
+  const handleYearSelect = (year: number) => {
+    const date = selectYear(value, year)
+    onChange(date)
+    setDays([getDays({ date })])
+    setPicker('month')
   }
   return (
     <Wrapper ref={ref}>
@@ -56,6 +63,16 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) =>
         onPrevClick={handlers.slideToPrevMonth}
         onClickOnTitle={togglePickers}
       />
+      {
+        picker === 'year'
+          ? <YearPicker value={value} onYearSelect={handleYearSelect} />
+          : null
+      }
+      {
+        picker === 'month'
+          ? <MonthPicker value={value} onMonthSelect={handleMonthSelect} />
+          : null
+      }
       {
         picker === 'days'
           ? <>
@@ -96,11 +113,6 @@ const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>((props, ref) =>
             }
           </WrapperDays>
           </>
-          : null
-      }
-      {
-        picker === 'month'
-          ? <MonthPicker value={value} onMonthSelect={handleMonthSelect} />
           : null
       }
     </Wrapper>

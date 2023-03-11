@@ -1,3 +1,5 @@
+import localeCache from './locale'
+
 export const isRtl = (): boolean => {
   if (document.dir !== '') {
     return document.dir === 'rtl'
@@ -6,11 +8,12 @@ export const isRtl = (): boolean => {
   return getComputedStyle(body).direction === 'rtl'
 }
 
-export const faNumber = (n: string) => {
+export const localizeNumber = (n: string | number) => {
   if (process.env.NODE_ENV === 'test') {
     return n
   }
-  return Number(n).toLocaleString('fa', {
+  const { locale } = localeCache
+  return Number(n).toLocaleString(locale, {
     useGrouping: false
   })
 }
