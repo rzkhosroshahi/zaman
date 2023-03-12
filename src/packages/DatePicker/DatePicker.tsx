@@ -16,6 +16,8 @@ export const DatePicker = (props: DatePickerProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   // states
   const [value, setValue] = useState<Date>(defaultValue !== undefined ? new Date(defaultValue) : new Date())
+  const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
+  const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
   // hooks
   useClickOutside(containerRef, () => setShowCalendar(false))
@@ -26,10 +28,42 @@ export const DatePicker = (props: DatePickerProps) => {
   const handleSelectDay = (day: Date) => {
     setValue(day)
     if (typeof onChange === 'function') {
-      onChange(day)
+      onChange({
+        value
+      })
     }
     return day
   }
+  const handleSelectRange = (from: Date, to: Date) => {
+    if (typeof onChange === 'function') {
+      onChange({
+        from,
+        to
+      })
+    }
+    setFrom(from)
+    setTo(to)
+  }
+  const handleChangeDay = (start: Date, to?: Date) => {
+    if (props.range === true && to !== undefined) {
+      return handleSelectRange(start, to)
+    }
+    handleSelectDay(start)
+  }
+
+  const getInputValue = useMemo(() => {
+    if (props.range === undefined) {
+      return formatDate(value, locales[locale].format)
+    }
+    if (from !== undefined && to !== undefined) {
+      return `
+        ${formatDate(from, locales[locale].format)}
+        -
+        ${formatDate(to, locales[locale].format)}
+      `
+    }
+    return ''
+  }, [value, from, to])
   return (
     <CalendarProvider
       accentColor={props.accentColor}
@@ -39,7 +73,7 @@ export const DatePicker = (props: DatePickerProps) => {
         ref={inputRef}
         onClick={toggleShowCalendar}
         type="text"
-        value={formatDate(value, locales[locale].format)}
+        value={getInputValue}
         readOnly
       />
       <RenderCalendar
@@ -51,7 +85,10 @@ export const DatePicker = (props: DatePickerProps) => {
           value={value}
           ref={containerRef}
           weekends={weekends}
-          onChange={handleSelectDay}
+          onChange={handleChangeDay}
+          range={props.range}
+          from={props.from}
+          to={props.to}
         />
       </RenderCalendar>
     </CalendarProvider>
