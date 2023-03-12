@@ -36,8 +36,11 @@ const App = () => {
             </CalendarProvider>
             <CalendarProvider locale="fa" round="roundX4" accentColor="#6374ae">
               <Calendar
-                value={new Date()} onChange={(d) => console.log(d)}
+                value={new Date()}
+                onChange={(d) => console.log(d)}
                 weekends={[6]}
+                from="Mon Mar 06 2023 20:11:58 GMT+0330 (Iran Standard Time)"
+                to="Wed Mar 14 2023 21:41:23 GMT+0330 (Iran Standard Time)"
                 range
               />
             </CalendarProvider>
@@ -51,11 +54,9 @@ const App = () => {
               round="roundX4"
             />
             <DatePicker
-              round="roundX4"
+              round="roundX2"
               accentColor="#6374ae"
               range
-              from="Mon Mar 06 2023 20:11:58 GMT+0330 (Iran Standard Time)"
-              to="Wed Mar 14 2023 21:41:23 GMT+0330 (Iran Standard Time)"
             />
           </div>
           : null
