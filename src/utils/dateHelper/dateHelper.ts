@@ -46,7 +46,7 @@ export const selectYear = (date: Date, selectedYear: number) => {
 
 export const isInBetween = (day: Date, from?: Date | null, to?: Date | null): boolean => {
   if (from !== null && to !== null) {
-    return dayjs(day).subtract(1, 'hour').isBetween(dayjs(from), dayjs(to))
+    return dayjs(day).set('hour', 0).isBetween(dayjs(from).set('hour', 1), dayjs(to).set('hour', 1))
   }
   return false
 }
