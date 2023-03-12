@@ -1,12 +1,14 @@
 import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import { getMonth, getYear } from '../dateTimeFormat/dateTimeFormat'
 import formatDate from '../format'
+dayjs.extend(isBetween)
 
 export const sameMonth = (date: Date, date2: Date) => {
   return getMonth(date) === getMonth(date2)
 }
 
-export const sameDay = (date: Date, date2: Date) => {
+export const sameDay = (date: Date, date2: Date): boolean => {
   return formatDate(date, 'YYYY MMMM DD') === formatDate(date2, 'YYYY MMMM DD')
 }
 
@@ -42,10 +44,18 @@ export const selectYear = (date: Date, selectedYear: number) => {
   return dayjs(date).subtract(Math.abs(diffYear), 'years').toDate()
 }
 
+export const isInBetween = (day: Date, from?: Date | null, to?: Date | null): boolean => {
+  if (from !== null && to !== null) {
+    return dayjs(day).subtract(1, 'hour').isBetween(dayjs(from), dayjs(to))
+  }
+  return false
+}
+
 export default {
   sameMonth,
   sameDay,
   getYears,
   selectMonth,
-  selectYear
+  selectYear,
+  isInBetween
 }
