@@ -62,7 +62,7 @@ export const DatePicker = (props: DatePickerProps) => {
         ${formatDate(to, locales[locale].format)}
       `
     }
-    return ''
+    return '---- --- ----'
   }, [value, from, to])
   return (
     <CalendarProvider
