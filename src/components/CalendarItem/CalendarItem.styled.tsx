@@ -3,6 +3,10 @@ import type { CalendarItemProps } from './CalendarItem.types'
 import { radius } from '../../style/radius'
 import { isRtl } from '../../utils'
 
+export const CalendarText = styled.div`
+  color: inherit;
+`
+
 export const CalendarItem = styled.button<CalendarItemProps>`
   position: relative;
   outline: none;
@@ -33,9 +37,8 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     border-color: transparent;
     color: ${props => props.theme.colors.gray[0]};
   }
-  &[data-disabled=true] {
-    color: rgba(0,0,0, 0.5);
-    border-color: transparent;
+  &[data-disabled=true] .cl-text {
+    opacity: 0.5;
   }
   &:not([data-range=true]) {
     transition: all 0.1s linear;
@@ -77,7 +80,11 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     background-color: ${props => props.theme.colors.primary[90]};
     z-index: -1;
   }
+  &[data-in-range=true]:nth-child(1):before {
+    display: none;
+  }
 `
+
 CalendarItem.defaultProps = {
   width: 40,
   height: 40
