@@ -1,31 +1,21 @@
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/react'
 import { numberPositionX, numberPositionY } from '../../../../utils/timePicker'
-import { type INumbersProps } from './Hour.types'
-
-const fade = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`
+import { fade } from '../../../../style/animation'
+import type { NumbersItemProps } from './Numbers.types'
 
 export const MinuteWithAnimation = styled('div')`
   animation: ${fade} 0.7s linear alternate;
 `
 
-export const Numbers = styled('span')<INumbersProps>`
+export const NumbersItem = styled.span<NumbersItemProps>`
   left: calc(50% - 16px);
   top: ${props => props.top};
   width: 32px;
-  color: white;
   height: 32px;
   display: inline-flex;
   position: absolute;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 32px;
   justify-content: center;
   user-select: none;
   pointer-events: none;
@@ -39,8 +29,8 @@ export const Numbers = styled('span')<INumbersProps>`
   ${numberPositionY(props.idx, props.clockHalfWidth, props.numbersPadd)}px)`};
 `
 
-Numbers.defaultProps = {
+NumbersItem.defaultProps = {
   clockHalfWidth: 130,
-  numbersPadd: 20,
+  numbersPadd: 24,
   top: '2%'
 }

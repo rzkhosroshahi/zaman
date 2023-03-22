@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { Clock, ClockTime, ClockTimeWrapper, Hand, HandCircle, Time, TimeWrapper } from './TimePicker.styled'
 import { getAngelValues } from '../../utils/timePicker'
 import CalendarProvider from '../CalendarProvider/CalendarProvider'
-import Hours from './components/Hour/Hour'
+import Numbers from './components/Numbers'
 import type { TimePickerProps } from './TimePicker.types'
 import localeCache from '../../utils/locale'
 import CalendarWrapper from '../../components/CalendarWrapper'
@@ -17,7 +17,7 @@ export const TimePicker = (props: TimePickerProps) => {
   const [selecting, setSelecting] = useState<boolean>(false)
   const [selectingHour, setSelectingHour] = useState<boolean>(false)
   const [isInsideHour, setInsideHour] = useState<boolean>(false)
-  const [hour, setHour] = useState<number>(parseInt(time.format('h'), 10))
+  const [hour, setHour] = useState<number>(parseInt(time.format('HH'), 10))
   const [minute, setMinute] = useState<number>(parseInt(time.format('MM'), 10))
   const [timeConvention, setTimeConvention] = useState<'am' | 'pm'>('am')
   const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {
@@ -67,6 +67,7 @@ export const TimePicker = (props: TimePickerProps) => {
       }
       setSelecting(false)
       setSelectingHour(false)
+      setInsideHour(false)
       return
     }
     setSelecting(false)
@@ -118,9 +119,7 @@ export const TimePicker = (props: TimePickerProps) => {
           >
             <HandCircle isSelectingHour={selectingHour} />
           </Hand>
-          <Hours
-            hour={hour}
-            minute={minute}
+          <Numbers
             insideHour={isInsideHour}
             hourSelecting={selectingHour}
             clockTime={clockTime}

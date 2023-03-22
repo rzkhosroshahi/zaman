@@ -1,30 +1,18 @@
 import React from 'react'
 import { hours, hours24, minutes } from '../../../../utils/timePicker'
-import { MinuteWithAnimation, Numbers } from './Hour.styled'
+import { MinuteWithAnimation, NumbersItem } from './Numbers.styled'
 import { localizeNumber } from '../../../../utils'
+import type { NumbersProps } from './Numbers.types'
 
-const convertNumberValue = (n: number) => {
-  if (n === 24 || n === 0) {
-    return '۰۰'
-  }
-
-  return localizeNumber(n)
-}
-
-export const Hours: React.FunctionComponent<{
-  insideHour: boolean
-  hourSelecting: boolean
-  hour: number
-  minute: number
-  clockTime: 12 | 24
-}> = ({ insideHour, hourSelecting, minute, hour, clockTime }) => {
+export const Hours = (props: NumbersProps) => {
+  const { insideHour, hourSelecting, clockTime } = props
   if (!hourSelecting) {
     return (
       <MinuteWithAnimation>
         {minutes.map((m, i) => (
-          <Numbers key={m} idx={i}>
-            {convertNumberValue(m)}
-          </Numbers>
+          <NumbersItem key={m} idx={i}>
+            {localizeNumber(m)}
+          </NumbersItem>
         ))}
       </MinuteWithAnimation>
     )
@@ -33,11 +21,11 @@ export const Hours: React.FunctionComponent<{
     return (
       <>
         {hours.map((h, i) => (
-          <Numbers
+          <NumbersItem
             key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}
           >
-            {convertNumberValue(h)}
-          </Numbers>
+            {localizeNumber(h)}
+          </NumbersItem>
         ))}
       </>
     )
@@ -45,7 +33,7 @@ export const Hours: React.FunctionComponent<{
   return (
     <>
       {hours.map((h, i) => (
-        <Numbers
+        <NumbersItem
           key={h}
           idx={i}
           top="15%"
@@ -53,13 +41,13 @@ export const Hours: React.FunctionComponent<{
           numbersPadd={10}
           style={{ opacity: insideHour ? 1 : 0.3 }}
         >
-          {convertNumberValue(h)}
-        </Numbers>
+          {localizeNumber(h)}
+        </NumbersItem>
       ))}
       {hours24.map((h, i) => (
-        <Numbers key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
-          {convertNumberValue(h)}
-        </Numbers>
+        <NumbersItem key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}>
+          {localizeNumber(h)}
+        </NumbersItem>
       ))}
     </>
   )
