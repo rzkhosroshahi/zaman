@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Calendar, CalendarProvider, DatePicker } from '../src'
 import { createRoot } from 'react-dom/client'
 import './style.css'
+import TimePicker from '../src/packages/TimePicker'
 const container = document.getElementById('root')
 const root = createRoot(container as HTMLElement)
 
@@ -53,6 +54,13 @@ const App = () => {
           <DatePicker round="roundX4" />
           <DatePicker round="roundX2" accentColor="#6374ae" range />
         </div>
+          )
+        : null}
+      {view === 'time'
+        ? (
+          <div className="libWrapper">
+            <TimePicker />
+          </div>
           )
         : null}
     </section>
