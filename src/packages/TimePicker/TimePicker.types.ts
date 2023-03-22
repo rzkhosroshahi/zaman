@@ -1,7 +1,7 @@
 import type { DatePickerValue, Locales } from '../../types'
 import type { Radius } from '../../style/radius'
 
-interface onChangePayload {
+export interface onChangePayload {
   hour: number
   minute: number
   timeConvention?: 'am' | 'pm'
