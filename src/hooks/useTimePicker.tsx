@@ -17,7 +17,8 @@ export const useTimePicker = ({ defaultValue, clockTime, timeConvention, onChang
   const [selecting, setSelecting] = useState<boolean>(false)
   const [selectingHour, setSelectingHour] = useState<boolean>(false)
   const [isInsideHour, setInsideHour] = useState<boolean>(false)
-  const [hour, setHour] = useState<number>(parseInt(time.format('HH'), 10))
+  const hourFormat = clockTime === 24 ? 'HH' : 'h'
+  const [hour, setHour] = useState<number>(parseInt(time.format(hourFormat), 10))
   const [minute, setMinute] = useState<number>(parseInt(time.format('MM'), 10))
 
   const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {
