@@ -36,16 +36,18 @@ export const center = {
 export const radianToDeg = (rad: number) => rad * 57.29577951308232
 
 // calculate offsetX and offsetY
-export const calculateOffset = (elem: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>) => {
-  let { offsetX, offsetY } = elem.currentTarget
+export const calculateOffset = (elem: unknown) => {
+  const el = elem as React.MouseEvent<HTMLElement>
+  const touchElement = elem as React.TouchEvent<HTMLElement>
+  let { offsetX, offsetY } = el.nativeEvent
   if (typeof offsetX === 'undefined') {
-    const rect = elem.currentTarget.getBoundingClientRect()
-    if (elem.changedTouches && elem.changedTouches.length) {
-      offsetX = elem.changedTouches[0].clientX - rect.left
-      offsetY = elem.changedTouches[0].clientY - rect.top
+    const rect = touchElement.currentTarget.getBoundingClientRect()
+    if ((touchElement.changedTouches.length !== 0)) {
+      offsetX = touchElement.changedTouches[0].clientX - rect.left
+      offsetY = touchElement.changedTouches[0].clientY - rect.top
     } else {
-      offsetX = elem.clientX - rect.left
-      offsetY = elem.clientY - rect.top
+      offsetX = el.clientX - rect.left
+      offsetY = el.clientY - rect.top
     }
   }
   return {
