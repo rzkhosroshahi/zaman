@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { radius } from '../../style/radius'
 
 export const Clock = styled.div`
   width: 260px;
@@ -42,4 +43,35 @@ export const HandCircle = styled('div')<{ isSelectingHour: boolean }>`
   border-radius: 100%;
   background-color: ${props => props.theme.colors.primary[85]};
   pointer-events: none;
+`
+
+export const TimeWrapper = styled.div`
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+export const Time = styled.div`
+  padding: 4px 8px;
+  border-radius: ${props => radius[props.theme.round].calendarItem}px;
+  background-color: ${props => props.theme.colors.gray[20]};
+`
+
+export const ClockTimeWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+`
+
+export const ClockTime = styled.div`
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 4px;
+  
+  &.cl_selected {
+    background-color: ${props => props.theme.colors.gray[20]};
+  }
 `

@@ -80,7 +80,9 @@ export const fa: LocalesTypes = {
       name: 'اسفند'
     }
   ],
-  format: 'YYYY/MM/DD'
+  format: 'YYYY/MM/DD',
+  am: 'ق.ظ',
+  pm: 'ب.ظ'
 }
 
 export default fa

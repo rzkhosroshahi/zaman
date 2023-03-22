@@ -60,9 +60,9 @@ export const getValue = (deg: number, delta: number, steps: number) => {
   if (steps === 6) {
     return valueBySteps
   }
-  // 24 hour selecting
+  // hour selecting
   if (Math.round(delta) > 85) {
-    return valueBySteps + 12
+    return valueBySteps
   }
   // inside hour selecting
   return valueBySteps === 0 ? 12 : valueBySteps

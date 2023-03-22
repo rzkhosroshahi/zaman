@@ -16,7 +16,8 @@ export const Hours: React.FunctionComponent<{
   hourSelecting: boolean
   hour: number
   minute: number
-}> = ({ insideHour, hourSelecting, minute, hour }) => {
+  clockTime: 12 | 24
+}> = ({ insideHour, hourSelecting, minute, hour, clockTime }) => {
   if (!hourSelecting) {
     return (
       <MinuteWithAnimation>
@@ -26,6 +27,19 @@ export const Hours: React.FunctionComponent<{
           </Numbers>
         ))}
       </MinuteWithAnimation>
+    )
+  }
+  if (clockTime === 12) {
+    return (
+      <>
+        {hours.map((h, i) => (
+          <Numbers
+            key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}
+          >
+            {convertNumberValue(h)}
+          </Numbers>
+        ))}
+      </>
     )
   }
   return (

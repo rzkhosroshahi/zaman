@@ -65,7 +65,7 @@ const App = () => {
       {view === 'time'
         ? (
           <div className="libWrapper">
-            <TimePicker accentColor="#6374ae" />
+            <TimePicker accentColor="#6374ae" onChange={(py) => console.log(py)}/>
           </div>
           )
         : null}

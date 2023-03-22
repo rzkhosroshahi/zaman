@@ -80,7 +80,9 @@ export const en: LocalesTypes = {
       name: 'December'
     }
   ],
-  format: 'MM-DD-YY'
+  format: 'MM-DD-YY',
+  am: 'AM',
+  pm: 'PM'
 }
 
 export default en
