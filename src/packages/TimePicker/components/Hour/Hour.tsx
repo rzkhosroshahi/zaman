@@ -29,7 +29,7 @@ export const Hours: React.FunctionComponent<{
     )
   }
   return (
-    <React.Fragment>
+    <>
       {hours.map((h, i) => (
         <Numbers
           key={h}
@@ -47,7 +47,7 @@ export const Hours: React.FunctionComponent<{
           {convertNumberValue(h)}
         </Numbers>
       ))}
-    </React.Fragment>
+    </>
   )
 }
 

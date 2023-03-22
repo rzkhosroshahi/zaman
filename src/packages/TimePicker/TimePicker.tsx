@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import dayjs from 'dayjs'
 import { Clock, Hand, HandCircle } from './TimePicker.styled'
 import { getAngelValues } from '../../utils/timePicker'
+import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import Hours from './components/Hour/Hour'
+import type { TimePickerProps } from './TimePicker.types'
+import localeCache from '../../utils/locale'
+import CalendarWrapper from '../../components/CalendarWrapper'
 
-export const TimePicker = () => {
+export const TimePicker = (props: TimePickerProps) => {
+  const { defaultValue, onChange, round = 'roundX2', locale = 'fa' } = props
+  useMemo(() => localeCache.setLocale(locale), [locale])
+  const time = defaultValue !== undefined ? dayjs(defaultValue).locale(locale) : dayjs().locale(locale).startOf('date')
   const [selecting, setSelecting] = useState<boolean>(false)
   const [selectingHour, setSelectingHour] = useState<boolean>(false)
   const [isInsideHour, setInsideHour] = useState<boolean>(false)
-  const [hour, setHour] = useState<number>(0)
-  const [minute, setMinute] = useState<number>(0)
+  const [hour, setHour] = useState<number>(parseInt(time.format('HH'), 10))
+  const [minute, setMinute] = useState<number>(parseInt(time.format('MM'), 10))
 
   const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {
     const { value } = getAngelValues(e, 6)
@@ -42,34 +50,50 @@ export const TimePicker = () => {
     }
   }
   const handleMouseUp = () => {
+    if (selectingHour && typeof onChange === 'function') {
+      onChange({
+        hour,
+        minute
+      })
+    }
     setSelecting(false)
-    setSelectingHour(false)
+    setSelectingHour(true)
   }
 
   return (
-    <Clock
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseDown={handleSelecting}
-      onTouchMove={handleSelecting}
-      onTouchEnd={handleMouseUp}
+    <CalendarProvider
+      accentColor={props.accentColor}
+      round={round}
     >
-      <Hand
-        value={selectingHour ? hour : minute}
-        hour={hour}
-        minute={minute}
-        isSelectingHour={selectingHour}
-        isInsideHour={isInsideHour}
-      >
-        <HandCircle isSelectingHour={selectingHour} />
-      </Hand>
-      <Hours
-        hour={hour}
-        minute={minute}
-        insideHour={isInsideHour}
-        hourSelecting={selectingHour}
-      />
-    </Clock>
+      <CalendarWrapper>
+        <div>
+          {hour}:{minute}
+        </div>
+        <Clock
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseDown={handleSelecting}
+          onTouchMove={handleSelecting}
+          onTouchEnd={handleMouseUp}
+        >
+          <Hand
+            value={selectingHour ? hour : minute}
+            hour={hour}
+            minute={minute}
+            isSelectingHour={selectingHour}
+            isInsideHour={isInsideHour}
+          >
+            <HandCircle isSelectingHour={selectingHour} />
+          </Hand>
+          <Hours
+            hour={hour}
+            minute={minute}
+            insideHour={isInsideHour}
+            hourSelecting={selectingHour}
+          />
+        </Clock>
+      </CalendarWrapper>
+    </CalendarProvider>
   )
 }
 

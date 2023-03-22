@@ -24,6 +24,12 @@ const App = () => {
         >
           Date picker
         </div>
+        <div
+          className={`tabItem tabItem${view === 'time' ? '--selected' : ''}`}
+          onClick={() => setView('time')}
+        >
+          Date picker
+        </div>
       </div>
       {view === 'cal'
         ? (
@@ -59,7 +65,7 @@ const App = () => {
       {view === 'time'
         ? (
           <div className="libWrapper">
-            <TimePicker />
+            <TimePicker accentColor="#6374ae" />
           </div>
           )
         : null}

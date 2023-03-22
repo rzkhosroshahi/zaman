@@ -6,7 +6,7 @@ export const Clock = styled.div`
   position: relative;
   z-index: 1;
   border-radius: 50%;
-  background-color: #bba4d2;
+  background-color: ${props => props.theme.colors.primary[95]}
 `
 
 export interface IStyledHandProps {
@@ -23,7 +23,7 @@ export const Hand = styled('div')<IStyledHandProps>`
   bottom: 50%;
   height: ${props => (props.isInsideHour ? '26%' : '40%')};
   position: absolute;
-  background-color: darkseagreen;
+  background-color: ${props => props.theme.colors.primary[85]};
   transform-origin: center bottom 0;
   transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   pointer-events: none;
@@ -36,10 +36,10 @@ export const Hand = styled('div')<IStyledHandProps>`
 export const HandCircle = styled('div')<{ isSelectingHour: boolean }>`
   top: -21px;
   left: -17px;
-  border: 16px solid yellowgreen;
+  border: 16px solid ${props => props.theme.colors.primary[85]};
   position: absolute;
   box-sizing: content-box;
   border-radius: 100%;
-  background-color: yellowgreen;
+  background-color: ${props => props.theme.colors.primary[85]};
   pointer-events: none;
 `
