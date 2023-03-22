@@ -15,7 +15,7 @@ import type { DaysInMonth } from '../../utils/month/month.types'
 import type { CalendarProps } from './Calendar.types'
 import type { Pickers } from '../../types'
 import useCalendarHandlers from '../../hooks/useCalendarHandlers'
-import {CalendarText} from "../../components/CalendarItem/CalendarItem.styled";
+import { CalendarText } from '../../components/CalendarItem/CalendarItem.styled'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache

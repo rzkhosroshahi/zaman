@@ -80,7 +80,9 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     background-color: ${props => props.theme.colors.primary[90]};
     z-index: -1;
   }
-  &[data-in-range=true]:nth-child(1):before {
+  &[data-in-range=true]:nth-child(1):before,
+  &[data-start-range=true]:before
+  {
     display: none;
   }
 `

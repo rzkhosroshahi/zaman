@@ -6,7 +6,7 @@ const container = document.getElementById('root')
 const root = createRoot(container as HTMLElement)
 
 const App = () => {
-  const [view, setView] = useState<string>('day')
+  const [view, setView] = useState<string>('cal')
 
   return (
     <section className="wrapper">
@@ -39,8 +39,8 @@ const App = () => {
               value={new Date()}
               onChange={(d) => console.log(d)}
               weekends={[6]}
-              from="Mon Mar 06 2023 20:11:58 GMT+0330 (Iran Standard Time)"
-              to="Wed Mar 14 2023 21:41:23 GMT+0330 (Iran Standard Time)"
+              from={new Date()}
+              to={new Date().setDate(new Date().getDate() + 7)}
               range
             />
           </CalendarProvider>

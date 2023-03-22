@@ -33,6 +33,8 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     const { value } = e.currentTarget.dataset
     if (!selectingRange && value !== undefined) {
       setFrom(new Date(value))
+      setTo(new Date(value))
+
       setSelectingRange(true)
       return
     }
