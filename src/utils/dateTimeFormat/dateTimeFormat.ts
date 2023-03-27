@@ -6,7 +6,8 @@ export const getDateFormat = (date: Date, options: Intl.DateTimeFormatOptions, n
     ...options,
     ...((numberingSystem != null) && { numberingSystem })
   }
-  return new Intl.DateTimeFormat(locale, defaultOptions).format(date)
+  const intl = new Date(date).toLocaleString(locale, defaultOptions)
+  return intl
 }
 
 export const getDayOfMonth = (date: Date): number => {

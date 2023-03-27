@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
   border-bottom: 2px solid ${props => props.theme.colors.primary[85]};
 `
 export const HeaderTitle = styled.button`
+  will-change: auto;
+  min-width: 100px;
   outline: none;
   border: 0;
   font-family: inherit;
