@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { Calendar, CalendarProvider, DatePicker } from '../src'
 import { createRoot } from 'react-dom/client'
 import './style.css'
+import TimePicker from '../src/packages/TimePicker'
 const container = document.getElementById('root')
 const root = createRoot(container as HTMLElement)
 
 const App = () => {
-  const [view, setView] = useState<string>('cal')
+  const [view, setView] = useState<string>('time')
 
   return (
     <section className="wrapper">
@@ -22,6 +23,12 @@ const App = () => {
           onClick={() => setView('day')}
         >
           Date picker
+        </div>
+        <div
+          className={`tabItem tabItem${view === 'time' ? '--selected' : ''}`}
+          onClick={() => setView('time')}
+        >
+          Time picker
         </div>
       </div>
       {view === 'cal'
@@ -53,6 +60,13 @@ const App = () => {
           <DatePicker round="roundX4" />
           <DatePicker round="roundX2" accentColor="#6374ae" range />
         </div>
+          )
+        : null}
+      {view === 'time'
+        ? (
+          <div className="libWrapper">
+            <TimePicker accentColor="#6374ae" onChange={(py) => console.log(py)}/>
+          </div>
           )
         : null}
     </section>
