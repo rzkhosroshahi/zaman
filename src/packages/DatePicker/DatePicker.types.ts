@@ -1,5 +1,4 @@
-import type { DatePickerValue, DaysRange, Locales } from '../../types'
-import type { Radius } from '../../style/radius'
+import type { DatePickerValue, DaysRange, BaseProps } from '../../types'
 
 export interface DatePickerOnChange {
   value?: Date
@@ -7,12 +6,9 @@ export interface DatePickerOnChange {
   to?: Date
 }
 
-export interface DatePickerProps {
+export interface DatePickerProps extends BaseProps {
   defaultValue?: DatePickerValue
   onChange?: (value: DatePickerOnChange) => void
-  round?: Radius
-  accentColor?: string
-  locale?: Locales
   weekends?: DaysRange[]
   range?: boolean
   from?: DatePickerValue
