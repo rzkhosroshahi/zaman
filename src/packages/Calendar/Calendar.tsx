@@ -19,9 +19,9 @@ import { CalendarText } from '../../components/CalendarItem/CalendarItem.styled'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
-  const { value, onChange, weekends, range = false } = props
+  const { defaultValue, onChange, weekends, range = false } = props
   // memo
-  const getAllDays = useMemo(() => getDays({ date: value }), [])
+  const getAllDays = useMemo(() => getDays({ date: defaultValue }), [])
   // states
   const [days, setDays] = useState<DaysInMonth[]>([getAllDays])
   const [picker, setPicker] = useState<Pickers>('days')
@@ -35,7 +35,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setDays
   })
   const { from, to, handlers } = useCalendarHandlers({
-    dayValue: value,
+    dayValue: defaultValue,
     range,
     onChange,
     from: props.from,
@@ -56,7 +56,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setPicker('days')
   }
   const handleYearSelect = (year: number) => {
-    const date = selectYear(value, year)
+    const date = selectYear(defaultValue, year)
     onChange(date)
     setDays([getDays({ date })])
     setPicker('month')
@@ -71,12 +71,12 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
       />
       {
         picker === 'year'
-          ? <YearPicker value={value} onYearSelect={handleYearSelect} />
+          ? <YearPicker value={defaultValue} onYearSelect={handleYearSelect} />
           : null
       }
       {
         picker === 'month'
-          ? <MonthPicker value={value} onMonthSelect={handleMonthSelect} />
+          ? <MonthPicker value={defaultValue} onMonthSelect={handleMonthSelect} />
           : null
       }
       {
@@ -105,7 +105,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                               data-value={day.date}
                               data-disabled={day.disabled}
                               data-range={props.range}
-                              data-selected={!range && sameDay(value, day.date)}
+                              data-selected={!range && sameDay(defaultValue, day.date)}
                               data-start-range={(from != null) && sameDay(from, day.date)}
                               data-in-range={isInBetween(day.date, from, to)}
                               data-end-range={(to != null) && sameDay(to, day.date)}

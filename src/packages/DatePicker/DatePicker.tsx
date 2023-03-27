@@ -82,7 +82,7 @@ export const DatePicker = (props: DatePickerProps) => {
         destinationRef={inputRef}
       >
         <Calendar
-          value={value}
+          defaultValue={value}
           ref={containerRef}
           weekends={weekends}
           onChange={handleChangeDay}

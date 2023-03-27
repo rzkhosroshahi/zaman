@@ -36,14 +36,14 @@ const App = () => {
         <div className="libWrapper">
           <CalendarProvider locale="fa" round="roundX2">
             <Calendar
-              value={new Date()}
+              defaultValue={new Date()}
               onChange={(d) => console.log(d)}
               weekends={[6]}
             />
           </CalendarProvider>
           <CalendarProvider locale="fa" round="roundX4" accentColor="#6374ae">
             <Calendar
-              value={new Date()}
+              defaultValue={new Date()}
               onChange={(d) => console.log(d)}
               weekends={[6]}
               from={new Date()}
