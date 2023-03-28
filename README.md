@@ -15,6 +15,8 @@
 | from         | timestamp &#124; Date &#124; Dayjs                         | undefined |
 | to           | timestamp &#124; Date &#124; Dayjs                         | undefined |
 | show         | boolean                                                    | false     |
+| inputClass   | string                                                     | null      |
+| className    | string                                                     | null      |
 
 
 ## Calendar Provider

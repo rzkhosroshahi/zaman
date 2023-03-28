@@ -72,7 +72,10 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setPicker('month')
   }
   return (
-    <Wrapper ref={ref}>
+    <Wrapper
+      ref={ref}
+      className={props.className !== null ? props.className : ''}
+    >
       <Header
         monthName={days[0].monthName}
         onNextClick={handleNextMonth}

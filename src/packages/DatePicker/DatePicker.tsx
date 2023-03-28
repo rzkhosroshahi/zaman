@@ -75,6 +75,7 @@ export const DatePicker = (props: DatePickerProps) => {
         onClick={toggleShowCalendar}
         type="text"
         value={getInputValue}
+        className={props.inputClass !== null ? props.inputClass : ''}
         readOnly
       />
       <RenderCalendar
@@ -85,6 +86,7 @@ export const DatePicker = (props: DatePickerProps) => {
         <Calendar
           defaultValue={value}
           ref={containerRef}
+          className={props.className}
           weekends={weekends}
           onChange={handleChangeDay}
           range={props.range}

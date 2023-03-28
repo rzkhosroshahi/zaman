@@ -8,4 +8,5 @@ export interface CalendarProps {
   range?: boolean
   from?: DatePickerValue
   to?: DatePickerValue
+  className?: string
 }
