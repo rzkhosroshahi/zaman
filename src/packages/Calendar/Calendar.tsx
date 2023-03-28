@@ -49,6 +49,16 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     }
     setPicker('year')
   }
+  const handleNextMonth = () => {
+    if (picker === 'days') {
+      return slideHandlers.slideToTheNextMonth()
+    }
+  }
+  const handlePrevMonth = () => {
+    if (picker === 'days') {
+      return slideHandlers.slideToPrevMonth()
+    }
+  }
   const handleMonthSelect = (month: number) => {
     const date = selectMonth(days[0].middleOfMonth, month)
     onChange(date)
@@ -65,8 +75,8 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     <Wrapper ref={ref}>
       <Header
         monthName={days[0].monthName}
-        onNextClick={slideHandlers.slideToTheNextMonth}
-        onPrevClick={slideHandlers.slideToPrevMonth}
+        onNextClick={handleNextMonth}
+        onPrevClick={handlePrevMonth}
         onClickOnTitle={togglePickers}
       />
       {
