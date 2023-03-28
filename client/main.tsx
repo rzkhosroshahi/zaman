@@ -7,7 +7,7 @@ const container = document.getElementById('root')
 const root = createRoot(container as HTMLElement)
 
 const App = () => {
-  const [view, setView] = useState<string>('time')
+  const [view, setView] = useState<string>('cal')
 
   return (
     <section className="wrapper">
