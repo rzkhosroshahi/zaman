@@ -36,6 +36,9 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     border-color: transparent;
     color: ${props => props.theme.colors.gray[0]};
   }
+  &[data-disabled=true] {
+    border-color: transparent;
+  }  
   &[data-disabled=true] .cl-text {
     opacity: 0.5;
   }
