@@ -34,14 +34,14 @@ const App = () => {
       {view === 'cal'
         ? (
         <div className="libWrapper">
-          <CalendarProvider locale="fa" round="roundX2">
+          <CalendarProvider locale="fa" round="x2">
             <Calendar
               defaultValue={new Date()}
               onChange={(d) => console.log(d)}
               weekends={[6]}
             />
           </CalendarProvider>
-          <CalendarProvider locale="fa" round="roundX4" accentColor="#6374ae">
+          <CalendarProvider locale="fa" round="x4" accentColor="#6374ae">
             <Calendar
               defaultValue={new Date()}
               onChange={(d) => console.log(d)}
@@ -57,8 +57,8 @@ const App = () => {
       {view === 'day'
         ? (
         <div className="libWrapper">
-          <DatePicker round="roundX4" />
-          <DatePicker round="roundX2" accentColor="#6374ae" range />
+          <DatePicker round="x4" />
+          <DatePicker round="x2" accentColor="#6374ae" range />
         </div>
           )
         : null}

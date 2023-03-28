@@ -12,7 +12,7 @@ import useClickOutside from '../../hooks/useClickOutside'
 import { useTimePicker } from '../../hooks/useTimePicker'
 
 export const TimePicker = (props: TimePickerProps) => {
-  const { defaultValue, onChange, round = 'roundX2', locale = 'fa', clockTime = 24 } = props
+  const { defaultValue, onChange, round = 'x2', locale = 'fa', clockTime = 24 } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
 
   const inputRef = useRef<HTMLInputElement>(null)

@@ -1,4 +1,4 @@
-export type Radius = 'thin' | 'roundX1' | 'roundX2' | 'roundX3' | 'roundX4'
+export type Radius = 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
 
 interface radiusObject {
   wrapper: number
@@ -9,19 +9,19 @@ export const radius: Record<Radius, radiusObject > = {
     wrapper: 0,
     calendarItem: 0
   },
-  roundX1: {
+  x1: {
     wrapper: 8,
     calendarItem: 4
   },
-  roundX2: {
+  x2: {
     wrapper: 16,
     calendarItem: 8
   },
-  roundX3: {
+  x3: {
     wrapper: 24,
     calendarItem: 16
   },
-  roundX4: {
+  x4: {
     wrapper: 24,
     calendarItem: 20
   }
