@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { CALENDAR_HEIGHT, CALENDAR_WIDTH } from '../../constants'
 import { radius } from '../../style/radius'
-import { isRtl } from '../../utils'
 
 export const Wrapper = styled.div`
   overflow: hidden;
@@ -17,8 +16,8 @@ export const WrapperDays = styled.div`
   display: flex;
   position: absolute;
   overflow: hidden;
-  right: ${isRtl() ? '8px' : 'unset'};
-  left: ${!isRtl() ? '8px' : 'unset'};
+  right: ${props => props.theme.direction === 'rtl' ? '8px' : 'unset'};
+  left: ${props => props.theme.direction !== 'rtl' ? '8px' : 'unset'};
 `
 
 export const SlideDays = styled.div`

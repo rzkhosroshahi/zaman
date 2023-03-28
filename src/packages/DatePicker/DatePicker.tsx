@@ -9,7 +9,7 @@ import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import localeCache from '../../utils/locale'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, locale = 'fa', weekends = [6] } = props
+  const { defaultValue, onChange, locale = 'fa', weekends = [], direction = 'rtl' } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
@@ -68,6 +68,7 @@ export const DatePicker = (props: DatePickerProps) => {
     <CalendarProvider
       accentColor={props.accentColor}
       round={props.round}
+      direction={direction}
     >
       <input
         ref={inputRef}

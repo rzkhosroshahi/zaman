@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import type { CalendarItemProps } from './CalendarItem.types'
 import { radius } from '../../style/radius'
-import { isRtl } from '../../utils'
 
 export const CalendarText = styled.div`
   color: inherit;
@@ -75,8 +74,8 @@ export const CalendarItem = styled.button<CalendarItemProps>`
     width: 40px;
     height: 40px;
     top: -1px;
-    left: ${isRtl() ? '20px' : 'unset'};
-    right: ${isRtl() ? 'unset' : '20px'};
+    left: ${props => props.theme.direction === 'rtl' ? '20px' : 'unset'};
+    right: ${props => props.theme.direction === 'rtl' ? 'unset' : '20px'};
     background-color: ${props => props.theme.colors.primary[90]};
     z-index: -1;
   }
