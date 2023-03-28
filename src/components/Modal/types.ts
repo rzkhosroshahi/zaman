@@ -1,12 +1,7 @@
-import * as React from "react";
+import type * as React from 'react'
 
 export interface IModalProps {
-  isOpen?: boolean;
-  modalZIndex?: number;
-  children: React.ReactNode;
-  toggleOpen: () => void;
-}
-
-export interface IModalStyled {
-  modalZIndex: number;
+  open?: boolean
+  children: React.ReactNode
+  toggleOpen: () => void
 }

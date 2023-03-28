@@ -1,27 +1,21 @@
-import * as moment from "jalali-moment";
+import localeCache from './locale'
 
-export const fa = n => {
-  if (process.env.NODE_ENV === "test") {
-    return n;
+export const isRtl = (): boolean => {
+  if (document.dir !== '') {
+    return document.dir === 'rtl'
   }
-  return Number(n).toLocaleString("fa", {
-    useGrouping: false,
-  });
-};
+  const { body } = document
+  return getComputedStyle(body).direction === 'rtl'
+}
 
-// prettier-ignore
-export const inputFaDateMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/];
-// prettier-ignore
-export const inputFaDateWithTimeMask = [/[0-1]/,/[0-4]/,/[0-9]/,/[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[0-3]/, /[0-9]/, ' ','-',' ', /[0-2]/,/[0-9]/, ':', /[0-5]/,/[0-9]/];
-export const formatDateTime = "jYYYY/jMM/jDD - HH:mm";
-export const formatDate = "jYYYY/jMM/jDD";
-// week days name
-export const weekDayNames = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
-// format jalali string date into moment
-export const formatJalaliDate = date => {
-  const formattedDate = moment(`${date}`, "jYYYY/jMM/jDD");
-  if (formattedDate.isValid()) {
-    return formattedDate;
+export const localizeNumber = (n: string | number) => {
+  if (process.env.NODE_ENV === 'test') {
+    return n
   }
-  return null;
-};
+  const { locale } = localeCache
+  return Number(n).toLocaleString(locale, {
+    useGrouping: false
+  })
+}
+
+export const weekDayNames = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج']

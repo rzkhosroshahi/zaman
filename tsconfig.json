@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2015",
+    "module": "esnext",
+    "allowJs": true,
+    "baseUrl": ".",
     "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./",
     "moduleResolution": "node",
+    "noEmitOnError": true,
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "declaration": true,
-    "declarationMap": false,
-    "sourceMap": true,
-    "esModuleInterop": false
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "include": ["src/**/*", "client/**/*"],
+  "exclude": ["node_modules"]
 }

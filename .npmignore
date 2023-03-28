@@ -1,9 +1,12 @@
 src
 docs
-.prettierrc.js
+.eslintrc.cjs
 jest.config.js
 tsconfig.json
 tslint.json
+client
+cypress
+serve
 
 build
 # parcel
