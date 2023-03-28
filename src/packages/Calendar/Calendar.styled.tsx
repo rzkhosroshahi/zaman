@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
   width: ${CALENDAR_WIDTH}px;
-  min-height: ${CALENDAR_HEIGHT}px;
+  height: ${CALENDAR_HEIGHT}px;
   border: 1px solid ${props => props.theme.colors.gray[40]};
   background-color: #fff;
   border-radius: ${props => radius[props.theme.round].wrapper}px;
