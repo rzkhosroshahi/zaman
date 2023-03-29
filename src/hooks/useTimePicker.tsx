@@ -19,7 +19,7 @@ export const useTimePicker = ({ defaultValue, clockTime, timeConvention, onChang
   const [isInsideHour, setInsideHour] = useState<boolean>(false)
   const hourFormat = clockTime === 24 ? 'HH' : 'h'
   const [hour, setHour] = useState<number>(parseInt(time.format(hourFormat), 10))
-  const [minute, setMinute] = useState<number>(parseInt(time.format('MM'), 10))
+  const [minute, setMinute] = useState<number>(0)
 
   const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {
     const { value } = getAngelValues(e, 6)
