@@ -1,6 +1,20 @@
 # Zaman React Date-Picker
 
-## Date Picker and Calendar
+Zaman is a lightweight React component for creating a Jalali/Georgian datepicker. There is also a range datepicker and timepicker in Zaman. The module can also be customized to match the appearance of your designs.
+
+check out the [codesandbox link.](https://codesandbox.io/s/new-version-date-picker-6eeepf)
+## Install
+
+with npm
+
+`$ npm i zaman`
+
+with yarn
+
+`$ yarn add zaman`
+
+## Props
+### Date Picker and Calendar
 
 | props        | type                                                       | default   |
 |--------------|------------------------------------------------------------|-----------|
@@ -19,7 +33,7 @@
 | className    | string                                                     | null      |
 
 
-## Calendar Provider
+### Calendar Provider
 
 | props       | type                                                       | default |
 |-------------|------------------------------------------------------------|---------|
@@ -31,7 +45,7 @@
 
 
 
-## Time Picker
+### Time Picker
 
 | props        | type                                                       | default |
 |--------------|------------------------------------------------------------|---------|
