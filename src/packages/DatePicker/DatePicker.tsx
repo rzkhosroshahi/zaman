@@ -29,7 +29,7 @@ export const DatePicker = (props: DatePickerProps) => {
     setValue(day)
     if (typeof onChange === 'function') {
       onChange({
-        value
+        value: day
       })
     }
     return day
