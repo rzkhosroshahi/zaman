@@ -35,9 +35,8 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setDays
   })
   const { from, to, handlers } = useCalendarHandlers({
-    dayValue: defaultValue,
-    range,
     onChange,
+    range,
     from: props.from,
     to: props.to
   })

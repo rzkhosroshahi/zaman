@@ -1,11 +1,9 @@
 import { type SyntheticEvent, useState } from 'react'
 import dayjs from 'dayjs'
-import { sameMonth } from '../utils/dateHelper/dateHelper'
 import type { DatePickerValue } from '../types'
 
 type Event = SyntheticEvent<HTMLButtonElement>
 interface useCalendarHandlersType {
-  dayValue: Date
   range?: boolean
   onChange: (d: Date, to?: Date) => void
   from?: DatePickerValue
@@ -13,17 +11,17 @@ interface useCalendarHandlersType {
 }
 
 export const useCalendarHandlers = (props: useCalendarHandlersType) => {
-  const { dayValue, range = false, onChange } = props
+  const { range = false, onChange } = props
   const [selectingRange, setSelectingRange] = useState(false)
   const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
   const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
 
   const onClickCalendar = (e: Event) => {
-    const { value } = e.currentTarget.dataset
+    const { value, disabled } = e.currentTarget.dataset
     if (value === undefined) {
       return
     }
-    if (!sameMonth(new Date(value), dayValue)) {
+    if (disabled === 'true') {
       return
     }
     onChange(new Date(value))
