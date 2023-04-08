@@ -55,3 +55,61 @@ with yarn
 | locale       | string one of fa &#124; en                                 | fa      |
 | clockTime    | number one of 12 &#124; 24                                 | 24      |
 
+## Usages
+### Date picker
+
+``` jsx
+import { DatePicker } from "zaman";
+
+function App() {
+  return (
+    <DatePicker onChange={(e) => console.log(e.value)} />
+  )
+}
+```
+
+### Range date picker
+
+``` jsx
+import { DatePicker } from "zaman";
+
+function App() {
+  return (
+    <DatePicker onChange={(e) => console.log(e.from, e.to)} range />
+  )
+}
+```
+
+### Calendar
+
+``` jsx
+import { Calendar, CalendarProvider } from "zaman";
+
+function App() {
+  const [calendarValue, setCalendarValue] = useState(new Date())
+
+  return (
+    <CalendarProvider>
+      <Calendar
+        defaultValue={calendarValue}
+        onChange={(day) => setCalendarValue(new Date(day))}
+      />
+    </CalendarProvider>
+  )
+}
+```
+
+
+### Time picker
+
+``` jsx
+import { TimePicker } from "zaman";
+
+function App() {
+  return (
+    <TimePicker
+      onChange={(e) => console.log(e.hour, e.minute, e.timeConvention)}
+    />
+  )
+}
+```
