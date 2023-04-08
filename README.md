@@ -2,6 +2,10 @@
 
 Zaman is a lightweight React component for creating a Jalali/Georgian datepicker. There is also a range datepicker and timepicker in Zaman. The module can also be customized to match the appearance of your designs.
 
+#### Design
+
+I appreciate [Ali Samandar](https://dribbble.com/eanlami)'s design of this library. Give him your support.
+
 check out the [codesandbox link.](https://codesandbox.io/s/new-version-date-picker-6eeepf)
 ## Install
 
