@@ -15,7 +15,8 @@ export const IconButton = styled.button`
   background-color: transparent;
   border-radius: ${props => radius[props.theme.round].calendarItem}px;
   
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${props => props.theme.colors.primary[90]};
   }
 `

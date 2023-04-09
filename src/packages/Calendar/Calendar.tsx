@@ -16,6 +16,7 @@ import type { CalendarProps } from './Calendar.types'
 import type { Pickers } from '../../types'
 import useCalendarHandlers from '../../hooks/useCalendarHandlers'
 import { CalendarText } from '../../components/CalendarItem/CalendarItem.styled'
+import { DaysButton } from '../../style/classNames'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
@@ -106,14 +107,16 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                   key={weeks.id}
                   className="item"
                   ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
+                  role="rowgroup"
                 >
                   {
                     weeks.weeks.map((week, id) => (
-                      <Days key={id}>
+                      <Days key={id} role="row" aria-rowindex={id + 1}>
                         {
                           week.map((day, idx) => (
                             <CalendarItem
                               key={day.date.getTime()}
+                              className={DaysButton}
                               data-value={day.date}
                               data-disabled={day.disabled}
                               data-range={props.range}
@@ -122,6 +125,11 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                               data-in-range={isInBetween(day.date, from, to)}
                               data-end-range={(to != null) && sameDay(to, day.date)}
                               data-weekend={weekends?.some(wDay => wDay === idx)}
+                              type="button"
+                              role="gridcell"
+                              aria-colindex={idx + 1}
+                              tabIndex={0}
+                              aria-selected={!range && sameDay(defaultValue, day.date)}
                               {...handlers}
                             >
                               <CalendarText className="cl-text">

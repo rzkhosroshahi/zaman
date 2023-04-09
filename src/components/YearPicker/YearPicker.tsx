@@ -5,6 +5,7 @@ import { getYears } from '../../utils/dateHelper/dateHelper'
 import formatDate from '../../utils/format'
 import type { YearPickerProps } from './YearPicker.types'
 import { localizeNumber } from '../../utils'
+import { YearPickerButton } from '../../style/classNames'
 
 export const YearPicker = (props: YearPickerProps) => {
   const currentYear = parseInt(formatDate(props.value, 'YYYY', 'latn'), 10)
@@ -26,10 +27,14 @@ export const YearPicker = (props: YearPickerProps) => {
     <Wrapper ref={wrapperRef}>
       {years.map((year) => (
         <CalendarItem
+          className={YearPickerButton}
           key={year}
           width={90}
           height={48}
           data-selected={currentYear === year}
+          aria-current="date"
+          type="button"
+          tabIndex={0}
           onClick={() => props.onYearSelect(year)}
         >
           {localizeNumber(year)}
