@@ -25,7 +25,7 @@ export const HeaderTitle = styled.button`
   transition: background-color 0.2s ease-in;
   border-radius: ${props => radius[props.theme.round].calendarItem}px;
   
-  &:hover {
+  &:hover, &:focus {
     background-color: ${props => props.theme.colors.primary[90]};
   }
 `

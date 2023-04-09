@@ -22,7 +22,7 @@ export const CalendarItem = styled.button<CalendarItemProps>`
   border-radius: ${props => radius[props.theme.round].calendarItem}px;
   
   // pseudos
-  &:hover {
+  &:hover, &:focus {
     border-color: ${props => props.theme.colors.gray[50]};
   }
   &:active {
