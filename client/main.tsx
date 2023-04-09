@@ -8,6 +8,7 @@ const root = createRoot(container as HTMLElement)
 
 const App = () => {
   const [view, setView] = useState<string>('cal')
+  const [calendarValue, setCalendarValue] = useState(new Date())
 
   return (
     <section className="wrapper">
@@ -36,8 +37,8 @@ const App = () => {
         <div className="libWrapper">
           <CalendarProvider locale="fa" round="x2">
             <Calendar
-              defaultValue={new Date()}
-              onChange={(d) => console.log(d)}
+              defaultValue={calendarValue}
+              onChange={(d) => setCalendarValue(new Date(d))}
               weekends={[6]}
             />
           </CalendarProvider>
