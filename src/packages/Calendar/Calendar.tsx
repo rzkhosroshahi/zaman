@@ -31,7 +31,6 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   // handlers
   const slideHandlers = useSlideCalendar({
     daysElementRefs,
-    value: days[0].middleOfMonth,
     days,
     setDays
   })
