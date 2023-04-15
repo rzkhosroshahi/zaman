@@ -62,7 +62,7 @@ export const DatePicker = (props: DatePickerProps) => {
         ${formatDate(to, locales[locale].format)}
       `
     }
-    return '---- --- ----'
+    return ''
   }, [value, from, to])
   return (
     <CalendarProvider
@@ -72,6 +72,7 @@ export const DatePicker = (props: DatePickerProps) => {
     >
       <input
         ref={inputRef}
+        {...props?.inputAttributes}
         onClick={toggleShowCalendar}
         type="text"
         value={getInputValue}
