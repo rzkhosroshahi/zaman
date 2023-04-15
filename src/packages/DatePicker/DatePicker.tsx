@@ -72,10 +72,10 @@ export const DatePicker = (props: DatePickerProps) => {
     >
       <input
         ref={inputRef}
+        {...props?.inputAttributes}
         onClick={toggleShowCalendar}
         type="text"
         value={getInputValue}
-        placeholder={props.placeholder}
         className={props.inputClass !== null ? props.inputClass : ''}
         readOnly
       />
