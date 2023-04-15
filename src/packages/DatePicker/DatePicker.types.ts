@@ -16,4 +16,5 @@ export interface DatePickerProps extends BaseProps {
   show?: boolean
   inputClass?: string
   className?: string
+  placeholder?: string
 }
