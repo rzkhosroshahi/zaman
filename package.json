@@ -12,8 +12,6 @@
     "dev": "vite",
     "watch": "rollup -c rollup.config.js -w",
     "lint": "tslint --project .",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
     "prepare": "husky install"
   },
   "repository": {
