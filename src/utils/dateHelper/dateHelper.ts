@@ -7,7 +7,10 @@ export const sameMonth = (date: Date, date2: Date) => {
   return getMonth(date) === getMonth(date2)
 }
 
-export const sameDay = (date: Date, date2: Date): boolean => {
+export const sameDay = (date?: Date, date2?: Date): boolean => {
+  if (date === undefined) {
+    return false
+  }
   return dayjs(date).isSame(date2, 'day')
 }
 

@@ -1,7 +1,7 @@
 import type { Locales } from '../../types'
 
 export interface GetDaysTypes {
-  date?: string | Date | number
+  date?: string | Date | number | undefined
   startWeek?: number
   locale?: Locales
 }

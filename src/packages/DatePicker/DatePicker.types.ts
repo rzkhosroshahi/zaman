@@ -8,7 +8,7 @@ export interface DatePickerOnChange {
 }
 
 export interface DatePickerProps extends BaseProps {
-  defaultValue?: DatePickerValue
+  defaultValue?: DatePickerValue | undefined
   onChange?: (value: DatePickerOnChange) => void
   weekends?: DaysRange[]
   range?: boolean
