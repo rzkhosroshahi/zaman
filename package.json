@@ -20,9 +20,6 @@
     "type": "git",
     "url": "git@github.com:rzkhosroshahi/react-jalali-datepicker.git"
   },
-  "husky": {
-    "hooks": {}
-  },
   "keywords": [
     "datepicker",
     "farsi",
