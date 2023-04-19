@@ -22,7 +22,7 @@ with yarn
 
 | props           | type                                                       | default   |
 |-----------------|------------------------------------------------------------|-----------|
-| defaultValue    | timestamp &#124; Date &#124; Dayjs                         | Date      |
+| defaultValue    | timestamp &#124; Date &#124; Dayjs                         | undefined |
 | weekend         | number[]                                                   | undefined |
 | round           | string one of thin &#124; x1 &#124; x2 &#124; x3 &#124; x4 | thin      |
 | accentColor     | string                                                     | #0D59F2   |
