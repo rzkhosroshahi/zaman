@@ -21,8 +21,9 @@ import { DaysButton } from '../../style/classNames'
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
   const { defaultValue, onChange, weekends, range = false } = props
+  const startDate = defaultValue === undefined ? new Date() : defaultValue
   // memo
-  const getAllDays = useMemo(() => getDays({ date: defaultValue }), [])
+  const getAllDays = useMemo(() => getDays(defaultValue), [])
   // states
   const [days, setDays] = useState<DaysInMonth[]>([getAllDays])
   const [picker, setPicker] = useState<Pickers>('days')
@@ -61,13 +62,13 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const handleMonthSelect = (month: number) => {
     const date = selectMonth(days[0].middleOfMonth, month)
     onChange(date)
-    setDays([getDays({ date })])
+    setDays([getDays(date)])
     setPicker('days')
   }
   const handleYearSelect = (year: number) => {
-    const date = selectYear(defaultValue, year)
+    const date = selectYear(startDate, year)
     onChange(date)
-    setDays([getDays({ date })])
+    setDays([getDays(date)])
     setPicker('month')
   }
   return (
@@ -83,12 +84,12 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
       />
       {
         picker === 'year'
-          ? <YearPicker value={defaultValue} onYearSelect={handleYearSelect} />
+          ? <YearPicker value={startDate} onYearSelect={handleYearSelect} />
           : null
       }
       {
         picker === 'month'
-          ? <MonthPicker value={defaultValue} onMonthSelect={handleMonthSelect} />
+          ? <MonthPicker value={startDate} onMonthSelect={handleMonthSelect} />
           : null
       }
       {
@@ -119,7 +120,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                               data-value={day.date}
                               data-disabled={day.disabled}
                               data-range={props.range}
-                              data-selected={!range && sameDay(defaultValue, day.date)}
+                              data-selected={!range && sameDay(startDate, day.date)}
                               data-start-range={(from != null) && sameDay(from, day.date)}
                               data-in-range={isInBetween(day.date, from, to)}
                               data-end-range={(to != null) && sameDay(to, day.date)}
@@ -128,7 +129,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                               role="gridcell"
                               aria-colindex={idx + 1}
                               tabIndex={0}
-                              aria-selected={!range && sameDay(defaultValue, day.date)}
+                              aria-selected={!range && sameDay(startDate, day.date)}
                               {...handlers}
                             >
                               <CalendarText className="cl-text">

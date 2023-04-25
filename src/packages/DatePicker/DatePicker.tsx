@@ -15,7 +15,7 @@ export const DatePicker = (props: DatePickerProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   // states
-  const [value, setValue] = useState<Date>(defaultValue !== undefined ? new Date(defaultValue) : new Date())
+  const [value, setValue] = useState<Date | undefined>(defaultValue !== undefined ? new Date(defaultValue) : undefined)
   const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
   const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
@@ -52,6 +52,9 @@ export const DatePicker = (props: DatePickerProps) => {
   }
 
   const getInputValue = useMemo(() => {
+    if (value === undefined) {
+      return ''
+    }
     if (props.range === undefined) {
       return formatDate(value, locales[locale].format)
     }

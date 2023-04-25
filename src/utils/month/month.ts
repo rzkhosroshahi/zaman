@@ -1,23 +1,23 @@
 import dayjs from 'dayjs'
+import 'dayjs/locale/fa'
 import weekday from 'dayjs/plugin/weekday'
 import LocalizedFormat from 'dayjs/plugin/LocalizedFormat'
-import 'dayjs/locale/fa'
 import { getDayOfMonth } from '../dateTimeFormat/dateTimeFormat'
 import { sameMonth } from '../dateHelper/dateHelper'
 import formatDate from '../format'
 import localeCache from '../locale'
-import type { DaysInMonth, GetDaysTypes } from './month.types'
+import type { DaysInMonth } from './month.types'
+import { type DatePickerValue } from '../../types'
 
 dayjs.extend(weekday)
 dayjs.extend(LocalizedFormat)
 
-const getDays = ({
-  date = new Date()
-}: GetDaysTypes): DaysInMonth => {
+const getDays = (date: DatePickerValue | undefined): DaysInMonth => {
   const { locale } = localeCache
   dayjs.locale(locale)
-  const selectedDayOnMonth = getDayOfMonth(new Date(date))
-  const firstDayOfMonth = dayjs(new Date(date)).subtract(selectedDayOnMonth - 1, 'days')
+  const startDate = date === undefined ? new Date() : dayjs(date).toDate()
+  const selectedDayOnMonth = getDayOfMonth(new Date(startDate))
+  const firstDayOfMonth = dayjs(new Date(startDate)).subtract(selectedDayOnMonth - 1, 'days')
   const dayNumberOfWeek = firstDayOfMonth.weekday()
   const firstDayOfWeek = dayjs(firstDayOfMonth).subtract(dayNumberOfWeek, 'days')
   const middleOfMonth = firstDayOfMonth.add(15, 'days')
@@ -39,7 +39,7 @@ const getDays = ({
 
   return {
     id: Date.now(),
-    monthName: formatDate(new Date(date), 'MMMM YYYY'),
+    monthName: formatDate(new Date(startDate), 'MMMM YYYY'),
     middleOfMonth: middleOfMonth.toDate(),
     weeks
   }

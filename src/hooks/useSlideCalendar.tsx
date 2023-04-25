@@ -27,7 +27,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
       return
     }
     const nextMonth = dayjs(currentMonth).add(1, 'month')
-    const newValue = getDays({ date: nextMonth.toDate() })
+    const newValue = getDays(nextMonth.toDate())
 
     setDays([
       ...days,
@@ -59,7 +59,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
       return
     }
     const prevMonth = dayjs(currentMonth).subtract(1, 'month')
-    const newValue = getDays({ date: prevMonth.toDate() })
+    const newValue = getDays(prevMonth.toDate())
 
     setDays([
       newValue,
