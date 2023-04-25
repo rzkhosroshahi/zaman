@@ -17,7 +17,13 @@ export default {
     }
   ],
   plugins: [
-    typescript({ tsconfig: './tsconfig.json', exclude: ['**/__tests__', '**/*.test.ts', 'client/**/*'] }),
+    typescript({
+      tsconfig: './tsconfig.json',
+      exclude: ['**/__tests__', '**/*.test.*', 'client/**/*', '**/*.cy.tsx'],
+      compilerOptions: {
+        types: []
+      }
+    }),
     resolve({
       dedupe: ['dayjs']
     }),
