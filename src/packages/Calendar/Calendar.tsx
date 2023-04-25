@@ -61,13 +61,11 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   }
   const handleMonthSelect = (month: number) => {
     const date = selectMonth(days[0].middleOfMonth, month)
-    onChange(date)
     setDays([getDays(date)])
     setPicker('days')
   }
   const handleYearSelect = (year: number) => {
     const date = selectYear(startDate, year)
-    onChange(date)
     setDays([getDays(date)])
     setPicker('month')
   }
