@@ -5,7 +5,7 @@ jest.config.js
 tsconfig.json
 tslint.json
 client
-cypress
+cypress/
 serve
 .idea/
 

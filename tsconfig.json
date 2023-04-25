@@ -17,6 +17,6 @@
     "jsx": "react",
     "types": ["cypress", "node", "@testing-library/cypress"]
   },
-  "include": ["src/**/*", "client/**/*", "**/*.ts"],
+  "include": ["src/**/*", "client/**/*", "**/*.ts",  "**/*.tsx"],
   "exclude": ["node_modules"]
 }
