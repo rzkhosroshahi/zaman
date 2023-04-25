@@ -29,11 +29,12 @@ export const useTimePicker = ({ defaultValue, clockTime, timeConvention, onChang
     const { value, delta } = getAngelValues(e)
     if (clockTime === 24) {
       if (Math.round(delta) < 85) {
+        setHour(value)
         setInsideHour(true)
       } else {
+        setHour(value + 12)
         setInsideHour(false)
       }
-      setHour(value + 12)
       return
     }
     setHour(value)

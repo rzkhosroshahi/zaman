@@ -57,14 +57,14 @@ export const calculateOffset = (elem: unknown) => {
 }
 
 export const getValue = (deg: number, delta: number, steps: number) => {
-  const valueBySteps = Math.round(deg * (1 / steps))
+  const valueBySteps = Math.floor(deg * (1 / steps))
   // minutes selecting
   if (steps === 6) {
     return valueBySteps
   }
   // hour selecting
   if (Math.round(delta) > 85) {
-    return valueBySteps
+    return valueBySteps === 0 ? -12 : valueBySteps
   }
   // inside hour selecting
   return valueBySteps === 0 ? 12 : valueBySteps
