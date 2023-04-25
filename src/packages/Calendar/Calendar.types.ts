@@ -1,7 +1,7 @@
 import type { DaysRange, DatePickerValue } from '../../types'
 
 export interface CalendarProps {
-  defaultValue: Date | undefined
+  defaultValue?: Date
   onChange: (day: Date, to?: Date) => void
   weekends?: DaysRange[]
   rangeValue?: Date[]
