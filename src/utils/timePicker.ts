@@ -64,7 +64,7 @@ export const getValue = (deg: number, delta: number, steps: number) => {
   }
   // hour selecting
   if (Math.round(delta) > 85) {
-    return valueBySteps
+    return valueBySteps === 0 ? -12 : valueBySteps
   }
   // inside hour selecting
   return valueBySteps === 0 ? 12 : valueBySteps
