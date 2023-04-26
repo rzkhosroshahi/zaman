@@ -32,6 +32,7 @@ export const YearPicker = (props: YearPickerProps) => {
           width={90}
           height={48}
           data-selected={currentYear === year}
+          aria-selected={currentYear === year}
           aria-current="date"
           type="button"
           tabIndex={0}

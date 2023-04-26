@@ -15,7 +15,8 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
+    "types": ["cypress", "node", "@testing-library/cypress"]
   },
-  "include": ["src/**/*", "client/**/*"],
+  "include": ["src/**/*", "client/**/*", "**/*.ts",  "**/*.tsx"],
   "exclude": ["node_modules"]
 }
