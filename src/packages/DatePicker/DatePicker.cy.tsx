@@ -23,5 +23,17 @@ describe('<DatePicker />', () => {
     cy.findByText('۱۸')
       .click()
     cy.get('@onChangeSpy').should('have.callCount', 1)
+    // now input's value should be changed
+    cy.get('input').should('have.value', '۱۴۰۲/۰۵/۱۸')
+  })
+  it('close the DatePicker ', () => {
+    const onChangeSpy = cy.spy().as('onChangeSpy')
+    cy.mount(<DatePicker defaultValue={initialDate} onChange={onChangeSpy} />)
+      .get('input')
+      .click()
+
+    cy.get('body')
+      .click()
+    cy.get(`.${HeaderClass}`).should('not.exist')
   })
 })
