@@ -8,26 +8,26 @@ export const en: LocalesTypes = {
     },
     {
       key: 1,
-      name: 'S'
-    },
-    {
-      key: 2,
       name: 'M'
     },
     {
-      key: 3,
+      key: 2,
       name: 'T'
     }, {
-      key: 4,
+      key: 3,
       name: 'W'
     },
     {
-      key: 5,
+      key: 4,
       name: 'T'
     },
     {
-      key: 6,
+      key: 5,
       name: 'F'
+    },
+    {
+      key: 6,
+      name: 'S'
     }
   ],
   months: [
