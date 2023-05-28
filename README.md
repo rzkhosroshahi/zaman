@@ -36,6 +36,7 @@ with yarn
 | inputClass      | string                                                     | null      |
 | inputAttributes | object of InputHTMLAttributes                              | null      |
 | className       | string                                                     | null      |
+| position        | right &#124; left  &#124; center                           | right     |
 
 
 ### Calendar Provider
