@@ -29,6 +29,7 @@ export const SlideDays = styled.div`
 `
 export const Days = styled.div`
   display: flex;
+  justify-content: center;
   gap: 4px;
 `
 export const SubHeader = styled.div`
