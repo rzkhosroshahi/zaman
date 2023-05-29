@@ -14,10 +14,8 @@ export const Wrapper = styled.div`
 
 export const WrapperDays = styled.div`
   display: flex;
-  position: absolute;
+  position: relative;
   overflow: hidden;
-  right: ${props => props.theme.direction === 'rtl' ? '8px' : 'unset'};
-  left: ${props => props.theme.direction !== 'rtl' ? '8px' : 'unset'};
 `
 
 export const SlideDays = styled.div`
