@@ -93,6 +93,7 @@ export const DatePicker = (props: DatePickerProps) => {
           className={props.className}
           weekends={weekends}
           onChange={handleChangeDay}
+          onMonthChanged={props.onMonthChanged}
           range={props.range}
           from={props.from}
           to={props.to}

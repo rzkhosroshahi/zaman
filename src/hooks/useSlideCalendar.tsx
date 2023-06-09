@@ -17,8 +17,9 @@ interface UseSliderTypes {
   daysElementRefs: RefObject<HTMLDivElement[]>
   days: DaysInMonth[]
   setDays: Dispatch<SetStateAction<DaysInMonth[]>>
+  onMonthChanged?: (middleOfNextMonth: Date) => void
 }
-export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTypes) => {
+export const useSlideCalendar = ({ daysElementRefs, days, setDays, onMonthChanged }: UseSliderTypes) => {
   const isAnimating = useRef(false)
   const currentMonth = days[0].middleOfMonth
 
@@ -28,6 +29,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
     }
     const nextMonth = dayjs(currentMonth).add(1, 'month')
     const newValue = getDays(nextMonth.toDate())
+    onMonthChanged?.(newValue.middleOfMonth)
 
     setDays([
       ...days,
@@ -60,6 +62,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
     }
     const prevMonth = dayjs(currentMonth).subtract(1, 'month')
     const newValue = getDays(prevMonth.toDate())
+    onMonthChanged?.(newValue.middleOfMonth)
 
     setDays([
       newValue,

@@ -33,7 +33,8 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const slideHandlers = useSlideCalendar({
     daysElementRefs,
     days,
-    setDays
+    setDays,
+    onMonthChanged: props.onMonthChanged
   })
   const { from, to, handlers } = useCalendarHandlers({
     onChange,
