@@ -45,9 +45,11 @@ export const TimePicker = (props: TimePickerProps) => {
     >
       <input
         ref={inputRef}
+        {...props?.inputAttributes}
         onClick={toggleShowCalendar}
         type="text"
         value={getInputValue}
+        className={props.inputClass !== null ? props.inputClass : ''}
         readOnly
       />
       <RenderCalendar
