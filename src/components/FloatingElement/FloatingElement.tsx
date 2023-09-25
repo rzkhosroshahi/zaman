@@ -39,7 +39,7 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
           floatWrapper.style.left = `${(destLeft)}px`
         },
         center: () => {
-          const isDestBiggerThanFloatElement = position === 'center' && floatWidth > destWidth
+          const isDestBiggerThanFloatElement = floatWidth > destWidth
           const remainWidth = isDestBiggerThanFloatElement ? 0 : Math.abs((floatWidth - destWidth)) / 2 + 16
           floatWrapper.style.right = `${Math.abs(document.body.clientWidth - destRight) + remainWidth}px`
         }
