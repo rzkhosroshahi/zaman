@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import debounce from 'lodash.debounce'
 import type { FloatingElementProps } from './FloatingElement.types'
 import type { Positions } from '../../types'
 import { Wrapper } from './FloatingElement.styled'
@@ -8,7 +9,7 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
   const { children, destinationRef, position } = props
   const floatWrapperRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  const calcPlacement = () => {
     const gap = 4
     let top = 0
 
@@ -38,12 +39,22 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
           floatWrapper.style.left = `${(destLeft)}px`
         },
         center: () => {
-          const remainWidth = Math.abs((floatWidth - destWidth)) / 2 + 16
+          const isDestBiggerThanFloatElement = position === 'center' && floatWidth > destWidth
+          const remainWidth = isDestBiggerThanFloatElement ? 0 : Math.abs((floatWidth - destWidth)) / 2 + 16
           floatWrapper.style.right = `${Math.abs(document.body.clientWidth - destRight) + remainWidth}px`
         }
       }
 
       positionsCalc[position]()
+    }
+  }
+
+  useEffect(() => {
+    calcPlacement()
+    window.addEventListener('resize', debounce(calcPlacement, 500))
+
+    return () => {
+      window.removeEventListener('resize', calcPlacement)
     }
   }, [destinationRef])
 
