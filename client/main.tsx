@@ -58,7 +58,7 @@ const App = () => {
       {view === 'day'
         ? (
         <div className="libWrapper">
-          <DatePicker round="x4" />
+          <DatePicker round="x4" position="center" />
           <DatePicker round="x2" accentColor="#6374ae" range />
         </div>
           )
@@ -74,7 +74,5 @@ const App = () => {
   )
 }
 root.render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>
 )

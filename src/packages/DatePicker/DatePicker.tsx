@@ -86,6 +86,7 @@ export const DatePicker = (props: DatePickerProps) => {
         toggleOpen={toggleShowCalendar}
         showCalendar={showCalendar}
         destinationRef={inputRef}
+        position={props.position}
       >
         <Calendar
           defaultValue={value}

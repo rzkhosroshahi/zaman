@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react'
-import type { DatePickerValue, DaysRange, BaseProps } from '../../types'
+import type { DatePickerValue, DaysRange, BaseProps, Positions } from '../../types'
 
 export interface DatePickerOnChange {
   value?: Date
@@ -18,4 +18,5 @@ export interface DatePickerProps extends BaseProps {
   inputClass?: string
   className?: string
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>
+  position?: Positions
 }

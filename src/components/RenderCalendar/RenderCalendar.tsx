@@ -4,6 +4,7 @@ import FloatingElement from '../../components/FloatingElement'
 import Modal from '../Modal'
 
 export const RenderCalendar = (props: RenderCalendarProps) => {
+  const { position = 'right' } = props
   if (!props.showCalendar) {
     return null
   }
@@ -11,7 +12,10 @@ export const RenderCalendar = (props: RenderCalendarProps) => {
 
   if (isDesktop) {
     return (
-      <FloatingElement destinationRef={props.destinationRef}>
+      <FloatingElement
+        destinationRef={props.destinationRef}
+        position={position}
+      >
         {props.children}
       </FloatingElement>
     )
