@@ -8,6 +8,8 @@ client
 cypress/
 serve
 .idea/
+.github
+.husky
 
 build
 # parcel
