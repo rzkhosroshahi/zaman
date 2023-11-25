@@ -1,17 +1,17 @@
 import type { InputHTMLAttributes } from 'react'
-import type { DatePickerValue, DaysRange, BaseProps, Positions } from '../../types'
-
-export interface DatePickerOnChange {
-  value?: Date
-  from?: Date
-  to?: Date
-}
+import type {
+  DatePickerValue,
+  DaysRange,
+  BaseProps,
+  Positions,
+  onChangeTypeBasedOnRange
+} from '../../types'
 
 export interface DatePickerProps extends BaseProps {
   defaultValue?: DatePickerValue
-  onChange?: (value: DatePickerOnChange) => void
+  onChange?: (value: onChangeTypeBasedOnRange<DatePickerProps['range']>) => void
   weekends?: DaysRange[]
-  range?: boolean
+  range: boolean
   from?: DatePickerValue
   to?: DatePickerValue
   show?: boolean

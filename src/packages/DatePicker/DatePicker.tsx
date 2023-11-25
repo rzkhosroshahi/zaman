@@ -7,6 +7,7 @@ import locales from '../../utils/locales'
 import type { DatePickerProps } from './DatePicker.types'
 import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import localeCache from '../../utils/locale'
+import type { onDatePickerChangePayload, onRangeDatePickerChangePayload, onChangePayload } from '../../types'
 
 export const DatePicker = (props: DatePickerProps) => {
   const { defaultValue, onChange, locale = 'fa', weekends = [], direction = 'rtl' } = props
@@ -25,16 +26,18 @@ export const DatePicker = (props: DatePickerProps) => {
   const toggleShowCalendar = () => {
     setShowCalendar(!showCalendar)
   }
-  const handleSelectDay = (day: Date) => {
-    setValue(day)
+  const handleSelectDay = ({ value }: onDatePickerChangePayload) => {
+    setValue(value)
     if (typeof onChange === 'function') {
       onChange({
-        value: day
+        value
       })
     }
-    return day
+    return {
+      value
+    }
   }
-  const handleSelectRange = (from: Date, to: Date) => {
+  const handleSelectRange = ({ from, to }: onRangeDatePickerChangePayload) => {
     if (typeof onChange === 'function') {
       onChange({
         from,
@@ -44,11 +47,18 @@ export const DatePicker = (props: DatePickerProps) => {
     setFrom(from)
     setTo(to)
   }
-  const handleChangeDay = (start: Date, to?: Date) => {
+  const handleChangeDay = (value: onChangePayload) => {
     if (props.range === true && to !== undefined) {
-      return handleSelectRange(start, to)
+      return handleSelectRange({
+        from: 'from' in value ? value.from : new Date(),
+        to: 'to' in value ? value.to : new Date()
+      })
     }
-    handleSelectDay(start)
+    if ('value' in value) {
+      handleSelectDay({
+        value: value.value
+      })
+    }
   }
 
   const getInputValue = useMemo(() => {

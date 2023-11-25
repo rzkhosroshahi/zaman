@@ -38,14 +38,14 @@ const App = () => {
           <CalendarProvider locale="fa" round="x2">
             <Calendar
               defaultValue={calendarValue}
-              onChange={(d) => setCalendarValue(new Date(d))}
+              onChange={({ value }) => console.log(value)}
               weekends={[6]}
             />
           </CalendarProvider>
           <CalendarProvider locale="fa" round="x4" accentColor="#6374ae">
             <Calendar
               defaultValue={new Date()}
-              onChange={(d) => console.log(d)}
+              onChange={({ from, to }) => console.log(from, '---', to)}
               weekends={[6]}
               from={new Date()}
               to={new Date().setDate(new Date().getDate() + 7)}
@@ -58,8 +58,8 @@ const App = () => {
       {view === 'day'
         ? (
         <div className="libWrapper">
-          <DatePicker round="x4" position="center" />
-          <DatePicker round="x2" accentColor="#6374ae" range />
+          <DatePicker round="x4" position="center" onChange={({ value }) => console.log(value)} />
+          <DatePicker round="x2" accentColor="#6374ae" range onChange={({ from, to }) => console.log(from, to)} />
         </div>
           )
         : null}

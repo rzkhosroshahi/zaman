@@ -20,7 +20,7 @@ import { DaysButton } from '../../style/classNames'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
-  const { defaultValue, onChange, weekends, range = false } = props
+  const { defaultValue, weekends } = props
   const startDate = defaultValue === undefined ? new Date() : defaultValue
   // memo
   const getAllDays = useMemo(() => getDays(defaultValue), [])
@@ -36,8 +36,8 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setDays
   })
   const { from, to, handlers } = useCalendarHandlers({
-    onChange,
-    range,
+    onChange: props.onChange,
+    range: props.range,
     from: props.from,
     to: props.to
   })
