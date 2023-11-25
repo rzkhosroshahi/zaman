@@ -14,17 +14,18 @@ interface BseUseCalendarHandlersType {
 }
 interface useCalendarHandlersType1 extends BseUseCalendarHandlersType {
   range?: false | undefined
-  onChange: (args: onDatePickerChangePayload) => void
+  onChange?: (args: onDatePickerChangePayload) => void
 }
 interface useCalendarHandlersType2 extends BseUseCalendarHandlersType {
   range: true
-  onChange: (args: onRangeDatePickerChangePayload) => void
+  onChange?: (args: onRangeDatePickerChangePayload) => void
 }
 
 type useCalendarHandlersType = useCalendarHandlersType1 | useCalendarHandlersType2
 
-const guard: (ob: useCalendarHandlersType1 | useCalendarHandlersType2) =>
-  ob is useCalendarHandlersType2 = (ob) => { return ob.range === true }
+export const guard = (value: useCalendarHandlersType1 | useCalendarHandlersType2): value is useCalendarHandlersType2 => {
+  return value.range === true
+}
 
 export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   const [selectingRange, setSelectingRange] = useState(false)
