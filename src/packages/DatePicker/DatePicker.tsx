@@ -52,17 +52,15 @@ export const DatePicker = (props: DatePickerProps) => {
   }
 
   const getInputValue = useMemo(() => {
-    if (value === undefined) {
-      return ''
-    }
-    if (props.range === undefined) {
-      return formatDate(value, locales[locale].format)
+    const format = props?.customShowDateFormat ?? locales[locale].format
+    if (props.range === undefined && value !== undefined) {
+      return formatDate(value, format)
     }
     if (from !== undefined && to !== undefined) {
       return `
-        ${formatDate(from, locales[locale].format)}
+        ${formatDate(from, format)}
         -
-        ${formatDate(to, locales[locale].format)}
+        ${formatDate(to, format)}
       `
     }
     return ''
