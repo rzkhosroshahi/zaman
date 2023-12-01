@@ -20,23 +20,24 @@ with yarn
 ## Props
 ### Date Picker and Calendar
 
-| props           | type                                                       | default   |
-|-----------------|------------------------------------------------------------|-----------|
-| defaultValue    | timestamp &#124; Date &#124; Dayjs                         | undefined |
-| weekend         | number[]                                                   | undefined |
-| round           | string one of thin &#124; x1 &#124; x2 &#124; x3 &#124; x4 | thin      |
-| accentColor     | string                                                     | #0D59F2   |
-| locale          | string one of fa &#124; en                                 | fa        |
-| direction       | string one of rtl &#124; ltr                               | rtl       |
-| onChange        | function                                                   | undefined |
-| range           | boolean                                                    | false     |
-| from            | timestamp &#124; Date &#124; Dayjs                         | undefined |
-| to              | timestamp &#124; Date &#124; Dayjs                         | undefined |
-| show            | boolean                                                    | false     |
-| inputClass      | string                                                     | null      |
-| inputAttributes | object of InputHTMLAttributes                              | null      |
-| className       | string                                                     | null      |
-| position        | right &#124; left  &#124; center                           | right     |
+| props                | type                                                       | default   |
+|----------------------|------------------------------------------------------------|-----------|
+| defaultValue         | timestamp &#124; Date &#124; Dayjs                         | undefined |
+| weekend              | number[]                                                   | undefined |
+| round                | string one of thin &#124; x1 &#124; x2 &#124; x3 &#124; x4 | thin      |
+| accentColor          | string                                                     | #0D59F2   |
+| locale               | string one of fa &#124; en                                 | fa        |
+| direction            | string one of rtl &#124; ltr                               | rtl       |
+| onChange             | function                                                   | undefined |
+| range                | boolean                                                    | false     |
+| from                 | timestamp &#124; Date &#124; Dayjs                         | undefined |
+| to                   | timestamp &#124; Date &#124; Dayjs                         | undefined |
+| show                 | boolean                                                    | false     |
+| inputClass           | string                                                     | null      |
+| inputAttributes      | object of InputHTMLAttributes                              | null      |
+| className            | string                                                     | null      |
+| customShowDateFormat | string  ex: YYYY MMMM DD or DD/MM etc.                     | undefined |
+| position             | right &#124; left  &#124; center                           | right     |
 
 
 ### Calendar Provider
