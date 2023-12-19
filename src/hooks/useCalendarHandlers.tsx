@@ -1,36 +1,35 @@
 import { type SyntheticEvent, useState } from 'react'
 import dayjs from 'dayjs'
-import type {
-  DatePickerValue,
-  onDatePickerChangePayload,
-  onRangeDatePickerChangePayload
-} from '../types'
+import type { DatePickerValue, onRangeDatePickerChangePayload } from '../types'
+import {
+  type CalendarDefaultProps,
+  type CalendarRangeProps
+} from 'src/packages/Calendar/Calendar.types'
 
 type Event = SyntheticEvent<HTMLButtonElement>
 
-interface BseUseCalendarHandlersType {
+interface BaseUseCalendarHandlersType {
   from?: DatePickerValue
   to?: DatePickerValue
 }
-interface useCalendarHandlersType1 extends BseUseCalendarHandlersType {
-  range?: false | undefined
-  onChange?: (args: onDatePickerChangePayload) => void
-}
-interface useCalendarHandlersType2 extends BseUseCalendarHandlersType {
-  range: true
-  onChange?: (args: onRangeDatePickerChangePayload) => void
-}
 
-type useCalendarHandlersType = useCalendarHandlersType1 | useCalendarHandlersType2
+type useCalendarHandlersType = BaseUseCalendarHandlersType &
+  (CalendarRangeProps | CalendarDefaultProps)
 
-export const guard = (value: useCalendarHandlersType1 | useCalendarHandlersType2): value is useCalendarHandlersType2 => {
+export const guardRange = (
+  value: useCalendarHandlersType
+): value is CalendarRangeProps => {
   return value.range === true
 }
 
 export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   const [selectingRange, setSelectingRange] = useState(false)
-  const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
-  const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
+  const [from, setFrom] = useState<Date | undefined>(
+    props.from !== undefined ? new Date(props.from) : undefined
+  )
+  const [to, setTo] = useState<Date | undefined>(
+    props.to !== undefined ? new Date(props.to) : undefined
+  )
 
   const onClickCalendar = (e: Event) => {
     const { value, disabled } = e.currentTarget.dataset
@@ -41,7 +40,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
       return
     }
 
-    if (!guard(props) && typeof props.onChange === 'function') {
+    if (!guardRange(props) && typeof props.onChange === 'function') {
       props.onChange({ value: new Date(value) })
     }
 
@@ -58,7 +57,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     }
     setSelectingRange(false)
     if (from !== undefined && to !== undefined) {
-      if (guard(props) && typeof props.onChange === 'function') {
+      if (guardRange(props) && typeof props.onChange === 'function') {
         props.onChange({
           from: new Date(from),
           to: new Date(to)
@@ -87,7 +86,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   return {
     handlers: {
       onClick: handleClickEvent,
-      ...((props.range === true) && { onMouseMove })
+      ...(props.range === true && { onMouseMove })
     },
     from,
     to

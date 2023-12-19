@@ -13,12 +13,9 @@ describe('Calendar Component', () => {
   it('renders', () => {
     const initialDate = '1994 08 09'
     cy.mount(
-        <CalendarProvider locale={'fa'}>
-          <Calendar
-              defaultValue={new Date(initialDate)}
-              onChange={() => {}}
-          />
-        </CalendarProvider>
+      <CalendarProvider locale={'fa'}>
+        <Calendar defaultValue={new Date(initialDate)} onChange={() => {}} />
+      </CalendarProvider>
     )
       .get(`.${HeaderClass}`)
       .findByText('مرداد ۱۳۷۳')
@@ -28,12 +25,9 @@ describe('Calendar Component', () => {
   it('renders en locale', () => {
     const initialDate = '1994 08 09'
     cy.mount(
-        <CalendarProvider locale={'en'}>
-          <Calendar
-              defaultValue={new Date(initialDate)}
-              onChange={() => {}}
-          />
-        </CalendarProvider>
+      <CalendarProvider locale={'en'}>
+        <Calendar defaultValue={new Date(initialDate)} onChange={() => {}} />
+      </CalendarProvider>
     )
       .get(`.${HeaderClass}`)
       .findByText('Aug 1994')
@@ -44,44 +38,32 @@ describe('Calendar Component', () => {
     const initialDate = '1994 08 09'
     // going to Year and Month Picker state
     cy.mount(
-        <CalendarProvider locale={'fa'}>
-          <Calendar
-              defaultValue={new Date(initialDate)}
-              onChange={() => {}}
-          />
-        </CalendarProvider>
+      <CalendarProvider locale={'fa'}>
+        <Calendar defaultValue={new Date(initialDate)} onChange={() => {}} />
+      </CalendarProvider>
     )
       .get(`.${HeaderClass}`)
       .click()
       .get(`.${YearPickerButton}[aria-selected=true]`)
       .should('have.text', '۱۳۷۳')
     // change the year
-    cy.findByText('۱۴۰۲')
-      .click()
+    cy.findByText('۱۴۰۲').click()
     // click on the current month
-    cy.findByText('مرداد')
-      .click()
+    cy.findByText('مرداد').click()
     // now year should be changed
-    cy.get(`.${HeaderClass}`)
-      .should('have.text', 'مرداد ۱۴۰۲')
+    cy.get(`.${HeaderClass}`).should('have.text', 'مرداد ۱۴۰۲')
     // go to previous month
-    cy.get(`.${IconPrevButton}`)
-      .click()
+    cy.get(`.${IconPrevButton}`).click()
     // now month should be changed
-    cy.get(`.${HeaderClass}`)
-      .should('have.text', 'تیر ۱۴۰۲')
+    cy.get(`.${HeaderClass}`).should('have.text', 'تیر ۱۴۰۲')
     cy.wait(300)
     // go to previous month
-    cy.get(`.${IconNextButton}`)
-      .click()
+    cy.get(`.${IconNextButton}`).click()
     // now month should be changed
-    cy.get(`.${HeaderClass}`)
-      .should('have.text', 'مرداد ۱۴۰۲')
+    cy.get(`.${HeaderClass}`).should('have.text', 'مرداد ۱۴۰۲')
     // go to previous month
-    cy.get(`.${IconNextButton}`)
-      .click()
+    cy.get(`.${IconNextButton}`).click()
     // now month should be changed
-    cy.get(`.${HeaderClass}`)
-      .should('have.text', 'شهریور ۱۴۰۲')
+    cy.get(`.${HeaderClass}`).should('have.text', 'شهریور ۱۴۰۲')
   })
 })

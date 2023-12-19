@@ -5,24 +5,22 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'standard-with-typescript'
+    'standard-with-typescript',
+    'plugin:prettier/recommended'
   ],
-  overrides: [
-  ],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.json'
   },
-  plugins: [
-    'react'
-  ],
+  plugins: ['react', 'prettier'],
   rules: {
     '@typescript-eslint/ban-ts-comment': [
       'error',
-      {'ts-ignore': 'allow-with-description'},
+      { 'ts-ignore': 'allow-with-description' }
     ],
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-confusing-void-expression": "off",
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off'
   }
 }

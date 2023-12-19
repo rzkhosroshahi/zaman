@@ -7,18 +7,34 @@ import locales from '../../utils/locales'
 import type { DatePickerProps } from './DatePicker.types'
 import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import localeCache from '../../utils/locale'
-import type { onDatePickerChangePayload, onRangeDatePickerChangePayload, onChangePayload } from '../../types'
+import type {
+  onDatePickerChangePayload,
+  onRangeDatePickerChangePayload
+} from '../../types'
+import { OnChangePayload } from '../Calendar/Calendar.types'
 
 export const DatePicker = (props: DatePickerProps) => {
-  const { defaultValue, onChange, locale = 'fa', weekends = [], direction = 'rtl' } = props
+  const {
+    defaultValue,
+    locale = 'fa',
+    weekends = [],
+    direction = 'rtl',
+    accentColor
+  } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   // states
-  const [value, setValue] = useState<Date | undefined>(defaultValue !== undefined ? new Date(defaultValue) : undefined)
-  const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
-  const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
+  const [value, setValue] = useState<Date | undefined>(
+    defaultValue !== undefined ? new Date(defaultValue) : undefined
+  )
+  const [from, setFrom] = useState<Date | undefined>(
+    props.range ? new Date(props.from || Date.now()) : undefined
+  )
+  const [to, setTo] = useState<Date | undefined>(
+    props.range ? new Date(props.to || Date.now()) : undefined
+  )
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
   // hooks
   useClickOutside(containerRef, () => setShowCalendar(false))
@@ -28,8 +44,8 @@ export const DatePicker = (props: DatePickerProps) => {
   }
   const handleSelectDay = ({ value }: onDatePickerChangePayload) => {
     setValue(value)
-    if (typeof onChange === 'function') {
-      onChange({
+    if (!props.range && typeof props.onChange === 'function') {
+      props.onChange({
         value
       })
     }
@@ -38,8 +54,8 @@ export const DatePicker = (props: DatePickerProps) => {
     }
   }
   const handleSelectRange = ({ from, to }: onRangeDatePickerChangePayload) => {
-    if (typeof onChange === 'function') {
-      onChange({
+    if (props.range === true && typeof props.onChange === 'function') {
+      props.onChange({
         from,
         to
       })
@@ -47,8 +63,10 @@ export const DatePicker = (props: DatePickerProps) => {
     setFrom(from)
     setTo(to)
   }
-  const handleChangeDay = (value: onChangePayload) => {
-    if (props.range === true && to !== undefined) {
+
+  const handleChangeDay = (value: OnChangePayload) => {
+    // TODO: I cannot figure out why `to` should check here
+    if (props.range && to !== undefined) {
       return handleSelectRange({
         from: 'from' in value ? value.from : new Date(),
         to: 'to' in value ? value.to : new Date()
@@ -79,7 +97,7 @@ export const DatePicker = (props: DatePickerProps) => {
   }, [value, from, to])
   return (
     <CalendarProvider
-      accentColor={props.accentColor}
+      accentColor={accentColor}
       round={props.round}
       direction={direction}
     >
@@ -105,8 +123,8 @@ export const DatePicker = (props: DatePickerProps) => {
           weekends={weekends}
           onChange={handleChangeDay}
           range={props.range}
-          from={props.from}
-          to={props.to}
+          from={props.range ? props.from : undefined}
+          to={props.range ? props.from : undefined}
         />
       </RenderCalendar>
     </CalendarProvider>

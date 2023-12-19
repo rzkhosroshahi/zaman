@@ -1,22 +1,24 @@
 import type { InputHTMLAttributes } from 'react'
 import type {
+  BaseProps,
   DatePickerValue,
   DaysRange,
-  BaseProps,
-  Positions,
-  onChangeTypeBasedOnRange
+  Positions
 } from '../../types'
+import {
+  type CalendarDefaultProps,
+  type CalendarRangeProps
+} from '../Calendar/Calendar.types'
 
-export interface DatePickerProps extends BaseProps {
+export interface DatePickerBaseProps extends BaseProps {
   defaultValue?: DatePickerValue
-  onChange?: (value: onChangeTypeBasedOnRange<DatePickerProps['range']>) => void
   weekends?: DaysRange[]
-  range: boolean
-  from?: DatePickerValue
-  to?: DatePickerValue
   show?: boolean
   inputClass?: string
   className?: string
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>
   position?: Positions
 }
+
+export type DatePickerProps = DatePickerBaseProps &
+  (CalendarRangeProps | CalendarDefaultProps)

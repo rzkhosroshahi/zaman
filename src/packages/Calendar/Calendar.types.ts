@@ -8,19 +8,24 @@ import type {
 export interface CalendarBaseProps {
   defaultValue?: Date
   weekends?: DaysRange[]
-  rangeValue?: Date[]
-  from?: DatePickerValue
-  to?: DatePickerValue
   className?: string
 }
-export interface CalendarProps1 extends CalendarBaseProps {
+export interface CalendarRangeProps {
   range: true
+  from?: DatePickerValue
+  to?: DatePickerValue
+  rangeValue?: Date[]
   onChange?: (args: onRangeDatePickerChangePayload) => void
 }
 
-export interface CalendarProps2 extends CalendarBaseProps {
+export interface CalendarDefaultProps {
   range?: false | undefined
   onChange?: (args: onDatePickerChangePayload) => void
 }
 
-export type CalendarProps = CalendarProps1 | CalendarProps2
+export type OnChangePayload =
+  | onRangeDatePickerChangePayload
+  | onDatePickerChangePayload
+
+export type CalendarProps = CalendarBaseProps &
+  (CalendarRangeProps | CalendarDefaultProps)
