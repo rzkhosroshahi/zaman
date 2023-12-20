@@ -5,6 +5,7 @@ import { ACCENT_COLOR } from '../../constants'
 import localeCache from '../../utils/locale'
 import { gray } from '../../style/colors'
 import type { CalendarProviderProps } from './CalendarProvider.types'
+import { InjectCSSVariables } from '../../components/InjectCSSVars/InjectCSSVars'
 
 export const CalendarProvider = (props: CalendarProviderProps) => {
   const { accentColor = ACCENT_COLOR, locale, round = 'thin', direction = 'rtl' } = props
@@ -20,9 +21,12 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
     direction
   }
   return (
-    <ThemeProvider theme={theme}>
-      {props.children}
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <div className="zmn-lib-wrapper" data-theme="light">
+          <InjectCSSVariables accentColor={accentColor} />
+          {props.children}
+        </div>
+      </ThemeProvider>
   )
 }
 
