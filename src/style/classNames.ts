@@ -6,3 +6,8 @@ export const DaysButton = 'zm-DaysButton'
 
 export const MonthPickerButton = 'zm-MonthPickerButton'
 export const YearPickerButton = 'zm-YearPickerButton'
+
+export const cssVariablePrefix = 'zmn'
+const getClassName = (className: string) => `${cssVariablePrefix}-${className}`
+
+export const zamanLibWrapper = getClassName('lib-wrapper')

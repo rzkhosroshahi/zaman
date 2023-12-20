@@ -1,27 +1,33 @@
-import { makeColorPallet } from './colorPallete'
-import { gray } from './colors'
-import { radius } from './radius'
+import type { Theme } from '../components/InjectCSSVars/InjectCSSVars.types'
+import { cssVariablePrefix } from './classNames'
+import { type Radius, radius } from './radius'
 
-const cssVariablePrefix = 'zmn'
-
-export const generatePrimaryColors = (accentColor: string) => {
-  const colors = makeColorPallet(accentColor)
-
-  return Object.entries(colors).reduce((acc, [key, color]) => {
-    acc += `--${cssVariablePrefix}-primary-${key}: ${color};\n`
+export const getColorVariables = (theme: Pick<Theme, 'colors'>) => {
+  return Object.entries(theme.colors).reduce((acc, [key, color]) => {
+    acc += `--${cssVariablePrefix}-${key}: ${color};\n`
     return acc
   }, '')
 }
-export const generateThemeColors = () => {
-  return Object.entries(gray).reduce((acc, [key, color]) => {
-    acc += `--${cssVariablePrefix}-gray-${key}: ${color};\n`
+
+function serializeClassNames (classes: Record<string, string>, cssProperty: string) {
+  return Object.entries(classes).reduce((acc, [className, value]) => {
+    acc += `.${cssVariablePrefix}-${className}: {${cssProperty}: ${value};}\n`
     return acc
   }, '')
 }
-export const generateRadiusClasses = () => {
-  return Object.entries(radius).reduce((acc, [key, radius]) => {
-    acc += `.${cssVariablePrefix}-radius-wrapper-${key} {border-radius: ${radius.wrapper}px;}\n`
-    acc += `.${cssVariablePrefix}-radius-calendarItem-${key} {border-radius:${radius.calendarItem}px;}\n`
+
+export const getClasses = (theme: Pick<Theme, 'classes'>) => {
+  return Object.keys(theme.classes).reduce((acc, key) => {
+    acc += serializeClassNames(theme.classes[key], key)
     return acc
   }, '')
+}
+
+export const getBorderRadius = (): Record<string, string> => {
+  // @ts-expect-error eslint expect acc and key should be same type
+  return Object.keys(radius).reduce<Record<string, string>>((acc, key: Radius) => {
+    acc[`round-wrapper-${key}`] = `${radius[key].wrapper}px`
+    acc[`round-calendarItem-${key}`] = `${radius[key].calendarItem}px`
+    return acc
+  }, {})
 }
