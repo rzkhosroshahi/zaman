@@ -1,4 +1,10 @@
-import { getDayString, getMonth, getMonthName, getYear, getYear2Digit } from '../dateTimeFormat/dateTimeFormat'
+import {
+  getDayString,
+  getMonth,
+  getMonthName,
+  getYear,
+  getYear2Digit
+} from '../dateTimeFormat/dateTimeFormat'
 import { type formatFunctions, type Formats } from './format.types'
 
 export const formats: Record<Formats, formatFunctions> = {
@@ -24,16 +30,23 @@ const validateFormat = (format: string) => {
     }
   })
 }
-export const formatDate = (date: Date, format: string, numberingSystem?: string): string => {
+export const formatDate = (
+  date: Date,
+  format: string,
+  numberingSystem?: string
+): string => {
   try {
     validateFormat(format)
     const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
     const splitCharacterSearch = format.match(regex)
-    const splitCharacter = splitCharacterSearch !== null ? splitCharacterSearch[0] : ''
+    const splitCharacter =
+      splitCharacterSearch !== null ? splitCharacterSearch[0] : ''
 
-    return splitFormat.map((format) => {
-      return formats[format](date, numberingSystem)
-    }).join(splitCharacter)
+    return splitFormat
+      .map((format) => {
+        return formats[format](date, numberingSystem)
+      })
+      .join(splitCharacter)
   } catch (ex) {
     console.error(ex)
   }

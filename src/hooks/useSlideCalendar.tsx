@@ -18,7 +18,11 @@ interface UseSliderTypes {
   days: DaysInMonth[]
   setDays: Dispatch<SetStateAction<DaysInMonth[]>>
 }
-export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTypes) => {
+export const useSlideCalendar = ({
+  daysElementRefs,
+  days,
+  setDays
+}: UseSliderTypes) => {
   const isAnimating = useRef(false)
   const currentMonth = days[0].middleOfMonth
 
@@ -29,10 +33,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
     const nextMonth = dayjs(currentMonth).add(1, 'month')
     const newValue = getDays(nextMonth.toDate())
 
-    setDays([
-      ...days,
-      newValue
-    ])
+    setDays([...days, newValue])
 
     requestAnimationFrame(() => {
       isAnimating.current = true
@@ -45,7 +46,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
       lastItemRef.style.transform = `translateX(${toRight()}px)`
 
       setTimeout(() => {
-        setDays(oldItems => {
+        setDays((oldItems) => {
           return oldItems.filter((items) => items.id === newValue.id)
         })
         lastItemRef.style.transition = null
@@ -61,10 +62,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
     const prevMonth = dayjs(currentMonth).subtract(1, 'month')
     const newValue = getDays(prevMonth.toDate())
 
-    setDays([
-      newValue,
-      ...days
-    ])
+    setDays([newValue, ...days])
 
     requestAnimationFrame(() => {
       isAnimating.current = true
@@ -80,7 +78,7 @@ export const useSlideCalendar = ({ daysElementRefs, days, setDays }: UseSliderTy
         firstItemRef.style.transform = `translateX(${0}px)`
 
         setTimeout(() => {
-          setDays(oldItems => {
+          setDays((oldItems) => {
             return oldItems.filter((items) => items.id === newValue.id)
           })
           firstItemRef.style.transition = null

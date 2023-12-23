@@ -4,7 +4,12 @@ import ChevronRight from '../Icons/ChevronRight'
 import ChevronLeft from '../Icons/ChevronLeft'
 import { Wrapper, HeaderTitle } from './Header.styled'
 import type { HeaderProps } from './Header.types'
-import { HeaderClass, IconNextButton, IconPrevButton, MonthYearButton } from '../../style/classNames'
+import {
+  HeaderClass,
+  IconNextButton,
+  IconPrevButton,
+  MonthYearButton
+} from '../../style/classNames'
 
 export const Header = (props: HeaderProps) => {
   return (

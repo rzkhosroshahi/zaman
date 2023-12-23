@@ -1,12 +1,31 @@
-import type { DaysRange, DatePickerValue } from '../../types'
+import type {
+  DaysRange,
+  DatePickerValue,
+  onRangeDatePickerChangePayload,
+  onDatePickerChangePayload
+} from '../../types'
 
-export interface CalendarProps {
+export interface CalendarBaseProps {
   defaultValue?: Date
-  onChange: (day: Date, to?: Date) => void
   weekends?: DaysRange[]
-  rangeValue?: Date[]
-  range?: boolean
-  from?: DatePickerValue
-  to?: DatePickerValue
   className?: string
 }
+export interface CalendarRangeProps {
+  range: true
+  from?: DatePickerValue
+  to?: DatePickerValue
+  rangeValue?: Date[]
+  onChange?: (args: onRangeDatePickerChangePayload) => void
+}
+
+export interface CalendarDefaultProps {
+  range?: false | undefined
+  onChange?: (args: onDatePickerChangePayload) => void
+}
+
+export type OnChangePayload =
+  | onRangeDatePickerChangePayload
+  | onDatePickerChangePayload
+
+export type CalendarProps = CalendarBaseProps &
+  (CalendarRangeProps | CalendarDefaultProps)

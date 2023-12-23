@@ -10,7 +10,17 @@ serve
 .idea/
 .github
 .husky
-
+cypress.config.ts
+vite.config.ts
+jest.config.ts
+yarn-error.log
+commitlint.config.js
+.prettierrc
+.travis.yml
+jest.config.ts
+vite.config.ts
+rollup.config.js
+tsconfig.test.json
 build
 # parcel
 .cache/

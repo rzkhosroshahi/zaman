@@ -1,11 +1,11 @@
 const localeCache = {
   localeDefault: 'en',
-  setLocale (locale?: string) {
+  setLocale(locale?: string) {
     if (locale != null) {
       this.localeDefault = locale
     }
   },
-  get locale (): string {
+  get locale(): string {
     return this.localeDefault
   }
 }

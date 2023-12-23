@@ -4,7 +4,7 @@ import type React from 'react'
  * These functions find position X-axis and Y-axis from half of the clock width
  * Its start from 30 deg and each time this degree increase as much as 30 deg
  */
-export function numberPositionX (
+export function numberPositionX(
   idx: number,
   width: number = 130,
   padding: number = 20
@@ -15,7 +15,7 @@ export function numberPositionX (
   return Math.round(circleWith * Math.sin(thirtyDegInRad * idx))
 }
 
-export function numberPositionY (
+export function numberPositionY(
   idx: number,
   width: number = 130,
   padding: number = 17
@@ -42,7 +42,7 @@ export const calculateOffset = (elem: unknown) => {
   let { offsetX, offsetY } = el.nativeEvent
   if (typeof offsetX === 'undefined') {
     const rect = touchElement.currentTarget.getBoundingClientRect()
-    if ((touchElement.changedTouches.length !== 0)) {
+    if (touchElement.changedTouches.length !== 0) {
       offsetX = touchElement.changedTouches[0].clientX - rect.left
       offsetY = touchElement.changedTouches[0].clientY - rect.top
     } else {

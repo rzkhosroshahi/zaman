@@ -32,47 +32,53 @@ const App = () => {
           Time picker
         </div>
       </div>
-      {view === 'cal'
-        ? (
+      {view === 'cal' ? (
         <div className="libWrapper">
           <CalendarProvider locale="fa" round="x2">
             <Calendar
               defaultValue={calendarValue}
-              onChange={(d) => setCalendarValue(new Date(d))}
+              onChange={({ value }) => setCalendarValue(value)}
               weekends={[6]}
             />
           </CalendarProvider>
           <CalendarProvider locale="fa" round="x4" accentColor="#6374ae">
             <Calendar
               defaultValue={new Date()}
-              onChange={(d) => console.log(d)}
+              onChange={({ from, to }) => console.log(from, '---', to)}
               weekends={[6]}
               from={new Date()}
-              to={new Date().setDate(new Date().getDate() + 7)}
+              to={new Date().setDate(new Date().getDate() + 3)}
               range
             />
           </CalendarProvider>
         </div>
-          )
-        : null}
-      {view === 'day'
-        ? (
+      ) : null}
+      {view === 'day' ? (
         <div className="libWrapper">
-          <DatePicker round="x4" position="center" />
-          <DatePicker round="x2" accentColor="#6374ae" range />
+          <DatePicker
+            round="x4"
+            position="center"
+            onChange={(e) => console.log(e)}
+          />
+          <DatePicker
+            round="x2"
+            accentColor="#6374ae"
+            range
+            from={new Date()}
+            to={new Date().setDate(new Date().getDate() + 3)}
+            onChange={(e) => console.log(e)}
+          />
         </div>
-          )
-        : null}
-      {view === 'time'
-        ? (
-          <div className="libWrapper">
-            <TimePicker accentColor="#6374ae" onChange={(py) => console.log(py)}/>
-          </div>
-          )
-        : null}
+      ) : null}
+      {view === 'time' ? (
+        <div className="libWrapper">
+          <TimePicker
+            accentColor="#6374ae"
+            onChange={(py) => console.log(py)}
+          />
+        </div>
+      ) : null}
     </section>
   )
 }
-root.render(
-    <App />
-)
+root.render(<App />)

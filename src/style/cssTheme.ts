@@ -9,7 +9,10 @@ export const getColorVariables = (theme: Pick<Theme, 'colors'>) => {
   }, '')
 }
 
-function serializeClassNames (classes: Record<string, string>, cssProperty: string) {
+function serializeClassNames(
+  classes: Record<string, string>,
+  cssProperty: string
+) {
   return Object.entries(classes).reduce((acc, [className, value]) => {
     acc += `.${cssVariablePrefix}-${className}: {${cssProperty}: ${value};}\n`
     return acc
@@ -25,9 +28,13 @@ export const getClasses = (theme: Pick<Theme, 'classes'>) => {
 
 export const getBorderRadius = (): Record<string, string> => {
   // @ts-expect-error eslint expect acc and key should be same type
-  return Object.keys(radius).reduce<Record<string, string>>((acc, key: Radius) => {
-    acc[`round-wrapper-${key}`] = `${radius[key].wrapper}px`
-    acc[`round-calendarItem-${key}`] = `${radius[key].calendarItem}px`
-    return acc
-  }, {})
+  return Object.keys(radius).reduce<Record<string, string>>(
+    // @ts-expect-error eslint expect acc and key should be same type
+    (acc, key: Radius) => {
+      acc[`round-wrapper-${key}`] = `${radius[key].wrapper}px`
+      acc[`round-calendarItem-${key}`] = `${radius[key].calendarItem}px`
+      return acc
+    },
+    {}
+  )
 }

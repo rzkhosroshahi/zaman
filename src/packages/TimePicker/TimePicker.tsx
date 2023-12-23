@@ -1,6 +1,14 @@
 import React, { useMemo, useRef, useState } from 'react'
 import RenderCalendar from '../../components/RenderCalendar'
-import { Clock, ClockTime, ClockTimeWrapper, Hand, HandCircle, Time, TimeWrapper } from './TimePicker.styled'
+import {
+  Clock,
+  ClockTime,
+  ClockTimeWrapper,
+  Hand,
+  HandCircle,
+  Time,
+  TimeWrapper
+} from './TimePicker.styled'
 import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import Numbers from './components/Numbers'
 import type { TimePickerProps } from './TimePicker.types'
@@ -12,7 +20,13 @@ import useClickOutside from '../../hooks/useClickOutside'
 import { useTimePicker } from '../../hooks/useTimePicker'
 
 export const TimePicker = (props: TimePickerProps) => {
-  const { defaultValue, onChange, round = 'x2', locale = 'fa', clockTime = 24 } = props
+  const {
+    defaultValue,
+    onChange,
+    round = 'x2',
+    locale = 'fa',
+    clockTime = 24
+  } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -39,10 +53,7 @@ export const TimePicker = (props: TimePickerProps) => {
     return `${hour}:${minute}`
   }, [hour, minute])
   return (
-    <CalendarProvider
-      accentColor={props.accentColor}
-      round={round}
-    >
+    <CalendarProvider accentColor={props.accentColor} round={round}>
       <input
         ref={inputRef}
         {...props?.inputAttributes}
@@ -59,24 +70,22 @@ export const TimePicker = (props: TimePickerProps) => {
       >
         <CalendarWrapper ref={containerRef}>
           <TimeWrapper>
-            {
-              clockTime === 12
-                ? <ClockTimeWrapper>
-                  <ClockTime
-                    className={timeConvention === 'am' ? 'cl_selected' : ''}
-                    onClick={() => setTimeConvention('am')}
-                  >
-                    {locales[locale].am}
-                  </ClockTime>
-                  <ClockTime
-                    className={timeConvention === 'pm' ? 'cl_selected' : ''}
-                    onClick={() => setTimeConvention('pm')}
-                  >
-                    {locales[locale].pm}
-                  </ClockTime>
-                </ClockTimeWrapper>
-                : null
-            }
+            {clockTime === 12 ? (
+              <ClockTimeWrapper>
+                <ClockTime
+                  className={timeConvention === 'am' ? 'cl_selected' : ''}
+                  onClick={() => setTimeConvention('am')}
+                >
+                  {locales[locale].am}
+                </ClockTime>
+                <ClockTime
+                  className={timeConvention === 'pm' ? 'cl_selected' : ''}
+                  onClick={() => setTimeConvention('pm')}
+                >
+                  {locales[locale].pm}
+                </ClockTime>
+              </ClockTimeWrapper>
+            ) : null}
             <Time>
               {localizeNumber(hour)}:{localizeNumber(minute)}
             </Time>

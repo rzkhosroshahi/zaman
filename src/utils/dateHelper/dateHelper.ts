@@ -46,7 +46,11 @@ export const selectYear = (date: Date, selectedYear: number) => {
   return dayjs(date).subtract(Math.abs(diffYear), 'years').toDate()
 }
 
-export const isInBetween = (day: Date, from?: Date | null, to?: Date | null): boolean => {
+export const isInBetween = (
+  day: Date,
+  from?: Date | null,
+  to?: Date | null
+): boolean => {
   if (from !== null && to !== null) {
     return dayjs(day).isBetween(dayjs(from), dayjs(to))
   }

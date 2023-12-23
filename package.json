@@ -1,6 +1,6 @@
 {
   "name": "zaman",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "description": "React component that helps you to makes simple Farsi/Jalali/Shamsi date picker. It also has range date picker you can select multiple days in multiple months.",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "build": "rm -rf dist && rollup -c --bundleConfigAsCjs",
     "dev": "vite",
     "watch": "rollup -c rollup.config.js -w",
-    "lint": "tslint --project .",
+    "lint:fix": "eslint --fix src",
+    "format": "prettier src --write",
     "prepare": "husky install"
   },
   "repository": {
@@ -56,14 +57,17 @@
     "babel-jest": "^29.4.3",
     "cypress": "^12.10.0",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.15.0",

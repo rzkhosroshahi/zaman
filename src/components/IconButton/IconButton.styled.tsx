@@ -11,12 +11,12 @@ export const IconButton = styled.button`
   width: 40px;
   height: 40px;
   transition: background-color 0.2s ease-in;
-  color: ${props => props.theme.colors.primary[50]};
+  color: ${(props) => props.theme.colors.primary[50]};
   background-color: transparent;
-  border-radius: ${props => radius[props.theme.round].calendarItem}px;
-  
+  border-radius: ${(props) => radius[props.theme.round].calendarItem}px;
+
   &:hover,
   &:focus {
-    background-color: ${props => props.theme.colors.primary[90]};
+    background-color: ${(props) => props.theme.colors.primary[90]};
   }
 `
