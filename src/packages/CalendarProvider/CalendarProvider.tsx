@@ -7,7 +7,12 @@ import { gray } from '../../style/colors'
 import type { CalendarProviderProps } from './CalendarProvider.types'
 
 export const CalendarProvider = (props: CalendarProviderProps) => {
-  const { accentColor = ACCENT_COLOR, locale, round = 'thin', direction = 'rtl' } = props
+  const {
+    accentColor = ACCENT_COLOR,
+    locale,
+    round = 'thin',
+    direction = 'rtl'
+  } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   const primaryColors = useMemo(() => makeColorPallet(accentColor), [])
 
@@ -19,11 +24,7 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
     round,
     direction
   }
-  return (
-    <ThemeProvider theme={theme}>
-      {props.children}
-    </ThemeProvider>
-  )
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
 }
 
 export default CalendarProvider

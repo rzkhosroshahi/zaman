@@ -11,17 +11,13 @@ describe('<DatePicker />', () => {
       .click()
 
     // change the year
-    cy.get(`.${HeaderClass}`)
-      .click()
+    cy.get(`.${HeaderClass}`).click()
     // click on the current month
-    cy.findByText('۱۴۰۲')
-      .click()
+    cy.findByText('۱۴۰۲').click()
     // click on the mordad month
-    cy.findByText('مرداد')
-      .click()
+    cy.findByText('مرداد').click()
     // click on the mordad month
-    cy.findByText('۱۸')
-      .click()
+    cy.findByText('۱۸').click()
     cy.get('@onChangeSpy').should('have.callCount', 1)
     // now input's value should be changed
     cy.get('input').should('have.value', '۱۴۰۲/۰۵/۱۸')
@@ -32,8 +28,7 @@ describe('<DatePicker />', () => {
       .get('input')
       .click()
 
-    cy.get('body')
-      .click()
+    cy.get('body').click()
     cy.get(`.${HeaderClass}`).should('not.exist')
   })
 })

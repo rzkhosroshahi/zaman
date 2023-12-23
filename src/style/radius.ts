@@ -4,7 +4,7 @@ interface radiusObject {
   wrapper: number
   calendarItem: number
 }
-export const radius: Record<Radius, radiusObject > = {
+export const radius: Record<Radius, radiusObject> = {
   thin: {
     wrapper: 0,
     calendarItem: 0

@@ -19,29 +19,41 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
         return
       }
       const {
-        top: destTop, bottom: destBottom, right: destRight, left: destLeft, width: destWidth
+        top: destTop,
+        bottom: destBottom,
+        right: destRight,
+        left: destLeft,
+        width: destWidth
       } = destinationRef?.current?.getBoundingClientRect() as DOMRect
-      const { height: itemsHeight, width: floatWidth } = floatWrapper?.getBoundingClientRect()
-      const isThereSpaceBelowDest = (window.innerHeight - destBottom) > itemsHeight
+      const { height: itemsHeight, width: floatWidth } =
+        floatWrapper?.getBoundingClientRect()
+      const isThereSpaceBelowDest =
+        window.innerHeight - destBottom > itemsHeight
 
       if (isThereSpaceBelowDest) {
-        top = (destBottom + window.scrollY)
+        top = destBottom + window.scrollY
       } else {
-        top = (destTop + window.scrollY) - itemsHeight - (gap * 2)
+        top = destTop + window.scrollY - itemsHeight - gap * 2
       }
       floatWrapper.style.top = `${top + gap}px`
 
       const positionsCalc: Record<Positions, () => void> = {
         right: () => {
-          floatWrapper.style.right = `${Math.abs(document.body.clientWidth - destRight) + 16}px`
+          floatWrapper.style.right = `${
+            Math.abs(document.body.clientWidth - destRight) + 16
+          }px`
         },
         left: () => {
-          floatWrapper.style.left = `${(destLeft)}px`
+          floatWrapper.style.left = `${destLeft}px`
         },
         center: () => {
           const isDestBiggerThanFloatElement = floatWidth > destWidth
-          const remainWidth = isDestBiggerThanFloatElement ? 0 : Math.abs((floatWidth - destWidth)) / 2 + 16
-          floatWrapper.style.right = `${Math.abs(document.body.clientWidth - destRight) + remainWidth}px`
+          const remainWidth = isDestBiggerThanFloatElement
+            ? 0
+            : Math.abs(floatWidth - destWidth) / 2 + 16
+          floatWrapper.style.right = `${
+            Math.abs(document.body.clientWidth - destRight) + remainWidth
+          }px`
         }
       }
 
@@ -61,10 +73,8 @@ const FloatingElement: React.FC<FloatingElementProps> = (props) => {
   return (
     <>
       {createPortal(
-        <Wrapper ref={floatWrapperRef}>
-          {children}
-        </Wrapper>
-        , document.body
+        <Wrapper ref={floatWrapperRef}>{children}</Wrapper>,
+        document.body
       )}
     </>
   )

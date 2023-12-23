@@ -17,7 +17,8 @@ export const YearPicker = (props: YearPickerProps) => {
     }
     const qu = wrapper.querySelector('button[data-selected=true]')
     if (qu != null) {
-      const { height: wrapperHeight, top: wrapperTop } = wrapper.getBoundingClientRect()
+      const { height: wrapperHeight, top: wrapperTop } =
+        wrapper.getBoundingClientRect()
       const { top } = qu.getBoundingClientRect()
       wrapper.scrollTop = Math.abs(wrapperTop - top) - wrapperHeight / 2
     }

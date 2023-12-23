@@ -7,5 +7,5 @@ export enum Formats {
   YY = 'YY',
   YYYY = 'YYYY',
   DD = 'DD',
-  D = 'D',
+  D = 'D'
 }
