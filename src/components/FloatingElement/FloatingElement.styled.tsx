@@ -4,5 +4,5 @@ import { slideDown } from '../../style/animation'
 
 export const Wrapper = styled.div`
   position: absolute;
-  animation: ${slideDown} .3s ${ANIMATE_FUNC} alternate;
+  animation: ${slideDown} 0.3s ${ANIMATE_FUNC} alternate;
 `

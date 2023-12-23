@@ -10,12 +10,8 @@ const MockComponent = (props: MockComponentProps) => {
   useClickOutside(insideRef, props.handler)
   return (
     <div>
-      <div>
-        click outside
-      </div>
-      <div ref={insideRef}>
-        Click inside
-      </div>
+      <div>click outside</div>
+      <div ref={insideRef}>Click inside</div>
     </div>
   )
 }

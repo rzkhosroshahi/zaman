@@ -10,15 +10,22 @@ interface useTimePickerType {
   clockTime?: 24 | 12
   defaultValue?: DatePickerValue
   onChange?: (payload: onChangePayload) => void
-
 }
-export const useTimePicker = ({ defaultValue, clockTime, timeConvention, onChange }: useTimePickerType) => {
-  const time = defaultValue !== undefined ? dayjs(defaultValue) : dayjs().startOf('date')
+export const useTimePicker = ({
+  defaultValue,
+  clockTime,
+  timeConvention,
+  onChange
+}: useTimePickerType) => {
+  const time =
+    defaultValue !== undefined ? dayjs(defaultValue) : dayjs().startOf('date')
   const [selecting, setSelecting] = useState<boolean>(false)
   const [selectingHour, setSelectingHour] = useState<boolean>(false)
   const [isInsideHour, setInsideHour] = useState<boolean>(false)
   const hourFormat = clockTime === 24 ? 'HH' : 'h'
-  const [hour, setHour] = useState<number>(parseInt(time.format(hourFormat), 10))
+  const [hour, setHour] = useState<number>(
+    parseInt(time.format(hourFormat), 10)
+  )
   const [minute, setMinute] = useState<number>(parseInt(time.format('mm'), 10))
 
   const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {

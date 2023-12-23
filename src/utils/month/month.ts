@@ -17,9 +17,15 @@ const getDays = (date: DatePickerValue | undefined): DaysInMonth => {
   dayjs.locale(locale)
   const startDate = date === undefined ? new Date() : dayjs(date).toDate()
   const selectedDayOnMonth = getDayOfMonth(new Date(startDate))
-  const firstDayOfMonth = dayjs(new Date(startDate)).subtract(selectedDayOnMonth - 1, 'days')
+  const firstDayOfMonth = dayjs(new Date(startDate)).subtract(
+    selectedDayOnMonth - 1,
+    'days'
+  )
   const dayNumberOfWeek = firstDayOfMonth.weekday()
-  const firstDayOfWeek = dayjs(firstDayOfMonth).subtract(dayNumberOfWeek, 'days')
+  const firstDayOfWeek = dayjs(firstDayOfMonth).subtract(
+    dayNumberOfWeek,
+    'days'
+  )
   const middleOfMonth = firstDayOfMonth.add(15, 'days')
 
   const weeks = []

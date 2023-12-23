@@ -13,7 +13,8 @@ export const en: LocalesTypes = {
     {
       key: 2,
       name: 'T'
-    }, {
+    },
+    {
       key: 3,
       name: 'W'
     },

@@ -20,6 +20,49 @@ export interface BaseProps {
   direction?: Directions
 }
 
+export interface onDatePickerChangePayload {
+  value: Date
+}
+
+export interface onRangeDatePickerChangePayload {
+  from: Date
+  to: Date
+}
+
+// export type RangeProp = boolean | undefined
+
+// export type onChangeTypeBasedOnRange<Range extends RangeProp> =
+//   Range extends false | undefined
+//     ? onDatePickerChangePayload
+//     : onRangeDatePickerChangePayload
+
+interface MyProps1 {
+  range: true
+  myMethod: (arg: onRangeDatePickerChangePayload) => void
+}
+
+interface MyProps2 {
+  range: false
+  myMethod: (arg: onDatePickerChangePayload) => void
+}
+
+export type CalendarTypeProps = MyProps1 | MyProps2
+const obj1: CalendarTypeProps = {
+  range: true,
+  myMethod: ({ from, to }) => {
+    console.log(from, to)
+  }
+}
+
+const obj2: CalendarTypeProps = {
+  range: false,
+  myMethod: ({ value }) => {
+    console.log(value)
+  }
+}
+
+console.log(obj1, obj2)
+
 declare module '@emotion/react' {
   export interface Theme {
     colors: {

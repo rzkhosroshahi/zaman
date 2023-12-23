@@ -1,20 +1,35 @@
 import { type SyntheticEvent, useState } from 'react'
 import dayjs from 'dayjs'
 import type { DatePickerValue } from '../types'
+import type {
+  CalendarDefaultProps,
+  CalendarRangeProps
+} from 'src/packages/Calendar/Calendar.types'
 
 type Event = SyntheticEvent<HTMLButtonElement>
-interface useCalendarHandlersType {
-  range?: boolean
-  onChange: (d: Date, to?: Date) => void
+
+interface BaseUseCalendarHandlersType {
   from?: DatePickerValue
   to?: DatePickerValue
 }
 
+type useCalendarHandlersType = BaseUseCalendarHandlersType &
+  (CalendarRangeProps | CalendarDefaultProps)
+
+export const guardRange = (
+  value: useCalendarHandlersType
+): value is CalendarRangeProps => {
+  return value.range === true
+}
+
 export const useCalendarHandlers = (props: useCalendarHandlersType) => {
-  const { range = false, onChange } = props
   const [selectingRange, setSelectingRange] = useState(false)
-  const [from, setFrom] = useState<Date | undefined>(props.from !== undefined ? new Date(props.from) : undefined)
-  const [to, setTo] = useState<Date | undefined>(props.to !== undefined ? new Date(props.to) : undefined)
+  const [from, setFrom] = useState<Date | undefined>(
+    props.from !== undefined ? new Date(props.from) : undefined
+  )
+  const [to, setTo] = useState<Date | undefined>(
+    props.to !== undefined ? new Date(props.to) : undefined
+  )
 
   const onClickCalendar = (e: Event) => {
     const { value, disabled } = e.currentTarget.dataset
@@ -24,7 +39,11 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     if (disabled === 'true') {
       return
     }
-    onChange(new Date(value))
+
+    if (!guardRange(props) && typeof props.onChange === 'function') {
+      props.onChange({ value: new Date(value) })
+    }
+
     return value
   }
   const onClickRange = (e: Event) => {
@@ -38,7 +57,12 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     }
     setSelectingRange(false)
     if (from !== undefined && to !== undefined) {
-      onChange(new Date(from), new Date(to))
+      if (guardRange(props) && typeof props.onChange === 'function') {
+        props.onChange({
+          from: new Date(from),
+          to: new Date(to)
+        })
+      }
     }
   }
   const onMouseMove = (e: Event) => {
@@ -53,7 +77,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     }
   }
   const handleClickEvent = (e: Event) => {
-    if (range) {
+    if (props.range === true) {
       return onClickRange(e)
     }
     return onClickCalendar(e)
@@ -62,7 +86,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   return {
     handlers: {
       onClick: handleClickEvent,
-      ...(range && { onMouseMove })
+      ...(props.range === true && { onMouseMove })
     },
     from,
     to

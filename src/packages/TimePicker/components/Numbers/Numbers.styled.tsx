@@ -9,7 +9,7 @@ export const MinuteWithAnimation = styled('div')`
 
 export const NumbersItem = styled.span<NumbersItemProps>`
   left: calc(50% - 16px);
-  top: ${props => props.top};
+  top: ${(props) => props.top};
   width: 32px;
   height: 32px;
   display: inline-flex;
@@ -20,12 +20,12 @@ export const NumbersItem = styled.span<NumbersItemProps>`
   user-select: none;
   pointer-events: none;
   color: black;
-  transform: ${props =>
-  `translate(${numberPositionX(
-    props.idx,
-    props.clockHalfWidth,
-    props.numbersPadd
-  )}px,
+  transform: ${(props) =>
+    `translate(${numberPositionX(
+      props.idx,
+      props.clockHalfWidth,
+      props.numbersPadd
+    )}px,
   ${numberPositionY(props.idx, props.clockHalfWidth, props.numbersPadd)}px)`};
 `
 

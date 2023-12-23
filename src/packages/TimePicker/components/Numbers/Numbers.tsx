@@ -22,7 +22,9 @@ export const Hours = (props: NumbersProps) => {
       <>
         {hours.map((h, i) => (
           <NumbersItem
-            key={h} idx={i} style={{ opacity: !insideHour ? 1 : 0.3 }}
+            key={h}
+            idx={i}
+            style={{ opacity: !insideHour ? 1 : 0.3 }}
           >
             {localizeNumber(h)}
           </NumbersItem>

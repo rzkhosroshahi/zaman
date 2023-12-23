@@ -17,7 +17,8 @@ export const fa: LocalesTypes = {
     {
       key: 3,
       name: 'س'
-    }, {
+    },
+    {
       key: 4,
       name: 'چ'
     },

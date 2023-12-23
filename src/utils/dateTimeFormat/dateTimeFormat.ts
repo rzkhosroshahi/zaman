@@ -1,10 +1,14 @@
 import localeCache from '../locale'
 
-export const getDateFormat = (date: Date, options: Intl.DateTimeFormatOptions, numberingSystem?: string) => {
+export const getDateFormat = (
+  date: Date,
+  options: Intl.DateTimeFormatOptions,
+  numberingSystem?: string
+) => {
   const { locale } = localeCache
   const defaultOptions = {
     ...options,
-    ...((numberingSystem != null) && { numberingSystem })
+    ...(numberingSystem != null && { numberingSystem })
   }
   const intl = new Date(date).toLocaleString(locale, defaultOptions)
   return intl

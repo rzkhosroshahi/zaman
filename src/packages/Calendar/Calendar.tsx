@@ -1,9 +1,26 @@
-import React, { type ForwardedRef, forwardRef, useMemo, useRef, useState } from 'react'
-import { Days, SlideDays, SubHeader, Wrapper, WrapperDays } from './Calendar.styled'
+import React, {
+  type ForwardedRef,
+  forwardRef,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
+import {
+  Days,
+  SlideDays,
+  SubHeader,
+  Wrapper,
+  WrapperDays
+} from './Calendar.styled'
 import Header from '../../components/Header'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import CalendarItem from '../../components/CalendarItem'
-import { isInBetween, sameDay, selectMonth, selectYear } from '../../utils/dateHelper/dateHelper'
+import {
+  isInBetween,
+  sameDay,
+  selectMonth,
+  selectYear
+} from '../../utils/dateHelper/dateHelper'
 import formatDate from '../../utils/format'
 import getDays from '../../utils/month'
 import MonthPicker from '../../components/MonthPicker'
@@ -20,7 +37,7 @@ import { DaysButton } from '../../style/classNames'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
-  const { defaultValue, onChange, weekends, range = false } = props
+  const { defaultValue, weekends, range = false } = props
   const startDate = defaultValue === undefined ? new Date() : defaultValue
   // memo
   const getAllDays = useMemo(() => getDays(defaultValue), [])
@@ -35,12 +52,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     days,
     setDays
   })
-  const { from, to, handlers } = useCalendarHandlers({
-    onChange,
-    range,
-    from: props.from,
-    to: props.to
-  })
+  const { from, to, handlers } = useCalendarHandlers(props)
 
   const togglePickers = () => {
     if (picker === 'month' || picker === 'year') {
@@ -80,72 +92,64 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
         onPrevClick={handlePrevMonth}
         onClickOnTitle={togglePickers}
       />
-      {
-        picker === 'year'
-          ? <YearPicker value={startDate} onYearSelect={handleYearSelect} />
-          : null
-      }
-      {
-        picker === 'month'
-          ? <MonthPicker value={startDate} onMonthSelect={handleMonthSelect} />
-          : null
-      }
-      {
-        picker === 'days'
-          ? <>
-            <SubHeader>
-              {locales[locale].shortWeekDays.map((day) => (
-                <DayName key={day.key}>{day.name}</DayName>
-              ))}
-            </SubHeader>
-            <WrapperDays>
-            {
-              days.map((weeks, idx) => (
-                <SlideDays
-                  key={weeks.id}
-                  className="item"
-                  ref={(el: HTMLDivElement) => { daysElementRefs.current[idx] = el }}
-                  role="rowgroup"
-                >
-                  {
-                    weeks.weeks.map((week, id) => (
-                      <Days key={id} role="row" aria-rowindex={id + 1}>
-                        {
-                          week.map((day, idx) => (
-                            <CalendarItem
-                              key={day.date.getTime()}
-                              className={DaysButton}
-                              data-value={day.date}
-                              data-disabled={day.disabled}
-                              data-range={props.range}
-                              data-selected={!range && sameDay(startDate, day.date)}
-                              data-start-range={(from != null) && sameDay(from, day.date)}
-                              data-in-range={isInBetween(day.date, from, to)}
-                              data-end-range={(to != null) && sameDay(to, day.date)}
-                              data-weekend={weekends?.some(wDay => wDay === idx)}
-                              type="button"
-                              role="gridcell"
-                              aria-colindex={idx + 1}
-                              tabIndex={0}
-                              aria-selected={!range && sameDay(startDate, day.date)}
-                              {...handlers}
-                            >
-                              <CalendarText className="cl-text">
-                                {formatDate(day.date, 'DD')}
-                              </CalendarText>
-                            </CalendarItem>
-                          ))
+      {picker === 'year' ? (
+        <YearPicker value={startDate} onYearSelect={handleYearSelect} />
+      ) : null}
+      {picker === 'month' ? (
+        <MonthPicker value={startDate} onMonthSelect={handleMonthSelect} />
+      ) : null}
+      {picker === 'days' ? (
+        <>
+          <SubHeader>
+            {locales[locale].shortWeekDays.map((day) => (
+              <DayName key={day.key}>{day.name}</DayName>
+            ))}
+          </SubHeader>
+          <WrapperDays>
+            {days.map((weeks, idx) => (
+              <SlideDays
+                key={weeks.id}
+                className="item"
+                ref={(el: HTMLDivElement) => {
+                  daysElementRefs.current[idx] = el
+                }}
+                role="rowgroup"
+              >
+                {weeks.weeks.map((week, id) => (
+                  <Days key={id} role="row" aria-rowindex={id + 1}>
+                    {week.map((day, idx) => (
+                      <CalendarItem
+                        key={day.date.getTime()}
+                        className={DaysButton}
+                        data-value={day.date}
+                        data-disabled={day.disabled}
+                        data-range={props.range}
+                        data-selected={!range && sameDay(startDate, day.date)}
+                        data-start-range={
+                          from != null && sameDay(from, day.date)
                         }
-                      </Days>
-                    ))
-                  }
-                </SlideDays>
-              ))
-            }
+                        data-in-range={isInBetween(day.date, from, to)}
+                        data-end-range={to != null && sameDay(to, day.date)}
+                        data-weekend={weekends?.some((wDay) => wDay === idx)}
+                        type="button"
+                        role="gridcell"
+                        aria-colindex={idx + 1}
+                        tabIndex={0}
+                        aria-selected={!range && sameDay(startDate, day.date)}
+                        {...handlers}
+                      >
+                        <CalendarText className="cl-text">
+                          {formatDate(day.date, 'DD')}
+                        </CalendarText>
+                      </CalendarItem>
+                    ))}
+                  </Days>
+                ))}
+              </SlideDays>
+            ))}
           </WrapperDays>
-          </>
-          : null
-      }
+        </>
+      ) : null}
     </Wrapper>
   )
 }
