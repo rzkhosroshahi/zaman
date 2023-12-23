@@ -1,6 +1,6 @@
 import { type SyntheticEvent, useState } from 'react'
 import dayjs from 'dayjs'
-import type { DatePickerValue, onRangeDatePickerChangePayload } from '../types'
+import type { DatePickerValue } from '../types'
 import type {
   CalendarDefaultProps,
   CalendarRangeProps
