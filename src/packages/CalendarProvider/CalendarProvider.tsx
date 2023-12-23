@@ -21,11 +21,9 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
   }
   return (
       <ThemeProvider theme={theme}>
-        <div className="zmn-lib-wrapper" data-theme="light">
-          <RCThemeProvider accentColor={accentColor}>
-            {props.children}
-          </RCThemeProvider>
-        </div>
+        <RCThemeProvider accentColor={accentColor}>
+          {props.children}
+        </RCThemeProvider>
       </ThemeProvider>
   )
 }
