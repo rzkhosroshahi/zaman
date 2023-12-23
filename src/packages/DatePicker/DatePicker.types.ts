@@ -5,9 +5,9 @@ import type {
   DaysRange,
   Positions
 } from '../../types'
-import {
-  type CalendarDefaultProps,
-  type CalendarRangeProps
+import type {
+  CalendarDefaultProps,
+  CalendarRangeProps
 } from '../Calendar/Calendar.types'
 
 export interface DatePickerBaseProps extends BaseProps {
