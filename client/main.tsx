@@ -47,7 +47,7 @@ const App = () => {
               onChange={({ from, to }) => console.log(from, '---', to)}
               weekends={[6]}
               from={new Date()}
-              to={new Date().setDate(new Date().getDate() + 7)}
+              to={new Date().setDate(new Date().getDate() + 3)}
               range
             />
           </CalendarProvider>
@@ -64,6 +64,8 @@ const App = () => {
             round="x2"
             accentColor="#6374ae"
             range
+            from={new Date()}
+            to={new Date().setDate(new Date().getDate() + 3)}
             onChange={(e) => console.log(e)}
           />
         </div>
