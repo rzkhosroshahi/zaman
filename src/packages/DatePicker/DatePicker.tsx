@@ -26,13 +26,13 @@ export const DatePicker = (props: DatePickerProps) => {
     defaultValue !== undefined ? new Date(defaultValue) : undefined
   )
   const [from, setFrom] = useState<Date | undefined>(
-    props.range === true
-      ? new Date((props.range && props.from) ?? Date.now())
+    props.range === true && props.from !== undefined
+      ? new Date(props.from)
       : undefined
   )
   const [to, setTo] = useState<Date | undefined>(
-    props.range === true
-      ? new Date((props.range && props.to) ?? Date.now())
+    props.range === true && props.to !== undefined
+      ? new Date(props.to)
       : undefined
   )
   const [showCalendar, setShowCalendar] = useState<boolean>(false)
@@ -72,6 +72,7 @@ export const DatePicker = (props: DatePickerProps) => {
     if (props.range === undefined && value !== undefined) {
       return formatDate(value, format)
     }
+    console.log('from >>', from)
     if (from !== undefined && to !== undefined) {
       return `
         ${formatDate(from, format)}
@@ -110,7 +111,7 @@ export const DatePicker = (props: DatePickerProps) => {
           onChange={handleChangeDay}
           range={props.range}
           from={props.range === true ? props.from : undefined}
-          to={props.range === true ? props.from : undefined}
+          to={props.range === true ? props.to : undefined}
         />
       </RenderCalendar>
     </CalendarProvider>
