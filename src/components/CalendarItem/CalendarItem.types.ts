@@ -1,7 +1,10 @@
+import type React from 'react'
+
 export interface CalendarItemProps {
-  selected?: boolean
   range?: boolean
-  disabled?: boolean
-  width?: number
-  height?: number
+  width?: string
+  height?: string
+  className: string
+  children: React.ReactNode
+  onClick?: () => void
 }

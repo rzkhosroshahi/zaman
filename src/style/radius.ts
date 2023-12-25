@@ -1,3 +1,5 @@
+import { cssVariablePrefix } from './classNames'
+
 export type Radius = 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
 
 export interface radiusObject {
@@ -25,4 +27,17 @@ export const radius: Record<Radius, radiusObject> = {
     wrapper: 24,
     calendarItem: 20
   }
+}
+
+export const getRadiusCssVariables = () => {
+  let variables = ''
+  Object.keys(radius).map((radiusKeys) => {
+    // @ts-expect-error typescript issue with Object methods
+    Object.entries(radius[radiusKeys]).forEach(([key, value]) => {
+      return (variables += `--${cssVariablePrefix}-round-${key}-${radiusKeys}: ${
+        value as string
+      }px; \n`)
+    })
+  }, '')
+  return variables
 }

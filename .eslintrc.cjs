@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'standard-with-typescript',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:css-modules/recommended'
   ],
   overrides: [],
   parserOptions: {
@@ -14,7 +15,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json'
   },
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'css-modules'],
   rules: {
     '@typescript-eslint/ban-ts-comment': [
       'error',

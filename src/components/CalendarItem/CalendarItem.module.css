@@ -1,0 +1,150 @@
+.CalendarItemClass {
+    position: relative;
+    outline: none;
+    background-color: transparent;
+    display: flex;
+    font-family: inherit;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    user-select: none;
+    color: var(--zmn-gray-600);
+
+    &:hover,
+    &:focus {
+        border-color: var(--zmn-gray-50);
+    }
+    &:active {
+        background-color: var(--zmn-primary-50);
+        border-color: transparent;
+        color: var(--zmn-gray-0);
+    }
+    &[data-selected='true'] {
+        background-color: var(--zmn-primary-50);
+        border-color: transparent;
+        color: var(--zmn-gray-0);
+    }
+    &[data-disabled='true'] {
+        border-color: transparent;
+    }
+    &[data-disabled='true'] .cl-text {
+        opacity: 0.5;
+    }
+    &:not([data-range='true']) {
+        transition: all 0.1s linear;
+    }
+    &:not([data-selected='true'])&[data-weekend='true'] {
+        color: #ff4d4d;
+    }
+    &:not([data-disabled='true']) {
+        cursor: pointer;
+    }
+    &[data-in-range='true'] {
+        background-color: var(--zmn-primary-90);
+        border-color: transparent;
+    }
+    &[data-start-range='true'] {
+        background-color:  var(--zmn-primary-40);
+        color: var(--zmn-gray-0);
+        border-color: transparent;
+    }
+    &[data-end-range='true'] {
+        background-color: var(--zmn-primary-40);
+        color: var(--zmn-gray-0);
+        border-color: transparent;
+    }
+    &[data-in-range='true']:before,
+    &[data-end-range='true']:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: -1px;
+      background-color: var(--zmn-primary-90);
+      z-index: -1;
+    }
+    &[data-in-range='true']:nth-of-type(1):before,
+    &[data-start-range='true']:before {
+        display: none;
+    }
+}
+
+.CalendarItemClassRoundThin {
+    border-radius: var(--zmn-round-calendarItem-thin);
+    &[data-start-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-thin);
+    }
+    &[data-end-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-thin);
+    }
+    &:not([data-range='true']) {
+        border-radius: var(--zmn-round-calendarItem-thin);
+    }
+}
+
+.CalendarItemClassRoundX1  {
+    border-radius: var(--zmn-round-calendarItem-x1);
+    &[data-start-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x1);
+    }
+    &[data-end-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x1);
+    }
+    &:not([data-range='true']) {
+        border-radius: var(--zmn-round-calendarItem-x1);
+    }
+}
+
+.CalendarItemClassRoundX2  {
+    border-radius: var(--zmn-round-calendarItem-x2);
+    &[data-start-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x2);
+    }
+    &[data-end-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x2);
+    }
+    &:not([data-range='true']) {
+        border-radius: var(--zmn-round-calendarItem-x2);
+    }
+}
+.CalendarItemClassRoundX3  {
+    border-radius: var(--zmn-round-calendarItem-x3);
+    &[data-start-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x3);
+    }
+    &[data-end-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x3);
+    }
+    &:not([data-range='true']) {
+        border-radius: var(--zmn-round-calendarItem-x3);
+    }
+}
+
+.CalendarItemClassRoundX4  {
+    border-radius: var(--zmn-round-calendarItem-x4);
+    &[data-start-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x4);
+    }
+    &[data-end-range='true'] {
+        border-radius: var(--zmn-round-calendarItem-x4);
+    }
+    &:not([data-range='true']) {
+        border-radius: var(--zmn-round-calendarItem-x4);
+    }
+}
+
+.CalendarItemClassRtl {
+    &[data-in-range='true']:before,
+    &[data-end-range='true']:before {
+        left: 20px;
+        right: unset;
+    }
+}
+.CalendarItemClassLtr {
+    &[data-in-range='true']:before,
+    &[data-end-range='true']:before {
+        right: 20px;
+        left: unset;
+    }
+}

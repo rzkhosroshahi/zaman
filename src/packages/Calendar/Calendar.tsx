@@ -1,17 +1,11 @@
 import React, {
   type ForwardedRef,
   forwardRef,
+  useContext,
   useMemo,
   useRef,
   useState
 } from 'react'
-import {
-  Days,
-  SlideDays,
-  SubHeader,
-  Wrapper,
-  WrapperDays
-} from './Calendar.styled'
 import Header from '../../components/Header'
 import { useSlideCalendar } from '../../hooks/useSlideCalendar'
 import CalendarItem from '../../components/CalendarItem'
@@ -25,15 +19,16 @@ import formatDate from '../../utils/format'
 import getDays from '../../utils/month'
 import MonthPicker from '../../components/MonthPicker'
 import YearPicker from '../../components/YearPicker'
-import { DayName } from '../../components/Header/Header.styled'
 import locales from '../../utils/locales'
 import localeCache from '../../utils/locale'
 import type { DaysInMonth } from '../../utils/month/month.types'
 import type { CalendarProps } from './Calendar.types'
 import type { Pickers } from '../../types'
 import useCalendarHandlers from '../../hooks/useCalendarHandlers'
-import { CalendarText } from '../../components/CalendarItem/CalendarItem.styled'
 import { DaysButton } from '../../style/classNames'
+import { cls } from '../../utils/className'
+import { ThemeContext } from '../../components/ThemeProvider/ThemeProvider'
+import cl from './Calendar.module.css'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
@@ -52,6 +47,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     days,
     setDays
   })
+  const Theme = useContext(ThemeContext)
   const { from, to, handlers } = useCalendarHandlers(props)
 
   const togglePickers = () => {
@@ -81,10 +77,28 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     setDays([getDays(date)])
     setPicker('month')
   }
+  const roundClassNames = {
+    thin: cl.WrapperRoundThin,
+    x1: cl.WrapperRoundX1,
+    x2: cl.WrapperRoundX2,
+    x3: cl.WrapperRoundX3,
+    x4: cl.WrapperRoundX4
+  }
+  const wrapperDaysClassNames = {
+    rtl: cl.WrapperDaysRtl,
+    ltr: cl.WrapperDaysLtr
+  }
+
   return (
-    <Wrapper
+    <div
       ref={ref}
-      className={props.className !== null ? props.className : ''}
+      className={cls([
+        props.className !== null ? props.className : '',
+        'zmn-lib-wrapper',
+        cl.Wrapper,
+        roundClassNames[Theme.round]
+      ])}
+      data-theme="light"
     >
       <Header
         monthName={days[0].monthName}
@@ -100,24 +114,32 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
       ) : null}
       {picker === 'days' ? (
         <>
-          <SubHeader>
+          <div className={cl.SubHeader}>
             {locales[locale].shortWeekDays.map((day) => (
-              <DayName key={day.key}>{day.name}</DayName>
+              <div key={day.key} className={cl.DayName}>
+                {day.name}
+              </div>
             ))}
-          </SubHeader>
-          <WrapperDays>
+          </div>
+          <div className={cls([cl.WrapperDays, wrapperDaysClassNames.rtl])}>
             {days.map((weeks, idx) => (
-              <SlideDays
+              <div
                 key={weeks.id}
-                className="item"
+                className={cls(['item', cl.SlideDays])}
                 ref={(el: HTMLDivElement) => {
                   daysElementRefs.current[idx] = el
                 }}
                 role="rowgroup"
               >
                 {weeks.weeks.map((week, id) => (
-                  <Days key={id} role="row" aria-rowindex={id + 1}>
+                  <div
+                    className={cl.Days}
+                    key={id}
+                    role="row"
+                    aria-rowindex={id + 1}
+                  >
                     {week.map((day, idx) => (
+                      // @ts-expect-error will change
                       <CalendarItem
                         key={day.date.getTime()}
                         className={DaysButton}
@@ -131,26 +153,23 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                         data-in-range={isInBetween(day.date, from, to)}
                         data-end-range={to != null && sameDay(to, day.date)}
                         data-weekend={weekends?.some((wDay) => wDay === idx)}
-                        type="button"
-                        role="gridcell"
                         aria-colindex={idx + 1}
-                        tabIndex={0}
                         aria-selected={!range && sameDay(startDate, day.date)}
                         {...handlers}
                       >
-                        <CalendarText className="cl-text">
+                        <div className="cl-text">
                           {formatDate(day.date, 'DD')}
-                        </CalendarText>
+                        </div>
                       </CalendarItem>
                     ))}
-                  </Days>
+                  </div>
                 ))}
-              </SlideDays>
+              </div>
             ))}
-          </WrapperDays>
+          </div>
         </>
       ) : null}
-    </Wrapper>
+    </div>
   )
 }
 

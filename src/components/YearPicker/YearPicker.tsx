@@ -30,13 +30,11 @@ export const YearPicker = (props: YearPickerProps) => {
         <CalendarItem
           className={YearPickerButton}
           key={year}
-          width={90}
-          height={48}
+          width={'90px'}
+          height={'48px'}
           data-selected={currentYear === year}
           aria-selected={currentYear === year}
           aria-current="date"
-          type="button"
-          tabIndex={0}
           onClick={() => props.onYearSelect(year)}
         >
           {localizeNumber(year)}

@@ -26,7 +26,7 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
   }
   return (
     <ThemeProvider theme={theme}>
-      <RCThemeProvider accentColor={accentColor}>
+      <RCThemeProvider accentColor={accentColor} round={round}>
         {props.children}
       </RCThemeProvider>
     </ThemeProvider>

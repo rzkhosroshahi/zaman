@@ -7,13 +7,13 @@ import {
   Hand,
   HandCircle,
   Time,
-  TimeWrapper
+  TimeWrapper,
+  CalendarWrapper
 } from './TimePicker.styled'
 import CalendarProvider from '../CalendarProvider/CalendarProvider'
 import Numbers from './components/Numbers'
 import type { TimePickerProps } from './TimePicker.types'
 import localeCache from '../../utils/locale'
-import CalendarWrapper from '../../components/CalendarWrapper'
 import { localizeNumber } from '../../utils'
 import locales from '../../utils/locales'
 import useClickOutside from '../../hooks/useClickOutside'
