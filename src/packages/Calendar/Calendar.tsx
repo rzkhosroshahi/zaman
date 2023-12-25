@@ -95,9 +95,9 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
       className={cls([
         props.className !== null ? props.className : '',
         'zmn-lib-wrapper',
-        cl.Wrapper,
-        roundClassNames[Theme.round]
+        cl.Wrapper
       ])}
+      data-round={Theme.round}
       data-theme="light"
     >
       <Header

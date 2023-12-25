@@ -26,20 +26,20 @@
     &:focus {
         background-color: var(--zmn-primary-90);
     }
+    &[data-round="thin"] {
+        border-radius: var(--zmn-round-wrapper-thin);
+    }
+    &[data-round="x1"] {
+        border-radius: var(--zmn-round-wrapper-x1);
+    }
+    &[data-round="x2"] {
+        border-radius: var(--zmn-round-wrapper-x2);
+    }
+    &[data-round="x3"] {
+        border-radius: var(--zmn-round-wrapper-x3);
+    }
+    &[data-round="x4"] {
+        border-radius: var(--zmn-round-wrapper-x4);
+    }
 }
 
-.WrapperClassThin {
-    border-radius: var(--zmn-round-wrapper-thin);
-}
-.WrapperClassX1 {
-    border-radius: var(--zmn-round-wrapper-x1);
-}
-.WrapperClassX2 {
-    border-radius: var(--zmn-round-wrapper-x2);
-}
-.WrapperClassX3 {
-    border-radius: var(--zmn-round-wrapper-x3);
-}
-.WrapperClassX4 {
-    border-radius: var(--zmn-round-wrapper-x4);
-}

@@ -14,22 +14,24 @@
     height: 375px;
     border: 1px solid var(--zmn-gray-40);
     background-color: #fff;
+
+    &[data-round="thin"] {
+        border-radius: var(--zmn-round-wrapper-thin);
+    }
+    &[data-round="x1"] {
+        border-radius: var(--zmn-round-wrapper-x1);
+    }
+    &[data-round="x2"] {
+        border-radius: var(--zmn-round-wrapper-x2);
+    }
+    &[data-round="x3"] {
+        border-radius: var(--zmn-round-wrapper-x3);
+    }
+    &[data-round="x4"] {
+        border-radius: var(--zmn-round-wrapper-x4);
+    }
 }
-.WrapperRoundThin {
-    border-radius: var(--zmn-round-wrapper-thin);
-}
-.WrapperRoundX1 {
-    border-radius: var(--zmn-round-wrapper-x1);
-}
-.WrapperRoundX2 {
-    border-radius: var(--zmn-round-wrapper-x2);
-}
-.WrapperRoundX3 {
-    border-radius: var(--zmn-round-wrapper-x3);
-}
-.WrapperRoundX4 {
-    border-radius: var(--zmn-round-wrapper-x4);
-}
+
 .WrapperDays {
     display: flex;
     position: absolute;

@@ -6,6 +6,7 @@ import localeCache from '../../utils/locale'
 import { gray } from '../../style/colors'
 import type { CalendarProviderProps } from './CalendarProvider.types'
 import { ThemeProvider as RCThemeProvider } from '../../components/ThemeProvider'
+
 export const CalendarProvider = (props: CalendarProviderProps) => {
   const {
     accentColor = ACCENT_COLOR,

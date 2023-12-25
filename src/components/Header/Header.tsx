@@ -15,13 +15,7 @@ import { ThemeContext } from '../ThemeProvider/ThemeProvider'
 
 export const Header = (props: HeaderProps) => {
   const theme = useContext(ThemeContext)
-  const roundClassNames = {
-    thin: cl.WrapperClassThin,
-    x1: cl.WrapperClassX1,
-    x2: cl.WrapperClassX2,
-    x3: cl.WrapperClassX3,
-    x4: cl.WrapperClassX4
-  }
+
   return (
     <div className={cls([cl.WrapperClass, HeaderClass])}>
       <IconButton
@@ -36,8 +30,8 @@ export const Header = (props: HeaderProps) => {
         className={cls([
           cl.HeaderTitle,
           MonthYearButton,
-          roundClassNames[theme.round]
         ])}
+        data-round={theme.round}
         role="presentation"
         onClick={props.onClickOnTitle}
         aria-label="calendar view is open, switch to year and month view"
