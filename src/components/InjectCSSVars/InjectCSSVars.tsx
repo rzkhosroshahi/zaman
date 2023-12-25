@@ -13,13 +13,11 @@ export function InjectCSSVariables(props: InjectCSSVariablesProps) {
       {createPortal(
         <style id="zaman-lib-theme">
           {`
-          .${targetElement} {
-          }
-        .${targetElement}[data-theme="light"] {
-            ${roundVariables}
-          ${colorVariables}
-        }
-       `}
+            .${targetElement}[data-theme="light"] {
+                ${roundVariables}
+                ${colorVariables}
+            }
+          `}
         </style>,
         document.body
       )}
