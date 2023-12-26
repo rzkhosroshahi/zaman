@@ -1,5 +1,5 @@
 import hexToHSL from './hexToHSL'
-const getHsl = (h: number, s: number, l: number) => {
+export const getHsl = (h: number, s: number, l: number) => {
   return `hsl(${h}deg ${s}% ${l}%)`
 }
 // ToDo: remove this after remove Emotion
