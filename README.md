@@ -101,7 +101,7 @@ function App() {
     <CalendarProvider>
       <Calendar
         defaultValue={calendarValue}
-        onChange={(day) => setCalendarValue(new Date(day))}
+        onChange={(e) => setCalendarValue(new Date(e.value))}
       />
     </CalendarProvider>
   )
