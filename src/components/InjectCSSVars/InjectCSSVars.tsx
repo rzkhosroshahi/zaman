@@ -7,7 +7,7 @@ import { getRadiusCssVariables } from '../../style/radius'
 export function InjectCSSVariables(props: InjectCSSVariablesProps) {
   const { targetElement = ':root', theme } = props
   const colorVariables = getColorVariables(theme)
-  const roundVariables = getRadiusCssVariables()
+  const roundVariables = getRadiusCssVariables(props.round)
   return (
     <>
       {createPortal(

@@ -19,7 +19,11 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
   return (
     <ThemeContext.Provider value={{ round: props.round }}>
       <div>
-        <InjectCSSVariables theme={theme} targetElement={zamanLibWrapper} />
+        <InjectCSSVariables
+          round={props.round}
+          theme={theme}
+          targetElement={zamanLibWrapper}
+        />
         {props.children}
       </div>
     </ThemeContext.Provider>

@@ -1,43 +1,35 @@
-import { cssVariablePrefix } from './classNames'
-
 export type Radius = 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
 
 export interface radiusObject {
-  wrapper: number
-  calendarItem: number
+  wrapper: `${number}px`
+  calendarItem: `${number}px`
 }
 export const radius: Record<Radius, radiusObject> = {
   thin: {
-    wrapper: 0,
-    calendarItem: 0
+    wrapper: '0px',
+    calendarItem: '0px'
   },
   x1: {
-    wrapper: 8,
-    calendarItem: 4
+    wrapper: '8px',
+    calendarItem: '4px'
   },
   x2: {
-    wrapper: 16,
-    calendarItem: 8
+    wrapper: '16px',
+    calendarItem: '8px'
   },
   x3: {
-    wrapper: 24,
-    calendarItem: 16
+    wrapper: '24px',
+    calendarItem: '16px'
   },
   x4: {
-    wrapper: 24,
-    calendarItem: 20
+    wrapper: '24px',
+    calendarItem: '20px'
   }
 }
 
-export const getRadiusCssVariables = () => {
-  let variables = ''
-  Object.keys(radius).map((radiusKeys) => {
-    // @ts-expect-error typescript issue with Object methods
-    Object.entries(radius[radiusKeys]).forEach(([key, value]) => {
-      return (variables += `--${cssVariablePrefix}-round-${key}-${radiusKeys}: ${
-        value as string
-      }px; \n`)
-    })
-  }, '')
-  return variables
+export const getRadiusCssVariables = (round: Radius) => {
+  return `
+    --radii-calendar-item: ${radius[round].calendarItem};
+    --radii-wrapper: ${radius[round].wrapper};
+  `
 }
