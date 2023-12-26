@@ -1,3 +1,5 @@
+import { cssVariablePrefix } from './classNames'
+
 export type Radius = 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
 
 export interface radiusObject {
@@ -29,7 +31,7 @@ export const radius: Record<Radius, radiusObject> = {
 
 export const getRadiusCssVariables = (round: Radius) => {
   return `
-    --radii-calendar-item: ${radius[round].calendarItem};
-    --radii-wrapper: ${radius[round].wrapper};
+    --${cssVariablePrefix}-radii-calendar-item: ${radius[round].calendarItem};
+    --${cssVariablePrefix}-radii-wrapper: ${radius[round].wrapper};
   `
 }

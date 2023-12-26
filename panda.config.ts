@@ -1,11 +1,14 @@
 import { defineConfig } from '@pandacss/dev'
 import { ACCENT_COLOR } from 'src/constants'
+import { cssVariablePrefix } from 'src/style/classNames'
 import { getHsl } from 'src/style/colorPallete'
 import hexToHSL from 'src/style/hexToHSL'
 
 const { h, s, l } = hexToHSL(ACCENT_COLOR)
 
 export default defineConfig({
+  prefix: cssVariablePrefix,
+
   // Whether to use css reset
   preflight: true,
 
