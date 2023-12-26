@@ -1,1 +1,1 @@
-export { default } from './CalendarItem.styled'
+export { default } from './CalendarItem'

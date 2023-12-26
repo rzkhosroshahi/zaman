@@ -1,0 +1,45 @@
+.WrapperClass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding-right: 8px;
+    padding-left: 8px;
+    background-color: var(--zmn-primary-95);
+    border-bottom: 2px solid var(--zmn-primary-85);
+}
+
+.HeaderTitle {
+    will-change: auto;
+    min-width: 100px;
+    outline: none;
+    border: 0;
+    font-family: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--zmn-primary-50);
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in;
+
+    &:hover,
+    &:focus {
+        background-color: var(--zmn-primary-90);
+    }
+    &[data-round="thin"] {
+        border-radius: var(--zmn-round-wrapper-thin);
+    }
+    &[data-round="x1"] {
+        border-radius: var(--zmn-round-wrapper-x1);
+    }
+    &[data-round="x2"] {
+        border-radius: var(--zmn-round-wrapper-x2);
+    }
+    &[data-round="x3"] {
+        border-radius: var(--zmn-round-wrapper-x3);
+    }
+    &[data-round="x4"] {
+        border-radius: var(--zmn-round-wrapper-x4);
+    }
+}
+

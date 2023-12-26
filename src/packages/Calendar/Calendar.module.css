@@ -1,0 +1,66 @@
+.DayName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    width: 40px;
+    color: #8c8c8c;
+}
+
+.Wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 320px;
+    height: 375px;
+    border: 1px solid var(--zmn-gray-40);
+    background-color: #fff;
+
+    &[data-round="thin"] {
+        border-radius: var(--zmn-round-wrapper-thin);
+    }
+    &[data-round="x1"] {
+        border-radius: var(--zmn-round-wrapper-x1);
+    }
+    &[data-round="x2"] {
+        border-radius: var(--zmn-round-wrapper-x2);
+    }
+    &[data-round="x3"] {
+        border-radius: var(--zmn-round-wrapper-x3);
+    }
+    &[data-round="x4"] {
+        border-radius: var(--zmn-round-wrapper-x4);
+    }
+}
+
+.WrapperDays {
+    display: flex;
+    position: absolute;
+    overflow: hidden;
+}
+.WrapperDaysRtl {
+    right: 8px;
+}
+.WrapperDaysLtr {
+    left: 8px;
+}
+.SlideDays {
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    gap: 4px;
+}
+.Days {
+    display: flex;
+    gap: 4px;
+}
+
+.SubHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    height: 24px;
+    gap: 4px;
+}

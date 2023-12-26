@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Calendar, CalendarProvider, DatePicker } from '../src'
 import { createRoot } from 'react-dom/client'
 import './style.css'
+import '../src/style/index.css'
 import TimePicker from '../src/packages/TimePicker'
 const container = document.getElementById('root')
 const root = createRoot(container as HTMLElement)

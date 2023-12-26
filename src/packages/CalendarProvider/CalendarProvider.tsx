@@ -5,6 +5,7 @@ import { ACCENT_COLOR } from '../../constants'
 import localeCache from '../../utils/locale'
 import { gray } from '../../style/colors'
 import type { CalendarProviderProps } from './CalendarProvider.types'
+import { ThemeProvider as RCThemeProvider } from '../../components/ThemeProvider'
 
 export const CalendarProvider = (props: CalendarProviderProps) => {
   const {
@@ -24,7 +25,13 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
     round,
     direction
   }
-  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={theme}>
+      <RCThemeProvider accentColor={accentColor} round={round}>
+        {props.children}
+      </RCThemeProvider>
+    </ThemeProvider>
+  )
 }
 
 export default CalendarProvider
