@@ -17,6 +17,7 @@ export const CalendarProvider = (props: CalendarProviderProps) => {
   useMemo(() => localeCache.setLocale(locale), [locale])
   const primaryColors = useMemo(() => makeColorPallet(accentColor), [])
 
+  // TODO: set wrapper and calendarItem radius CSS variables based on `round` prop (--radii-calendar-item and --radii-wrapper)
   const theme = {
     colors: {
       primary: primaryColors,

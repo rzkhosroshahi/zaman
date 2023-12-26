@@ -55,6 +55,29 @@ export default defineConfig({
           }
         }
       },
+      radii: {
+        calendarItem: {
+          value: '0px'
+        },
+        wrapper: {
+          value: '0px'
+        }
+      }
+    }
+  },
+  conditions: {
+    extend: {
+      disabled: '&:is(:disabled, [disabled], [data-disabled="true"])',
+      not_disabled: '&:not(:disabled, [disabled], [data-disabled="true"])',
+      selected: '&:is([aria-selected=true], [data-selected="true"])',
+      not_selected: '&:not([aria-selected=true], [data-selected="true"])',
+      is_range: '&:is([data-range="true"])',
+      not_is_range: '&:not([data-range="true"])',
+      is_weekend: '&:is([data-weekend="true"])',
+      is_in_range: '&:is([data-in-range="true"])',
+      is_start_range: '&:is([data-start-range="true"])',
+      is_end_range: '&:is([data-end-range="true"])'
+    }
   },
 
   // The output directory for your css system
