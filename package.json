@@ -14,7 +14,8 @@
     "watch": "rollup -c rollup.config.js -w",
     "lint:fix": "eslint --fix src",
     "format": "prettier src --write",
-    "prepare": "husky install"
+    "panda:codegen": "panda codegen",
+    "prepare": "husky install && panda codegen"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "@babel/preset-typescript": "^7.21.0",
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
+    "@pandacss/dev": "^0.23.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
