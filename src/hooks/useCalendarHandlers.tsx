@@ -27,7 +27,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   const [from, setFrom] = useState<Date | undefined>(
     props.from !== undefined ? new Date(props.from) : undefined
   )
-  const [to, setTo] = useState<Date | undefined>(
+  const [to, setTo] = useState<Date | undefined | null>(
     props.to !== undefined ? new Date(props.to) : undefined
   )
 
@@ -48,21 +48,26 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   }
   const onClickRange = (e: Event) => {
     const { value } = e.currentTarget.dataset
-    if (!selectingRange && value !== undefined) {
-      setFrom(new Date(value))
-      setTo(new Date(value))
-
-      setSelectingRange(true)
-      return
-    }
-    setSelectingRange(false)
-    if (from !== undefined && to !== undefined) {
-      if (guardRange(props) && typeof props.onChange === 'function') {
-        props.onChange({
-          from: new Date(from),
-          to: new Date(to)
-        })
+    // start selecting range
+    if (!selectingRange) {
+      if (value !== undefined) {
+        setFrom(new Date(value))
+        setTo(null)
       }
+      setSelectingRange(true)
+    }
+    // submit select date in mobile
+    if (selectingRange && to === null) {
+      if (value !== undefined) {
+        setTo(new Date(value))
+        handleRangeOnChange(from, new Date(value))
+      }
+      setSelectingRange(false)
+    }
+    // finish selecting range in desktop
+    if (selectingRange && to !== undefined) {
+      handleRangeOnChange(from, to)
+      setSelectingRange(false)
     }
   }
   const onMouseMove = (e: Event) => {
@@ -82,7 +87,19 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     }
     return onClickCalendar(e)
   }
-
+  const handleRangeOnChange = (
+    from: Date | undefined,
+    to: Date | undefined | null
+  ) => {
+    if (typeof props.onChange === 'function' && guardRange(props)) {
+      if (from != null && to != null) {
+        props.onChange({
+          from,
+          to
+        })
+      }
+    }
+  }
   return {
     handlers: {
       onClick: handleClickEvent,
