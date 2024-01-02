@@ -8,4 +8,5 @@ export interface LocalesTypes {
   format: string
   am: string
   pm: string
+  today: string
 }

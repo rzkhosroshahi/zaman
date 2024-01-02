@@ -15,7 +15,8 @@ export const DatePicker = (props: DatePickerProps) => {
     locale = 'fa',
     weekends = [],
     direction = 'rtl',
-    accentColor
+    accentColor,
+    showToday
   } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
@@ -112,6 +113,7 @@ export const DatePicker = (props: DatePickerProps) => {
           range={props.range}
           from={props.range === true ? props.from : undefined}
           to={props.range === true ? props.to : undefined}
+          showToday={!!showToday}
         />
       </RenderCalendar>
     </CalendarProvider>

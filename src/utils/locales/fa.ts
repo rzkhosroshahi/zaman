@@ -83,7 +83,8 @@ export const fa: LocalesTypes = {
   ],
   format: 'YYYY/MM/DD',
   am: 'ق.ظ',
-  pm: 'ب.ظ'
+  pm: 'ب.ظ',
+  today: 'امروز'
 }
 
 export default fa

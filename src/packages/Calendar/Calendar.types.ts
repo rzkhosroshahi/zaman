@@ -9,6 +9,7 @@ export interface CalendarBaseProps {
   defaultValue?: Date
   weekends?: DaysRange[]
   className?: string
+  showToday?: boolean
 }
 export interface CalendarRangeProps {
   range: true

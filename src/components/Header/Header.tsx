@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Button'
 import IconButton from '../IconButton'
 import ChevronRight from '../Icons/ChevronRight'
 import ChevronLeft from '../Icons/ChevronLeft'
@@ -11,7 +12,12 @@ import {
   MonthYearButton
 } from '../../style/classNames'
 
+import locales from '../../utils/locales'
+import localeCache from '../../utils/locale'
+
 export const Header = (props: HeaderProps) => {
+  const { locale } = localeCache
+
   return (
     <Wrapper className={HeaderClass}>
       <IconButton
@@ -39,6 +45,16 @@ export const Header = (props: HeaderProps) => {
       >
         <ChevronLeft />
       </IconButton>
+      {props.showToday && (
+        <Button
+          aria-label="Today"
+          onClick={props.onTodayClick}
+          className={IconNextButton}
+          tabIndex={0}
+        >
+          {locales[locale].today}
+        </Button>
+      )}
     </Wrapper>
   )
 }

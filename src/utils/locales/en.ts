@@ -83,7 +83,8 @@ export const en: LocalesTypes = {
   ],
   format: 'MM-DD-YY',
   am: 'AM',
-  pm: 'PM'
+  pm: 'PM',
+  today: 'Today'
 }
 
 export default en

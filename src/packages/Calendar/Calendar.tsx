@@ -37,7 +37,7 @@ import { DaysButton } from '../../style/classNames'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
-  const { defaultValue, weekends, range = false } = props
+  const { defaultValue, weekends, range = false, showToday = false } = props
   const startDate = defaultValue === undefined ? new Date() : defaultValue
   // memo
   const getAllDays = useMemo(() => getDays(defaultValue), [])
@@ -60,6 +60,10 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
       return
     }
     setPicker('year')
+  }
+  const handleToday = () => {
+    const date = new Date()
+    setDays([getDays(date)])
   }
   const handleNextMonth = () => {
     if (picker === 'days') {
@@ -88,6 +92,8 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
     >
       <Header
         monthName={days[0].monthName}
+        showToday={!!showToday}
+        onTodayClick={handleToday}
         onNextClick={handleNextMonth}
         onPrevClick={handlePrevMonth}
         onClickOnTitle={togglePickers}
@@ -125,6 +131,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
                         data-disabled={day.disabled}
                         data-range={props.range}
                         data-selected={!range && sameDay(startDate, day.date)}
+                        data-today={sameDay(new Date(), day.date)}
                         data-start-range={
                           from != null && sameDay(from, day.date)
                         }

@@ -39,6 +39,7 @@ const App = () => {
               defaultValue={calendarValue}
               onChange={({ value }) => setCalendarValue(value)}
               weekends={[6]}
+              showToday
             />
           </CalendarProvider>
           <CalendarProvider locale="fa" round="x4" accentColor="#6374ae">
@@ -49,6 +50,7 @@ const App = () => {
               from={new Date()}
               to={new Date().setDate(new Date().getDate() + 3)}
               range
+              showToday
             />
           </CalendarProvider>
         </div>
@@ -59,6 +61,7 @@ const App = () => {
             round="x4"
             position="center"
             onChange={(e) => console.log(e)}
+            showToday
           />
           <DatePicker
             round="x2"
@@ -67,6 +70,7 @@ const App = () => {
             from={new Date()}
             to={new Date().setDate(new Date().getDate() + 3)}
             onChange={(e) => console.log(e)}
+            showToday
           />
         </div>
       ) : null}
