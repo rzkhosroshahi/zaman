@@ -31,6 +31,14 @@ const App = () => {
         >
           Time picker
         </div>
+        <div
+          className={`tabItem tabItem${
+            view === 'close-on-date-change' ? '--selected' : ''
+          }`}
+          onClick={() => setView('close-on-date-change')}
+        >
+          Close on date selection
+        </div>
       </div>
       {view === 'cal' ? (
         <div className="libWrapper">
@@ -75,6 +83,17 @@ const App = () => {
           <TimePicker
             accentColor="#6374ae"
             onChange={(py) => console.log(py)}
+          />
+        </div>
+      ) : null}
+
+      {view === 'close-on-date-change' ? (
+        <div className="libWrapper">
+          <DatePicker
+            closeOnDateChange
+            round="x4"
+            position="center"
+            onChange={(e) => console.log(e)}
           />
         </div>
       ) : null}

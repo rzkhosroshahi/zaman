@@ -9,13 +9,17 @@ interface useTimePickerType {
   timeConvention?: 'am' | 'pm'
   clockTime?: 24 | 12
   defaultValue?: DatePickerValue
+  closeOneTimeChange?: boolean
   onChange?: (payload: onChangePayload) => void
+  closeTimePicker?: () => void
 }
 export const useTimePicker = ({
   defaultValue,
   clockTime,
   timeConvention,
-  onChange
+  onChange,
+  closeOneTimeChange = false,
+  closeTimePicker
 }: useTimePickerType) => {
   const time =
     defaultValue !== undefined ? dayjs(defaultValue) : dayjs().startOf('date')
@@ -32,6 +36,11 @@ export const useTimePicker = ({
     const { value } = getAngelValues(e, 6)
     setMinute(value)
   }
+
+  const handleCloseTimePicker = () => {
+    if (closeOneTimeChange) closeTimePicker?.()
+  }
+
   const handleChangeHour = (e: React.MouseEvent | React.TouchEvent) => {
     const { value, delta } = getAngelValues(e)
     if (clockTime === 24) {
@@ -77,6 +86,7 @@ export const useTimePicker = ({
       setSelecting(false)
       setSelectingHour(false)
       setInsideHour(false)
+      handleCloseTimePicker()
       return
     }
     setSelecting(false)

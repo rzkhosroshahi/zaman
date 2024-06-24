@@ -9,6 +9,7 @@ export interface onChangePayload {
 
 export interface TimePickerProps extends BaseProps {
   defaultValue?: DatePickerValue
+  closeOneTimeChange?: boolean
   clockTime?: 12 | 24
   onChange?: (payload: onChangePayload) => void
   inputClass?: string

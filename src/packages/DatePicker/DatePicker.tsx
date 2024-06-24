@@ -15,7 +15,8 @@ export const DatePicker = (props: DatePickerProps) => {
     locale = 'fa',
     weekends = [],
     direction = 'rtl',
-    accentColor
+    accentColor,
+    closeOnDateChange = false
   } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
@@ -39,9 +40,8 @@ export const DatePicker = (props: DatePickerProps) => {
   // hooks
   useClickOutside(containerRef, () => setShowCalendar(false))
   // handlers
-  const toggleShowCalendar = () => {
-    setShowCalendar(!showCalendar)
-  }
+  const handleOpenCalendar = () => setShowCalendar(true)
+  const handleCloseCalendar = () => setShowCalendar(false)
 
   const handleChangeDay = (e: OnChangePayload) => {
     if (props.range === true && typeof props.onChange === 'function') {
@@ -65,6 +65,10 @@ export const DatePicker = (props: DatePickerProps) => {
         value
       })
     }
+
+    if (closeOnDateChange) {
+      handleCloseCalendar()
+    }
   }
 
   const getInputValue = useMemo(() => {
@@ -82,6 +86,7 @@ export const DatePicker = (props: DatePickerProps) => {
     }
     return ''
   }, [value, from, to])
+
   return (
     <CalendarProvider
       accentColor={accentColor}
@@ -91,14 +96,14 @@ export const DatePicker = (props: DatePickerProps) => {
       <input
         ref={inputRef}
         {...props?.inputAttributes}
-        onClick={toggleShowCalendar}
+        onClick={handleOpenCalendar}
         type="text"
         value={getInputValue}
         className={props.inputClass !== null ? props.inputClass : ''}
         readOnly
       />
       <RenderCalendar
-        toggleOpen={toggleShowCalendar}
+        handleClose={handleCloseCalendar}
         showCalendar={showCalendar}
         destinationRef={inputRef}
         position={props.position}
