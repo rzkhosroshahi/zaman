@@ -25,20 +25,23 @@ export const TimePicker = (props: TimePickerProps) => {
     onChange,
     round = 'x2',
     locale = 'fa',
-    clockTime = 24
+    clockTime = 24,
+    closeOneTimeChange = false
   } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
 
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const [showCalendar, setShowCalendar] = useState<boolean>(false)
+  const [showTimePicker, setShowTimePicker] = useState<boolean>(false)
   const [timeConvention, setTimeConvention] = useState<'am' | 'pm'>('am')
 
-  useClickOutside(containerRef, () => setShowCalendar(false))
-  const toggleShowCalendar = () => {
-    setShowCalendar(!showCalendar)
+  useClickOutside(containerRef, () => setShowTimePicker(false))
+
+  const toggleShowTimePicker = () => {
+    setShowTimePicker(!showTimePicker)
   }
+
   const {
     hour,
     minute,
@@ -47,25 +50,33 @@ export const TimePicker = (props: TimePickerProps) => {
     handleMouseMove,
     handleMouseUp,
     handleSelecting
-  } = useTimePicker({ defaultValue, clockTime, timeConvention, onChange })
+  } = useTimePicker({
+    defaultValue,
+    clockTime,
+    timeConvention,
+    onChange,
+    closeOneTimeChange,
+    closeTimePicker: toggleShowTimePicker
+  })
 
   const getInputValue = useMemo(() => {
     return `${hour}:${minute}`
   }, [hour, minute])
+
   return (
     <CalendarProvider accentColor={props.accentColor} round={round}>
       <input
         ref={inputRef}
         {...props?.inputAttributes}
-        onClick={toggleShowCalendar}
+        onClick={toggleShowTimePicker}
         type="text"
         value={getInputValue}
         className={props.inputClass !== null ? props.inputClass : ''}
         readOnly
       />
       <RenderCalendar
-        toggleOpen={toggleShowCalendar}
-        showCalendar={showCalendar}
+        handleClose={toggleShowTimePicker}
+        showCalendar={showTimePicker}
         destinationRef={inputRef}
       >
         <CalendarWrapper ref={containerRef}>

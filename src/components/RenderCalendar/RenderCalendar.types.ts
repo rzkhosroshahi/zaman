@@ -3,7 +3,7 @@ import type { Positions } from '../../types'
 
 export interface RenderCalendarProps {
   showCalendar: boolean
-  toggleOpen: () => void
+  handleClose: () => void
   children: React.ReactNode
   destinationRef: React.RefObject<HTMLInputElement>
   position?: Positions

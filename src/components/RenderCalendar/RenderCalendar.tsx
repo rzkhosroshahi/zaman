@@ -22,7 +22,7 @@ export const RenderCalendar = (props: RenderCalendarProps) => {
   }
 
   return (
-    <Modal toggleOpen={props.toggleOpen} open={props.showCalendar}>
+    <Modal toggleOpen={props.handleClose} open={props.showCalendar}>
       {props.children}
     </Modal>
   )

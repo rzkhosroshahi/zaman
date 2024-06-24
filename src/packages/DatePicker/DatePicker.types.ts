@@ -14,6 +14,7 @@ export interface DatePickerBaseProps extends BaseProps {
   defaultValue?: DatePickerValue
   weekends?: DaysRange[]
   show?: boolean
+  closeOnDateChange?: boolean
   inputClass?: string
   className?: string
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>
