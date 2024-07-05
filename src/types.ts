@@ -13,6 +13,8 @@ export type Pickers = 'days' | 'year' | 'month'
 
 export type Positions = 'right' | 'left' | 'center'
 
+export type DefaultShow = 'open' | 'close'
+
 export interface BaseProps {
   round?: Radius
   accentColor?: string

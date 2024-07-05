@@ -36,9 +36,9 @@ with yarn
 | inputClass           | string                                                     | null      |
 | inputAttributes      | object of InputHTMLAttributes                              | null      |
 | className            | string                                                     | null      |
-| customShowDateFormat | string  ex: YYYY MMMM DD or DD/MM etc.                     | undefined |
-| position             | right &#124; left  &#124; center                           | right     |
-
+| customShowDateFormat | string ex: YYYY MMMM DD or DD/MM etc.                      | undefined |
+| position             | right &#124; left &#124; center                            | right     |
+| defaultShow          | string; one of close open                                  | open      |
 
 ### Calendar Provider
 

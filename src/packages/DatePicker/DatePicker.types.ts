@@ -3,7 +3,8 @@ import type {
   BaseProps,
   DatePickerValue,
   DaysRange,
-  Positions
+  Positions,
+  DefaultShow
 } from '../../types'
 import type {
   CalendarDefaultProps,
@@ -14,6 +15,7 @@ export interface DatePickerBaseProps extends BaseProps {
   defaultValue?: DatePickerValue
   weekends?: DaysRange[]
   show?: boolean
+  defaultShow?: DefaultShow
   inputClass?: string
   className?: string
   inputAttributes?: InputHTMLAttributes<HTMLInputElement>
