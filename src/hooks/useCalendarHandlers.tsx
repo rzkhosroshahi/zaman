@@ -1,6 +1,6 @@
 import { type SyntheticEvent, useState } from 'react'
 import dayjs from 'dayjs'
-import type { DatePickerValue } from '../types'
+import type { DatePickerValue, DefaultShow } from '../types'
 import type {
   CalendarDefaultProps,
   CalendarRangeProps
@@ -13,7 +13,13 @@ interface BaseUseCalendarHandlersType {
   to?: DatePickerValue
 }
 
+interface ControlCalendarDisplay {
+  setShowCalendar?: (args: boolean) => void
+  defaultShow?: DefaultShow
+}
+
 type useCalendarHandlersType = BaseUseCalendarHandlersType &
+  ControlCalendarDisplay &
   (CalendarRangeProps | CalendarDefaultProps)
 
 export const guardRange = (
@@ -30,6 +36,13 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   const [to, setTo] = useState<Date | undefined | null>(
     props.to !== undefined ? new Date(props.to) : undefined
   )
+
+  const checkToCloseCalenderAfterSelect = () => {
+    const shouldCloseAfterSelect = props.defaultShow === 'close'
+
+    if (shouldCloseAfterSelect && props.setShowCalendar !== undefined)
+      props.setShowCalendar(false)
+  }
 
   const onClickCalendar = (e: Event) => {
     const { value, disabled } = e.currentTarget.dataset
@@ -68,6 +81,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     if (selectingRange && to !== undefined) {
       handleRangeOnChange(from, to)
       setSelectingRange(false)
+      checkToCloseCalenderAfterSelect()
     }
   }
   const onMouseMove = (e: Event) => {
@@ -85,6 +99,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     if (props.range === true) {
       return onClickRange(e)
     }
+    checkToCloseCalenderAfterSelect()
     return onClickCalendar(e)
   }
   const handleRangeOnChange = (

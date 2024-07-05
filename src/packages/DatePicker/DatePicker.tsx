@@ -15,7 +15,8 @@ export const DatePicker = (props: DatePickerProps) => {
     locale = 'fa',
     weekends = [],
     direction = 'rtl',
-    accentColor
+    accentColor,
+    defaultShow = 'open'
   } = props
   useMemo(() => localeCache.setLocale(locale), [locale])
   // refs
@@ -35,7 +36,7 @@ export const DatePicker = (props: DatePickerProps) => {
       ? new Date(props.to)
       : undefined
   )
-  const [showCalendar, setShowCalendar] = useState<boolean>(false)
+  const [showCalendar, setShowCalendar] = useState<boolean>(true)
   // hooks
   useClickOutside(containerRef, () => setShowCalendar(false))
   // handlers
@@ -112,6 +113,8 @@ export const DatePicker = (props: DatePickerProps) => {
           range={props.range}
           from={props.range === true ? props.from : undefined}
           to={props.range === true ? props.to : undefined}
+          setShowCalendar={setShowCalendar}
+          defaultShow={defaultShow}
         />
       </RenderCalendar>
     </CalendarProvider>

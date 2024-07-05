@@ -2,13 +2,16 @@ import type {
   DaysRange,
   DatePickerValue,
   onRangeDatePickerChangePayload,
-  onDatePickerChangePayload
+  onDatePickerChangePayload,
+  DefaultShow
 } from '../../types'
 
 export interface CalendarBaseProps {
   defaultValue?: Date
   weekends?: DaysRange[]
   className?: string
+  defaultShow?: DefaultShow
+  setShowCalendar?: (args: boolean) => void
 }
 export interface CalendarRangeProps {
   range: true
