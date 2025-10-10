@@ -1,0 +1,627 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Contributing" />
+
+# 🤝 Contributing to Zaman
+
+Thank you for your interest in contributing to Zaman! We appreciate all contributions, whether they're bug reports, feature requests, documentation improvements, or code changes.
+
+## 🌟 Ways to Contribute
+
+- 🐛 **Report bugs** - Found a bug? Let us know!
+- 💡 **Suggest features** - Have an idea? We'd love to hear it!
+- 📝 **Improve documentation** - Help make our docs better
+- 🎨 **Design improvements** - Enhance UI/UX
+- 🌍 **Add translations** - Help support more languages
+- 💻 **Code contributions** - Fix bugs or implement features
+- 🧪 **Write tests** - Improve test coverage
+- 📦 **Create examples** - Share usage patterns
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js**: 16.x or higher
+- **pnpm**: 8.x or higher (recommended package manager)
+- **Git**: For version control
+
+### Setting Up Development Environment
+
+1. **Fork the repository**
+
+   ```bash
+   # Go to GitHub and fork the repo
+   # Then clone your fork
+   git clone https://github.com/YOUR_USERNAME/zaman.git
+   cd zaman
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Start development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Run Storybook**
+   ```bash
+   pnpm storybook
+   ```
+   Open `http://localhost:6006` to view component stories.
+
+---
+
+## 📁 Project Structure
+
+```
+zaman/
+├── src/
+│   ├── packages/              # Main components
+│   │   ├── calendar/          # Calendar component
+│   │   ├── date-picker/       # DatePicker component
+│   │   ├── time-picker/       # TimePicker component
+│   │   └── calendar-provider/ # Context provider
+│   │
+│   ├── components/            # Shared UI components
+│   │   ├── core/             # Core components (buttons, items)
+│   │   ├── layout/           # Layout components (modal, wrapper)
+│   │   ├── navigation/       # Navigation components (header)
+│   │   ├── pickers/          # Picker sub-components
+│   │   └── icons/            # Icon components
+│   │
+│   ├── core/                 # Calendar engines
+│   │   ├── calendar-engine/  # Calendar logic
+│   │   ├── date-engine/      # Date manipulation
+│   │   └── range-engine/     # Range selection logic
+│   │
+│   ├── hooks/                # Custom React hooks
+│   │   ├── useCalendarHandlers.tsx
+│   │   ├── useClickOutside.tsx
+│   │   ├── useSlideCalendar.tsx
+│   │   └── useTimePicker.tsx
+│   │
+│   ├── i18n/                 # Internationalization
+│   │   ├── i18n-context.tsx
+│   │   ├── i18n-provider.ts
+│   │   └── locales/
+│   │
+│   ├── theme/                # Theming system
+│   │   ├── ThemeProvider.tsx
+│   │   ├── createTheme.ts
+│   │   ├── defaultTheme.ts
+│   │   └── themeUtils.ts
+│   │
+│   ├── style/                # Style utilities
+│   ├── utils/                # Utility functions
+│   └── docs/                 # Documentation (MDX files)
+│
+├── tests/                    # Test files
+│   ├── e2e/                 # End-to-end tests
+│   └── setup/               # Test setup
+│
+├── .storybook/              # Storybook configuration
+├── dist/                    # Build output
+└── scripts/                 # Build and utility scripts
+```
+
+---
+
+## 🔧 Development Workflow
+
+### 1. Create a Branch
+
+```bash
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Or a bugfix branch
+git checkout -b fix/bug-description
+```
+
+### 2. Make Changes
+
+- Write clean, readable code
+- Follow existing code style
+- Add tests for new features
+- Update documentation as needed
+
+### 3. Test Your Changes
+
+```bash
+# Run unit tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run end-to-end tests
+pnpm test:e2e
+
+# Run all checks (recommended before committing)
+pnpm ci
+```
+
+### 4. Format & Lint
+
+```bash
+# Format code
+pnpm format
+
+# Check formatting
+pnpm format:check
+
+# Lint code
+pnpm lint
+
+# Fix linting issues
+pnpm lint:fix
+
+# Type check
+pnpm type-check
+```
+
+### 5. Commit Changes
+
+We use **Conventional Commits** for commit messages:
+
+```bash
+# Format: <type>(<scope>): <subject>
+
+git commit -m "feat(date-picker): add custom date format support"
+git commit -m "fix(calendar): resolve range selection bug"
+git commit -m "docs(readme): update installation instructions"
+git commit -m "test(time-picker): add unit tests for 12h format"
+```
+
+#### Commit Types
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
+- `perf`: Performance improvements
+- `ci`: CI/CD changes
+- `build`: Build system changes
+
+### 6. Push Changes
+
+```bash
+git push origin your-branch-name
+```
+
+### 7. Create Pull Request
+
+1. Go to GitHub and create a Pull Request
+2. Fill out the PR template
+3. Link related issues
+4. Wait for review
+
+---
+
+## 🧪 Testing Guidelines
+
+### Unit Tests
+
+Write unit tests for:
+
+- Components
+- Hooks
+- Utilities
+- Business logic
+
+```tsx
+// Example: Component test
+import { render, screen } from '@testing-library/react'
+import { DatePicker } from '../date-picker'
+
+describe('DatePicker', () => {
+  it('renders without crashing', () => {
+    render(<DatePicker />)
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
+  })
+
+  it('calls onChange when date is selected', async () => {
+    const handleChange = jest.fn()
+    render(<DatePicker onChange={handleChange} />)
+
+    // Test interaction
+    // ...
+
+    expect(handleChange).toHaveBeenCalled()
+  })
+})
+```
+
+### E2E Tests
+
+Located in `tests/e2e/`, using Playwright:
+
+```bash
+# Run e2e tests
+pnpm test:e2e
+
+# Run with UI
+pnpm test:e2e:ui
+
+# Debug mode
+pnpm test:e2e:debug
+```
+
+### Accessibility Tests
+
+We use axe-core for accessibility testing:
+
+```tsx
+import { injectAxe, checkA11y } from 'axe-playwright'
+
+test('DatePicker is accessible', async ({ page }) => {
+  await page.goto('http://localhost:6006')
+  await injectAxe(page)
+  await checkA11y(page)
+})
+```
+
+---
+
+## 📝 Documentation Guidelines
+
+### Code Documentation
+
+Use JSDoc comments for functions and components:
+
+````tsx
+/**
+ * DatePicker component for selecting dates
+ *
+ * @param {DatePickerProps} props - Component props
+ * @param {Date} props.defaultValue - Initial date value
+ * @param {Function} props.onChange - Callback when date changes
+ *
+ * @example
+ * ```tsx
+ * <DatePicker
+ *   defaultValue={new Date()}
+ *   onChange={(date) => console.log(date)}
+ * />
+ * ```
+ */
+export function DatePicker(props: DatePickerProps) {
+  // ...
+}
+````
+
+### Storybook Stories
+
+Add stories for new components:
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react'
+import { YourComponent } from './your-component'
+
+const meta: Meta<typeof YourComponent> = {
+  title: 'Components/YourComponent',
+  component: YourComponent,
+  parameters: {
+    layout: 'centered'
+  },
+  tags: ['autodocs']
+}
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    // default props
+  }
+}
+```
+
+### MDX Documentation
+
+For larger guides, create MDX files in `src/docs/`:
+
+```mdx
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Your Guide" />
+
+# Your Guide Title
+
+Your content here...
+```
+
+---
+
+## 🎨 Style Guidelines
+
+### TypeScript
+
+- Use TypeScript for all code
+- Define proper types and interfaces
+- Avoid `any` types
+- Use strict mode
+
+```tsx
+// ✅ Good
+interface Props {
+  value: string
+  onChange: (value: string) => void
+}
+
+// ❌ Bad
+interface Props {
+  value: any
+  onChange: any
+}
+```
+
+### React Components
+
+- Use functional components
+- Use hooks instead of classes
+- Keep components small and focused
+- Extract complex logic to hooks
+
+```tsx
+// ✅ Good
+function DatePicker({ defaultValue, onChange }: DatePickerProps) {
+  const [date, setDate] = useState(defaultValue)
+
+  return (
+    // JSX
+  )
+}
+
+// ❌ Bad
+class DatePicker extends React.Component {
+  // ...
+}
+```
+
+### Naming Conventions
+
+- **Components**: PascalCase (`DatePicker`)
+- **Hooks**: camelCase with `use` prefix (`useCalendar`)
+- **Utils**: camelCase (`formatDate`)
+- **Constants**: UPPER_SNAKE_CASE (`DEFAULT_LOCALE`)
+- **Types**: PascalCase (`DatePickerProps`)
+
+### File Organization
+
+```
+component-name/
+├── component-name.tsx        # Component implementation
+├── component-name.types.ts   # Type definitions
+├── component-name.test.tsx   # Tests
+├── component-name.stories.tsx # Storybook stories
+├── component-name.styles.ts  # Styles (if needed)
+└── index.ts                  # Exports
+```
+
+---
+
+## 🐛 Bug Reports
+
+### Before Reporting
+
+1. Check if the bug is already reported
+2. Try to reproduce with latest version
+3. Test in isolation (CodeSandbox/StackBlitz)
+
+### Bug Report Template
+
+```markdown
+**Describe the bug**
+A clear description of what the bug is.
+
+**To Reproduce**
+Steps to reproduce:
+
+1. Go to '...'
+2. Click on '...'
+3. See error
+
+**Expected behavior**
+What you expected to happen.
+
+**Screenshots**
+If applicable, add screenshots.
+
+**Environment:**
+
+- Zaman version: [e.g. 2.1.0]
+- React version: [e.g. 18.2.0]
+- Browser: [e.g. Chrome 120]
+- OS: [e.g. macOS 14]
+
+**Additional context**
+Any other context about the problem.
+```
+
+---
+
+## 💡 Feature Requests
+
+### Before Requesting
+
+1. Check if feature is already requested
+2. Consider if it fits the library's scope
+3. Think about implementation approach
+
+### Feature Request Template
+
+```markdown
+**Is your feature request related to a problem?**
+A clear description of the problem.
+
+**Describe the solution you'd like**
+What you want to happen.
+
+**Describe alternatives you've considered**
+Other solutions you've thought about.
+
+**Additional context**
+Any other context, mockups, or examples.
+```
+
+---
+
+## 🌍 Adding Locales
+
+To add support for a new language:
+
+1. **Create locale file**
+
+   ```tsx
+   // src/i18n/locales/your-locale.ts
+   import type { LocaleData } from '../i18n-provider.types'
+
+   export const yourLocale: LocaleData = {
+     code: 'xx',
+     name: 'Your Language',
+     direction: 'ltr',
+     calendar: 'gregorian',
+     weekDays: [...],
+     months: [...],
+     labels: {...}
+   }
+   ```
+
+2. **Export from index**
+
+   ```tsx
+   // src/i18n/locales/index.ts
+   export { yourLocale } from './your-locale'
+   ```
+
+3. **Add tests**
+
+   ```tsx
+   // src/i18n/locales/your-locale.test.ts
+   describe('yourLocale', () => {
+     it('has correct structure', () => {
+       expect(yourLocale.code).toBe('xx')
+       // ... more tests
+     })
+   })
+   ```
+
+4. **Document it**
+   - Update i18n documentation
+   - Add examples to stories
+
+---
+
+## 📦 Release Process
+
+> **Note**: Only maintainers can create releases.
+
+We use semantic versioning and automated releases:
+
+1. **Merge PR to main**
+2. **CI runs all checks**
+3. **Semantic release analyzes commits**
+4. **Version bump based on commit types**
+   - `feat`: Minor version
+   - `fix`: Patch version
+   - `BREAKING CHANGE`: Major version
+5. **Changelog updated automatically**
+6. **Package published to npm**
+
+---
+
+## 🎯 Code Review Guidelines
+
+### For Contributors
+
+- Respond to feedback constructively
+- Make requested changes promptly
+- Ask questions if unclear
+- Be patient and respectful
+
+### For Reviewers
+
+- Be kind and constructive
+- Explain reasoning for changes
+- Approve when ready
+- Test changes locally if possible
+
+---
+
+## 💬 Communication
+
+- **GitHub Issues**: Bug reports and feature requests
+- **GitHub Discussions**: Questions and ideas
+- **Pull Requests**: Code contributions
+
+---
+
+## 📜 Code of Conduct
+
+Be respectful, inclusive, and professional. We're all here to make Zaman better!
+
+### Expected Behavior
+
+- ✅ Be respectful and considerate
+- ✅ Welcome newcomers
+- ✅ Accept constructive criticism
+- ✅ Focus on what's best for the community
+
+### Unacceptable Behavior
+
+- ❌ Harassment or discrimination
+- ❌ Trolling or insulting comments
+- ❌ Personal or political attacks
+- ❌ Spam or self-promotion
+
+---
+
+## 🏆 Recognition
+
+Contributors are recognized in:
+
+- GitHub contributors page
+- Release notes (for significant contributions)
+- README acknowledgments
+
+---
+
+## 📚 Resources
+
+- [React Documentation](https://react.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+- [Testing Library](https://testing-library.com)
+- [Storybook Documentation](https://storybook.js.org)
+- [Conventional Commits](https://www.conventionalcommits.org)
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#f0fdf4',
+    borderRadius: '8px',
+    borderLeft: '4px solid #22c55e'
+  }}
+>
+  <strong>🎉 Thank You!</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Every contribution, no matter how small, makes Zaman better. We appreciate
+    your time and effort!
+  </p>
+</div>

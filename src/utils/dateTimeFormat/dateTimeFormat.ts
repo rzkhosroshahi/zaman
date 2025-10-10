@@ -11,6 +11,7 @@ export const getDateFormat = (
     ...(numberingSystem != null && { numberingSystem })
   }
   const intl = new Date(date).toLocaleString(locale, defaultOptions)
+
   return intl
 }
 

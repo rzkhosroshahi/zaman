@@ -1,22 +1,25 @@
-import type React from 'react'
-import { useState } from 'react'
-import dayjs from 'dayjs'
-import { getAngelValues } from '../utils/timePicker'
-import { type DatePickerValue } from '../types'
-import { type onChangePayload } from '../packages/TimePicker/TimePicker.types'
+import { useState, type MouseEvent, type TouchEvent } from 'react'
 
-interface useTimePickerType {
+import dayjs from 'dayjs'
+
+import { type DatePickerValue } from '@types'
+
+import { type OnChangePayload } from '@packages/time-picker/time-picker.types'
+
+import { getAngelValues } from '@utils/timePicker'
+
+interface UseTimePickerType {
   timeConvention?: 'am' | 'pm'
   clockTime?: 24 | 12
   defaultValue?: DatePickerValue
-  onChange?: (payload: onChangePayload) => void
+  onChange?: (payload: OnChangePayload) => void
 }
 export const useTimePicker = ({
   defaultValue,
   clockTime,
   timeConvention,
   onChange
-}: useTimePickerType) => {
+}: UseTimePickerType) => {
   const time =
     defaultValue !== undefined ? dayjs(defaultValue) : dayjs().startOf('date')
   const [selecting, setSelecting] = useState<boolean>(false)
@@ -28,12 +31,14 @@ export const useTimePicker = ({
   )
   const [minute, setMinute] = useState<number>(parseInt(time.format('mm'), 10))
 
-  const handleChangeMinute = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleChangeMinute = (e: MouseEvent | TouchEvent) => {
     const { value } = getAngelValues(e, 6)
+
     setMinute(value)
   }
-  const handleChangeHour = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleChangeHour = (e: MouseEvent | TouchEvent) => {
     const { value, delta } = getAngelValues(e)
+
     if (clockTime === 24) {
       if (Math.round(delta) < 85) {
         setHour(value)
@@ -42,11 +47,12 @@ export const useTimePicker = ({
         setHour(value + 12)
         setInsideHour(false)
       }
+
       return
     }
     setHour(value)
   }
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     e.preventDefault()
     if (!selecting) {
       return
@@ -54,9 +60,10 @@ export const useTimePicker = ({
     if (selectingHour) {
       return handleChangeHour(e)
     }
+
     return handleChangeMinute(e)
   }
-  const handleSelecting = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleSelecting = (e: MouseEvent | TouchEvent) => {
     setSelecting(true)
     if (selectingHour) {
       return handleChangeHour(e)
@@ -77,6 +84,7 @@ export const useTimePicker = ({
       setSelecting(false)
       setSelectingHour(false)
       setInsideHour(false)
+
       return
     }
     setSelecting(false)

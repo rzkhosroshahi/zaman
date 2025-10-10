@@ -1,0 +1,26 @@
+.calendar-item[data-in-range='true']::before,
+.calendar-item[data-end-range='true']::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: -1px;
+  background-color: var(--zaman-primary-lighter);
+  z-index: -1;
+}
+
+.calendar-item[dir='rtl'][data-in-range='true']::before,
+.calendar-item[dir='rtl'][data-end-range='true']::before {
+  left: 20px;
+}
+
+.calendar-item[dir='ltr'][data-in-range='true']::before,
+.calendar-item[dir='ltr'][data-end-range='true']::before {
+  right: 20px;
+}
+
+.calendar-item[data-in-range='true']:nth-of-type(1)::before,
+.calendar-item[data-start-range='true']::before {
+  display: none;
+}

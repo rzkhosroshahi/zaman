@@ -1,15 +1,24 @@
+import {
+  useRef,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction
+} from 'react'
+
 import dayjs from 'dayjs'
-import { useRef } from 'react'
-import type { Dispatch, RefObject, SetStateAction } from 'react'
-import { isRtl } from '../utils'
-import { CALENDAR_WIDTH, TIME, ANIMATE_FUNC } from '../constants'
-import getDays from '../utils/month'
-import type { DaysInMonth } from '../utils/month/month.types'
+
+import { ANIMATE_FUNC, CALENDAR_WIDTH, TIME } from '@constants'
+
+import { isRtl } from '@utils/index'
+import getDays from '@utils/month'
+
+import type { DaysInMonth } from '@utils/month/month.types'
 
 const toRight = () => {
   if (isRtl()) {
     return CALENDAR_WIDTH
   }
+
   return CALENDAR_WIDTH * -1
 }
 
@@ -37,8 +46,13 @@ export const useSlideCalendar = ({
 
     requestAnimationFrame(() => {
       isAnimating.current = true
-      // @ts-expect-error I will check this out later
-      const [firstItemRef, lastItemRef] = daysElementRefs.current
+      const refs = daysElementRefs.current
+
+      if (!refs || refs.length < 2) return
+
+      const firstItemRef = refs[0]
+      const lastItemRef = refs[1]
+
       firstItemRef.style.transition = `transform ${TIME}ms ${ANIMATE_FUNC}`
       firstItemRef.style.transform = `translateX(${toRight()}px)`
 
@@ -49,8 +63,8 @@ export const useSlideCalendar = ({
         setDays((oldItems) => {
           return oldItems.filter((items) => items.id === newValue.id)
         })
-        lastItemRef.style.transition = null
-        lastItemRef.style.transform = null
+        lastItemRef.style.transition = ''
+        lastItemRef.style.transform = ''
         isAnimating.current = false
       }, TIME + 50)
     })
@@ -66,7 +80,13 @@ export const useSlideCalendar = ({
 
     requestAnimationFrame(() => {
       isAnimating.current = true
-      const [firstItemRef, lastItemRef] = daysElementRefs.current
+      const refs = daysElementRefs.current
+
+      if (!refs || refs.length < 2) return
+
+      const firstItemRef = refs[0]
+      const lastItemRef = refs[1]
+
       firstItemRef.style.transform = `translateX(${toRight()}px)`
       lastItemRef.style.transform = `translateX(${toRight()}px)`
 
@@ -81,13 +101,14 @@ export const useSlideCalendar = ({
           setDays((oldItems) => {
             return oldItems.filter((items) => items.id === newValue.id)
           })
-          firstItemRef.style.transition = null
-          firstItemRef.style.transform = null
+          firstItemRef.style.transition = ''
+          firstItemRef.style.transform = ''
           isAnimating.current = false
         }, TIME + 50)
       })
     })
   }
+
   return {
     slideToTheNextMonth,
     slideToPrevMonth

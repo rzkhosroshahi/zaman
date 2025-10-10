@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import './animations.css';
+
+:root {
+  --zaman-primary: #3b82f6;
+  --zaman-primary-light: #60a5fa;
+  --zaman-primary-lighter: #dbeafe;
+  --zaman-primary-dark: #2563eb;
+  --zaman-primary-foreground: #ffffff;
+
+  --zaman-gray-0: #ffffff;
+  --zaman-gray-50: #f9fafb;
+  --zaman-gray-100: #f3f4f6;
+  --zaman-gray-200: #e5e7eb;
+  --zaman-gray-300: #d1d5db;
+  --zaman-gray-400: #9ca3af;
+  --zaman-gray-500: #6b7280;
+  --zaman-gray-600: #4b5563;
+  --zaman-gray-700: #374151;
+  --zaman-gray-800: #1f2937;
+  --zaman-gray-900: #111827;
+
+  --zaman-weekend: #ef4444;
+  --zaman-disabled: #9ca3af;
+  --zaman-border: #e5e7eb;
+  --zaman-background: #ffffff;
+  --zaman-foreground: #111827;
+
+  --zaman-item-width: 40px;
+  --zaman-item-height: 40px;
+  --zaman-gap: 0.25rem;
+  --zaman-header-height: 48px;
+  --zaman-modal-padding: 1rem;
+
+  --zaman-radius-item: 0.375rem;
+  --zaman-radius-modal: 0.75rem;
+  --zaman-radius-button: 0.5rem;
+
+  --zaman-text-xs: 0.75rem;
+  --zaman-text-sm: 0.875rem;
+  --zaman-text-base: 1rem;
+  --zaman-text-lg: 1.125rem;
+  --zaman-text-xl: 1.25rem;
+  --zaman-text-2xl: 1.5rem;
+
+  --zaman-direction: rtl;
+}
+
+.zaman-calendar {
+  font-family: inherit;
+  color: var(--zaman-foreground);
+  background-color: var(--zaman-background);
+  direction: var(--zaman-direction);
+}
+
+.zaman-text-primary {
+  color: var(--zaman-primary);
+}
+
+.zaman-bg-primary {
+  background-color: var(--zaman-primary);
+}
+
+.zaman-border-primary {
+  border-color: var(--zaman-primary);
+}
+
+.cl_selected {
+  background-color: var(--zaman-gray-50);
+}
+
+.rdp__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  background-color: rgba(86, 86, 86, 0.4);
+}
+
+.zaman-calendar[dir='rtl'] .wrapper-days {
+  right: 8px;
+}
+
+.zaman-calendar[dir='ltr'] .wrapper-days {
+  left: 8px;
+}

@@ -21,11 +21,11 @@ export function hexToHSL(hex: string): { h: number; s: number; l: number } {
   let l = h
 
   if (max === min) {
-    // Achromatic
     return { h: 0, s: 0, l }
   }
 
   const d = max - min
+
   s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
   switch (max) {
     case r:

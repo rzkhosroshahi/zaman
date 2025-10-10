@@ -1,0 +1,406 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Components" />
+
+# 📦 Components Guide
+
+Zaman provides four main components, each designed for specific use cases. This guide covers all components in detail.
+
+## 📅 DatePicker
+
+The DatePicker is the most versatile component - a text input with a popup calendar.
+
+### Basic Usage
+
+```tsx
+import { DatePicker } from 'zaman'
+
+function MyComponent() {
+  return <DatePicker onChange={(date) => console.log(date.value)} />
+}
+```
+
+### Props
+
+| Prop                   | Type                                     | Default     | Description                |
+| ---------------------- | ---------------------------------------- | ----------- | -------------------------- |
+| `defaultValue`         | `Date \| Dayjs \| number`                | `undefined` | Initial date value         |
+| `onChange`             | `(date) => void`                         | `undefined` | Callback when date changes |
+| `range`                | `boolean`                                | `false`     | Enable range selection     |
+| `from`                 | `Date \| Dayjs \| number`                | `undefined` | Range start date           |
+| `to`                   | `Date \| Dayjs \| number`                | `undefined` | Range end date             |
+| `locale`               | `'fa' \| 'en'`                           | `'fa'`      | Calendar locale            |
+| `direction`            | `'rtl' \| 'ltr'`                         | `'rtl'`     | Text direction             |
+| `accentColor`          | `string`                                 | `'#0D59F2'` | Primary color              |
+| `round`                | `'thin' \| 'x1' \| 'x2' \| 'x3' \| 'x4'` | `'thin'`    | Border radius              |
+| `weekends`             | `number[]`                               | `undefined` | Weekend days (0-6)         |
+| `show`                 | `boolean`                                | `false`     | Control visibility         |
+| `position`             | `'left' \| 'right' \| 'center'`          | `'right'`   | Popup position             |
+| `customShowDateFormat` | `string`                                 | `undefined` | Custom format              |
+| `inputClass`           | `string`                                 | `null`      | Input CSS class            |
+| `inputAttributes`      | `InputHTMLAttributes`                    | `null`      | Extra attributes           |
+| `className`            | `string`                                 | `null`      | Wrapper CSS class          |
+
+### Common Patterns
+
+#### With Default Value
+
+```tsx
+<DatePicker
+  defaultValue={new Date('2024-01-15')}
+  locale="en"
+  onChange={(date) => console.log(date.value)}
+/>
+```
+
+#### Range Mode
+
+```tsx
+<DatePicker
+  range
+  from={new Date('2024-01-10')}
+  to={new Date('2024-01-20')}
+  onChange={({ from, to }) => {
+    console.log('Range:', from, 'to', to)
+  }}
+/>
+```
+
+#### Controlled Mode
+
+```tsx
+function ControlledDatePicker() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [date, setDate] = useState(new Date())
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Calendar</button>
+
+      <DatePicker
+        show={isOpen}
+        defaultValue={date}
+        onChange={(e) => {
+          setDate(new Date(e.value))
+          setIsOpen(false)
+        }}
+      />
+    </>
+  )
+}
+```
+
+#### Custom Formatting
+
+```tsx
+<DatePicker customShowDateFormat="DD/MM/YYYY" locale="en" />
+```
+
+#### Custom Styling
+
+```tsx
+<DatePicker
+  inputClass="px-4 py-3 border-2 border-blue-500 rounded-lg"
+  inputAttributes={{
+    placeholder: 'Select a date...',
+    'aria-label': 'Date picker input'
+  }}
+/>
+```
+
+---
+
+## 🗓️ Calendar
+
+A standalone calendar component for inline display.
+
+### Basic Usage
+
+```tsx
+import { Calendar, CalendarProvider } from 'zaman'
+
+function MyCalendar() {
+  return (
+    <CalendarProvider>
+      <Calendar
+        defaultValue={new Date()}
+        onChange={(date) => console.log(date.value)}
+      />
+    </CalendarProvider>
+  )
+}
+```
+
+> **Note**: Calendar must be wrapped in `CalendarProvider` for proper state management.
+
+### Props
+
+Calendar shares most props with DatePicker, excluding input-related props:
+
+| Prop           | Type                                     | Default     | Description     |
+| -------------- | ---------------------------------------- | ----------- | --------------- |
+| `defaultValue` | `Date \| Dayjs \| number`                | `undefined` | Initial date    |
+| `onChange`     | `(date) => void`                         | `undefined` | Change callback |
+| `range`        | `boolean`                                | `false`     | Range selection |
+| `from`         | `Date \| Dayjs \| number`                | `undefined` | Range start     |
+| `to`           | `Date \| Dayjs \| number`                | `undefined` | Range end       |
+| `locale`       | `'fa' \| 'en'`                           | `'fa'`      | Locale          |
+| `direction`    | `'rtl' \| 'ltr'`                         | `'rtl'`     | Direction       |
+| `accentColor`  | `string`                                 | `'#0D59F2'` | Accent color    |
+| `round`        | `'thin' \| 'x1' \| 'x2' \| 'x3' \| 'x4'` | `'thin'`    | Border radius   |
+| `weekends`     | `number[]`                               | `undefined` | Weekends        |
+| `className`    | `string`                                 | `null`      | CSS class       |
+
+### Interactive Calendar
+
+```tsx
+function InteractiveCalendar() {
+  const [selectedDate, setSelectedDate] = useState(new Date())
+
+  return (
+    <CalendarProvider>
+      <div>
+        <p>Selected: {selectedDate.toLocaleDateString()}</p>
+        <Calendar
+          defaultValue={selectedDate}
+          onChange={(date) => setSelectedDate(new Date(date.value))}
+        />
+      </div>
+    </CalendarProvider>
+  )
+}
+```
+
+### Range Calendar
+
+```tsx
+function RangeCalendar() {
+  const [range, setRange] = useState({
+    from: new Date(2024, 0, 10),
+    to: new Date(2024, 0, 20)
+  })
+
+  return (
+    <CalendarProvider>
+      <Calendar
+        range
+        from={range.from}
+        to={range.to}
+        onChange={(date) => {
+          if (!range.from || range.to) {
+            setRange({ from: date, to: undefined })
+          } else {
+            setRange({ ...range, to: date })
+          }
+        }}
+      />
+    </CalendarProvider>
+  )
+}
+```
+
+---
+
+## ⏰ TimePicker
+
+A dedicated time selection component with 12/24 hour format support.
+
+### Basic Usage
+
+```tsx
+import { TimePicker } from 'zaman'
+
+function MyTimePicker() {
+  return (
+    <TimePicker
+      onChange={({ hour, minute, timeConvention }) => {
+        console.log(`Time: ${hour}:${minute} ${timeConvention}`)
+      }}
+    />
+  )
+}
+```
+
+### Props
+
+| Prop              | Type                                     | Default      | Description                                |
+| ----------------- | ---------------------------------------- | ------------ | ------------------------------------------ |
+| `defaultValue`    | `Date \| Dayjs \| number`                | `new Date()` | Initial time                               |
+| `onChange`        | `(time) => void`                         | `undefined`  | Returns `{ hour, minute, timeConvention }` |
+| `clockTime`       | `12 \| 24`                               | `24`         | Clock format                               |
+| `locale`          | `'fa' \| 'en'`                           | `'fa'`       | Number locale                              |
+| `accentColor`     | `string`                                 | `'#0D59F2'`  | Primary color                              |
+| `round`           | `'thin' \| 'x1' \| 'x2' \| 'x3' \| 'x4'` | `'thin'`     | Border radius                              |
+| `inputClass`      | `string`                                 | `null`       | Input class                                |
+| `inputAttributes` | `InputHTMLAttributes`                    | `null`       | Extra attributes                           |
+
+### 12-Hour Format
+
+```tsx
+<TimePicker
+  clockTime={12}
+  locale="en"
+  onChange={({ hour, minute, timeConvention }) => {
+    console.log(`${hour}:${minute} ${timeConvention}`)
+  }}
+/>
+```
+
+### 24-Hour Format
+
+```tsx
+<TimePicker
+  clockTime={24}
+  locale="en"
+  onChange={({ hour, minute }) => {
+    console.log(`${hour}:${minute}`)
+  }}
+/>
+```
+
+### With Default Time
+
+```tsx
+const defaultTime = new Date()
+defaultTime.setHours(14, 30, 0)
+
+<TimePicker
+  defaultValue={defaultTime}
+  clockTime={12}
+/>
+```
+
+---
+
+## 🔄 CalendarProvider
+
+A context provider for managing shared calendar state.
+
+### Basic Usage
+
+```tsx
+import { CalendarProvider, Calendar } from 'zaman'
+
+function App() {
+  return (
+    <CalendarProvider>
+      <Calendar />
+    </CalendarProvider>
+  )
+}
+```
+
+### With Multiple Calendars
+
+```tsx
+<CalendarProvider>
+  <div style={{ display: 'flex', gap: '2rem' }}>
+    <Calendar locale="en" direction="ltr" />
+    <Calendar locale="fa" direction="rtl" />
+  </div>
+</CalendarProvider>
+```
+
+### Props
+
+| Prop       | Type        | Default | Description      |
+| ---------- | ----------- | ------- | ---------------- |
+| `children` | `ReactNode` | -       | Child components |
+
+---
+
+## 🎯 Component Selection Guide
+
+Choose the right component for your use case:
+
+### Use **DatePicker** when:
+
+- ✅ You need a form input field
+- ✅ Space is limited
+- ✅ Standard date selection is needed
+- ✅ You want the calendar to appear on demand
+
+### Use **Calendar** when:
+
+- ✅ You want always-visible calendar
+- ✅ Building a dashboard or scheduling interface
+- ✅ You need inline date selection
+- ✅ Multiple calendars side-by-side
+
+### Use **TimePicker** when:
+
+- ✅ You need time selection separate from dates
+- ✅ Building scheduling or alarm features
+- ✅ Need both 12h and 24h format support
+
+### Use **CalendarProvider** when:
+
+- ✅ Working with Calendar component
+- ✅ Need shared state between calendars
+- ✅ Building complex calendar interfaces
+
+---
+
+## 🧪 Testing Components
+
+### Unit Testing
+
+```tsx
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { DatePicker } from 'zaman'
+
+test('DatePicker handles date selection', async () => {
+  const handleChange = jest.fn()
+
+  render(<DatePicker onChange={handleChange} />)
+
+  const input = screen.getByRole('textbox')
+  await userEvent.click(input)
+
+  // Calendar should open
+  // Select a date
+  // Verify handleChange was called
+})
+```
+
+### Integration Testing
+
+```tsx
+import { render } from '@testing-library/react'
+import { CalendarProvider, Calendar } from 'zaman'
+
+test('Calendar works within provider', () => {
+  const { container } = render(
+    <CalendarProvider>
+      <Calendar defaultValue={new Date()} />
+    </CalendarProvider>
+  )
+
+  expect(container.querySelector('.calendar')).toBeInTheDocument()
+})
+```
+
+---
+
+## 📚 Next Steps
+
+- **[Theming Guide](/docs/documentation-theming--docs)** - Customize component appearance
+- **[API Reference](/docs/documentation-api-reference--docs)** - Complete prop documentation
+- **[Examples](/docs/documentation-examples--docs)** - Real-world patterns
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#eff6ff',
+    borderRadius: '8px',
+    borderLeft: '4px solid #3b82f6'
+  }}
+>
+  <strong>💡 Pro Tip:</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Start with DatePicker for most use cases. It's the most flexible and
+    commonly used component.
+  </p>
+</div>

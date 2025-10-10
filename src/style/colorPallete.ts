@@ -1,7 +1,9 @@
 import hexToHSL from './hexToHSL'
+
 const getHsl = (h: number, s: number, l: number) => {
   return `hsl(${h}deg ${s}% ${l}%)`
 }
+
 export const makeColorPallet = (accentColor: string) => {
   const { h, s, l } = hexToHSL(accentColor)
   const result: Record<number, string> = {}

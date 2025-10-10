@@ -1,22 +1,85 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "esnext",
-    "allowJs": true,
-    "baseUrl": ".",
-    "outDir": "./dist",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": true,
+
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": false,
+
     "declaration": true,
-    "declarationDir": "./",
-    "moduleResolution": "node",
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "removeComments": true,
+    "noEmit": false,
     "noEmitOnError": true,
-    "lib": ["ESNext", "DOM"],
-    "strict": true,
+    "importHelpers": true,
+
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "types": ["cypress", "node", "@testing-library/cypress"]
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noUncheckedIndexedAccess": false,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@packages/*": ["src/packages/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@style/*": ["src/style/*"],
+      "@theme": ["src/theme/index.ts"],
+      "@theme/*": ["src/theme/*"],
+      "@types": ["src/types.ts"],
+      "@constants": ["src/constants.ts"]
+    },
+
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+
+    "allowJs": false,
+    "checkJs": false,
+    "incremental": true,
+    "composite": false,
+
+    "types": ["vite/client", "vitest/globals", "node"]
   },
-  "include": ["src/**/*", "client/**/*", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/*.test.tsx", "**/*.test.ts"]
+  "include": ["src/**/*", "src/**/*.tsx", "src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.cy.ts",
+    "**/*.cy.tsx",
+    "**/__tests__/**",
+    "storybook-static",
+    ".vitepress/theme/index.ts"
+  ]
 }

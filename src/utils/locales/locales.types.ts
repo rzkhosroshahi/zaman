@@ -1,10 +1,10 @@
-interface localesNames {
+interface LocalesNames {
   key: number
   name: string
 }
 export interface LocalesTypes {
-  shortWeekDays: localesNames[]
-  months: localesNames[]
+  shortWeekDays: LocalesNames[]
+  months: LocalesNames[]
   format: string
   am: string
   pm: string

@@ -1,7 +1,28 @@
 {
-  "compilerOptions": {
-    "types": ["jest", "node"]
-  },
   "extends": "./tsconfig.json",
-  "include": ["**/*.test.tsx", "**/*.test.ts"]
+  "compilerOptions": {
+    "types": [
+      "vitest/globals",
+      "vitest",
+      "@vitest/browser",
+      "node",
+      "cypress",
+      "@testing-library/jest-dom",
+      "@testing-library/cypress",
+      "@playwright/test"
+    ],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "allowJs": true
+  },
+  "include": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.cy.ts",
+    "src/**/*.cy.tsx",
+    "src/**/__tests__/**/*",
+    "tests/**/*"
+  ],
+  "exclude": ["node_modules"]
 }

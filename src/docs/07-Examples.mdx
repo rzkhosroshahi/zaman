@@ -1,0 +1,718 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Examples" />
+
+# 🎯 Examples & Use Cases
+
+Real-world examples and patterns for using Zaman in your applications.
+
+## 📅 Basic Examples
+
+### Simple Date Picker
+
+The most straightforward implementation:
+
+```tsx
+import { DatePicker } from 'zaman'
+
+function App() {
+  const handleDateChange = (date) => {
+    console.log('Selected:', date.value)
+  }
+
+  return <DatePicker onChange={handleDateChange} />
+}
+```
+
+### Date Picker with State
+
+Managing selected date in component state:
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function DatePickerWithState() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  return (
+    <div>
+      <DatePicker onChange={(date) => setSelectedDate(new Date(date.value))} />
+
+      {selectedDate && <p>You selected: {selectedDate.toLocaleDateString()}</p>}
+    </div>
+  )
+}
+```
+
+---
+
+## 🎨 Styled Examples
+
+### Custom Colors
+
+```tsx
+<DatePicker accentColor="#8B5CF6" round="x3" locale="en" direction="ltr" />
+```
+
+### With Theme Provider
+
+```tsx
+import { ThemeProvider, createTheme, DatePicker } from 'zaman'
+
+const purpleTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#8B5CF6',
+      light: '#A78BFA',
+      lighter: '#DDD6FE',
+      dark: '#7C3AED',
+      foreground: '#FFFFFF'
+    }
+  },
+  round: 'x3'
+})
+
+function ThemedApp() {
+  return (
+    <ThemeProvider theme={purpleTheme}>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+---
+
+## 📋 Form Integration
+
+### React Hook Form
+
+```tsx
+import { useForm, Controller } from 'react-hook-form'
+import { DatePicker } from 'zaman'
+
+interface FormData {
+  birthDate: string
+  startDate: string
+  endDate: string
+}
+
+function RegistrationForm() {
+  const { control, handleSubmit } = useForm<FormData>()
+
+  const onSubmit = (data: FormData) => {
+    console.log('Form data:', data)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>Birth Date</label>
+        <Controller
+          name="birthDate"
+          control={control}
+          rules={{ required: 'Birth date is required' }}
+          render={({ field, fieldState }) => (
+            <>
+              <DatePicker
+                locale="en"
+                onChange={(date) => field.onChange(date.value)}
+              />
+              {fieldState.error && (
+                <span className="error">{fieldState.error.message}</span>
+              )}
+            </>
+          )}
+        />
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
+### Formik
+
+```tsx
+import { Formik, Form, Field } from 'formik'
+import { DatePicker } from 'zaman'
+import * as Yup from 'yup'
+
+const schema = Yup.object().shape({
+  eventDate: Yup.string().required('Event date is required')
+})
+
+function EventForm() {
+  return (
+    <Formik
+      initialValues={{ eventDate: '' }}
+      validationSchema={schema}
+      onSubmit={(values) => console.log(values)}
+    >
+      {({ setFieldValue, errors, touched }) => (
+        <Form>
+          <Field name="eventDate">
+            {() => (
+              <div>
+                <DatePicker
+                  locale="en"
+                  onChange={(date) => setFieldValue('eventDate', date.value)}
+                />
+                {errors.eventDate && touched.eventDate && (
+                  <div className="error">{errors.eventDate}</div>
+                )}
+              </div>
+            )}
+          </Field>
+
+          <button type="submit">Create Event</button>
+        </Form>
+      )}
+    </Formik>
+  )
+}
+```
+
+---
+
+## 📅 Range Picker Examples
+
+### Vacation Booking
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function VacationBooking() {
+  const [range, setRange] = useState({ from: null, to: null })
+  const [totalDays, setTotalDays] = useState(0)
+
+  const handleRangeChange = ({ from, to, fromDate, toDate }) => {
+    setRange({ from, to })
+
+    if (fromDate && toDate) {
+      const days = Math.ceil(
+        (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24)
+      )
+      setTotalDays(days)
+    }
+  }
+
+  return (
+    <div className="vacation-booking">
+      <h2>Book Your Vacation</h2>
+
+      <DatePicker
+        range
+        locale="en"
+        direction="ltr"
+        accentColor="#10B981"
+        onChange={handleRangeChange}
+      />
+
+      {totalDays > 0 && (
+        <div className="summary">
+          <p>Total Days: {totalDays}</p>
+          <p>From: {range.from}</p>
+          <p>To: {range.to}</p>
+          <button>Book Now - ${totalDays * 150}</button>
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+### Date Range Filter
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState, useEffect } from 'react'
+
+function DataTable() {
+  const [dateRange, setDateRange] = useState({ from: null, to: null })
+  const [filteredData, setFilteredData] = useState([])
+
+  useEffect(() => {
+    if (dateRange.from && dateRange.to) {
+      // Filter data based on date range
+      const filtered = data.filter((item) => {
+        const itemDate = new Date(item.date)
+        return itemDate >= dateRange.from && itemDate <= dateRange.to
+      })
+      setFilteredData(filtered)
+    }
+  }, [dateRange])
+
+  return (
+    <div>
+      <div className="filters">
+        <DatePicker
+          range
+          locale="en"
+          onChange={({ fromDate, toDate }) => {
+            setDateRange({ from: fromDate, to: toDate })
+          }}
+        />
+      </div>
+
+      <table>{/* Render filtered data */}</table>
+    </div>
+  )
+}
+```
+
+---
+
+## ⏰ Time Picker Examples
+
+### Alarm Clock
+
+```tsx
+import { TimePicker } from 'zaman'
+import { useState } from 'react'
+
+function AlarmClock() {
+  const [alarms, setAlarms] = useState<
+    Array<{
+      hour: number
+      minute: number
+      timeConvention: string
+    }>
+  >([])
+
+  const addAlarm = ({ hour, minute, timeConvention }) => {
+    setAlarms([...alarms, { hour, minute, timeConvention }])
+  }
+
+  return (
+    <div className="alarm-clock">
+      <h2>Set Alarm</h2>
+
+      <TimePicker
+        clockTime={12}
+        locale="en"
+        accentColor="#EF4444"
+        onChange={addAlarm}
+      />
+
+      <div className="alarms-list">
+        <h3>Active Alarms</h3>
+        {alarms.map((alarm, index) => (
+          <div key={index} className="alarm-item">
+            {alarm.hour}:{alarm.minute.toString().padStart(2, '0')}
+            {alarm.timeConvention}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+### Meeting Scheduler
+
+```tsx
+import { DatePicker, TimePicker } from 'zaman'
+import { useState } from 'react'
+
+function MeetingScheduler() {
+  const [meeting, setMeeting] = useState({
+    date: null,
+    startTime: null,
+    endTime: null
+  })
+
+  return (
+    <div className="meeting-scheduler">
+      <h2>Schedule Meeting</h2>
+
+      <div className="form-group">
+        <label>Date</label>
+        <DatePicker
+          locale="en"
+          onChange={(date) => setMeeting({ ...meeting, date: date.value })}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Start Time</label>
+        <TimePicker
+          clockTime={24}
+          locale="en"
+          onChange={(time) => setMeeting({ ...meeting, startTime: time })}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>End Time</label>
+        <TimePicker
+          clockTime={24}
+          locale="en"
+          onChange={(time) => setMeeting({ ...meeting, endTime: time })}
+        />
+      </div>
+
+      <button onClick={() => console.log('Meeting:', meeting)}>
+        Schedule Meeting
+      </button>
+    </div>
+  )
+}
+```
+
+---
+
+## 🌍 Multi-Language Examples
+
+### Language Switcher
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function MultiLanguageApp() {
+  const [language, setLanguage] = useState<'fa' | 'en'>('en')
+
+  const direction = language === 'fa' ? 'rtl' : 'ltr'
+
+  return (
+    <div dir={direction}>
+      <div className="language-selector">
+        <button
+          onClick={() => setLanguage('en')}
+          className={language === 'en' ? 'active' : ''}
+        >
+          English
+        </button>
+        <button
+          onClick={() => setLanguage('fa')}
+          className={language === 'fa' ? 'active' : ''}
+        >
+          فارسی
+        </button>
+      </div>
+
+      <DatePicker locale={language} direction={direction} />
+    </div>
+  )
+}
+```
+
+### Dual Calendar Display
+
+```tsx
+import { Calendar, CalendarProvider } from 'zaman'
+import { useState } from 'react'
+
+function DualCalendar() {
+  const [selectedDate, setSelectedDate] = useState(new Date())
+
+  return (
+    <CalendarProvider>
+      <div className="dual-calendar">
+        <div className="calendar-wrapper">
+          <h3>Gregorian Calendar</h3>
+          <Calendar
+            locale="en"
+            direction="ltr"
+            defaultValue={selectedDate}
+            onChange={(date) => setSelectedDate(new Date(date.value))}
+          />
+        </div>
+
+        <div className="calendar-wrapper">
+          <h3>تقویم جلالی</h3>
+          <Calendar
+            locale="fa"
+            direction="rtl"
+            defaultValue={selectedDate}
+            onChange={(date) => setSelectedDate(new Date(date.value))}
+          />
+        </div>
+      </div>
+    </CalendarProvider>
+  )
+}
+```
+
+---
+
+## 🎨 Dark Mode Example
+
+```tsx
+import { ThemeProvider, createTheme, DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function DarkModeApp() {
+  const [isDark, setIsDark] = useState(false)
+
+  const lightTheme = createTheme({
+    colors: {
+      primary: {
+        DEFAULT: '#3B82F6',
+        light: '#60A5FA',
+        lighter: '#DBEAFE',
+        dark: '#2563EB',
+        foreground: '#FFFFFF'
+      },
+      background: '#FFFFFF',
+      foreground: '#1F2937',
+      border: '#E5E7EB'
+    }
+  })
+
+  const darkTheme = createTheme({
+    colors: {
+      primary: {
+        DEFAULT: '#60A5FA',
+        light: '#93C5FD',
+        lighter: '#DBEAFE',
+        dark: '#3B82F6',
+        foreground: '#1F2937'
+      },
+      background: '#1F2937',
+      foreground: '#F9FAFB',
+      border: '#374151',
+      gray: {
+        0: '#F9FAFB',
+        100: '#F3F4F6',
+        200: '#E5E7EB',
+        300: '#D1D5DB',
+        400: '#9CA3AF',
+        500: '#6B7280',
+        600: '#4B5563',
+        700: '#374151',
+        800: '#1F2937',
+        900: '#111827'
+      }
+    }
+  })
+
+  const theme = isDark ? darkTheme : lightTheme
+
+  return (
+    <div className={isDark ? 'dark' : 'light'}>
+      <button onClick={() => setIsDark(!isDark)}>
+        {isDark ? '🌞 Light' : '🌙 Dark'}
+      </button>
+
+      <ThemeProvider theme={theme}>
+        <DatePicker locale="en" />
+      </ThemeProvider>
+    </div>
+  )
+}
+```
+
+---
+
+## 🎯 Advanced Patterns
+
+### Controlled Date Picker
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function ControlledDatePicker() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [date, setDate] = useState<Date | null>(null)
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(true)}>
+        {date ? date.toLocaleDateString() : 'Select Date'}
+      </button>
+
+      <DatePicker
+        show={isOpen}
+        defaultValue={date}
+        onChange={(e) => {
+          setDate(new Date(e.value))
+          setIsOpen(false)
+        }}
+      />
+
+      {isOpen && <button onClick={() => setIsOpen(false)}>Cancel</button>}
+    </div>
+  )
+}
+```
+
+### Custom Weekend Days
+
+```tsx
+import { DatePicker } from 'zaman'
+
+// Persian calendar - Friday only
+<DatePicker
+  locale="fa"
+  weekends={[5]}
+/>
+
+// Western calendar - Sunday only
+<DatePicker
+  locale="en"
+  weekends={[0]}
+/>
+
+// Custom - Tuesday and Thursday
+<DatePicker
+  locale="en"
+  weekends={[2, 4]}
+/>
+
+// No weekends
+<DatePicker
+  locale="en"
+  weekends={[]}
+/>
+```
+
+### Date Validation
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function ValidatedDatePicker() {
+  const [error, setError] = useState<string | null>(null)
+  const minDate = new Date()
+  minDate.setDate(minDate.getDate() + 1) // Tomorrow
+
+  const handleChange = (date) => {
+    const selectedDate = new Date(date.value)
+
+    if (selectedDate < minDate) {
+      setError('Please select a future date')
+    } else {
+      setError(null)
+      // Process valid date
+    }
+  }
+
+  return (
+    <div>
+      <DatePicker locale="en" onChange={handleChange} />
+      {error && <span className="error">{error}</span>}
+    </div>
+  )
+}
+```
+
+---
+
+## 💾 Persistence Examples
+
+### LocalStorage Integration
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState, useEffect } from 'react'
+
+function PersistentDatePicker() {
+  const [date, setDate] = useState<Date | null>(() => {
+    const saved = localStorage.getItem('selectedDate')
+    return saved ? new Date(saved) : null
+  })
+
+  useEffect(() => {
+    if (date) {
+      localStorage.setItem('selectedDate', date.toISOString())
+    }
+  }, [date])
+
+  return (
+    <DatePicker
+      defaultValue={date}
+      locale="en"
+      onChange={(d) => setDate(new Date(d.value))}
+    />
+  )
+}
+```
+
+### URL State Sync
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useSearchParams } from 'react-router-dom'
+
+function URLSyncedDatePicker() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const dateParam = searchParams.get('date')
+  const initialDate = dateParam ? new Date(dateParam) : new Date()
+
+  const handleChange = (date) => {
+    setSearchParams({ date: date.value })
+  }
+
+  return (
+    <DatePicker
+      defaultValue={initialDate}
+      locale="en"
+      onChange={handleChange}
+    />
+  )
+}
+```
+
+---
+
+## 🧪 Testing Example
+
+```tsx
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { DatePicker } from 'zaman'
+
+describe('DatePicker Integration', () => {
+  it('allows user to select a date', async () => {
+    const handleChange = jest.fn()
+    const user = userEvent.setup()
+
+    render(<DatePicker onChange={handleChange} locale="en" />)
+
+    const input = screen.getByRole('textbox')
+    await user.click(input)
+
+    // Calendar should be visible
+    await waitFor(() => {
+      expect(screen.getByText('January')).toBeInTheDocument()
+    })
+
+    // Select a date
+    // ... interact with calendar
+
+    expect(handleChange).toHaveBeenCalled()
+  })
+})
+```
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#eff6ff',
+    borderRadius: '8px',
+    borderLeft: '4px solid #3b82f6'
+  }}
+>
+  <strong>💡 Need More Examples?</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Check out our{' '}
+    <a
+      href="https://github.com/rzkhosroshahi/zaman/tree/main/examples"
+      target="_blank"
+    >
+      GitHub examples folder
+    </a>{' '}
+    for more real-world use cases and patterns.
+  </p>
+</div>

@@ -5,9 +5,10 @@ import {
   getYear,
   getYear2Digit
 } from '../dateTimeFormat/dateTimeFormat'
-import { type formatFunctions, type Formats } from './format.types'
 
-export const formats: Record<Formats, formatFunctions> = {
+import { type FormatFunctions, type Formats } from './format.types'
+
+export const formats: Record<Formats, FormatFunctions> = {
   MMMM: getMonthName,
   MM: getMonth,
   M: getMonth,
@@ -21,24 +22,28 @@ const regex = /\/|\s|-/
 
 const validateFormat = (format: string) => {
   const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
-  if (format === '' || format.trim() === '') {
-    throw new Error('format is empty')
-  }
+
   splitFormat.forEach((format) => {
     if (!(format in formats)) {
       throw new Error(`format is not valid, format passed is: ${format}`)
     }
   })
 }
+
 export const formatDate = (
   date: Date,
   format: string,
   numberingSystem?: string
 ): string => {
+  // Return empty string for empty or whitespace-only formats
+  if (format === '' || format.trim() === '') {
+    return ''
+  }
+
   try {
     validateFormat(format)
     const splitFormat = format.trimStart().trimEnd().split(regex) as Formats[]
-    const splitCharacterSearch = format.match(regex)
+    const splitCharacterSearch = regex.exec(format)
     const splitCharacter =
       splitCharacterSearch !== null ? splitCharacterSearch[0] : ''
 
@@ -50,6 +55,7 @@ export const formatDate = (
   } catch (ex) {
     console.error(ex)
   }
+
   return ''
 }
 

@@ -1,0 +1,686 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/API Reference" />
+
+# 📚 API Reference
+
+Complete reference for all components, props, types, and utilities in Zaman.
+
+## 📦 Components
+
+### DatePicker
+
+A text input with popup calendar for date selection.
+
+#### Props
+
+```tsx
+interface DatePickerProps {
+  // Value & State
+  defaultValue?: Date | Dayjs | number
+  show?: boolean
+
+  // Callbacks
+  onChange?: (date: DateValue) => void
+  onOpen?: () => void
+  onClose?: () => void
+
+  // Range Mode
+  range?: boolean
+  from?: Date | Dayjs | number
+  to?: Date | Dayjs | number
+
+  // Localization
+  locale?: 'fa' | 'en'
+  direction?: 'rtl' | 'ltr'
+  customShowDateFormat?: string
+
+  // Styling
+  accentColor?: string
+  round?: 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
+  className?: string
+  inputClass?: string
+
+  // Calendar Config
+  weekends?: number[]
+
+  // Popup
+  position?: 'left' | 'right' | 'center'
+
+  // Input
+  inputAttributes?: React.InputHTMLAttributes<HTMLInputElement>
+}
+```
+
+#### Return Types
+
+**Single Date Mode:**
+
+```tsx
+interface DateValue {
+  value: string // ISO date string
+  format: string // Formatted date
+  date: Date // JavaScript Date object
+}
+```
+
+**Range Mode:**
+
+```tsx
+interface DateRangeValue {
+  from: string // ISO date string
+  to: string // ISO date string
+  fromDate: Date // JavaScript Date
+  toDate: Date // JavaScript Date
+}
+```
+
+#### Examples
+
+```tsx
+// Basic
+<DatePicker onChange={(date) => console.log(date.value)} />
+
+// With default value
+<DatePicker
+  defaultValue={new Date('2024-01-15')}
+  onChange={(date) => console.log(date)}
+/>
+
+// Range mode
+<DatePicker
+  range
+  from={new Date('2024-01-10')}
+  to={new Date('2024-01-20')}
+  onChange={({ from, to }) => console.log(from, to)}
+/>
+
+// Controlled
+<DatePicker
+  show={isOpen}
+  onChange={(date) => {
+    setDate(date)
+    setIsOpen(false)
+  }}
+/>
+```
+
+---
+
+### Calendar
+
+Standalone calendar component for inline display.
+
+#### Props
+
+```tsx
+interface CalendarProps {
+  // Value & State
+  defaultValue?: Date | Dayjs | number
+
+  // Callbacks
+  onChange?: (date: DateValue) => void
+
+  // Range Mode
+  range?: boolean
+  from?: Date | Dayjs | number
+  to?: Date | Dayjs | number
+
+  // Localization
+  locale?: 'fa' | 'en'
+  direction?: 'rtl' | 'ltr'
+
+  // Styling
+  accentColor?: string
+  round?: 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
+  className?: string
+
+  // Calendar Config
+  weekends?: number[]
+}
+```
+
+#### Usage
+
+```tsx
+import { Calendar, CalendarProvider } from 'zaman'
+;<CalendarProvider>
+  <Calendar defaultValue={new Date()} onChange={(date) => console.log(date)} />
+</CalendarProvider>
+```
+
+> **Note:** Calendar must be wrapped in `CalendarProvider`.
+
+---
+
+### TimePicker
+
+Time selection component with 12/24 hour support.
+
+#### Props
+
+```tsx
+interface TimePickerProps {
+  // Value & State
+  defaultValue?: Date | Dayjs | number
+
+  // Callback
+  onChange?: (time: TimeValue) => void
+
+  // Format
+  clockTime?: 12 | 24
+
+  // Localization
+  locale?: 'fa' | 'en'
+
+  // Styling
+  accentColor?: string
+  round?: 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
+  inputClass?: string
+
+  // Input
+  inputAttributes?: React.InputHTMLAttributes<HTMLInputElement>
+}
+```
+
+#### Return Type
+
+```tsx
+interface TimeValue {
+  hour: number // 0-23 (24h) or 1-12 (12h)
+  minute: number // 0-59
+  timeConvention?: 'AM' | 'PM' // Only in 12h mode
+}
+```
+
+#### Examples
+
+```tsx
+// 24-hour format
+<TimePicker
+  clockTime={24}
+  onChange={({ hour, minute }) => {
+    console.log(`${hour}:${minute}`)
+  }}
+/>
+
+// 12-hour format
+<TimePicker
+  clockTime={12}
+  onChange={({ hour, minute, timeConvention }) => {
+    console.log(`${hour}:${minute} ${timeConvention}`)
+  }}
+/>
+```
+
+---
+
+### CalendarProvider
+
+Context provider for calendar state management.
+
+#### Props
+
+```tsx
+interface CalendarProviderProps {
+  children: React.ReactNode
+}
+```
+
+#### Usage
+
+```tsx
+<CalendarProvider>
+  <Calendar />
+</CalendarProvider>
+```
+
+---
+
+## 🎨 Theming
+
+### ThemeProvider
+
+Provides theme to all child components.
+
+#### Props
+
+```tsx
+interface ThemeProviderProps {
+  theme: ThemeConfig
+  children: React.ReactNode
+}
+```
+
+#### Usage
+
+```tsx
+import { ThemeProvider, createTheme } from 'zaman'
+
+const theme = createTheme({...})
+
+<ThemeProvider theme={theme}>
+  <DatePicker />
+</ThemeProvider>
+```
+
+---
+
+### createTheme
+
+Creates a theme configuration object.
+
+#### Signature
+
+```tsx
+function createTheme(config: DeepPartial<ThemeConfig>): ThemeConfig
+```
+
+#### ThemeConfig Type
+
+```tsx
+interface ThemeConfig {
+  colors: ThemeColors
+  spacing: ThemeSpacing
+  radius: ThemeRadius
+  fontSizes: ThemeFontSizes
+  direction?: 'rtl' | 'ltr'
+  round?: ThemeRound
+}
+```
+
+#### ThemeColors
+
+```tsx
+interface ThemeColors {
+  primary: {
+    DEFAULT: string
+    light: string
+    lighter: string
+    dark: string
+    foreground: string
+  }
+  gray: {
+    0: string
+    100: string
+    200: string
+    300: string
+    400: string
+    500: string
+    600: string
+    700: string
+    800: string
+    900: string
+  }
+  background: string
+  foreground: string
+  weekend: string
+  disabled: string
+  border: string
+}
+```
+
+#### ThemeSpacing
+
+```tsx
+interface ThemeSpacing {
+  calendarItemWidth: string
+  calendarItemHeight: string
+  calendarGap: string
+  headerHeight: string
+  modalPadding: string
+}
+```
+
+#### ThemeRadius
+
+```tsx
+interface ThemeRadius {
+  item: string
+  modal: string
+  button: string
+  input: string
+}
+```
+
+#### ThemeFontSizes
+
+```tsx
+interface ThemeFontSizes {
+  xs: string
+  sm: string
+  base: string
+  lg: string
+  xl: string
+  '2xl': string
+}
+```
+
+#### ThemeRound
+
+```tsx
+type ThemeRound = 'thin' | 'x1' | 'x2' | 'x3' | 'x4' | 'thick'
+```
+
+#### Example
+
+```tsx
+const myTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#3B82F6',
+      light: '#60A5FA',
+      lighter: '#DBEAFE',
+      dark: '#2563EB',
+      foreground: '#FFFFFF'
+    }
+  },
+  spacing: {
+    calendarItemWidth: '42px',
+    calendarItemHeight: '42px'
+  },
+  round: 'x3'
+})
+```
+
+---
+
+### Theming Utilities
+
+#### mergeTheme
+
+Merges partial theme with base theme.
+
+```tsx
+function mergeTheme(
+  base: ThemeConfig,
+  override: DeepPartial<ThemeConfig>
+): ThemeConfig
+```
+
+**Example:**
+
+```tsx
+import { defaultTheme, mergeTheme } from 'zaman'
+
+const myTheme = mergeTheme(defaultTheme, {
+  colors: {
+    primary: {
+      DEFAULT: '#FF6B6B'
+    }
+  }
+})
+```
+
+#### generateAccentPalette
+
+Generates color palette from single color.
+
+```tsx
+function generateAccentPalette(color: string): {
+  DEFAULT: string
+  light: string
+  lighter: string
+  dark: string
+  foreground: string
+}
+```
+
+**Example:**
+
+```tsx
+import { generateAccentPalette } from 'zaman'
+
+const palette = generateAccentPalette('#FF6B6B')
+// Returns full palette with variations
+```
+
+#### themeToCSSVariables
+
+Converts theme object to CSS variables.
+
+```tsx
+function themeToCSSVariables(theme: ThemeConfig): Record<string, string>
+```
+
+#### applyCSSVariables
+
+Applies CSS variables to DOM element.
+
+```tsx
+function applyCSSVariables(
+  element: HTMLElement,
+  variables: Record<string, string>
+): void
+```
+
+---
+
+## 🔧 Utility Functions
+
+### Date Helpers
+
+#### formatDate
+
+```tsx
+function formatDate(
+  date: Date | Dayjs | number,
+  format: string,
+  locale: 'fa' | 'en'
+): string
+```
+
+#### parseDate
+
+```tsx
+function parseDate(dateString: string, locale: 'fa' | 'en'): Date
+```
+
+#### isValidDate
+
+```tsx
+function isValidDate(date: any): boolean
+```
+
+---
+
+## 📅 Constants
+
+### Locale Codes
+
+```tsx
+type LocaleCode = 'fa' | 'en'
+```
+
+### Direction
+
+```tsx
+type Direction = 'rtl' | 'ltr'
+```
+
+### Round Presets
+
+```tsx
+const roundPresets = {
+  thin: { item: '2px', modal: '4px', button: '2px', input: '4px' },
+  x1: { item: '4px', modal: '8px', button: '4px', input: '6px' },
+  x2: { item: '6px', modal: '12px', button: '6px', input: '8px' },
+  x3: { item: '8px', modal: '16px', button: '8px', input: '10px' },
+  x4: { item: '10px', modal: '20px', button: '10px', input: '12px' },
+  thick: { item: '12px', modal: '24px', button: '12px', input: '16px' }
+}
+```
+
+### Default Theme
+
+```tsx
+import { defaultTheme } from 'zaman'
+
+// Use as reference or extend
+```
+
+---
+
+## 🎯 TypeScript Types
+
+### Import Types
+
+```tsx
+import type {
+  // Component Props
+  DatePickerProps,
+  CalendarProps,
+  TimePickerProps,
+  CalendarProviderProps,
+  ThemeProviderProps,
+
+  // Return Types
+  DateValue,
+  DateRangeValue,
+  TimeValue,
+
+  // Theme Types
+  ThemeConfig,
+  ThemeColors,
+  ThemeSpacing,
+  ThemeRadius,
+  ThemeFontSizes,
+  ThemeRound,
+  ThemeDirection,
+  ThemeOverrides,
+
+  // Locale Types
+  LocaleData,
+  LocaleCode,
+  Direction,
+
+  // Utility Types
+  DeepPartial
+} from 'zaman'
+```
+
+### DeepPartial
+
+Utility type for partial nested objects.
+
+```tsx
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
+```
+
+---
+
+## 📦 Exports
+
+### Component Exports
+
+```tsx
+export {
+  DatePicker, // Main date picker
+  Calendar, // Standalone calendar
+  TimePicker, // Time picker
+  CalendarProvider // Context provider
+}
+```
+
+### Theme Exports
+
+```tsx
+export {
+  ThemeProvider, // Theme context provider
+  createTheme, // Theme factory
+  defaultTheme, // Default theme object
+  roundPresets, // Border radius presets
+  mergeTheme, // Theme merger
+  generateAccentPalette, // Color palette generator
+  themeToCSSVariables, // Theme to CSS vars
+  applyCSSVariables // Apply vars to DOM
+}
+```
+
+### Type Exports
+
+```tsx
+export type {
+  DatePickerProps,
+  CalendarProps,
+  TimePickerProps,
+  ThemeConfig,
+  ThemeProviderProps,
+  DateValue,
+  DateRangeValue,
+  TimeValue,
+  LocaleData
+  // ... and more
+}
+```
+
+---
+
+## 🔍 Advanced Usage
+
+### Using with Form Libraries
+
+#### React Hook Form
+
+```tsx
+import { useForm, Controller } from 'react-hook-form'
+import { DatePicker } from 'zaman'
+
+function MyForm() {
+  const { control, handleSubmit } = useForm()
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="birthDate"
+        control={control}
+        render={({ field }) => (
+          <DatePicker
+            defaultValue={field.value}
+            onChange={(date) => field.onChange(date.value)}
+          />
+        )}
+      />
+    </form>
+  )
+}
+```
+
+#### Formik
+
+```tsx
+import { Formik, Field } from 'formik'
+import { DatePicker } from 'zaman'
+;<Formik initialValues={{ date: new Date() }}>
+  {({ setFieldValue, values }) => (
+    <Field name="date">
+      {() => (
+        <DatePicker
+          defaultValue={values.date}
+          onChange={(date) => setFieldValue('date', date.value)}
+        />
+      )}
+    </Field>
+  )}
+</Formik>
+```
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#eff6ff',
+    borderRadius: '8px',
+    borderLeft: '4px solid #3b82f6'
+  }}
+>
+  <strong>💡 TypeScript Tip:</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    All types are fully documented with JSDoc comments. Hover over any prop or
+    type in your IDE for inline documentation!
+  </p>
+</div>

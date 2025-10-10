@@ -1,4 +1,4 @@
-export type formatFunctions = (date: Date, numberingSystem?: string) => string
+export type FormatFunctions = (date: Date, numberingSystem?: string) => string
 
 export enum Formats {
   M = 'M',

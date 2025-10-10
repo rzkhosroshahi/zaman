@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+coverage/
+storybook-static/
+
+# Cache
+.cache/
+.temp/
+*.log
+
+# Config files
+*.min.js
+*.min.css
+
+# Other
+.git/
+.husky/
+

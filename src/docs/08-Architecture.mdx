@@ -1,0 +1,718 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Architecture" />
+
+# 🏗️ Architecture Guide
+
+Understanding Zaman's internal architecture, design patterns, and how everything fits together.
+
+## 📐 High-Level Overview
+
+Zaman is built with a modular, layered architecture that separates concerns and promotes maintainability.
+
+```
+┌─────────────────────────────────────────┐
+│         Component Layer                 │
+│  (DatePicker, Calendar, TimePicker)     │
+└─────────────┬───────────────────────────┘
+              │
+┌─────────────▼───────────────────────────┐
+│         UI Components Layer             │
+│  (Buttons, Items, Modals, Headers)      │
+└─────────────┬───────────────────────────┘
+              │
+┌─────────────▼───────────────────────────┐
+│         Business Logic Layer            │
+│  (Hooks, Engines, State Management)     │
+└─────────────┬───────────────────────────┘
+              │
+┌─────────────▼───────────────────────────┐
+│         Core Layer                      │
+│  (Date Engine, Calendar Engine)         │
+└─────────────┬───────────────────────────┘
+              │
+┌─────────────▼───────────────────────────┐
+│         Foundation Layer                │
+│  (Utils, Theme, i18n, Types)           │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## 🎯 Core Principles
+
+### 1. **Separation of Concerns**
+
+Each layer has a specific responsibility and doesn't leak implementation details:
+
+- **Components**: User interface and interaction
+- **Business Logic**: State management and user actions
+- **Core**: Calendar calculations and date manipulation
+- **Foundation**: Utilities, theming, and internationalization
+
+### 2. **Composition over Inheritance**
+
+Components are composed from smaller, reusable pieces:
+
+```tsx
+// DatePicker is composed of smaller components
+<DatePicker>
+  <Input />
+  <FloatingElement>
+    <CalendarWrapper>
+      <Header />
+      <RenderCalendar>
+        <CalendarItem />
+      </RenderCalendar>
+    </CalendarWrapper>
+  </FloatingElement>
+</DatePicker>
+```
+
+### 3. **Controlled & Uncontrolled Modes**
+
+All components support both patterns:
+
+```tsx
+// Uncontrolled (internal state)
+<DatePicker defaultValue={new Date()} />
+
+// Controlled (external state)
+<DatePicker show={isOpen} onChange={handleChange} />
+```
+
+### 4. **Type Safety**
+
+Full TypeScript coverage ensures type safety throughout the codebase.
+
+---
+
+## 🏛️ Layer Breakdown
+
+### Foundation Layer
+
+**Location**: `src/utils/`, `src/theme/`, `src/i18n/`, `src/types.ts`
+
+**Purpose**: Provides base utilities and configuration
+
+**Key Modules**:
+
+#### Utils (`src/utils/`)
+
+```
+utils/
+├── cn.ts                    # Class name utility
+├── debounce.ts             # Debounce utility
+├── dateHelper/             # Date manipulation
+├── dateTimeFormat/         # Date formatting
+├── format/                 # Format utilities
+├── locale.ts               # Locale utilities
+├── locales/                # Locale definitions
+├── month/                  # Month utilities
+└── timePicker.ts           # Time picker utilities
+```
+
+#### Theme System (`src/theme/`)
+
+```
+theme/
+├── ThemeProvider.tsx       # Theme context provider
+├── createTheme.ts          # Theme factory
+├── defaultTheme.ts         # Default theme config
+├── themeUtils.ts           # Theme utilities
+├── types.ts                # Theme types
+├── global.css              # Global styles
+└── animations.css          # Animation definitions
+```
+
+#### i18n System (`src/i18n/`)
+
+```
+i18n/
+├── i18n-context.tsx        # i18n context
+├── i18n-provider.ts        # i18n provider logic
+├── i18n-provider.types.ts  # Type definitions
+└── locales/                # Built-in locales
+    ├── en.ts
+    └── fa.ts
+```
+
+---
+
+### Core Layer
+
+**Location**: `src/core/`
+
+**Purpose**: Calendar and date calculation engines
+
+```
+core/
+├── calendar-engine/         # Calendar calculations
+│   ├── calendar-engine.ts   # Main engine
+│   └── calendar-engine.types.ts
+├── date-engine/            # Date manipulation
+│   ├── date-engine.ts
+│   └── date-engine.types.ts
+└── range-engine/           # Range selection logic
+    ├── range-engine.ts
+    └── range-engine.types.ts
+```
+
+#### Calendar Engine
+
+Handles calendar-specific logic:
+
+- Month/year navigation
+- Day calculations
+- Week numbering
+- Jalali ↔ Gregorian conversion
+
+```tsx
+// Example usage
+import { CalendarEngine } from '@/core/calendar-engine'
+
+const engine = new CalendarEngine({
+  locale: 'fa',
+  calendar: 'jalali'
+})
+
+const days = engine.getMonthDays(1402, 10) // Persian year/month
+```
+
+#### Date Engine
+
+Provides date manipulation:
+
+- Date parsing and formatting
+- Date arithmetic
+- Comparison operations
+- Timezone handling
+
+```tsx
+import { DateEngine } from '@/core/date-engine'
+
+const engine = new DateEngine()
+engine.addDays(date, 7)
+engine.isSameDay(date1, date2)
+```
+
+#### Range Engine
+
+Manages date range selection:
+
+- Range validation
+- In-range checking
+- Range calculations
+
+```tsx
+import { RangeEngine } from '@/core/range-engine'
+
+const engine = new RangeEngine()
+const isInRange = engine.isDateInRange(date, from, to)
+```
+
+---
+
+### Business Logic Layer
+
+**Location**: `src/hooks/`
+
+**Purpose**: Encapsulates component logic and state management
+
+```
+hooks/
+├── useCalendarHandlers.tsx  # Calendar interaction logic
+├── useClickOutside.tsx      # Click outside detection
+├── useSlideCalendar.tsx     # Calendar sliding animation
+└── useTimePicker.tsx        # Time picker logic
+```
+
+#### Hook Examples
+
+**useCalendarHandlers**
+
+```tsx
+// Manages calendar interactions
+const {
+  selectedDate,
+  displayMonth,
+  handleDateSelect,
+  handleMonthChange,
+  handleYearChange
+} = useCalendarHandlers({
+  defaultValue,
+  onChange,
+  locale
+})
+```
+
+**useClickOutside**
+
+```tsx
+// Detects clicks outside element
+const ref = useClickOutside<HTMLDivElement>(() => {
+  setIsOpen(false)
+})
+
+return <div ref={ref}>...</div>
+```
+
+**useSlideCalendar**
+
+```tsx
+// Handles calendar sliding animations
+const { direction, isAnimating, handleNext, handlePrevious } =
+  useSlideCalendar()
+```
+
+---
+
+### UI Components Layer
+
+**Location**: `src/components/`
+
+**Purpose**: Reusable UI building blocks
+
+```
+components/
+├── core/                    # Core UI elements
+│   ├── button/             # Button component
+│   └── calendar-item/      # Calendar day item
+├── layout/                 # Layout components
+│   ├── calendar-wrapper/   # Calendar container
+│   ├── floating-element/   # Popup positioning
+│   └── modal/              # Modal component
+├── navigation/             # Navigation components
+│   └── header/             # Calendar header
+├── pickers/                # Picker sub-components
+│   ├── month-picker/       # Month selection
+│   ├── year-picker/        # Year selection
+│   └── render-calendar/    # Calendar grid
+└── icons/                  # Icon components
+    ├── chevron-left/
+    └── chevron-right/
+```
+
+#### Component Patterns
+
+**Button Component**
+
+```tsx
+// src/components/core/button/button.tsx
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'ghost'
+  size?: 'sm' | 'md' | 'lg'
+  onClick?: () => void
+  children: React.ReactNode
+}
+
+export function Button({ variant, size, onClick, children }: ButtonProps) {
+  const classes = cn('button', `button--${variant}`, `button--${size}`)
+
+  return (
+    <button className={classes} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
+```
+
+**Calendar Item Component**
+
+```tsx
+// Represents a single day in the calendar
+interface CalendarItemProps {
+  date: Date
+  isSelected?: boolean
+  isToday?: boolean
+  isWeekend?: boolean
+  isDisabled?: boolean
+  onClick?: () => void
+}
+
+export function CalendarItem(props: CalendarItemProps) {
+  // Rendering logic
+}
+```
+
+---
+
+### Component Layer
+
+**Location**: `src/packages/`
+
+**Purpose**: Main user-facing components
+
+```
+packages/
+├── calendar/               # Calendar component
+│   ├── Calendar.tsx
+│   ├── calendar.types.ts
+│   └── sub-components/
+├── calendar-provider/      # Context provider
+│   ├── calendar-provider.tsx
+│   └── calendar-provider.types.ts
+├── date-picker/           # DatePicker component
+│   ├── date-picker.tsx
+│   ├── date-picker.types.ts
+│   └── date-picker.hooks.ts
+└── time-picker/           # TimePicker component
+    ├── time-picker.tsx
+    └── time-picker.types.ts
+```
+
+---
+
+## 🔄 Data Flow
+
+### DatePicker Data Flow
+
+```
+User Input
+    │
+    ▼
+Input Component
+    │
+    ▼
+useCalendarHandlers Hook
+    │
+    ├─► Calendar Engine (date calculations)
+    │
+    ├─► Date Engine (formatting)
+    │
+    └─► Range Engine (if range mode)
+    │
+    ▼
+State Update
+    │
+    ▼
+UI Re-render
+    │
+    ▼
+onChange Callback
+```
+
+### Theme Data Flow
+
+```
+createTheme()
+    │
+    ▼
+Theme Config Object
+    │
+    ▼
+ThemeProvider
+    │
+    ├─► themeToCSSVariables()
+    │
+    ├─► applyCSSVariables()
+    │
+    └─► CSS Variables injected
+    │
+    ▼
+Components read CSS variables
+```
+
+### i18n Data Flow
+
+```
+Locale Registration
+    │
+    ▼
+i18nProvider
+    │
+    ▼
+i18nContext
+    │
+    ▼
+Components consume locale
+    │
+    ├─► Week day names
+    ├─► Month names
+    ├─► Labels & translations
+    └─► Number formatting
+```
+
+---
+
+## 🎨 Styling Architecture
+
+### CSS Variables Strategy
+
+All styling uses CSS custom properties:
+
+```css
+/* Theme values become CSS variables */
+:root {
+  --zaman-primary: #3b82f6;
+  --zaman-primary-light: #60a5fa;
+  --zaman-radius-item: 8px;
+  /* ... more variables */
+}
+
+/* Components use variables */
+.calendar-item {
+  background-color: var(--zaman-primary);
+  border-radius: var(--zaman-radius-item);
+}
+```
+
+### Benefits:
+
+1. **Runtime theming**: Change themes without recompilation
+2. **No CSS-in-JS overhead**: Pure CSS performance
+3. **Easy customization**: Override variables in user CSS
+4. **Framework agnostic**: Works with any styling solution
+
+---
+
+## 🧩 State Management
+
+### Local State
+
+Components manage their own state using React hooks:
+
+```tsx
+function DatePicker({ defaultValue, onChange }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedDate, setSelectedDate] = useState(defaultValue)
+
+  // Component logic
+}
+```
+
+### Context State
+
+Shared state uses React Context:
+
+```tsx
+// CalendarProvider provides shared calendar state
+<CalendarProvider>
+  <Calendar />
+  <Calendar /> {/* Shares state with first calendar */}
+</CalendarProvider>
+```
+
+### No External Dependencies
+
+Zaman doesn't require Redux, Zustand, or other state management libraries. Everything is handled with React's built-in tools.
+
+---
+
+## 🧪 Testing Architecture
+
+### Test Structure
+
+```
+src/
+├── component/
+│   ├── component.tsx
+│   └── component.test.tsx     # Unit tests
+│
+tests/
+└── e2e/
+    └── component.spec.ts      # E2E tests
+```
+
+### Testing Layers
+
+1. **Unit Tests** (Vitest + Testing Library)
+   - Component rendering
+   - User interactions
+   - Hook behavior
+   - Utility functions
+
+2. **Integration Tests** (Vitest + Testing Library)
+   - Component composition
+   - Context integration
+   - Theme application
+
+3. **E2E Tests** (Playwright)
+   - Full user flows
+   - Accessibility checks
+   - Cross-browser testing
+
+---
+
+## 📦 Build Architecture
+
+### Vite-based Build
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  build: {
+    lib: {
+      entry: './src/index.tsx',
+      formats: ['es'],
+      fileName: 'index'
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        preserveModules: true, // Tree-shaking friendly
+        preserveModulesRoot: 'src'
+      }
+    }
+  }
+})
+```
+
+### Output Structure
+
+```
+dist/
+├── index.js              # Main entry
+├── index.d.ts            # Type definitions
+├── packages/             # Modular exports
+│   ├── calendar/
+│   ├── date-picker/
+│   └── time-picker/
+└── ... (all modules preserved)
+```
+
+### Tree-Shaking
+
+Users can import only what they need:
+
+```tsx
+// Full import
+import { DatePicker, Calendar, TimePicker } from 'zaman'
+
+// Modular import (smaller bundle)
+import DatePicker from 'zaman/DatePicker'
+```
+
+---
+
+## 🔌 Extension Points
+
+### Custom Components
+
+Replace built-in components:
+
+```tsx
+import { Calendar } from 'zaman'
+import { CustomHeader } from './CustomHeader'
+;<Calendar
+  components={{
+    Header: CustomHeader
+  }}
+/>
+```
+
+### Custom Engines
+
+Extend or replace engines:
+
+```tsx
+import { CalendarEngine } from 'zaman/core'
+
+class CustomCalendarEngine extends CalendarEngine {
+  // Override methods
+  getMonthDays() {
+    // Custom implementation
+  }
+}
+```
+
+### Plugin System (Future)
+
+Planned architecture for plugins:
+
+```tsx
+import { DatePicker, usePlugin } from 'zaman'
+import { holidaysPlugin } from 'zaman-holidays'
+
+function App() {
+  usePlugin(holidaysPlugin)
+  return <DatePicker />
+}
+```
+
+---
+
+## 🚀 Performance Optimizations
+
+### 1. **Memoization**
+
+```tsx
+// Components memoized to prevent unnecessary renders
+export const CalendarItem = memo(CalendarItemComponent)
+
+// Calculations memoized
+const monthDays = useMemo(() => engine.getMonthDays(year, month), [year, month])
+```
+
+### 2. **Lazy Loading**
+
+```tsx
+// Month/Year pickers loaded on demand
+const YearPicker = lazy(() => import('./year-picker'))
+```
+
+### 3. **Event Delegation**
+
+```tsx
+// Single click handler for all calendar items
+<div onClick={handleCalendarClick}>
+  {days.map((day) => (
+    <CalendarItem key={day} />
+  ))}
+</div>
+```
+
+### 4. **CSS Variables**
+
+No runtime CSS calculations - all styling uses pre-computed CSS variables.
+
+---
+
+## 🔒 Type Safety
+
+### Strict TypeScript
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
+  }
+}
+```
+
+### Generated Types
+
+All JavaScript code has accompanying `.d.ts` files for full type support.
+
+---
+
+## 📚 Documentation Architecture
+
+### Multi-Layer Documentation
+
+1. **JSDoc Comments**: Inline code documentation
+2. **TypeScript Types**: Self-documenting types
+3. **Storybook Stories**: Interactive examples
+4. **MDX Guides**: Comprehensive guides (this file!)
+5. **README**: Quick start and overview
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#fef3c7',
+    borderRadius: '8px',
+    borderLeft: '4px solid #f59e0b'
+  }}
+>
+  <strong>🏗️ Architecture Questions?</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    This is a living document. If you have questions about the architecture or
+    suggestions for improvements, open a discussion on GitHub!
+  </p>
+</div>
