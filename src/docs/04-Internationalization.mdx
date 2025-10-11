@@ -1,0 +1,529 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Internationalization" />
+
+# 🌍 Internationalization (i18n)
+
+Zaman supports multiple locales and calendar systems out of the box, with built-in support for Persian (Jalali) and Gregorian calendars.
+
+## 🚀 Quick Start
+
+### Switching Locales
+
+```tsx
+import { DatePicker } from 'zaman'
+
+// Persian Calendar (Jalali/Shamsi)
+<DatePicker locale="fa" direction="rtl" />
+
+// English Calendar (Gregorian)
+<DatePicker locale="en" direction="ltr" />
+```
+
+---
+
+## 🗓️ Calendar Systems
+
+### Jalali Calendar (Persian/Shamsi)
+
+The Jalali calendar is the official calendar in Iran and Afghanistan.
+
+```tsx
+<DatePicker locale="fa" direction="rtl" />
+```
+
+**Features:**
+
+- 12 months with Persian names (فروردین, اردیبهشت, etc.)
+- Solar calendar (more accurate than Gregorian)
+- Week starts on Saturday
+- Persian numerals (۰۱۲۳...)
+
+### Gregorian Calendar
+
+The internationally used calendar.
+
+```tsx
+<DatePicker locale="en" direction="ltr" />
+```
+
+**Features:**
+
+- Standard 12 months (January, February, etc.)
+- Week starts on Sunday or Monday
+- Western numerals (0123...)
+
+---
+
+## 🔤 Text Direction
+
+### RTL (Right-to-Left)
+
+For languages like Persian, Arabic, Hebrew:
+
+```tsx
+<DatePicker direction="rtl" />
+```
+
+### LTR (Left-to-Right)
+
+For languages like English, Spanish, French:
+
+```tsx
+<DatePicker direction="ltr" />
+```
+
+### Auto-Detection
+
+Locale and direction are often paired:
+
+```tsx
+// Persian → RTL
+<DatePicker locale="fa" direction="rtl" />
+
+// English → LTR
+<DatePicker locale="en" direction="ltr" />
+```
+
+---
+
+## 📦 Built-in Locales
+
+Zaman comes with two built-in locales:
+
+### Persian (Farsi) - `fa`
+
+```tsx
+{
+  code: 'fa',
+  name: 'فارسی',
+  direction: 'rtl',
+  calendar: 'jalali',
+  weekDays: [
+    { key: 0, name: 'شنبه', short: 'ش' },
+    { key: 1, name: 'یکشنبه', short: 'ی' },
+    { key: 2, name: 'دوشنبه', short: 'د' },
+    { key: 3, name: 'سه‌شنبه', short: 'س' },
+    { key: 4, name: 'چهارشنبه', short: 'چ' },
+    { key: 5, name: 'پنجشنبه', short: 'پ' },
+    { key: 6, name: 'جمعه', short: 'ج' }
+  ],
+  months: [
+    { key: 1, name: 'فروردین' },
+    { key: 2, name: 'اردیبهشت' },
+    { key: 3, name: 'خرداد' },
+    // ... more months
+  ]
+}
+```
+
+### English - `en`
+
+```tsx
+{
+  code: 'en',
+  name: 'English',
+  direction: 'ltr',
+  calendar: 'gregorian',
+  weekDays: [
+    { key: 0, name: 'Sunday', short: 'Su' },
+    { key: 1, name: 'Monday', short: 'Mo' },
+    { key: 2, name: 'Tuesday', short: 'Tu' },
+    // ... more days
+  ],
+  months: [
+    { key: 1, name: 'January' },
+    { key: 2, name: 'February' },
+    { key: 3, name: 'March' },
+    // ... more months
+  ]
+}
+```
+
+---
+
+## 🛠️ Custom Locales
+
+Add support for additional languages and calendars.
+
+### Creating a Custom Locale
+
+```tsx
+import type { LocaleData } from 'zaman'
+
+const arabicLocale: LocaleData = {
+  code: 'ar',
+  name: 'العربية',
+  direction: 'rtl',
+  calendar: 'gregorian',
+
+  weekDays: [
+    { key: 0, name: 'الأحد', short: 'ح' },
+    { key: 1, name: 'الاثنين', short: 'ن' },
+    { key: 2, name: 'الثلاثاء', short: 'ث' },
+    { key: 3, name: 'الأربعاء', short: 'ر' },
+    { key: 4, name: 'الخميس', short: 'خ' },
+    { key: 5, name: 'الجمعة', short: 'ج' },
+    { key: 6, name: 'السبت', short: 'س' }
+  ],
+
+  months: [
+    { key: 1, name: 'يناير' },
+    { key: 2, name: 'فبراير' },
+    { key: 3, name: 'مارس' },
+    { key: 4, name: 'أبريل' },
+    { key: 5, name: 'مايو' },
+    { key: 6, name: 'يونيو' },
+    { key: 7, name: 'يوليو' },
+    { key: 8, name: 'أغسطس' },
+    { key: 9, name: 'سبتمبر' },
+    { key: 10, name: 'أكتوبر' },
+    { key: 11, name: 'نوفمبر' },
+    { key: 12, name: 'ديسمبر' }
+  ],
+
+  labels: {
+    today: 'اليوم',
+    selectDate: 'اختر التاريخ',
+    selectTime: 'اختر الوقت',
+    confirmDate: 'تأكيد',
+    cancel: 'إلغاء',
+    year: 'السنة',
+    month: 'الشهر',
+    day: 'اليوم',
+    hour: 'الساعة',
+    minute: 'الدقيقة',
+    am: 'ص',
+    pm: 'م'
+  }
+}
+```
+
+### Registering Custom Locale
+
+```tsx
+import { createI18nProvider } from 'zaman'
+
+const i18n = createI18nProvider({
+  defaultLocale: 'ar'
+})
+
+i18n.register('ar', arabicLocale)
+```
+
+### Using Custom Locale
+
+```tsx
+import { DatePicker } from 'zaman'
+
+// After registering the locale
+;<DatePicker locale="ar" direction="rtl" />
+```
+
+---
+
+## 🎨 Locale Data Structure
+
+### Complete Type Definition
+
+```tsx
+interface LocaleData {
+  code: string // Locale code (e.g., 'en', 'fa')
+  name: string // Display name
+  direction: 'rtl' | 'ltr' // Text direction
+  calendar: 'jalali' | 'gregorian' // Calendar system
+
+  weekDays: Array<{
+    key: number // 0-6 (Sunday to Saturday)
+    name: string // Full name
+    short: string // Abbreviated name
+  }>
+
+  months: Array<{
+    key: number // 1-12
+    name: string // Month name
+  }>
+
+  labels: {
+    today: string
+    selectDate: string
+    selectTime: string
+    confirmDate: string
+    cancel: string
+    year: string
+    month: string
+    day: string
+    hour: string
+    minute: string
+    am: string
+    pm: string
+  }
+}
+```
+
+---
+
+## 🌐 Multi-Language App Example
+
+### Language Switcher
+
+```tsx
+import { useState } from 'react'
+import { DatePicker } from 'zaman'
+
+function MultiLanguageApp() {
+  const [language, setLanguage] = useState<'fa' | 'en'>('en')
+
+  const direction = language === 'fa' ? 'rtl' : 'ltr'
+
+  return (
+    <div dir={direction}>
+      <select
+        value={language}
+        onChange={(e) => setLanguage(e.target.value as 'fa' | 'en')}
+      >
+        <option value="en">English</option>
+        <option value="fa">فارسی</option>
+      </select>
+
+      <DatePicker locale={language} direction={direction} />
+    </div>
+  )
+}
+```
+
+### With i18n Library Integration
+
+```tsx
+import { useTranslation } from 'react-i18next'
+import { DatePicker } from 'zaman'
+
+function IntegratedApp() {
+  const { i18n } = useTranslation()
+
+  // Map your i18n locale to zaman locale
+  const zamanLocale = i18n.language === 'fa' ? 'fa' : 'en'
+  const direction = i18n.dir()
+
+  return <DatePicker locale={zamanLocale} direction={direction} />
+}
+```
+
+---
+
+## 📅 Date Formatting
+
+### Format Patterns
+
+Customize how dates are displayed:
+
+```tsx
+<DatePicker customShowDateFormat="DD/MM/YYYY" locale="en" />
+```
+
+### Common Patterns
+
+| Pattern       | Example     | Description     |
+| ------------- | ----------- | --------------- |
+| `YYYY/MM/DD`  | 2024/01/15  | ISO format      |
+| `DD/MM/YYYY`  | 15/01/2024  | European        |
+| `MM/DD/YYYY`  | 01/15/2024  | American        |
+| `YYYY-MM-DD`  | 2024-01-15  | Dash separator  |
+| `DD MMM YYYY` | 15 Jan 2024 | With month name |
+
+### Persian Date Formats
+
+```tsx
+<DatePicker customShowDateFormat="YYYY/MM/DD" locale="fa" />
+// Output: ۱۴۰۲/۱۰/۲۵
+```
+
+---
+
+## 🔢 Number Localization
+
+Numbers automatically adapt to the selected locale:
+
+### Persian Numerals
+
+```tsx
+<DatePicker locale="fa" />
+// Displays: ۱۴۰۲/۰۱/۱۵
+```
+
+### Western Numerals
+
+```tsx
+<DatePicker locale="en" />
+// Displays: 2024/01/15
+```
+
+---
+
+## 🌐 Weekend Configuration
+
+Different cultures have different weekend days:
+
+### Persian Calendar (Friday & Saturday)
+
+```tsx
+<DatePicker
+  locale="fa"
+  weekends={[5, 6]} // Friday, Saturday
+/>
+```
+
+### Western Calendar (Saturday & Sunday)
+
+```tsx
+<DatePicker
+  locale="en"
+  weekends={[0, 6]} // Sunday, Saturday
+/>
+```
+
+### Custom Weekends
+
+```tsx
+// No weekends
+<DatePicker weekends={[]} />
+
+// Only Sunday
+<DatePicker weekends={[0]} />
+
+// Custom combination
+<DatePicker weekends={[2, 4]} />  // Tuesday, Thursday
+```
+
+---
+
+## 🎯 Best Practices
+
+### 1. Match Locale with Direction
+
+```tsx
+// ✅ Good - Consistent
+<DatePicker locale="fa" direction="rtl" />
+<DatePicker locale="en" direction="ltr" />
+
+// ❌ Bad - Inconsistent
+<DatePicker locale="fa" direction="ltr" />
+```
+
+### 2. Set Document Direction
+
+```tsx
+function App() {
+  const [locale, setLocale] = useState('en')
+  const direction = locale === 'fa' ? 'rtl' : 'ltr'
+
+  return (
+    <div dir={direction}>
+      <DatePicker locale={locale} direction={direction} />
+    </div>
+  )
+}
+```
+
+### 3. Provide Language Selection
+
+```tsx
+// Let users choose their preferred language
+<select onChange={(e) => setLocale(e.target.value)}>
+  <option value="en">English</option>
+  <option value="fa">فارسی</option>
+</select>
+```
+
+### 4. Store User Preference
+
+```tsx
+function App() {
+  const [locale, setLocale] = useState(() => {
+    return localStorage.getItem('locale') || 'en'
+  })
+
+  useEffect(() => {
+    localStorage.setItem('locale', locale)
+  }, [locale])
+
+  return <DatePicker locale={locale} />
+}
+```
+
+---
+
+## 🌟 Advanced Examples
+
+### Multi-Calendar Display
+
+```tsx
+import { Calendar, CalendarProvider } from 'zaman'
+
+function MultiCalendar() {
+  return (
+    <CalendarProvider>
+      <div style={{ display: 'flex', gap: '2rem' }}>
+        <div>
+          <h3>Gregorian</h3>
+          <Calendar locale="en" direction="ltr" />
+        </div>
+
+        <div>
+          <h3>جلالی</h3>
+          <Calendar locale="fa" direction="rtl" />
+        </div>
+      </div>
+    </CalendarProvider>
+  )
+}
+```
+
+### Dynamic Locale from URL
+
+```tsx
+import { useSearchParams } from 'react-router-dom'
+
+function LocalizedDatePicker() {
+  const [searchParams] = useSearchParams()
+  const locale = searchParams.get('lang') === 'fa' ? 'fa' : 'en'
+  const direction = locale === 'fa' ? 'rtl' : 'ltr'
+
+  return <DatePicker locale={locale} direction={direction} />
+}
+```
+
+---
+
+## 📚 Locale Resources
+
+### Adding More Locales
+
+Want to add support for more languages? Here are helpful resources:
+
+- **Arabic**: Already shown in examples above
+- **Spanish**: Use English structure with Spanish labels
+- **French**: Similar to English structure
+- **Turkish**: Can use Latin alphabet, LTR
+
+### Community Locales
+
+Check our GitHub discussions for community-contributed locales, or share your own!
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#fef3c7',
+    borderRadius: '8px',
+    borderLeft: '4px solid #f59e0b'
+  }}
+>
+  <strong>🌍 Need a Locale?</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    If you create a locale for your language, consider contributing it back to
+    Zaman! Open a PR on GitHub.
+  </p>
+</div>

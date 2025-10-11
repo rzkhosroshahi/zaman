@@ -1,10 +1,12 @@
 import { type SyntheticEvent, useState } from 'react'
+
 import dayjs from 'dayjs'
+
 import type { DatePickerValue } from '../types'
 import type {
   CalendarDefaultProps,
   CalendarRangeProps
-} from 'src/packages/Calendar/Calendar.types'
+} from '@packages/calendar/Calendar.types'
 
 type Event = SyntheticEvent<HTMLButtonElement>
 
@@ -13,16 +15,16 @@ interface BaseUseCalendarHandlersType {
   to?: DatePickerValue
 }
 
-type useCalendarHandlersType = BaseUseCalendarHandlersType &
+type UseCalendarHandlersType = BaseUseCalendarHandlersType &
   (CalendarRangeProps | CalendarDefaultProps)
 
 export const guardRange = (
-  value: useCalendarHandlersType
+  value: UseCalendarHandlersType
 ): value is CalendarRangeProps => {
   return value.range === true
 }
 
-export const useCalendarHandlers = (props: useCalendarHandlersType) => {
+export const useCalendarHandlers = (props: UseCalendarHandlersType) => {
   const [selectingRange, setSelectingRange] = useState(false)
   const [from, setFrom] = useState<Date | undefined>(
     props.from !== undefined ? new Date(props.from) : undefined
@@ -33,6 +35,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
 
   const onClickCalendar = (e: Event) => {
     const { value, disabled } = e.currentTarget.dataset
+
     if (value === undefined) {
       return
     }
@@ -41,14 +44,14 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     }
 
     if (!guardRange(props) && typeof props.onChange === 'function') {
-      props.onChange({ value: new Date(value) })
+      props.onChange(new Date(value))
     }
 
     return value
   }
   const onClickRange = (e: Event) => {
     const { value } = e.currentTarget.dataset
-    // start selecting range
+
     if (!selectingRange) {
       if (value !== undefined) {
         setFrom(new Date(value))
@@ -56,7 +59,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
       }
       setSelectingRange(true)
     }
-    // submit select date in mobile
+
     if (selectingRange && to === null) {
       if (value !== undefined) {
         setTo(new Date(value))
@@ -64,7 +67,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
       }
       setSelectingRange(false)
     }
-    // finish selecting range in desktop
+
     if (selectingRange && to !== undefined) {
       handleRangeOnChange(from, to)
       setSelectingRange(false)
@@ -72,6 +75,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   }
   const onMouseMove = (e: Event) => {
     const { value } = e.currentTarget.dataset
+
     if (!selectingRange) {
       return
     }
@@ -85,6 +89,7 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
     if (props.range === true) {
       return onClickRange(e)
     }
+
     return onClickCalendar(e)
   }
   const handleRangeOnChange = (
@@ -93,13 +98,11 @@ export const useCalendarHandlers = (props: useCalendarHandlersType) => {
   ) => {
     if (typeof props.onChange === 'function' && guardRange(props)) {
       if (from != null && to != null) {
-        props.onChange({
-          from,
-          to
-        })
+        props.onChange(to)
       }
     }
   }
+
   return {
     handlers: {
       onClick: handleClickEvent,

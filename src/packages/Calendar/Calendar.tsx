@@ -1,52 +1,50 @@
-import React, {
-  type ForwardedRef,
-  forwardRef,
-  useMemo,
-  useRef,
-  useState
-} from 'react'
+import { type ForwardedRef, forwardRef, useMemo, useRef, useState } from 'react'
+
+import CalendarItem, { CalendarText } from '@components/core/calendar-item'
+import Header, { DayName } from '@components/navigation/header'
+import MonthPicker from '@components/pickers/month-picker'
+import YearPicker from '@components/pickers/year-picker'
+
+import useCalendarHandlers from '@hooks/useCalendarHandlers'
+import { useSlideCalendar } from '@hooks/useSlideCalendar'
+
+import {
+  isInBetween,
+  sameDay,
+  selectMonth,
+  selectYear
+} from '@utils/dateHelper/dateHelper'
+import formatDate from '@utils/format'
+import localeCache from '@utils/locale'
+import locales from '@utils/locales'
+import getDays from '@utils/month'
+
+import { DaysButton } from '@style/classNames'
+
+import { type CalendarProps } from './Calendar.types'
 import {
   Days,
   SlideDays,
   SubHeader,
   Wrapper,
   WrapperDays
-} from './Calendar.styled'
-import Header from '../../components/Header'
-import { useSlideCalendar } from '../../hooks/useSlideCalendar'
-import CalendarItem from '../../components/CalendarItem'
-import {
-  isInBetween,
-  sameDay,
-  selectMonth,
-  selectYear
-} from '../../utils/dateHelper/dateHelper'
-import formatDate from '../../utils/format'
-import getDays from '../../utils/month'
-import MonthPicker from '../../components/MonthPicker'
-import YearPicker from '../../components/YearPicker'
-import { DayName } from '../../components/Header/Header.styled'
-import locales from '../../utils/locales'
-import localeCache from '../../utils/locale'
-import type { DaysInMonth } from '../../utils/month/month.types'
-import type { CalendarProps } from './Calendar.types'
-import type { Pickers } from '../../types'
-import useCalendarHandlers from '../../hooks/useCalendarHandlers'
-import { CalendarText } from '../../components/CalendarItem/CalendarItem.styled'
-import { DaysButton } from '../../style/classNames'
+} from './sub-components'
+
+import type { Pickers } from '@types'
+import type { DaysInMonth } from '@utils/month/month.types'
 
 const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { locale } = localeCache
   const { defaultValue, weekends, range = false } = props
-  const startDate = defaultValue === undefined ? new Date() : defaultValue
-  // memo
-  const getAllDays = useMemo(() => getDays(defaultValue), [])
-  // states
+  const startDate = defaultValue ?? new Date()
+
+  const getAllDays = useMemo(() => getDays(defaultValue), [defaultValue])
+
   const [days, setDays] = useState<DaysInMonth[]>([getAllDays])
   const [picker, setPicker] = useState<Pickers>('days')
-  // refs
+
   const daysElementRefs = useRef<HTMLDivElement[]>([])
-  // handlers
+
   const slideHandlers = useSlideCalendar({
     daysElementRefs,
     days,
@@ -57,6 +55,7 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   const togglePickers = () => {
     if (picker === 'month' || picker === 'year') {
       setPicker('days')
+
       return
     }
     setPicker('year')
@@ -73,19 +72,19 @@ const Calendar = (props: CalendarProps, ref: ForwardedRef<HTMLDivElement>) => {
   }
   const handleMonthSelect = (month: number) => {
     const date = selectMonth(days[0].middleOfMonth, month)
+
     setDays([getDays(date)])
     setPicker('days')
   }
   const handleYearSelect = (year: number) => {
     const date = selectYear(startDate, year)
+
     setDays([getDays(date)])
     setPicker('month')
   }
+
   return (
-    <Wrapper
-      ref={ref}
-      className={props.className !== null ? props.className : ''}
-    >
+    <Wrapper ref={ref} className={props.className ?? ''}>
       <Header
         monthName={days[0].monthName}
         onNextClick={handleNextMonth}

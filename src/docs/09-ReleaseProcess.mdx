@@ -1,0 +1,619 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Release Process" />
+
+# 🚀 Release Process
+
+Understanding how Zaman versions, releases, and maintains stability.
+
+## 📋 Overview
+
+Zaman follows **Semantic Versioning** (SemVer) and uses **automated releases** through semantic-release.
+
+### Current Version: 2.1.1
+
+---
+
+## 🔢 Semantic Versioning
+
+We use SemVer: `MAJOR.MINOR.PATCH`
+
+```
+2.1.1
+│ │ │
+│ │ └─── PATCH: Bug fixes, documentation updates
+│ └───── MINOR: New features (backward compatible)
+└─────── MAJOR: Breaking changes
+```
+
+### Version Bump Rules
+
+| Commit Type             | Version Bump | Example           |
+| ----------------------- | ------------ | ----------------- |
+| `fix:`                  | PATCH        | `2.1.1` → `2.1.2` |
+| `feat:`                 | MINOR        | `2.1.1` → `2.2.0` |
+| `BREAKING CHANGE:`      | MAJOR        | `2.1.1` → `3.0.0` |
+| `docs:`, `chore:`, etc. | No bump      | `2.1.1` → `2.1.1` |
+
+---
+
+## 🤖 Automated Release Process
+
+Zaman uses **semantic-release** for fully automated releases.
+
+### The Flow
+
+```
+1. Developer commits code
+   ↓
+2. Commit follows conventional format
+   ↓
+3. PR reviewed and merged to main
+   ↓
+4. CI runs all checks
+   ├─ Type checking
+   ├─ Linting
+   ├─ Unit tests
+   ├─ E2E tests
+   └─ Build
+   ↓
+5. semantic-release analyzes commits
+   ↓
+6. Version determined automatically
+   ↓
+7. CHANGELOG.md updated
+   ↓
+8. Git tag created
+   ↓
+9. Package published to npm
+   ↓
+10. GitHub release created
+```
+
+### Configuration
+
+```json
+// package.json
+{
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
+  }
+}
+```
+
+---
+
+## 📝 Conventional Commits
+
+All commits must follow the Conventional Commits specification.
+
+### Format
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Types
+
+| Type       | Description              | Version Bump |
+| ---------- | ------------------------ | ------------ |
+| `feat`     | New feature              | MINOR        |
+| `fix`      | Bug fix                  | PATCH        |
+| `docs`     | Documentation only       | None         |
+| `style`    | Code style changes       | None         |
+| `refactor` | Code refactoring         | None         |
+| `perf`     | Performance improvements | PATCH        |
+| `test`     | Test changes             | None         |
+| `chore`    | Maintenance tasks        | None         |
+| `ci`       | CI/CD changes            | None         |
+| `build`    | Build system changes     | None         |
+
+### Examples
+
+#### Feature (Minor Version Bump)
+
+```bash
+git commit -m "feat(date-picker): add custom date format support
+
+Allows users to specify custom date formats using Day.js format tokens.
+
+Closes #123"
+```
+
+Result: `2.1.1` → `2.2.0`
+
+#### Bug Fix (Patch Version Bump)
+
+```bash
+git commit -m "fix(calendar): resolve range selection bug
+
+Range selection now correctly handles month boundaries.
+
+Fixes #456"
+```
+
+Result: `2.1.1` → `2.1.2`
+
+#### Breaking Change (Major Version Bump)
+
+```bash
+git commit -m "feat(theme)!: redesign theme system
+
+BREAKING CHANGE: Theme API has been completely redesigned.
+Old themes are no longer compatible.
+
+Migration guide: docs/migration-to-v3.md"
+```
+
+Result: `2.1.1` → `3.0.0`
+
+#### Documentation (No Version Bump)
+
+```bash
+git commit -m "docs(readme): update installation instructions"
+```
+
+Result: `2.1.1` → `2.1.1` (no release)
+
+---
+
+## 🎯 Release Types
+
+### Regular Release
+
+**When**: Merged to `main` branch  
+**Process**: Automated via CI/CD  
+**Frequency**: As needed
+
+```bash
+# After PR is merged
+main branch ← PR
+     ↓
+CI runs semantic-release
+     ↓
+New version published (if commits warrant it)
+```
+
+### Prerelease (Alpha/Beta)
+
+**When**: Testing major changes  
+**Branch**: `beta` or `alpha`  
+**Process**: Manual or automated
+
+```bash
+# Publishing a beta
+pnpm run release:beta
+
+# Version: 2.2.0-beta.1
+```
+
+### Hotfix Release
+
+**When**: Critical bug in production  
+**Process**: Fast-track through CI
+
+```bash
+# Create hotfix branch
+git checkout -b hotfix/critical-bug
+
+# Fix bug
+git commit -m "fix: resolve critical security issue"
+
+# Merge to main (expedited review)
+# CI automatically releases patch version
+```
+
+---
+
+## 📋 Pre-Release Checklist
+
+Before merging to `main`, ensure:
+
+- ✅ All tests pass (`pnpm test`)
+- ✅ E2E tests pass (`pnpm test:e2e`)
+- ✅ Linting passes (`pnpm lint`)
+- ✅ Type checking passes (`pnpm type-check`)
+- ✅ Build succeeds (`pnpm build`)
+- ✅ Storybook builds (`pnpm build-storybook`)
+- ✅ Documentation updated (if needed)
+- ✅ CHANGELOG will be auto-generated
+- ✅ Commit messages follow convention
+
+### Run Full CI Locally
+
+```bash
+pnpm ci
+```
+
+This runs the complete CI pipeline locally.
+
+---
+
+## 📜 CHANGELOG Management
+
+### Automatic Generation
+
+CHANGELOG.md is automatically generated from commit messages:
+
+```markdown
+# Changelog
+
+## [2.2.0](https://github.com/.../compare/v2.1.1...v2.2.0) (2024-01-15)
+
+### Features
+
+- **date-picker:** add custom date format support ([abc123](link))
+- **theme:** add dark mode presets ([def456](link))
+
+### Bug Fixes
+
+- **calendar:** resolve range selection bug ([ghi789](link))
+```
+
+### Manual Entries (if needed)
+
+```bash
+# Generate changelog
+pnpm changelog
+
+# Or from scratch
+pnpm changelog:first
+```
+
+---
+
+## 🏷️ Git Tags
+
+Tags are automatically created during release:
+
+```bash
+# Format
+v{MAJOR}.{MINOR}.{PATCH}
+
+# Examples
+v2.1.1
+v2.2.0
+v3.0.0
+v3.0.0-beta.1
+```
+
+### Viewing Tags
+
+```bash
+# List all tags
+git tag
+
+# Show specific tag
+git show v2.1.1
+```
+
+---
+
+## 📦 npm Publishing
+
+### Automatic Publishing
+
+Packages are automatically published to npm when released:
+
+```bash
+# After successful release
+✔ Verified release on GitHub
+✔ Published to npm: zaman@2.2.0
+```
+
+### Manual Publishing (Emergency Only)
+
+```bash
+# Build first
+pnpm build
+
+# Publish
+npm publish
+
+# Publish with tag
+npm publish --tag beta
+```
+
+### npm Distribution Tags
+
+| Tag      | Purpose            | Version Example |
+| -------- | ------------------ | --------------- |
+| `latest` | Stable releases    | `2.1.1`         |
+| `beta`   | Beta testing       | `2.2.0-beta.1`  |
+| `alpha`  | Early testing      | `3.0.0-alpha.1` |
+| `next`   | Development builds | `2.2.0-next.1`  |
+
+---
+
+## 🔄 Version Migration
+
+### Breaking Changes (Major Versions)
+
+When introducing breaking changes:
+
+1. **Document the change**
+
+   ```bash
+   BREAKING CHANGE: Old API is no longer supported.
+   Use newAPI() instead of oldAPI().
+   ```
+
+2. **Create migration guide**
+
+   ```
+   scripts/codemods/migrate-to-v3.js
+   ```
+
+3. **Provide migration script**
+
+   ```bash
+   npx zaman-migrate v2-to-v3
+   ```
+
+4. **Update documentation**
+   - Migration guide in docs
+   - Update all examples
+   - Update README
+
+### Migration Script Example
+
+```javascript
+// scripts/codemods/migrate-to-v3.js
+module.exports = function transformer(file, api) {
+  const j = api.jscodeshift
+  const root = j(file.source)
+
+  // Transform old API to new API
+  root
+    .find(j.ImportDeclaration, {
+      source: { value: 'zaman' }
+    })
+    .forEach((path) => {
+      // Migration logic
+    })
+
+  return root.toSource()
+}
+```
+
+Usage:
+
+```bash
+npx jscodeshift -t scripts/codemods/migrate-to-v3.js src/
+```
+
+---
+
+## 🧪 Testing Releases
+
+### Test Before Release
+
+1. **Local Testing**
+
+   ```bash
+   # Link locally
+   pnpm link
+
+   # In test project
+   pnpm link zaman
+   ```
+
+2. **Dry Run**
+
+   ```bash
+   pnpm release:dry
+   ```
+
+   This shows what would be released without actually releasing.
+
+3. **Beta Testing**
+
+   ```bash
+   # Publish beta
+   pnpm publish --tag beta
+
+   # Install beta
+   npm install zaman@beta
+   ```
+
+---
+
+## 📊 Release Metrics
+
+### Key Metrics Tracked
+
+- **Release Frequency**: ~2-4 weeks
+- **Patch Releases**: As needed for bugs
+- **Major Releases**: 1-2 per year
+- **Time to Release**: < 10 minutes (automated)
+
+### Release Dashboard
+
+Monitor releases at:
+
+- **npm**: https://www.npmjs.com/package/zaman
+- **GitHub Releases**: https://github.com/rzkhosroshahi/zaman/releases
+- **CHANGELOG**: In repository root
+
+---
+
+## 🔒 Security Releases
+
+### Security Vulnerability Process
+
+1. **Report received** (via GitHub Security Advisory)
+2. **Assess severity** (Critical/High/Medium/Low)
+3. **Develop fix** (in private fork)
+4. **Test thoroughly**
+5. **Coordinate disclosure** (with reporter)
+6. **Release patch**
+7. **Publish security advisory**
+8. **Notify users**
+
+### Security Release Example
+
+```bash
+# Commit
+git commit -m "fix(security): resolve XSS vulnerability in date input
+
+SECURITY: Fixes potential XSS attack vector.
+
+CVE-2024-XXXXX"
+
+# This triggers immediate patch release
+```
+
+---
+
+## 📢 Release Communication
+
+### Channels
+
+1. **GitHub Releases**
+   - Automatic release notes
+   - Full changelog
+   - Breaking changes highlighted
+
+2. **npm Package Page**
+   - Version history
+   - Download statistics
+
+3. **Twitter/Social Media**
+   - Major releases announced
+   - Feature highlights
+
+4. **Documentation Site**
+   - Updated with each release
+   - Version switcher (future)
+
+### Release Notes Template
+
+```markdown
+## What's Changed
+
+### Features 🎉
+
+- Feature 1 description
+- Feature 2 description
+
+### Bug Fixes 🐛
+
+- Bug 1 fix
+- Bug 2 fix
+
+### Documentation 📚
+
+- Doc improvement 1
+- Doc improvement 2
+
+### Performance ⚡
+
+- Performance improvement 1
+
+### Breaking Changes ⚠️
+
+- Breaking change with migration path
+
+**Full Changelog**: v2.1.0...v2.2.0
+```
+
+---
+
+## 🎓 Deprecation Policy
+
+### Deprecating Features
+
+1. **Announce in release notes**
+
+   ```
+   DEPRECATED: oldAPI() will be removed in v4.0.0
+   Use newAPI() instead.
+   ```
+
+2. **Add deprecation warning**
+
+   ```tsx
+   function oldAPI() {
+     console.warn('oldAPI is deprecated. Use newAPI() instead.')
+     // ... implementation
+   }
+   ```
+
+3. **Update documentation**
+   - Mark as deprecated
+   - Show migration path
+
+4. **Wait at least one major version**
+   - v3.0.0: Deprecate
+   - v4.0.0: Remove
+
+---
+
+## 📅 Release Schedule
+
+### Regular Schedule
+
+- **Patch releases**: As needed (bug fixes)
+- **Minor releases**: Every 2-4 weeks
+- **Major releases**: 1-2 times per year
+
+### Exception Schedule
+
+- **Security fixes**: Immediate
+- **Critical bugs**: Within 24-48 hours
+- **Community requests**: Next minor release
+
+---
+
+## 🔗 Useful Commands
+
+```bash
+# View release history
+git log --oneline --decorate --graph
+
+# View specific release
+git show v2.1.1
+
+# Compare versions
+git diff v2.1.0..v2.1.1
+
+# Test release process (dry run)
+pnpm release:dry
+
+# Generate changelog
+pnpm changelog
+
+# Full CI check
+pnpm ci
+```
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#eff6ff',
+    borderRadius: '8px',
+    borderLeft: '4px solid #3b82f6'
+  }}
+>
+  <strong>🎯 For Maintainers:</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Never manually create versions, tags, or releases. Let semantic-release
+    handle everything. Just focus on writing good commit messages and the rest
+    happens automatically!
+  </p>
+</div>

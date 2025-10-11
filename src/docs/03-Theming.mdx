@@ -1,0 +1,595 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Theming" />
+
+# 🎨 Theming Guide
+
+Zaman provides a powerful, flexible theming system that lets you customize every aspect of the components' appearance.
+
+## 🚀 Quick Start
+
+### Method 1: Inline Props (Simplest)
+
+The quickest way to customize appearance:
+
+```tsx
+<DatePicker accentColor="#FF6B6B" round="x3" locale="en" direction="ltr" />
+```
+
+### Method 2: ThemeProvider (Recommended)
+
+For consistent theming across your app:
+
+```tsx
+import { ThemeProvider, createTheme, DatePicker } from 'zaman'
+
+const myTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#8B5CF6',
+      light: '#A78BFA',
+      dark: '#7C3AED'
+    }
+  },
+  round: 'thick'
+})
+
+function App() {
+  return (
+    <ThemeProvider theme={myTheme}>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+---
+
+## 🎨 Color System
+
+### Primary Colors
+
+Customize the main accent color:
+
+```tsx
+const theme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#3B82F6', // Main color
+      light: '#60A5FA', // Hover states
+      lighter: '#93C5FD', // Light backgrounds
+      dark: '#2563EB', // Active states
+      foreground: '#FFFFFF' // Text on primary
+    }
+  }
+})
+```
+
+### Gray Scale
+
+Fine-tune neutral colors:
+
+```tsx
+const theme = createTheme({
+  colors: {
+    gray: {
+      0: '#FFFFFF',
+      100: '#F3F4F6',
+      200: '#E5E7EB',
+      300: '#D1D5DB',
+      400: '#9CA3AF',
+      500: '#6B7280',
+      600: '#4B5563',
+      700: '#374151',
+      800: '#1F2937',
+      900: '#111827'
+    }
+  }
+})
+```
+
+### Semantic Colors
+
+```tsx
+const theme = createTheme({
+  colors: {
+    background: '#FFFFFF', // Main background
+    foreground: '#000000', // Main text
+    weekend: '#EF4444', // Weekend highlighting
+    disabled: '#9CA3AF', // Disabled states
+    border: '#E5E7EB' // Border colors
+  }
+})
+```
+
+### Quick Accent Color
+
+For simple color changes:
+
+```tsx
+import { generateAccentPalette } from 'zaman'
+
+const palette = generateAccentPalette('#FF6B6B')
+// Returns: { DEFAULT, light, lighter, dark, foreground }
+```
+
+---
+
+## 📏 Spacing System
+
+Control dimensions and spacing:
+
+```tsx
+const theme = createTheme({
+  spacing: {
+    calendarItemWidth: '40px',
+    calendarItemHeight: '40px',
+    calendarGap: '8px',
+    headerHeight: '48px',
+    modalPadding: '16px'
+  }
+})
+```
+
+### Available Spacing Properties
+
+| Property             | Default  | Description                  |
+| -------------------- | -------- | ---------------------------- |
+| `calendarItemWidth`  | `'40px'` | Width of calendar day cells  |
+| `calendarItemHeight` | `'40px'` | Height of calendar day cells |
+| `calendarGap`        | `'8px'`  | Gap between calendar items   |
+| `headerHeight`       | `'48px'` | Height of calendar header    |
+| `modalPadding`       | `'16px'` | Padding inside modal         |
+
+---
+
+## 🔘 Border Radius
+
+### Using Presets
+
+```tsx
+<DatePicker round="x3" />
+```
+
+Available presets:
+
+- `thin` - Minimal rounding
+- `x1` - Small
+- `x2` - Medium
+- `x3` - Large
+- `x4` - Extra large
+- `thick` - Maximum
+
+### Custom Radius
+
+```tsx
+const theme = createTheme({
+  radius: {
+    item: '8px', // Calendar items
+    modal: '16px', // Modal/popup
+    button: '6px', // Buttons
+    input: '8px' // Input fields
+  }
+})
+```
+
+### Round Preset Reference
+
+```tsx
+import { roundPresets } from 'zaman'
+
+// roundPresets contains:
+{
+  thin: { item: '2px', modal: '4px', button: '2px', input: '4px' },
+  x1: { item: '4px', modal: '8px', button: '4px', input: '6px' },
+  x2: { item: '6px', modal: '12px', button: '6px', input: '8px' },
+  x3: { item: '8px', modal: '16px', button: '8px', input: '10px' },
+  x4: { item: '10px', modal: '20px', button: '10px', input: '12px' },
+  thick: { item: '12px', modal: '24px', button: '12px', input: '16px' }
+}
+```
+
+---
+
+## 🎭 Complete Theme Example
+
+### Modern Light Theme
+
+```tsx
+import { ThemeProvider, createTheme } from 'zaman'
+
+const modernLight = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#3B82F6',
+      light: '#60A5FA',
+      lighter: '#DBEAFE',
+      dark: '#2563EB',
+      foreground: '#FFFFFF'
+    },
+    background: '#FFFFFF',
+    foreground: '#1F2937',
+    border: '#E5E7EB',
+    weekend: '#EF4444',
+    disabled: '#9CA3AF',
+    gray: {
+      0: '#FFFFFF',
+      100: '#F9FAFB',
+      200: '#F3F4F6',
+      300: '#E5E7EB',
+      400: '#D1D5DB',
+      500: '#9CA3AF',
+      600: '#6B7280',
+      700: '#4B5563',
+      800: '#374151',
+      900: '#1F2937'
+    }
+  },
+  spacing: {
+    calendarItemWidth: '42px',
+    calendarItemHeight: '42px',
+    calendarGap: '6px',
+    headerHeight: '52px',
+    modalPadding: '20px'
+  },
+  radius: {
+    item: '8px',
+    modal: '16px',
+    button: '8px',
+    input: '10px'
+  },
+  fontSizes: {
+    xs: '12px',
+    sm: '14px',
+    base: '16px',
+    lg: '18px',
+    xl: '20px',
+    '2xl': '24px'
+  }
+})
+
+function App() {
+  return (
+    <ThemeProvider theme={modernLight}>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+### Dark Theme
+
+```tsx
+const darkTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#60A5FA',
+      light: '#93C5FD',
+      lighter: '#DBEAFE',
+      dark: '#3B82F6',
+      foreground: '#1F2937'
+    },
+    background: '#1F2937',
+    foreground: '#F9FAFB',
+    border: '#374151',
+    weekend: '#F87171',
+    disabled: '#6B7280',
+    gray: {
+      0: '#F9FAFB',
+      100: '#F3F4F6',
+      200: '#E5E7EB',
+      300: '#D1D5DB',
+      400: '#9CA3AF',
+      500: '#6B7280',
+      600: '#4B5563',
+      700: '#374151',
+      800: '#1F2937',
+      900: '#111827'
+    }
+  },
+  round: 'x2'
+})
+```
+
+### Vibrant Theme
+
+```tsx
+const vibrantTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#EC4899',
+      light: '#F472B6',
+      lighter: '#FCE7F3',
+      dark: '#DB2777',
+      foreground: '#FFFFFF'
+    },
+    background: '#FDF2F8',
+    foreground: '#831843'
+  },
+  round: 'x4'
+})
+```
+
+---
+
+## 🔧 Advanced Theming
+
+### Merging Themes
+
+Combine themes or extend the default:
+
+```tsx
+import { mergeTheme, defaultTheme } from 'zaman'
+
+const myTheme = mergeTheme(defaultTheme, {
+  colors: {
+    primary: {
+      DEFAULT: '#8B5CF6'
+    }
+  }
+})
+```
+
+### CSS Variables
+
+All theme values are exposed as CSS variables:
+
+```css
+.my-custom-calendar {
+  --zaman-primary: #ff6b6b;
+  --zaman-primary-light: #ff8787;
+  --zaman-primary-dark: #ff5252;
+  --zaman-radius-item: 12px;
+  --zaman-calendar-gap: 4px;
+}
+```
+
+### Available CSS Variables
+
+#### Colors
+
+```css
+--zaman-primary
+--zaman-primary-light
+--zaman-primary-lighter
+--zaman-primary-dark
+--zaman-primary-foreground
+--zaman-gray-{0-900}
+--zaman-weekend
+--zaman-disabled
+--zaman-border
+--zaman-background
+--zaman-foreground
+```
+
+#### Spacing
+
+```css
+--zaman-calendar-item-width
+--zaman-calendar-item-height
+--zaman-calendar-gap
+--zaman-header-height
+--zaman-modal-padding
+```
+
+#### Radius
+
+```css
+--zaman-radius-item
+--zaman-radius-modal
+--zaman-radius-button
+--zaman-radius-input
+```
+
+#### Typography
+
+```css
+--zaman-text-xs
+--zaman-text-sm
+--zaman-text-base
+--zaman-text-lg
+--zaman-text-xl
+--zaman-text-2xl
+```
+
+### Runtime Theme Updates
+
+```tsx
+function ThemeSwitcher() {
+  const [isDark, setIsDark] = useState(false)
+
+  const theme = isDark ? darkTheme : lightTheme
+
+  return (
+    <ThemeProvider theme={theme}>
+      <button onClick={() => setIsDark(!isDark)}>Toggle Theme</button>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+---
+
+## 🎯 Theming Best Practices
+
+### 1. Use ThemeProvider for Consistency
+
+```tsx
+// ✅ Good - Consistent theming
+<ThemeProvider theme={myTheme}>
+  <DatePicker />
+  <Calendar />
+  <TimePicker />
+</ThemeProvider>
+
+// ❌ Bad - Inconsistent styling
+<DatePicker accentColor="#FF0000" />
+<Calendar accentColor="#00FF00" />
+```
+
+### 2. Define Theme Constants
+
+```tsx
+// theme.ts
+export const appTheme = createTheme({...})
+
+// Use in components
+import { appTheme } from './theme'
+```
+
+### 3. Extend, Don't Replace
+
+```tsx
+// ✅ Good - Extends default
+const theme = mergeTheme(defaultTheme, {
+  colors: { primary: {...} }
+})
+
+// ⚠️ Be careful - Replaces everything
+const theme = createTheme({
+  colors: { primary: {...} }
+  // Missing other required properties!
+})
+```
+
+### 4. Use Semantic Color Names
+
+```tsx
+// ✅ Good
+colors: {
+  weekend: '#EF4444',
+  disabled: '#9CA3AF'
+}
+
+// ❌ Less clear
+colors: {
+  weekend: '#EF4444',
+  thing: '#9CA3AF'
+}
+```
+
+---
+
+## 📱 Responsive Theming
+
+Adjust theme based on screen size:
+
+```tsx
+function ResponsiveTheme() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const theme = createTheme({
+    spacing: {
+      calendarItemWidth: isMobile ? '36px' : '42px',
+      calendarItemHeight: isMobile ? '36px' : '42px'
+    }
+  })
+
+  return (
+    <ThemeProvider theme={theme}>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+---
+
+## 🎨 Theme Gallery
+
+### Minimal
+
+```tsx
+createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#000000',
+      light: '#333333',
+      dark: '#000000',
+      foreground: '#FFFFFF'
+    }
+  },
+  round: 'thin'
+})
+```
+
+### Colorful
+
+```tsx
+createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#F59E0B',
+      light: '#FBBF24',
+      dark: '#D97706',
+      foreground: '#FFFFFF'
+    }
+  },
+  round: 'x4'
+})
+```
+
+### Professional
+
+```tsx
+createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#1E40AF',
+      light: '#3B82F6',
+      dark: '#1E3A8A',
+      foreground: '#FFFFFF'
+    }
+  },
+  round: 'x1'
+})
+```
+
+---
+
+## 📚 Type Definitions
+
+```tsx
+import type {
+  ThemeConfig,
+  ThemeColors,
+  ThemeSpacing,
+  ThemeRadius,
+  ThemeFontSizes
+} from 'zaman'
+
+const theme: ThemeConfig = {
+  colors: {...},
+  spacing: {...},
+  radius: {...},
+  fontSizes: {...}
+}
+```
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#fef3c7',
+    borderRadius: '8px',
+    borderLeft: '4px solid #f59e0b'
+  }}
+>
+  <strong>⚡ Performance Tip:</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Define your theme once and memoize it. Don't create new theme objects on
+    every render!
+  </p>
+</div>

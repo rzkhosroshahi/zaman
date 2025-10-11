@@ -1,0 +1,53 @@
+@keyframes zaman-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zaman-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zaman-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zaman-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.zaman-slide-down {
+  animation: zaman-slide-down 0.3s cubic-bezier(0.4, 0, 0.2, 1) alternate;
+}
+
+.zaman-fade {
+  animation: zaman-fade 0.7s linear alternate;
+}
+
+.zaman-fade-in {
+  animation: zaman-fade-in 0.3s ease-in;
+}
+
+.zaman-fade-out {
+  animation: zaman-fade-out 0.3s ease-out;
+}

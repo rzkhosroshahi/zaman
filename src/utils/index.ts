@@ -1,10 +1,15 @@
 import localeCache from './locale'
 
+export { cn } from './cn'
+export { createVariants } from './variants'
+export { debounce } from './debounce'
+
 export const isRtl = (): boolean => {
   if (document.dir !== '') {
     return document.dir === 'rtl'
   }
   const { body } = document
+
   return getComputedStyle(body).direction === 'rtl'
 }
 
@@ -13,6 +18,7 @@ export const localizeNumber = (n: string | number) => {
     return n
   }
   const { locale } = localeCache
+
   return Number(n).toLocaleString(locale, {
     useGrouping: false
   })

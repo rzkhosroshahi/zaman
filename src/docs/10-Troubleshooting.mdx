@@ -1,0 +1,667 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Troubleshooting & FAQ" />
+
+# 🔧 Troubleshooting & FAQ
+
+Common issues, solutions, and frequently asked questions about Zaman.
+
+## ❓ Frequently Asked Questions
+
+### General Questions
+
+<details>
+<summary><strong>What calendars does Zaman support?</strong></summary>
+
+Zaman supports:
+
+- **Jalali (Persian/Shamsi)** calendar
+- **Gregorian** calendar
+
+You can switch between them using the `locale` prop:
+
+```tsx
+<DatePicker locale="fa" />  // Jalali
+<DatePicker locale="en" />  // Gregorian
+```
+
+</details>
+
+<details>
+<summary><strong>Does Zaman work with Next.js?</strong></summary>
+
+Yes! Zaman works perfectly with Next.js. If you're using the App Router, make sure to use it in Client Components:
+
+```tsx
+'use client'
+
+import { DatePicker } from 'zaman'
+
+export default function MyComponent() {
+  return <DatePicker />
+}
+```
+
+</details>
+
+<details>
+<summary><strong>Is Zaman accessible (a11y)?</strong></summary>
+
+Yes! Zaman is built with accessibility in mind:
+
+- ✅ Keyboard navigation
+- ✅ Screen reader support
+- ✅ ARIA attributes
+- ✅ Focus management
+- ✅ Semantic HTML
+
+We use axe-core for automated accessibility testing.
+
+</details>
+
+<details>
+<summary><strong>Can I use Zaman with TypeScript?</strong></summary>
+
+Absolutely! Zaman is written in TypeScript and includes full type definitions. No additional `@types/*` packages needed.
+
+```tsx
+import type { DatePickerProps } from 'zaman'
+
+const config: DatePickerProps = {
+  locale: 'en',
+  onChange: (date) => console.log(date)
+}
+```
+
+</details>
+
+<details>
+<summary><strong>What's the bundle size?</strong></summary>
+
+Zaman is lightweight:
+
+- **Minified**: ~45KB
+- **Minified + Gzipped**: ~15KB
+
+The library is tree-shakeable, so you only bundle what you use.
+
+</details>
+
+<details>
+<summary><strong>Does Zaman support SSR?</strong></summary>
+
+Yes, Zaman works with Server-Side Rendering. However, the interactive components need to be rendered on the client side. Use dynamic imports in Next.js if needed:
+
+```tsx
+import dynamic from 'next/dynamic'
+
+const DatePicker = dynamic(
+  () => import('zaman').then((mod) => mod.DatePicker),
+  {
+    ssr: false
+  }
+)
+```
+
+</details>
+
+---
+
+## 🐛 Common Issues
+
+### Installation Issues
+
+#### Issue: Package not found
+
+**Error:**
+
+```
+npm ERR! 404 Not Found - GET https://registry.npmjs.org/zaman
+```
+
+**Solution:**
+
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Try again
+npm install zaman
+```
+
+#### Issue: Peer dependency warnings
+
+**Warning:**
+
+```
+npm WARN zaman@2.1.1 requires a peer of react@>=18.2.0
+```
+
+**Solution:**
+Ensure you have React 18.2.0 or higher:
+
+```bash
+npm install react@latest react-dom@latest
+```
+
+---
+
+### Styling Issues
+
+#### Issue: Styles not showing
+
+**Problem:** DatePicker renders but has no styling.
+
+**Solution 1:** Ensure CSS is being loaded
+
+```tsx
+// If using a bundler that doesn't auto-import CSS
+import 'zaman/dist/assets/zaman.css'
+```
+
+**Solution 2:** Check for CSS conflicts
+
+```tsx
+// CSS variables might be overridden
+// Check your global CSS for conflicts with --zaman-* variables
+```
+
+#### Issue: Theme not applying
+
+**Problem:** Theme changes have no effect.
+
+**Solution:** Ensure ThemeProvider is wrapping your components:
+
+```tsx
+// ❌ Bad
+<DatePicker />
+<ThemeProvider theme={myTheme}>
+  ...
+</ThemeProvider>
+
+// ✅ Good
+<ThemeProvider theme={myTheme}>
+  <DatePicker />
+</ThemeProvider>
+```
+
+#### Issue: Dark mode not working
+
+**Problem:** Dark theme colors not applying.
+
+**Solution:**
+
+```tsx
+// Make sure to override all necessary colors
+const darkTheme = createTheme({
+  colors: {
+    background: '#1F2937',  // Important!
+    foreground: '#F9FAFB',  // Important!
+    primary: { ... },
+    gray: { ... }  // All gray shades
+  }
+})
+```
+
+---
+
+### TypeScript Issues
+
+#### Issue: Type errors with onChange
+
+**Error:**
+
+```
+Type 'Date' is not assignable to type 'never'
+```
+
+**Solution:**
+
+```tsx
+// ✅ Properly type your state
+const [date, setDate] = useState<Date | null>(null)
+
+// ❌ Don't use never
+const [date, setDate] = useState()
+```
+
+#### Issue: Props not recognized
+
+**Error:**
+
+```
+Property 'locale' does not exist on type 'IntrinsicAttributes'
+```
+
+**Solution:**
+
+```bash
+# Ensure you have the latest version
+npm install zaman@latest
+
+# Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+### Runtime Issues
+
+#### Issue: Calendar not opening
+
+**Problem:** Clicking input doesn't show calendar.
+
+**Solution 1:** Check z-index
+
+```css
+/* Make sure calendar isn't hidden */
+.your-container {
+  z-index: auto; /* Not 9999 */
+}
+```
+
+**Solution 2:** Check for click event blocking
+
+```tsx
+// Ensure no parent is calling stopPropagation
+<div onClick={(e) => e.stopPropagation()}>
+  {' '}
+  {/* ❌ Bad */}
+  <DatePicker />
+</div>
+```
+
+#### Issue: onChange not firing
+
+**Problem:** onChange callback never called.
+
+**Solution:**
+
+```tsx
+// ✅ Make sure onChange is defined
+<DatePicker
+  onChange={(date) => {
+    console.log('Date changed:', date)
+    // Your logic here
+  }}
+/>
+
+// ❌ Don't forget onChange
+<DatePicker />
+```
+
+#### Issue: Date format incorrect
+
+**Problem:** Date displays in wrong format.
+
+**Solution:**
+
+```tsx
+// Use customShowDateFormat prop
+<DatePicker customShowDateFormat="DD/MM/YYYY" locale="en" />
+
+// Format follows Day.js format tokens
+// DD = day, MM = month, YYYY = year
+```
+
+---
+
+### Range Picker Issues
+
+#### Issue: Range selection not working
+
+**Problem:** Clicking dates doesn't create a range.
+
+**Solution:**
+
+```tsx
+// ✅ Enable range mode
+<DatePicker
+  range={true} // Don't forget this!
+  onChange={({ from, to }) => console.log(from, to)}
+/>
+```
+
+#### Issue: Can't select same day as start and end
+
+**Problem:** Range requires different start and end dates.
+
+**Expected Behavior:** This is by design. A range needs two different dates. For single date selection, use regular mode:
+
+```tsx
+<DatePicker range={false} />
+```
+
+---
+
+### Locale Issues
+
+#### Issue: Persian numbers not showing
+
+**Problem:** Numbers display in Western format (0-9) instead of Persian (۰-۹).
+
+**Solution:**
+
+```tsx
+// Ensure locale is set to 'fa'
+<DatePicker locale="fa" direction="rtl" />
+```
+
+#### Issue: Custom locale not working
+
+**Problem:** Custom locale not being used.
+
+**Solution:**
+
+```tsx
+import { createI18nProvider } from 'zaman'
+
+// 1. Create provider
+const i18n = createI18nProvider({ defaultLocale: 'ar' })
+
+// 2. Register locale
+i18n.register('ar', arabicLocale)
+
+// 3. Use it (you may need to restart dev server)
+<DatePicker locale="ar" />
+```
+
+---
+
+### Mobile Issues
+
+#### Issue: Calendar too large on mobile
+
+**Solution:**
+
+```tsx
+// Use responsive theme
+const mobileTheme = createTheme({
+  spacing: {
+    calendarItemWidth: '36px',
+    calendarItemHeight: '36px',
+    calendarGap: '4px'
+  }
+})
+```
+
+#### Issue: Input keyboard opens on mobile
+
+**Problem:** Mobile keyboard appears when tapping DatePicker.
+
+**Solution:**
+
+```tsx
+<DatePicker
+  inputAttributes={{
+    readOnly: true, // Prevent keyboard
+    inputMode: 'none' // iOS
+  }}
+/>
+```
+
+---
+
+### Performance Issues
+
+#### Issue: Slow rendering with many calendars
+
+**Problem:** Page slow when rendering multiple calendars.
+
+**Solution:**
+
+```tsx
+// 1. Use React.memo
+const MemoizedDatePicker = memo(DatePicker)
+
+// 2. Virtualize if needed
+// 3. Limit number of visible calendars
+```
+
+#### Issue: Memory leak warning
+
+**Warning:**
+
+```
+Warning: Can't perform a React state update on an unmounted component
+```
+
+**Solution:**
+
+```tsx
+useEffect(() => {
+  const controller = new AbortController()
+
+  // Your async operations
+
+  return () => controller.abort() // Cleanup
+}, [])
+```
+
+---
+
+## 🧪 Debugging
+
+### Enable Debug Mode
+
+```tsx
+// Add this to see internal state
+<DatePicker
+  onChange={(date) => {
+    console.log('Date object:', date)
+    console.log('ISO string:', date.value)
+    console.log('Formatted:', date.format)
+    console.log('Date instance:', date.date)
+  }}
+/>
+```
+
+### Check Theme Variables
+
+```javascript
+// In browser console
+const root = document.documentElement
+const primary = getComputedStyle(root).getPropertyValue('--zaman-primary')
+console.log('Primary color:', primary)
+```
+
+### Inspect Calendar State
+
+```tsx
+function DebugDatePicker() {
+  const [date, setDate] = useState(null)
+
+  console.log('Current date state:', date)
+
+  return (
+    <DatePicker
+      defaultValue={date}
+      onChange={(d) => {
+        console.log('onChange called with:', d)
+        setDate(d)
+      }}
+    />
+  )
+}
+```
+
+---
+
+## 🔍 Browser Issues
+
+### Chrome
+
+✅ Fully supported (recommended)
+
+### Firefox
+
+✅ Fully supported
+
+### Safari
+
+✅ Supported
+⚠️ Known issue: Older versions may have CSS variable issues
+**Solution:** Update to Safari 14+
+
+### Edge
+
+✅ Fully supported (Chromium-based)
+
+### Internet Explorer
+
+❌ Not supported
+**Solution:** Use a modern browser or polyfills
+
+---
+
+## 📱 Framework-Specific Issues
+
+### Next.js
+
+#### Issue: "use client" required
+
+**Solution:**
+
+```tsx
+'use client' // Add this at the top
+
+import { DatePicker } from 'zaman'
+```
+
+#### Issue: Hydration mismatch
+
+**Solution:**
+
+```tsx
+import dynamic from 'next/dynamic'
+
+const DatePicker = dynamic(
+  () => import('zaman').then((mod) => mod.DatePicker),
+  { ssr: false }
+)
+```
+
+### Create React App
+
+#### Issue: Module not found
+
+**Solution:**
+
+```bash
+# Restart dev server after installing
+npm install zaman
+npm start
+```
+
+### Vite
+
+#### Issue: Import errors
+
+**Solution:**
+
+```javascript
+// vite.config.js
+export default {
+  optimizeDeps: {
+    include: ['zaman']
+  }
+}
+```
+
+### Remix
+
+#### Issue: Document is not defined
+
+**Solution:**
+
+```tsx
+// Only render on client
+import { useEffect, useState } from 'react'
+
+function MyComponent() {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) return null
+
+  return <DatePicker />
+}
+```
+
+---
+
+## 🆘 Still Having Issues?
+
+### 1. Check the Documentation
+
+- [Getting Started](/docs/documentation-getting-started--docs)
+- [Components Guide](/docs/documentation-components--docs)
+- [API Reference](/docs/documentation-api-reference--docs)
+
+### 2. Search GitHub Issues
+
+Check if someone else had the same issue:
+https://github.com/rzkhosroshahi/react-jalali-datepicker/issues
+
+### 3. Create a Reproduction
+
+Use CodeSandbox or StackBlitz to create a minimal reproduction:
+
+- [CodeSandbox Template](https://codesandbox.io/s/new-version-date-picker-6eeepf)
+
+### 4. Open an Issue
+
+If you can't find a solution, open a new issue:
+https://github.com/rzkhosroshahi/react-jalali-datepicker/issues/new
+
+**Include:**
+
+- Zaman version
+- React version
+- Browser & OS
+- Minimal reproduction
+- Steps to reproduce
+- Expected vs actual behavior
+
+---
+
+## 💡 Best Practices
+
+### Do's ✅
+
+- Always provide `onChange` callback
+- Use `locale` and `direction` together
+- Wrap Calendar in CalendarProvider
+- Use TypeScript for better type safety
+- Test on multiple browsers
+- Follow accessibility guidelines
+
+### Don'ts ❌
+
+- Don't modify internal state directly
+- Don't use inline styles over theme
+- Don't forget to clean up event listeners
+- Don't skip testing
+- Don't ignore warnings
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#f0fdf4',
+    borderRadius: '8px',
+    borderLeft: '4px solid #22c55e'
+  }}
+>
+  <strong>💬 Need More Help?</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    Join our community on GitHub Discussions for questions, ideas, and support
+    from other users!
+  </p>
+</div>

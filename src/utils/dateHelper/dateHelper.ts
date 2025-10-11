@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
+
 import { getMonth, getYear } from '../dateTimeFormat/dateTimeFormat'
+
 dayjs.extend(isBetween)
 
 export const sameMonth = (date: Date, date2: Date) => {
@@ -11,10 +13,11 @@ export const sameDay = (date?: Date, date2?: Date): boolean => {
   if (date === undefined) {
     return false
   }
+
   return dayjs(date).isSame(date2, 'day')
 }
 
-export const getYears = (date: Date, from: number = 80, to: number = 50) => {
+export const getYears = (date: Date, from = 80, to = 50) => {
   const getCurrentYear = parseInt(getYear(date, 'latn'), 10)
   const startFrom = getCurrentYear - from
   const till = getCurrentYear + to
@@ -23,6 +26,7 @@ export const getYears = (date: Date, from: number = 80, to: number = 50) => {
   for (let i = startFrom; i <= till; i++) {
     result.push(i)
   }
+
   return result
 }
 
@@ -33,6 +37,7 @@ export const selectMonth = (date: Date, selectedMonth: number) => {
   if (diffMonth > 0) {
     return dayjs(date).add(diffMonth, 'months').toDate()
   }
+
   return dayjs(date).subtract(Math.abs(diffMonth), 'months').toDate()
 }
 
@@ -43,6 +48,7 @@ export const selectYear = (date: Date, selectedYear: number) => {
   if (diffYear > 0) {
     return dayjs(date).add(diffYear, 'years').toDate()
   }
+
   return dayjs(date).subtract(Math.abs(diffYear), 'years').toDate()
 }
 
@@ -54,6 +60,7 @@ export const isInBetween = (
   if (from !== null && to !== null) {
     return dayjs(day).isBetween(dayjs(from), dayjs(to))
   }
+
   return false
 }
 

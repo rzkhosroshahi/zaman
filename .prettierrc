@@ -3,7 +3,15 @@
   "tabWidth": 2,
   "useTabs": false,
   "semi": false,
-  "jsxSingleQuote": false,
   "singleQuote": true,
-  "trailingComma": "none"
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "embeddedLanguageFormatting": "auto"
 }

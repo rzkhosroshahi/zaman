@@ -1,10 +1,10 @@
 export type Radius = 'thin' | 'x1' | 'x2' | 'x3' | 'x4'
 
-interface radiusObject {
+interface RadiusObject {
   wrapper: number
   calendarItem: number
 }
-export const radius: Record<Radius, radiusObject> = {
+export const radius: Record<Radius, RadiusObject> = {
   thin: {
     wrapper: 0,
     calendarItem: 0

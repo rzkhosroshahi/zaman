@@ -1,0 +1,545 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/**
+ * Colors
+ *
+ * Each colors have exact same color scale system with 3 levels of solid
+ * colors with different brightness, and 1 soft color.
+ *
+ * - `XXX-1`: The most solid color used mainly for colored text. It must
+ *   satisfy the contrast ratio against when used on top of `XXX-soft`.
+ *
+ * - `XXX-2`: The color used mainly for hover state of the button.
+ *
+ * - `XXX-3`: The color for solid background, such as bg color of the button.
+ *   It must satisfy the contrast ratio with pure white (#ffffff) text on
+ *   top of it.
+ *
+ * - `XXX-soft`: The color used for subtle background such as custom container
+ *   or badges. It must satisfy the contrast ratio when putting `XXX-1` colors
+ *   on top of it.
+ *
+ *   The soft color must be semi transparent alpha channel. This is crucial
+ *   because it allows adding multiple "soft" colors on top of each other
+ *   to create an accent, such as when having inline code block inside
+ *   custom containers.
+ *
+ * - `default`: The color used purely for subtle indication without any
+ *   special meanings attached to it such as bg color for menu hover state.
+ *
+ * - `brand`: Used for primary brand colors, such as link text, button with
+ *   brand theme, etc.
+ *
+ * - `tip`: Used to indicate useful information. The default theme uses the
+ *   brand color for this by default.
+ *
+ * - `warning`: Used to indicate warning to the users. Used in custom
+ *   container, badges, etc.
+ *
+ * - `danger`: Used to show error, or dangerous message to the users. Used
+ *   in custom container, badges, etc.
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-c-default-1: var(--vp-c-gray-1);
+  --vp-c-default-2: var(--vp-c-gray-2);
+  --vp-c-default-3: var(--vp-c-gray-3);
+  --vp-c-default-soft: var(--vp-c-gray-soft);
+
+  --vp-c-brand-1: var(--vp-c-indigo-1);
+  --vp-c-brand-2: var(--vp-c-indigo-2);
+  --vp-c-brand-3: var(--vp-c-indigo-3);
+  --vp-c-brand-soft: var(--vp-c-indigo-soft);
+
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  --vp-c-warning-1: var(--vp-c-yellow-1);
+  --vp-c-warning-2: var(--vp-c-yellow-2);
+  --vp-c-warning-3: var(--vp-c-yellow-3);
+  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+
+  --vp-c-danger-1: var(--vp-c-red-1);
+  --vp-c-danger-2: var(--vp-c-red-2);
+  --vp-c-danger-3: var(--vp-c-red-3);
+  --vp-c-danger-soft: var(--vp-c-red-soft);
+}
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: var(--vp-c-white);
+  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #bd34fe 30%,
+    #41d1ff
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #bd34fe 50%,
+    #47caff 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-custom-block-tip-border: transparent;
+  --vp-custom-block-tip-text: var(--vp-c-text-1);
+  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
+  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+/* Parallax & reveal animations */
+[data-parallax-root] {
+  position: relative;
+  overflow: hidden;
+}
+[data-parallax] {
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.98);
+  transition:
+    opacity 600ms ease,
+    transform 600ms cubic-bezier(0.2, 0.65, 0.2, 1);
+}
+.reveal-in {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+}
+
+/* Home hero customizations */
+.VPHome .VPHero .name {
+  text-shadow: 0 10px 30px rgba(65, 209, 255, 0.35);
+}
+.VPHome .VPHero .text,
+.VPHome .VPHero .tagline {
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.08));
+}
+.VPHome .VPHero .actions .VPButton {
+  transform: translateZ(0);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+.VPHome .VPHero .actions .VPButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+}
+
+/* Card hover micro-interactions */
+.vp-feature {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.vp-feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: color-mix(in oklab, var(--vp-c-brand-2), white 20%);
+}
+
+/* Zaman brand palette overrides (placed later to win cascade) */
+:root {
+  --vp-c-brand-1: #7c3aed; /* violet */
+  --vp-c-brand-2: #a855f7;
+  --vp-c-brand-3: #6d28d9;
+  --vp-c-brand-soft: color-mix(in oklab, var(--vp-c-brand-2), white 85%);
+
+  --zmn-gold: #f4c430;
+  --zmn-teal: #00a4a6;
+  --zmn-ink: #0f172a;
+}
+
+/* Animated hero unique to Zaman */
+.zmn-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--vp-c-divider);
+  background:
+    radial-gradient(
+      1200px 600px at 10% 10%,
+      rgba(124, 58, 237, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 420px at 90% 10%,
+      rgba(168, 85, 247, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(124, 58, 237, 0.04)),
+    radial-gradient(
+      2px 2px at 20% 30%,
+      rgba(124, 58, 237, 0.12) 50%,
+      transparent 51%
+    ),
+    radial-gradient(
+      2px 2px at 80% 20%,
+      rgba(34, 211, 238, 0.1) 50%,
+      transparent 51%
+    );
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.zmn-hero .zmn-glow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 70%;
+  background: radial-gradient(
+    closest-side,
+    rgba(34, 211, 238, 0.25),
+    transparent 70%
+  );
+  filter: blur(30px);
+  transform: translate3d(0, 0, 0);
+  animation: float 8s ease-in-out infinite;
+}
+.zmn-hero .zmn-orbit {
+  width: min(720px, 90vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  transform: rotateX(14deg) rotateZ(-6deg);
+  transform-style: preserve-3d;
+}
+.zmn-hero .zmn-orbit::before {
+  /* outer soft ring */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    rgba(124, 58, 237, 0.2),
+    rgba(168, 85, 247, 0.2),
+    rgba(34, 211, 238, 0.2),
+    rgba(124, 58, 237, 0.2)
+  );
+  filter: blur(20px);
+  opacity: 0.7;
+}
+.zmn-hero .zmn-orbit::after {
+  /* subtle dashed accent ring */
+  content: '';
+  position: absolute;
+  inset: 6%;
+  border-radius: inherit;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.22) 0deg 6deg,
+    transparent 6deg 12deg
+  );
+  mask:
+    radial-gradient(circle at center, transparent 63%, black 64%),
+    radial-gradient(circle at center, black 80%, transparent 81%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  opacity: 0.55;
+  animation: spin-reverse 90s linear infinite;
+}
+.zmn-hero .zmn-dial {
+  width: 86%;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  position: relative;
+  background:
+    radial-gradient(circle at center, rgba(15, 23, 42, 0.06), transparent 60%),
+    conic-gradient(
+      from 0deg,
+      transparent 0deg 350deg,
+      rgba(124, 58, 237, 0.35) 360deg
+    ),
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(15, 23, 42, 0.14) 0deg 3deg,
+      transparent 3deg 6deg
+    );
+  mask: radial-gradient(circle at center, black 57%, transparent 58%);
+  box-shadow: inset 0 0 0 1px rgba(124, 58, 237, 0.25);
+  animation: spin-slow 60s linear infinite;
+}
+.zmn-hero .zmn-dial::after {
+  /* light sweep */
+  content: '';
+  position: absolute;
+  inset: -20% -10% -20% -10%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0turn 0.92turn,
+    rgba(255, 255, 255, 0.18) 0.96turn,
+    transparent 1turn
+  );
+  filter: blur(6px);
+  animation: sweep 12s linear infinite;
+}
+.zmn-hero .zmn-numerals {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  inset: 0;
+  color: var(--vp-c-brand-1);
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.25),
+    0 10px 30px rgba(124, 58, 237, 0.25);
+}
+.zmn-hero .zmn-numerals .fa,
+.zmn-hero .zmn-numerals .en {
+  position: absolute;
+  transition: opacity 1.2s ease;
+}
+.zmn-hero .zmn-numerals .fa {
+  opacity: 1;
+}
+.zmn-hero .zmn-numerals .en {
+  opacity: 0;
+}
+.zmn-hero .zmn-numerals.is-en .fa {
+  opacity: 0;
+}
+.zmn-hero .zmn-numerals.is-en .en {
+  opacity: 1;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .zmn-hero .zmn-dial {
+    animation: none;
+  }
+  .zmn-hero .zmn-glow {
+    animation: none;
+  }
+  [data-reveal] {
+    transition: none;
+  }
+}
+
+/* Showcase section (always visible content between features and demos) */
+.zmn-show {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.zmn-show__card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  padding: 16px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.zmn-show__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  border-color: color-mix(in oklab, var(--vp-c-brand-2), white 20%);
+}
+.zmn-show__title {
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+.zmn-show__desc {
+  margin: 0 0 12px 0;
+  color: var(--vp-c-text-2);
+}
+/* Bidi chip demo */
+.zmn-bidi {
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--vp-c-brand-soft), transparent);
+  position: relative;
+  overflow: hidden;
+}
+.zmn-bidi .fa,
+.zmn-bidi .en {
+  position: absolute;
+  font-weight: 800;
+}
+.zmn-bidi .fa {
+  opacity: 1;
+}
+.zmn-bidi .en {
+  opacity: 0;
+}
+.zmn-bidi .fa,
+.zmn-bidi .en {
+  transition: opacity 0.6s ease;
+}
+.zmn-bidi {
+  --swap: 0;
+  animation: bidi-toggle 6s ease-in-out infinite;
+}
+@keyframes bidi-toggle {
+  0%,
+  45% {
+    --swap: 0;
+  }
+  55%,
+  100% {
+    --swap: 1;
+  }
+}
+.zmn-bidi .fa {
+  opacity: calc(1 - var(--swap));
+}
+.zmn-bidi .en {
+  opacity: var(--swap);
+}
+
+/* Range bar demo */
+.zmn-range {
+  height: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--vp-c-brand-2), var(--vp-c-brand-1));
+  position: relative;
+  overflow: hidden;
+}
+.zmn-range::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2.8s ease-in-out infinite;
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Clock tick demo */
+.zmn-clock {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  border: 2px solid var(--vp-c-brand-2);
+  position: relative;
+}
+.zmn-clock::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 22px;
+  background: var(--vp-c-brand-3);
+  transform-origin: bottom center;
+  transform: translate(-50%, -100%) rotate(0deg);
+  animation: hand 6s linear infinite;
+}
+@keyframes hand {
+  to {
+    transform: translate(-50%, -100%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zmn-bidi,
+  .zmn-range::before,
+  .zmn-clock::before {
+    animation: none;
+  }
+}

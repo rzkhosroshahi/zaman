@@ -1,0 +1,293 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Documentation/Getting Started" />
+
+# 🚀 Getting Started
+
+This guide will help you install and set up Zaman in your React project in just a few minutes.
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have:
+
+- **Node.js**: Version 16.x or higher
+- **React**: Version 18.2.0 or higher
+- **React DOM**: Version 18.2.0 or higher
+
+## 📦 Installation
+
+### Using npm
+
+```bash
+npm install zaman
+```
+
+### Using Yarn
+
+```bash
+yarn add zaman
+```
+
+### Using pnpm (Recommended)
+
+```bash
+pnpm add zaman
+```
+
+That's it! Zaman has minimal dependencies - just React as a peer dependency and Day.js for date manipulation.
+
+## 🎯 Your First Component
+
+Let's create your first date picker in three simple steps:
+
+### Step 1: Import the Component
+
+```tsx
+import { DatePicker } from 'zaman'
+```
+
+### Step 2: Add to Your Component
+
+```tsx
+function App() {
+  return (
+    <div>
+      <h1>My First Date Picker</h1>
+      <DatePicker />
+    </div>
+  )
+}
+```
+
+### Step 3: Handle Date Changes
+
+```tsx
+function App() {
+  const handleDateChange = (date) => {
+    console.log('Selected date:', date.value)
+    console.log('Formatted date:', date.format)
+  }
+
+  return <DatePicker onChange={handleDateChange} />
+}
+```
+
+**Congratulations! 🎉** You've created your first date picker.
+
+## 🌍 Choosing Your Calendar
+
+Zaman supports both Jalali (Persian) and Gregorian calendars.
+
+### Persian Calendar (Default)
+
+```tsx
+<DatePicker locale="fa" direction="rtl" />
+```
+
+### Gregorian Calendar
+
+```tsx
+<DatePicker locale="en" direction="ltr" />
+```
+
+## 🎨 Basic Styling
+
+Customize the appearance with a few props:
+
+```tsx
+<DatePicker
+  accentColor="#FF6B6B" // Primary color
+  round="x3" // Border radius preset
+  locale="en"
+  direction="ltr"
+/>
+```
+
+## 📅 Common Use Cases
+
+### Date Selection for Forms
+
+```tsx
+import { DatePicker } from 'zaman'
+import { useState } from 'react'
+
+function BookingForm() {
+  const [checkIn, setCheckIn] = useState<Date>()
+  const [checkOut, setCheckOut] = useState<Date>()
+
+  return (
+    <form>
+      <label>
+        Check-in Date:
+        <DatePicker
+          locale="en"
+          onChange={(date) => setCheckIn(new Date(date.value))}
+        />
+      </label>
+
+      <label>
+        Check-out Date:
+        <DatePicker
+          locale="en"
+          onChange={(date) => setCheckOut(new Date(date.value))}
+        />
+      </label>
+
+      <button type="submit">Book Now</button>
+    </form>
+  )
+}
+```
+
+### Range Picker for Date Ranges
+
+```tsx
+import { DatePicker } from 'zaman'
+
+function VacationPlanner() {
+  const handleRangeChange = ({ from, to }) => {
+    console.log('From:', from)
+    console.log('To:', to)
+  }
+
+  return <DatePicker range locale="en" onChange={handleRangeChange} />
+}
+```
+
+### Standalone Calendar
+
+```tsx
+import { Calendar, CalendarProvider } from 'zaman'
+import { useState } from 'react'
+
+function MyCalendar() {
+  const [date, setDate] = useState(new Date())
+
+  return (
+    <CalendarProvider>
+      <Calendar
+        defaultValue={date}
+        onChange={(e) => setDate(new Date(e.value))}
+      />
+    </CalendarProvider>
+  )
+}
+```
+
+### Time Picker
+
+```tsx
+import { TimePicker } from 'zaman'
+
+function AlarmClock() {
+  const handleTimeChange = ({ hour, minute, timeConvention }) => {
+    console.log(`Set alarm for ${hour}:${minute} ${timeConvention}`)
+  }
+
+  return (
+    <TimePicker
+      clockTime={12} // 12-hour format
+      locale="en"
+      onChange={handleTimeChange}
+    />
+  )
+}
+```
+
+## 🎨 Quick Theming
+
+Zaman provides a powerful theming system. Here's a quick example:
+
+```tsx
+import { ThemeProvider, createTheme, DatePicker } from 'zaman'
+
+const myTheme = createTheme({
+  colors: {
+    primary: {
+      DEFAULT: '#8B5CF6',
+      light: '#A78BFA',
+      dark: '#7C3AED'
+    }
+  },
+  round: 'thick'
+})
+
+function App() {
+  return (
+    <ThemeProvider theme={myTheme}>
+      <DatePicker />
+    </ThemeProvider>
+  )
+}
+```
+
+## 🔧 TypeScript Support
+
+Zaman is written in TypeScript and includes full type definitions. No additional `@types` packages needed!
+
+```tsx
+import type { DatePickerProps, CalendarProps } from 'zaman'
+
+const config: DatePickerProps = {
+  locale: 'en',
+  direction: 'ltr',
+  onChange: (date) => {
+    // date is fully typed!
+    console.log(date.value)
+  }
+}
+```
+
+## 📚 Next Steps
+
+Now that you have the basics down, explore more:
+
+- **[Components Guide](/docs/documentation-components--docs)** - Deep dive into each component
+- **[Theming Guide](/docs/documentation-theming--docs)** - Customize colors, spacing, and more
+- **[API Reference](/docs/documentation-api-reference--docs)** - Complete prop documentation
+- **[Examples](/docs/documentation-examples--docs)** - Real-world usage patterns
+
+## 🐛 Troubleshooting
+
+### Styles not showing?
+
+Make sure you're not blocking the injected CSS. Zaman uses CSS-in-JS with CSS variables.
+
+### TypeScript errors?
+
+Ensure you're using TypeScript 4.5 or higher and have `"strict": true` in your tsconfig.json.
+
+### Dates not formatting correctly?
+
+Check your locale setting. Persian dates require `locale="fa"` and Gregorian dates use `locale="en"`.
+
+## 💡 Tips
+
+1. **Always handle onChange** - Even if you don't need the value immediately, it's good practice
+2. **Use controlled mode for forms** - Better form integration and validation
+3. **Leverage the theming system** - Instead of custom CSS, use themes for consistency
+4. **Test accessibility** - Zaman is accessible by default, but test with screen readers
+
+## 🤝 Need Help?
+
+- Check the [Examples](/docs/documentation-examples--docs) section
+- Browse [GitHub Issues](https://github.com/rzkhosroshahi/react-jalali-datepicker/issues)
+- Open a new issue if you find a bug
+
+---
+
+<div
+  style={{
+    marginTop: '2rem',
+    padding: '1.5rem',
+    background: '#f0fdf4',
+    borderRadius: '8px',
+    borderLeft: '4px solid #22c55e'
+  }}
+>
+  <strong>🎉 You're all set!</strong>
+  <p style={{ marginBottom: 0, marginTop: '0.5rem' }}>
+    You now have everything you need to start using Zaman in your projects.
+    Happy date picking!
+  </p>
+</div>

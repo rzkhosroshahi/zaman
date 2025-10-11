@@ -1,0 +1,41 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@packages/*": ["src/packages/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@style/*": ["src/style/*"],
+      "@theme": ["src/theme/index.ts"],
+      "@theme/*": ["src/theme/*"],
+      "@types": ["src/types.ts"],
+      "@constants": ["src/constants.ts"]
+    }
+  },
+  "include": ["src/**/*", "src/**/*.tsx", "src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.cy.ts",
+    "**/*.cy.tsx",
+    "**/__tests__/**",
+    "storybook-static",
+    ".vitepress",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "eslint.config.ts",
+    "eslint.config.mjs",
+    ".storybook"
+  ]
+}

@@ -1,11 +1,13 @@
+export type Locale = 'en' | 'fa'
+
 const localeCache = {
-  localeDefault: 'en',
+  localeDefault: 'en' as Locale,
   setLocale(locale?: string) {
     if (locale != null) {
-      this.localeDefault = locale
+      this.localeDefault = locale as Locale
     }
   },
-  get locale(): string {
+  get locale(): Locale {
     return this.localeDefault
   }
 }

@@ -1,31 +1,38 @@
-import type {
-  DaysRange,
-  DatePickerValue,
-  onRangeDatePickerChangePayload,
-  onDatePickerChangePayload
-} from '../../types'
+import type { Locale } from '@utils/locale'
 
-export interface CalendarBaseProps {
+export interface CalendarProps {
   defaultValue?: Date
-  weekends?: DaysRange[]
+
   className?: string
-}
-export interface CalendarRangeProps {
-  range: true
-  from?: DatePickerValue
-  to?: DatePickerValue
-  rangeValue?: Date[]
-  onChange?: (args: onRangeDatePickerChangePayload) => void
+
+  weekends?: number[]
+
+  range?: boolean
+
+  from?: Date
+
+  to?: Date
+
+  onChange?: (date: Date) => void
+
+  locale?: Locale
 }
 
 export interface CalendarDefaultProps {
-  range?: false | undefined
-  onChange?: (args: onDatePickerChangePayload) => void
+  range?: false
+  defaultValue?: Date
+  onChange?: (date: Date) => void
 }
 
-export type OnChangePayload =
-  | onRangeDatePickerChangePayload
-  | onDatePickerChangePayload
+export interface CalendarRangeProps {
+  range: true
+  from?: Date
+  to?: Date
+  onChange?: (date: Date) => void
+}
 
-export type CalendarProps = CalendarBaseProps &
-  (CalendarRangeProps | CalendarDefaultProps)
+export interface OnChangePayload {
+  hours: number
+  minutes: number
+  seconds: number
+}
